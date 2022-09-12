@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { eventService } from '../services/eventService'
 
 export const AddEvent = () => {
 
@@ -14,21 +15,34 @@ export const AddEvent = () => {
     const team2 = useRef()
     const team2address = useRef()
     const team2img = useRef()
+    const banner = useRef()
 
     const [isGamingPicked, setIsGamingPicked] = useState(false)
 
-    const addEvent = (e) => {
+    const addEvent = async (e) => {
         e.preventDefault()
         const event = {
             title: title.current.value,
+            description: description.current.value,
             category: category.current.value,
-            game: game.current.value, 
+            game: game.current ? game.current.value : 'none',
             date: date.current.value,
-            description : description.current.value,
-            community: category.current.value === 'yes'? true : false
-
+            shareWithCommunity: community.current.value === 'yes' ? true : false,
+            teamOneName: team1.current.value,
+            teamOneAddress: team1address.current.value,
+            teamOneIcon: team1img.current.value,
+            teamTwoName: team2.current.value,
+            teamTwoAddress: team2address.current.value,
+            teamTwoIcon: team2img.current.value,
+            banner: banner.current.value
         }
-        
+        try {
+            await eventService.addEvent(event)
+        }
+        catch (error) {
+            console.log(error)
+        }
+
     }
 
     const toggleGaming = () => {
@@ -42,7 +56,7 @@ export const AddEvent = () => {
             <form onSubmit={addEvent}>
                 <h1 className="center">ADD EVENT</h1>
 
-                <input type='text' placeholder='title' required ref={title}/>
+                <input type='text' placeholder='title' required ref={title} />
 
                 <label>category:</label>
                 <select name="category" ref={category} onChange={toggleGaming}>
@@ -53,9 +67,9 @@ export const AddEvent = () => {
 
                 {isGamingPicked && <label>game:</label>}
                 {isGamingPicked && <select ref={game} >
-                    <option value="volvo">fifa</option>
-                    <option value="saab">cs go</option>
-                    <option value="mercedes">valorant</option>
+                    <option value="fifa">fifa</option>
+                    <option value="cs go">cs go</option>
+                    <option value="valorant">valorant</option>
                 </select>}
 
                 <label>event date:</label>
@@ -77,8 +91,11 @@ export const AddEvent = () => {
                 <input type='text' ref={team2} placeholder='team2' required />
                 <input type='text' ref={team2address} placeholder='team2 address' required />
                 <label>team 2 pic</label>
-                <input type="file" ref={team2img}  accept="image/png, image/jpeg" required></input>
-                
+                <input type="file" ref={team2img} accept="image/png, image/jpeg" required></input>
+
+                <label>banner:</label>
+                <input type="file" ref={banner} accept="image/png, image/jpeg" required></input>
+
                 <button className="clickable register-button"> Continue </button>
             </form>
 

@@ -3,7 +3,7 @@ const router = express.Router()
 const EventInfo = require('../dataBase/eventsinfo');
 
 
-router.post('/blah', async (req, res, next ) => {
+router.get('/blah', async (req, res, next ) => {
     console.log("here")
     return res.send("hello");
 }); 
@@ -12,8 +12,8 @@ router.post('/create-event', async (req, res, next ) => {
     console.log("here");
     const title = req.body.title
     const description = req.body.description
-    const teamOneAdress = req.body.teamOneAdress;
-    const teamTwoAdress = req.body.teamTwoAdress;
+    const teamOneAddress = req.body.teamOneAddress;
+    const teamTwoAddress = req.body.teamTwoAddress;
     const teamOneName = req.body.teamOneName;
     const teamTwoName = req.body.teamTwoName;
     const shareWithCommunity = req.body.shareWithCommunity;
@@ -27,8 +27,8 @@ router.post('/create-event', async (req, res, next ) => {
     const eventInfo = new EventInfo({
         title: title,
         description: description,
-        teamOneAdress: teamOneAdress,
-        teamTwoAdress: teamTwoAdress,
+        teamOneAddress: teamOneAddress,
+        teamTwoAddress: teamTwoAddress,
         teamOneName: teamOneName,
         teamTwoName:teamTwoName,
         shareWithCommunity:shareWithCommunity,

@@ -15,11 +15,11 @@ const EventInfoSchema = new Schema({
         type:String,
         required: true
     },
-    teamOneAdress :{
+    teamOneAddress :{
         type:String,
         required: true
     },
-    teamTwoAdress :{
+    teamTwoAddress :{
         type:String,
         required: true
     },
@@ -60,7 +60,6 @@ const EventInfoSchema = new Schema({
     banner:{
         type:String,
         required: true,
-        
     },
     
 },{timestamps:true});
