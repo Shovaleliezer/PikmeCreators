@@ -13,9 +13,9 @@ mongoose.connect(uri,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 
-}).then((result)=> { console.log("Connected to mongoDb")}).catch((err)=> console.log("sdadas ", err));
+}).then((result)=> { console.log("Connected to mongoDb")}).catch((err)=> console.log("sdadas ", err))
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs')
 
 app.use(morgan('dev'));
 app.use(bodyParser1.urlencoded({extended:false}));
@@ -34,15 +34,15 @@ else {
 }
 
 app.use(cors(corsOptions))
-app.use('/handle-event', HandleEvent);
+app.use('/handle-event', HandleEvent)
 
 app.use((req,res,next)=>{
-    const error = new Error('Not fsound');
-    error.status = 404 ;
-    next(error);
+    const error = new Error('Not fsound')
+    error.status = 404
+    next(error)
 });
 app.use((error, req,res,next)=>{
-    res.status(error.status || 500);
+    res.status(error.status || 500)
     res.json({
         error:{
             mesage: error.mesage
@@ -50,4 +50,4 @@ app.use((error, req,res,next)=>{
     });
 });
 
-module.exports = app;   
+module.exports = app 

@@ -1,15 +1,15 @@
-const express = require('express');
+const express = require('express')
 const router = express.Router()
-const EventInfo = require('../dataBase/eventsinfo');
+const EventInfo = require('../dataBase/eventsinfo')
 
 
 router.get('/blah', async (req, res, next ) => {
     console.log("here")
-    return res.send("hello");
+    return res.send("hello")
 }); 
 
 router.post('/create-event', async (req, res, next ) => {
-    console.log("here");
+    console.log("here")
     const title = req.body.title
     const description = req.body.description
     const teamOneAddress = req.body.teamOneAddress;
