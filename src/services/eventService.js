@@ -23,5 +23,3 @@ async function addStay(stay) {
     const addedStay = await httpService.post(STAY_KEY, stay)
     return addedStay
 }
-
-//fffff

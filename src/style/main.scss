@@ -1,46 +1,23 @@
+//basics
+@import "/src/style/base/variables";
+@import "/src/style/base/helpers";
+@import "/src/style/base/font-face";
+
+//pages
+@import "/src/style/pages/home";
+
+//components
 @import "/src/style/cmps/register";
 @import "/src/style/cmps/header-footer";
 
 * {
     box-sizing: border-box;
+    font-family:  Roboto;
 }
 
-.center {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+//media queries
+@import "/src/style/base/mq";
 
-.center-h {
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.clickable {
-    cursor: pointer;
-}
 
-.undecorate {
-    text-decoration: none;
-    color: black;
-}
 
-.noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                    supported by Chrome, Edge, Opera and Firefox */
-}
-
-@media (max-width: 640px) {
-    .register {
-        width: 320px;
-    }
-}
