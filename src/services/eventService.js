@@ -1,25 +1,17 @@
 import { httpService } from './http.service.js'
 
-const STAY_KEY = 'stay'
-
-export const stayService = {
+export const eventService = {
     query,
     getById,
-    addStay,
 }
-window.cs = stayService
+window.cs = eventService
 
-async function query(filterBy) {
-    let stays = await httpService.get(STAY_KEY, filterBy)
-    return stays
+async function query(filter) {
+    let events = await httpService.get('https/fgsfgdfggf', filter)
+    return events
 }
 
-async function getById(stayId) {
-    const stay = await httpService.get(STAY_KEY + `/${stayId}`)
+async function getById(eventId) {
+    const stay = await httpService.get(`/${eventId}`)
     return stay
-}
-
-async function addStay(stay) {
-    const addedStay = await httpService.post(STAY_KEY, stay)
-    return addedStay
 }

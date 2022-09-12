@@ -1,4 +1,4 @@
-.register {
+.add-event {
     width: 568px;
     margin:auto;
     position: relative;
@@ -11,10 +11,9 @@
         border: 1px solid gray;
         border-radius: 10px;
         background-color: white;
-        .error {
-            color: red;
-            height: 25px;
-            font-size: 0.8rem;
+
+        *{
+            margin-bottom: 15px;
         }
         button{
             background-color: white;
@@ -28,5 +27,6 @@
             margin-bottom: 10px;
         }
     }
+
 }
 
