@@ -1,3 +1,4 @@
+// idan is gay s
 import './style/main.scss'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import {Home} from './pages/home'
