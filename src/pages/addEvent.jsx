@@ -26,7 +26,6 @@ export const AddEvent = () => {
             date: date.current.value,
             description : description.current.value,
             community: category.current.value === 'yes'? true : false
-            category: category.current.value,
 
         }
         
