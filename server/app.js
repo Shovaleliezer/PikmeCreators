@@ -33,7 +33,7 @@ else {
     app.use(cors(corsOptions))
 }
 
-app.use(cors(corsOptions))
+
 app.use('/handle-event', HandleEvent)
 
 app.use((req,res,next)=>{
