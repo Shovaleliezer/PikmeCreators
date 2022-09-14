@@ -65,5 +65,35 @@ router.post('/create-event', async (req, res, next ) => {
         return res.send(err);
         });
     });
- 
+    router.get('/wallet-connect/', async (req, res, next ) => {
+        console.log("wallet connect")
+        const {title, description, teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
+             shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon, banner} = req.body;
+    
+        const eventInfo = new EventInfo({
+            title,
+            description,
+            teamOneAddress,
+            teamTwoAddress,
+            teamOneName,
+            teamTwoName,
+            shareWithCommunity,
+            date,      
+            game,
+            category,
+            teamOneIcon,
+            teamTwoIcon,
+            banner,
+            approved: false
+           
+        });
+        await eventInfo.save().then((result) => {
+            return res.send(result);
+        })
+        .catch((err) => {
+            console.log("err " , err);
+            return res.send(err);
+            });
+        });
+     
 module.exports = router;

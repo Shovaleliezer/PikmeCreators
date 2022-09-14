@@ -5,7 +5,9 @@ const bodyParser1 = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const HandleAccounts = require('./routes/HandleAccounts')
 const HandleEvent = require('./routes/HandleEvents')
+
 
 const uri = "mongodb+srv://homeric:Mq5VhyJlLs824rmK@cluster0.gclzigv.mongodb.net/?retryWrites=true&w=majority";
 
@@ -35,6 +37,7 @@ else {
 
 
 app.use('/handle-event', HandleEvent)
+app.use('/handle-account', HandleAccounts)
 
 app.use((req,res,next)=>{
     const error = new Error('Not fsound')
