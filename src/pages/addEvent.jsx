@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { eventService } from '../services/eventService'
+import { uploadService } from '../services/upload.service'
 
 export const AddEvent = () => {
 
@@ -21,28 +22,30 @@ export const AddEvent = () => {
 
     const addEvent = async (e) => {
         e.preventDefault()
-        const event = {
-            title: title.current.value,
-            description: description.current.value,
-            category: category.current.value,
-            game: game.current ? game.current.value : 'none',
-            date: date.current.value,
-            shareWithCommunity: community.current.value === 'yes' ? true : false,
-            teamOneName: team1.current.value,
-            teamOneAddress: team1address.current.value,
-            teamOneIcon: team1img.current.value,
-            teamTwoName: team2.current.value,
-            teamTwoAddress: team2address.current.value,
-            teamTwoIcon: team2img.current.value,
-            banner: banner.current.value
-        }
         try {
+            const uploadedBanner = await uploadService.uploadImg(banner.current.files[0])
+            const uploadedT1icon = await uploadService.uploadImg(team1img.current.files[0])
+            const uploadedT2icon = await uploadService.uploadImg(team2img.current.files[0])
+            const event = {
+                title: title.current.value,
+                description: description.current.value,
+                category: category.current.value,
+                game: game.current ? game.current.value : 'none',
+                date: date.current.value,
+                shareWithCommunity: community.current.value === 'yes' ? true : false,
+                teamOneName: team1.current.value,
+                teamOneAddress: team1address.current.value,
+                teamTwoName: team2.current.value,
+                teamTwoAddress: team2address.current.value,
+                banner: uploadedBanner.secure_url,
+                teamOneIcon: uploadedT1icon.secure_url,
+                teamTwoIcon: uploadedT2icon.secure_url
+            }
             await eventService.addEvent(event)
         }
         catch (error) {
             console.log(error)
         }
-
     }
 
     const toggleGaming = () => {

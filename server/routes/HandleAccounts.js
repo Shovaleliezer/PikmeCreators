@@ -38,7 +38,7 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next ) => {
             matchHistory,
             creationDate,
             walletAddress,
-        });
+        })
 
         await accountInfo.save().then((result) => {
             return res.send(result);
