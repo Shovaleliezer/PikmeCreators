@@ -8,7 +8,7 @@ export const eventService = {
 window.cs = eventService
 
 async function query(filter) {
-    let events = await httpService.get('handle-event/get-events', filter)
+    const events = await httpService.get('handle-event/get-events', filter)
     return events
 }
 

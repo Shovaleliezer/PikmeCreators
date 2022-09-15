@@ -1,6 +1,21 @@
-.wide-view {
-    margin: auto;
+.events-container {
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(auto-fit, 260px);
+    grid-gap: 30px;
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    margin-top: 100px;
+    .event-preview {
+        img {
+            object-fit: cover;
+            width:100%;
+            aspect-ratio: 16/9;
+        }
+        h2 {
+            margin-top: 5px;
+            margin-bottom: 4px;
+        }
+        p {
+            margin-bottom: 4px;
+        }
+        background-color: beige;
+    }
 }

@@ -9,7 +9,7 @@ router.get('/blah', async (req, res, next ) => {
 }); 
 
 router.get('/get-events', async (req, res, next ) => {
-    var dt = new Date();
+    var dt = new Date()
     let query = {approved:true , date: { $gte: dt }}
 
     if(req.body.game) 
@@ -25,9 +25,9 @@ router.get('/get-events', async (req, res, next ) => {
             query["shareWithCommunity"] = req.body.shareWithCommunity
         }
     
-
-    EventInfo.find(query).then(data => {
-        return res.json(data);
+    //should insert query here : 
+    EventInfo.find().then(data => {
+        res.json(data)
     })
     .catch((err) => {
         return res.send({"error":"user not found"});
