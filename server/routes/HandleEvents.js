@@ -31,9 +31,10 @@ router.get('/get-events', async (req, res, next ) => {
     })
     .catch((err) => {
         return res.send({"error":"user not found"});
-    });
+    })
     
-}); 
+})
+
 
 router.post('/create-event', async (req, res, next ) => {
     console.log("here")

@@ -1,12 +1,11 @@
-// idan is gay sasd
 import './style/main.scss'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import { Home } from './pages/home'
 import { Profile } from './pages/profile'
 import { AddEvent } from './pages/addEvent'
 import { Header } from './cmps/header'
-import { Footer } from './cmps/footer'
 import {Tickets} from './pages/tickets'
+import {EventDetails} from './pages/event-details'
 
 function App() {
   return (
@@ -18,10 +17,10 @@ function App() {
             <Route path='/register' element={<AddEvent />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/tickets' element={<Tickets />} />
+            <Route path='/event/:eventId' element={<EventDetails />} />
             <Route path='/' element={<Home />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </Router>
   )
