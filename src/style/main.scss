@@ -2,17 +2,18 @@
 @import "/src/style/base/variables";
 @import "/src/style/base/helpers";
 @import "/src/style/base/font-face";
+@import "/src/style/base/mixins";
 
 //pages
 @import "/src/style/pages/home";
 
 //components
 @import "/src/style/cmps/register";
-@import "/src/style/cmps/header-footer";
+@import "/src/style/cmps/header";
 
 * {
     box-sizing: border-box;
-    font-family: roboto-normalll;
+    font-family: roboto-normal;
 }
 
 //media queries

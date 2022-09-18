@@ -1,0 +1,53 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    z-index: 5;
+    padding: 10px;
+
+    form {
+        height: 32px;
+        display: flex;
+
+        input {
+            background-color: inherit;
+            border-width: 1px;
+            border-style: solid;
+            border-right-width: 0;
+            font-size: 20px;
+            height: 100%;
+            width: 600px;
+        }
+
+        input:focus {
+            outline: 0px;
+        }
+
+        button {
+            border-width: 1px;
+            border-style: solid;
+            height: 100%;
+        }
+    }
+
+    div {
+        @include flex(40px)
+    }
+
+    .icons {
+        font-size: 35px;
+    }
+
+    img {
+        object-fit: cover;
+    }
+
+    .logo {
+        width: 50px;
+    }
+
+    .option {
+        width: 35px;
+    }
+}
