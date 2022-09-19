@@ -1,41 +1,57 @@
-const INITIAL_STATE = {
-    users: [],
-    loggedinUser: '',
-    isModalOpen: false,
-    isLogin: true,
-}
+import { createSlice } from "@reduxjs/toolkit";
 
-export function userReducer(state = INITIAL_STATE, action) {
-    let users
-    switch (action.type) {
-        case 'LOAD_USERS':
-            state.users = action.users
-            return { users: state.users }
-        case 'REMOVE_USER':
-            users = state.users.filter(user => user.id !== action.id)
-            return { users }
-        case 'EDIT_USER':
-            users = state.users.map(curruser => (curruser._id === action.user._id) ? action.user : curruser)
-            return state.users
-        case 'ADD_USER':
-            state.users = [...state.users]
-            return { users: state.users }
-        case 'LOGIN':
-            state.loggedinUser = action.user
-            console.log('logged:',state.loggedinUser)
-            return { ...state }
-        case 'LOGOUT':
-            state.loggedinUser = null
-            console.log('logged:',state.loggedinUser)
-            return { ...state }
-        case 'OPEN_MODAL':
-            state.isModalOpen = true
-            state.isLogin = action.isLogin
-            return { ...state }
-        case 'CLOSE_MODAL':
-            state.isModalOpen = false
-            return { ...state }
-        default:
-            return state;
-    }
-}
+export const userSlice = createSlice({
+  name: "user",
+  initialState: {
+    about: "",
+    history: [],
+    nickName: "",
+    address: "",
+    userBalance: "",
+    isConnected:false
+  },
+  reducers: {
+    setAbout: (state, action) => {
+      state.about = action.payload;
+    },
+    setHistory: (state, action) => {
+      state.history = action.payload;
+    },
+    setNickName: (state, action) => {
+      state.nickName = action.payload;
+    },
+    setAddress: (state, action) => {
+      state.address = action.payload;
+    },
+    setBalance: (state, action) => {
+      state.userBalance = action.payload;
+    },
+    setIsConnected:(state, action) => {
+        state.isConnected = action.payload;
+      },
+    resetState: (state, action) => {
+        console.log('he')
+      state = {
+        about: "",
+        history: [],
+        nickName: "",
+        address: "",
+        userBalance: "",
+        isConnected:false,
+      };
+      console.log(state)
+    },
+  },
+});
+
+export const  {
+    setAbout,
+    setHistory,
+    setNickName,
+    setAddress,
+    setBalance,
+    setIsConnected,
+    resetState
+} = userSlice.actions;
+
+export default userSlice.reducer;

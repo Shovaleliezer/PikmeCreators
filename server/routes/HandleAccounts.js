@@ -54,7 +54,8 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next ) => {
 
 router.post('/update-address-info/:walletAddress', async (req, res, next ) => {
 
-    const walletAddress = req.params.walletAddress
+    const walletAddress = req.params.walletAddress.toLowerCase();
+    
     let query = {}
 
     if(req.body.nickName) 
@@ -71,15 +72,15 @@ router.post('/update-address-info/:walletAddress', async (req, res, next ) => {
         }
 
     console.log(query)
-    await AccountsInfo.findOneAndUpdate({walletAddress}, query, {new: true}).then( data => {
-        
+    await AccountsInfo.findOneAndUpdate({walletAddress:String(walletAddress)}, query, {new: true}).then( data => {
+        console.log(data)
         if(data) {return res.send(data)} 
         else {return res.send({error: "address not found"})}
 
 
     })
     .catch((err) => {
-        return res.send({"error":"user not found"});
+        return res.send({"error":"user ys found"});
     });
 
 });
