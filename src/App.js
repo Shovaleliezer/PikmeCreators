@@ -9,7 +9,8 @@ import {Tickets} from './pages/tickets'
 import {EventDetails} from './pages/event-details'
 
 function App() {
-  const mode = useSelector((storeState) => storeState.generalModule.mode)
+  const mode = useSelector((storeState) => storeState.general.mode)
+  console.log("mode is " , mode)
   return (
     <Router>
       <div className="app">

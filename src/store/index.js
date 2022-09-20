@@ -1,8 +1,8 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux"
 import thunk from "redux-thunk";
-import { userReducer } from "./reducers/userReducer"
+import  userReducer  from "./reducers/userReducer"
 import { generalReducer } from "./reducers/general.reducer";
-
+import { configureStore } from '@reduxjs/toolkit'
 
 import {
   persistStore,
@@ -16,16 +16,21 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage,
-};
-const persistedReducer = persistReducer(persistConfig, userReducer);
+const reducers = combineReducers({
+    user: userReducer,
+    general: generalReducer
+  })
+
 export const store = configureStore({
-  reducer: {
-    user: persistedReducer
-  },
+    reducer: persistReducer(
+    {
+      key: 'root',
+      version: 1,
+      storage
+    },
+    reducers
+  ),
+ 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
