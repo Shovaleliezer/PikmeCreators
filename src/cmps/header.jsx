@@ -8,7 +8,7 @@ export function Header(props) {
             <div>
                 <img className="logo" src={require('../style/imgs/logo.png')} />
                 <NavLink className={`undecorate ${props.mode.type}`} to='/'>Home</NavLink>
-                <NavLink className={`undecorate ${props.mode.type}`} to='/messages'>Profile</NavLink>
+                <NavLink className={`undecorate ${props.mode.type}`} to='/profile'>Profile</NavLink>
                 <NavLink className={`undecorate ${props.mode.type}`} to='/tickets'>Tickets</NavLink>
             </div>
             <SearchBar mode={props.mode} />
