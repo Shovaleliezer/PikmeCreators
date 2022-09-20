@@ -1,11 +1,11 @@
 const INITIAL_STATE = {
     mode: {
-        // type: 'light',
-        // text: '#424242',
-        // background: '#f5f5f5'
-        type: 'dark',
-        text: '#f5e9ef',
-        background: '#1b1e1f'
+        type: 'light',
+        text: '#424242',
+        background: '#f5f5f5'
+        // type: 'dark',
+        // text: '#f5e9ef',
+        // background: '#1b1e1f'
     },
     filter: ''
 }
@@ -30,6 +30,7 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { state }
         case 'SET_FILTER':
             state.filter = action.filter
+            return {state}
         default:
             return state;
     }

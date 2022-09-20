@@ -10,12 +10,13 @@ import {EventDetails} from './pages/event-details'
 
 function App() {
   const mode = useSelector((storeState) => storeState.generalModule.mode)
-  console.log("mode is " , mode)
+  document.body.style.backgroundColor = mode.background
+
   return (
     <Router>
       <div className="app">
         <Header mode={mode}/>
-        <main>
+        <main className='main-layout'>
           <Routes>
             <Route path='/register' element={<AddEvent />} />
             <Route path='/profile' element={<Profile mode={mode}/>} />

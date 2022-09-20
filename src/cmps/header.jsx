@@ -4,7 +4,7 @@ import { SearchBar } from "./search-bar"
 export function Header(props) {
 
     return (
-        <nav className={`header ${props.mode.type}`}>
+        <nav className={`header ${props.mode.type} main-layout`}>
             <div>
                 <img className="logo" src={require('../style/imgs/logo.png')} />
                 <NavLink className={`undecorate ${props.mode.type}`} to='/'>Home</NavLink>

@@ -13,8 +13,6 @@ export function Profile() {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const { ethereum } = window;
 
-
-
   window.ethereum.on('accountsChanged', async (accounts) => {
     console.log("acc log", accounts[0])
     if (!accounts[0]){

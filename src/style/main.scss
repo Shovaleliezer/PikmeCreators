@@ -15,6 +15,10 @@
     box-sizing: border-box;
     font-family: roboto-normal;
 }
+.main-layout{
+    max-width: 96vw;
+    margin: auto
+}
 
 //media queries
 @import "/src/style/base/mq";
