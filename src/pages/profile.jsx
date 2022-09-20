@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
 import { userService } from '../services/userService'
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,7 +12,7 @@ export function Profile() {
   const nickName = useSelector((state) => state.user.nickName);
   const [haveMetamask, sethaveMetamask] = useState(true);
   const { ethereum } = window;
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+
 
 
   window.ethereum.on('accountsChanged', async (accounts) => {
