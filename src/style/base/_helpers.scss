@@ -1,3 +1,19 @@
+.dark {
+    background-color: #1b1e1f;
+    color: #f5e9ef;
+}
+
+.light {
+    background-color: #f5f5f5;
+    color: #424242;
+}
+.border-dark{
+    border-color: #f5e9ef;
+}
+.border-light{
+    border-color: #424242;
+}
+
 .center {
     margin: auto;
     display: flex;
@@ -19,15 +35,20 @@
 
 .undecorate {
     text-decoration: none;
-    color: black;
 }
 
 .noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
 }

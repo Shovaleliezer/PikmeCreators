@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from "react-router-dom"
+import { useSelector } from 'react-redux'
 import { eventService } from '../services/eventService'
+import { EventBox } from '../cmps/event-box'
 
-export function Home() {
+export function Home(props) {
     const [events, setEvents] = useState([])
+    const { filter } = useSelector((storeState) => storeState.generalModule)
 
 
     useEffect(() => {
-        loadEvents()
-    }, [])
+        loadEvents(filter)
+    }, [filter])
 
     const loadEvents = async (filter) => {
+        console.log(filter)
         const loadedEvents = await eventService.query(filter)
         setEvents(loadedEvents)
     }
@@ -18,15 +21,7 @@ export function Home() {
     return (
         <div>
             <section className='events-container'>
-                {events.map(ev =>
-                    <div className='event-preview clickable' key={ev._id}>
-                        <NavLink to={`/event/${ev._id}`} className='undecorate'>
-                            <img src={ev.banner} />
-                            <h2>{ev.title}</h2>
-                            <p>watch the full game for only 5$</p>
-                        </NavLink>
-                    </div>)}
-
+                {events.map(ev => <EventBox ev={ev} mode={props.mode} key={ev._id} />)}
             </section>
         </div>
     )
