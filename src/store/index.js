@@ -18,7 +18,7 @@ import storage from 'redux-persist/lib/storage'
 
 const reducers = combineReducers({
     user: userReducer,
-    general: generalReducer
+    generalModule: generalReducer
   })
 
 export const store = configureStore({
