@@ -1,3 +1,9 @@
+export function toggleMode() {
+    return (dispatch) => {
+        dispatch({ type: 'TOGGLE_MODE' })
+    }
+}
+
 export function turnDark() {
     return (dispatch) => {
         dispatch({ type: 'TURN_DARK' })

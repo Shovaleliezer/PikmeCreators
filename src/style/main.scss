@@ -10,6 +10,7 @@
 //components
 @import "/src/style/cmps/register";
 @import "/src/style/cmps/header";
+@import "/src/style/cmps/filter-bar";
 
 * {
     box-sizing: border-box;
@@ -17,11 +18,10 @@
 }
 .main-layout{
     max-width: 96vw;
-    margin: auto
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
-
-//media queries
-@import "/src/style/base/mq";
 
 
 
