@@ -1,52 +1,32 @@
-import { NavLink } from "react-router-dom"
-export function FilterBar({mode}) {
+import { isMobile } from 'react-device-detect'
+export function FilterBar({ mode }) {
+
+    const showArrows = isMobile ? 'none' : 'block'
+
+    const clickFilter = (searchWord) => {
+
+    }
+
+    const scroll = (val) => {
+        if (isMobile) return
+        const filterBar = document.querySelector('.filter-bar')
+        filterBar.scrollBy({ left: val, behavior: 'smooth' })
+    }
+
+    let isScroll = isMobile ? 'scroll' : 'hidden'
+    const filters = ['fifa', 'valorant', 'cosmin', 'rocket league', 'zel22', 'CS GO', 'tenz', 'steve', 'streamer11111', 'streamer2',
+        'league of legends', 'dota 2', 'fireborn', 'eldris', 'elden ring', 'game1', 'game2', 'game3', 'overwatch', 'call of duty', 'minecraft', 'gta5', 'need for speed', 'god of war']
+
     return (
-        <div className={`filter-bar ${mode.type}`} >
-            {/* <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button>
-            <button>lala</button> */}
+        <div className='wrapper'>
+            <div className={`filter-bar ${mode.type} noselect`} style={{ overflowX: isScroll }}>
+                <div style={{ display: showArrows, right: '10px' }} className={`${mode.type} filter-nav clickable`}><span className="material-symbols-outlined" onClick={() => scroll(window.innerWidth * 0.75)}>chevron_right</span></div>
+                <div style={{ display: showArrows, left: '10px' }} className={`${mode.type} filter-nav clickable`}><span className="material-symbols-outlined" onClick={() => scroll(-window.innerWidth * 0.75)}>chevron_left</span></div>
+                {filters.map(search =>
+                    <div className="clickable" key={search} onClick={() => clickFilter(search)}>{search.toLocaleUpperCase()}</div>
+                )}
+            </div>
         </div>
+
     )
 }

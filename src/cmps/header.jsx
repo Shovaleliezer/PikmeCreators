@@ -5,7 +5,7 @@ import { SearchBar } from "./search-bar"
 
 export function Header(props) {
     const dispatch = useDispatch()
-    let isMobile = window.innerWidth < 660 ? true : false
+    let isMobile = window.innerWidth < 700 ? true : false
 
     return (
         <>
@@ -26,8 +26,8 @@ export function Header(props) {
 
             </nav>
                 {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
-                    <NavLink className={props.mode.type} to='/'><span style={{fontSize:'28px'}} class="material-symbols-outlined">home</span></NavLink>
-                    <NavLink className={props.mode.type} to='/tickets'><span style={{fontSize:'28px'}} class="material-symbols-outlined">sd_card</span></NavLink>
+                    <NavLink className={props.mode.type} to='/'><span style={{fontSize:'28px'}} className="material-symbols-outlined">home</span></NavLink>
+                    <NavLink className={props.mode.type} to='/tickets'><span style={{fontSize:'28px'}} className="material-symbols-outlined">sd_card</span></NavLink>
                     <NavLink className={props.mode.type} to='/profile'>profile</NavLink>
                 </nav>}
         </>
