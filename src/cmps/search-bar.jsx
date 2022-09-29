@@ -10,7 +10,7 @@ export function SearchBar(props) {
 
     const onSearch = (ev) => {
         ev.preventDefault()
-        dispatch(setFilter(searchRef.current.value) )
+        dispatch(setFilter(searchRef.current.value))
         navigate("/")
     }
 
