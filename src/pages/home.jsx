@@ -11,6 +11,7 @@ export function Home(props) {
 
     useEffect(() => {
         loadEvents(filter)
+        console.log(filter)
     }, [filter])
 
     const loadEvents = async (filter) => {

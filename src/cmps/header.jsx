@@ -2,10 +2,15 @@ import { useDispatch } from "react-redux"
 import { toggleMode } from "../store/actions/general.actions"
 import { NavLink } from "react-router-dom"
 import { SearchBar } from "./search-bar"
+import { setFilter } from '../store/actions/general.actions'
 
 export function Header(props) {
     const dispatch = useDispatch()
     let isMobile = window.innerWidth < 700 ? true : false
+
+    const resetFilter = ()=>{
+        dispatch(setFilter(''))
+    }
 
     return (
         <>
@@ -13,7 +18,7 @@ export function Header(props) {
                 {!isMobile ?
                     <div>
                         <img className="logo" src={require('../style/imgs/logo.png')} />
-                        <NavLink className={`undecorate ${props.mode.type}`} to='/'>Home</NavLink>
+                        <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type}`} to='/'>Home</NavLink>
                         <NavLink className={`undecorate ${props.mode.type}`} to='/profile'>Profile</NavLink>
                         <NavLink className={`undecorate ${props.mode.type}`} to='/tickets'>Tickets</NavLink>
                     </div>
@@ -26,7 +31,7 @@ export function Header(props) {
 
             </nav>
                 {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
-                    <NavLink className={props.mode.type} to='/'><span style={{fontSize:'28px'}} className="material-symbols-outlined">home</span></NavLink>
+                    <NavLink onClick={resetFilter} className={props.mode.type} to='/'><span style={{fontSize:'28px'}} className="material-symbols-outlined">home</span></NavLink>
                     <NavLink className={props.mode.type} to='/tickets'><span style={{fontSize:'28px'}} className="material-symbols-outlined">sd_card</span></NavLink>
                     <NavLink className={props.mode.type} to='/profile'>profile</NavLink>
                 </nav>}

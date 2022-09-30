@@ -1,10 +1,13 @@
 import { isMobile } from 'react-device-detect'
+import { useDispatch } from 'react-redux'
+import { setFilter } from '../store/actions/general.actions'
 export function FilterBar({ mode }) {
 
     const showArrows = isMobile ? 'none' : 'block'
+    const dispatch = useDispatch()
 
     const clickFilter = (searchWord) => {
-
+        dispatch(setFilter(searchWord))
     }
 
     const scroll = (val) => {
