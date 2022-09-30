@@ -10,8 +10,7 @@ export function Home(props) {
 
 
     useEffect(() => {
-        loadEvents(filter)
-        console.log(filter)
+        loadEvents({word:filter})
     }, [filter])
 
     const loadEvents = async (filter) => {

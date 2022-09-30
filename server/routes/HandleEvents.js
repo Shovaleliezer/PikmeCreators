@@ -2,20 +2,17 @@ const express = require('express')
 const router = express.Router()
 const EventInfo = require('../dataBase/eventsinfo')
 
-
-router.get('/blah', async (req, res, next ) => {
-    console.log("here")
-    return res.send("hello")
-}); 
-
 router.get('/get-events', async (req, res, next ) => {
     var dt = new Date()
-    let query = {approved:true , date: { $gte: dt }}
+    // let query = {approved:true , date: { $gte: dt }}
+    let query = {}
+    console.log('body:',req.body)
 
     if(req.body.game) 
         {
             query["game"] = req.body.game
         }
+
     if(req.body.category) 
         {
             query["category"] = req.body.category
@@ -25,8 +22,7 @@ router.get('/get-events', async (req, res, next ) => {
             query["shareWithCommunity"] = req.body.shareWithCommunity
         }
     
-    //should insert query here : 
-    EventInfo.find().then(data => {
+    EventInfo.find(query).then(data => {
         res.json(data)
     })
     .catch((err) => {
@@ -37,7 +33,6 @@ router.get('/get-events', async (req, res, next ) => {
 
 
 router.post('/create-event', async (req, res, next ) => {
-    console.log("here")
     const {title, description, teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
          shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon, banner} = req.body;
 
