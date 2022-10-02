@@ -8,7 +8,8 @@ export function FilterBar({ mode }) {
     const { filter } = useSelector((storeState) => storeState.generalModule)
 
     const clickFilter = (searchWord) => {
-        dispatch(setFilter(searchWord))
+        if(filter===searchWord) dispatch(setFilter(''))
+        else dispatch(setFilter(searchWord))
     }
 
     const scroll = (val) => {
