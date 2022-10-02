@@ -7,11 +7,15 @@
     background-color: #f5f5f5;
     color: #424242;
 }
-.border-dark{
+.border-dark {
     border-color: #f5e9ef;
 }
-.border-light{
+.border-light {
     border-color: #424242;
+}
+
+.hover-main:hover {
+    color: $main;
 }
 
 .center {

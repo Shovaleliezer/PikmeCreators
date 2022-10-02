@@ -18,15 +18,15 @@ export function Header(props) {
                 {!isMobile ?
                     <div>
                         <img className="logo" src={require('../style/imgs/logo.png')} />
-                        <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type}`} to='/'>Home</NavLink>
-                        <NavLink className={`undecorate ${props.mode.type}`} to='/profile'>Profile</NavLink>
-                        <NavLink className={`undecorate ${props.mode.type}`} to='/tickets'>Tickets</NavLink>
+                        <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'>Home</NavLink>
+                        <NavLink className={`undecorate ${props.mode.type} hover-main`} to='/profile'>Profile</NavLink>
+                        <NavLink className={`undecorate ${props.mode.type} hover-main`} to='/register'>Tickets</NavLink>
                     </div>
                     : <img className="logo" src={require('../style/imgs/logo.png')} />}
                 <SearchBar mode={props.mode} />
                 <div>
-                    <span className="material-symbols-outlined icons clickable">notifications</span>
-                    <span className="material-symbols-outlined icons clickable" onClick={() => dispatch(toggleMode())}>menu</span>
+                    <span className="material-symbols-outlined icons clickable hover-main">notifications</span>
+                    <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMode())}>menu</span>
                 </div>
 
             </nav>

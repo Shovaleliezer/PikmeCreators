@@ -4,14 +4,14 @@
 	white-space: nowrap;
 	padding: 4px;
 	& :nth-child(3){
-		margin-left: 25px;
+		margin-left: 12px;
 	}
 	div{
 		font-size: 15px;
 		padding: 6px 12px;
 		border: 2px rgb(255, 255, 255) solid;
 		border-radius: 15px;
-		box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
+		box-shadow: 0px 3px 4px 0px $main;
 	}
 	.filter-nav{
 		@include flex();
@@ -19,7 +19,7 @@
 		height: 34px;
 		position: absolute;
 		z-index: 1;
-		color: #F37F13;
+		color: $main;
 	}
 }
 

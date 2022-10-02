@@ -2,7 +2,7 @@
     display: grid;
     grid-gap: 30px;
     grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
-    margin-top: 100px;
+    margin-top: 30px;
     .event-preview {
         img {
             object-fit: cover;
@@ -12,6 +12,7 @@
         h2 {
             margin-top: 5px;
             margin-bottom: 4px;
+            color: $main;
         }
         p {
             margin-bottom: 4px;
