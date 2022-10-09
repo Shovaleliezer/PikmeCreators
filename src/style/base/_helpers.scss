@@ -33,6 +33,17 @@
     align-items: center;
 }
 
+.screen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 99vw;
+    opacity: 0;
+    background-color: black;
+    z-index: 1;
+}
+
 .clickable {
     cursor: pointer;
 }

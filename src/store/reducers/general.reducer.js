@@ -4,7 +4,8 @@ const INITIAL_STATE = {
         text: '#424242',
         background: '#f5f5f5'
     },
-    filter: ''
+    filter: '',
+    menu: ''
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {
@@ -44,8 +45,16 @@ export function generalReducer(state = INITIAL_STATE, action) {
         //     }
         //     // return { state }
         case 'SET_FILTER':
-        return { ...state,filter:action.filter }
+            return { ...state, filter: action.filter }
+        case 'SET_MENU':
+            return { ...state, menu: action.menu }
+            case 'TOGGLE_MENU':
+                if(state.menu==='') return { ...state, menu: 'normal' }
+                else return { ...state, menu: '' }
         default:
+
             return state;
+
+
     }
 }

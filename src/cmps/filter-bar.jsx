@@ -1,5 +1,5 @@
 import { isMobile } from 'react-device-detect'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/general.actions'
 export function FilterBar({ mode }) {
 
@@ -8,7 +8,7 @@ export function FilterBar({ mode }) {
     const { filter } = useSelector((storeState) => storeState.generalModule)
 
     const clickFilter = (searchWord) => {
-        if(filter===searchWord) dispatch(setFilter(''))
+        if (filter === searchWord) dispatch(setFilter(''))
         else dispatch(setFilter(searchWord))
     }
 
@@ -27,9 +27,9 @@ export function FilterBar({ mode }) {
             <div className={`filter-bar ${mode.type} noselect`} style={{ overflowX: isScroll }}>
                 <div style={{ display: showArrows, right: '10px' }} className={`${mode.type} filter-nav clickable`}><span className="material-symbols-outlined" onClick={() => scroll(window.innerWidth * 0.75)}>chevron_right</span></div>
                 <div style={{ display: showArrows, left: '10px' }} className={`${mode.type} filter-nav clickable`}><span className="material-symbols-outlined" onClick={() => scroll(-window.innerWidth * 0.75)}>chevron_left</span></div>
-                {filters.map(search =>{
-                    return <div style={{background: filter===search? '#F29B00':''}} className="clickable hover-main" key={search} onClick={() => clickFilter(search)}>{search.toLocaleUpperCase()}</div>
-                })} 
+                {filters.map(search => {
+                    return <div style={{ background: filter === search ? '#F29B00' : '' }} className="clickable hover-main" key={search} onClick={() => clickFilter(search)}>{search.toLocaleUpperCase()}</div>
+                })}
             </div>
         </div>
 

@@ -8,10 +8,11 @@ import { Header } from './cmps/header'
 import {Tickets} from './pages/tickets'
 import {EventDetails} from './pages/event-details'
 
+import { Menu } from "../src/cmps/menu"
+
 function App() {
   const mode = useSelector((storeState) => storeState.generalModule.mode)
   document.body.style.backgroundColor = mode.background
-
   return (
     <Router>
       <div className="app">
@@ -26,6 +27,7 @@ function App() {
           </Routes>
         </main>
       </div>
+      <Menu mode={mode}/>
     </Router>
   )
 }

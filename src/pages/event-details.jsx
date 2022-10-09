@@ -7,7 +7,6 @@ export function EventDetails() {
         console.log(eventId)
     }, [])
 
-
     return (
         <div>
             hello details

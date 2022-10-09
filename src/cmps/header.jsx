@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux"
-import { toggleMode } from "../store/actions/general.actions"
 import { NavLink } from "react-router-dom"
 import { SearchBar } from "./search-bar"
 import { setFilter } from '../store/actions/general.actions'
+import { toggleMenu } from "../store/actions/general.actions"
+
 
 export function Header(props) {
     const dispatch = useDispatch()
@@ -26,7 +27,7 @@ export function Header(props) {
                 <SearchBar mode={props.mode} />
                 <div>
                     <span className="material-symbols-outlined icons clickable hover-main">notifications</span>
-                    <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMode())}>menu</span>
+                    <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                 </div>
 
             </nav>
@@ -35,6 +36,7 @@ export function Header(props) {
                     <NavLink className={props.mode.type} to='/tickets'><span style={{fontSize:'28px'}} className="material-symbols-outlined">sd_card</span></NavLink>
                     <NavLink className={props.mode.type} to='/profile'>profile</NavLink>
                 </nav>}
+                
         </>
     )
 }

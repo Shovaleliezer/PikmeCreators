@@ -21,3 +21,14 @@ export function setFilter(filter){
         dispatch({ type: 'SET_FILTER',filter })
     }
 }
+
+export function setMenu(menu){
+    return (dispatch) => {
+        dispatch({ type: 'SET_MENU',menu })
+    }
+}
+export function toggleMenu(){
+    return (dispatch) => {
+        dispatch({ type: 'TOGGLE_MENU' })
+    }
+}
