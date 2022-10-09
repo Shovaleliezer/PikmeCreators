@@ -8,8 +8,15 @@ export const eventService = {
 window.cs = eventService
 
 async function query(filter) {
-    const events = await httpService.get('handle-event/get-events', filter)
-    return events
+    if (typeof filter === 'string'){
+        const events = await httpService.get('handle-event/get-events')
+        //to do: actuallt filter
+        return events
+    }
+    else{
+        const events = await httpService.get(`handle-event/get-events`,filter)
+        return events
+    }
 }
 
 async function getById(eventId) {

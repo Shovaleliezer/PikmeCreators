@@ -7,9 +7,9 @@ export function FilterBar({ mode }) {
     const dispatch = useDispatch()
     const { filter } = useSelector((storeState) => storeState.generalModule)
 
-    const clickFilter = (searchWord) => {
-        if (filter === searchWord) dispatch(setFilter(''))
-        else dispatch(setFilter(searchWord))
+    const clickFilter = (clickedFilter) => {
+        if (filter.name === clickedFilter.name) dispatch(setFilter(''))
+        else dispatch(setFilter(clickedFilter))
     }
 
     const scroll = (val) => {
@@ -19,16 +19,37 @@ export function FilterBar({ mode }) {
     }
 
     let isScroll = isMobile ? 'scroll' : 'hidden'
-    const filters = ['fifa', 'valorant', 'cosmin', 'rocket league', 'zel22', 'CS GO', 'tenz', 'steve', 'streamer11111', 'streamer2',
-        'league of legends', 'dota 2', 'fireborn', 'eldris', 'elden ring', 'game1', 'game2', 'game3', 'overwatch', 'call of duty', 'minecraft', 'gta5', 'need for speed', 'god of war']
-
+    const filters= [
+        {name:'get rewards',shareWithCommunity:true},
+        {name:'sports' ,category:'sport'},
+        {name:'gaming', category:'gaming'},
+        {name:'fortnite',game:'fortnite'},
+        {name:'fifa',game:'fifa'},
+        {name:'basketball',game:'basketball'},
+        {name:'valorant',game:'valorant'},
+        {name:'footballl',game:'football'},
+        {name:'counter strike',game:'counter strike'},
+        {name:'tennis',game:'tennis'},
+        {name:'league of legends',game:'league of legends'},
+        {name:'table tennis',game:'table tennis'},
+        {name:'cod-warzone',game:'warzone'},
+        {name:'hockey',game:'hockey'},
+        {name:'apex legends',game:'apex legends'},
+        {name:'golf',game:'golf'},
+        {name:'dota 2',game:'dota 2'},
+        {name:'boxing',game:'boxing'},
+        {name:'pubg',game:'pubg'},
+        {name:'overwatch',game:'overwatch'},
+        {name:'rocket league',game:'rocket league'},
+    ]
     return (
         <div className='wrapper'>
             <div className={`filter-bar ${mode.type} noselect`} style={{ overflowX: isScroll }}>
                 <div style={{ display: showArrows, right: '10px' }} className={`${mode.type} filter-nav clickable`}><span className="material-symbols-outlined" onClick={() => scroll(window.innerWidth * 0.75)}>chevron_right</span></div>
                 <div style={{ display: showArrows, left: '10px' }} className={`${mode.type} filter-nav clickable`}><span className="material-symbols-outlined" onClick={() => scroll(-window.innerWidth * 0.75)}>chevron_left</span></div>
                 {filters.map(search => {
-                    return <div style={{ background: filter === search ? '#F29B00' : '' }} className="clickable hover-main" key={search} onClick={() => clickFilter(search)}>{search.toLocaleUpperCase()}</div>
+                    return <div style={{ background: filter.name === search.name ? '#F29B00' : '' }} className="clickable hover-main"
+                     key={search.name} onClick={() => clickFilter(search)}>{search.name.toLocaleUpperCase()}</div>
                 })}
             </div>
         </div>
