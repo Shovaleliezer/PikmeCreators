@@ -33,6 +33,18 @@
     align-items: center;
 }
 
+.center-start{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column !important;
+}
+.center-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .screen{
     position: fixed;
     top: 0;
@@ -46,6 +58,10 @@
 
 .clickable {
     cursor: pointer;
+}
+
+.hover-main:hover{
+    color:$main
 }
 
 .undecorate {

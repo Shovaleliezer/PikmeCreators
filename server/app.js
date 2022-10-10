@@ -15,7 +15,7 @@ mongoose.connect(uri,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 
-}).then((result)=> { console.log("Connected to mongoDb")}).catch((err)=> console.log("sdadas ", err))
+}).then((result)=> { console.log("Connected to mongoDb (shoval is slightly gay)")}).catch((err)=> console.log("sdadas ", err))
 
 app.set('view engine', 'ejs')
 
