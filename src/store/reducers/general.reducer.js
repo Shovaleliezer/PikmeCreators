@@ -29,21 +29,6 @@ export function generalReducer(state = INITIAL_STATE, action) {
                 }
             }
 
-        // case 'TURN_DARK':
-        //     state.mode = {
-        //         type: 'dark',
-        //         text: '#f5e9ef',
-        //         background: '#1b1e1f'
-        //     }
-        //     // return { state }
-
-        // case 'TURN_LIGHT':
-        //     state.mode = {
-        //         type: 'light',
-        //         text: '#424242',
-        //         background: '#f5f5f5'
-        //     }
-        //     // return { state }
         case 'SET_FILTER':
             return { ...state, filter: action.filter }
         case 'SET_MENU':

@@ -1,0 +1,44 @@
+.wallet-connect{
+    @include flex(20px,center,center,column);
+    padding: 10px;
+    *{
+        margin: 0;
+    }
+    a{
+        color: $main
+    }
+    section{
+        border: 2px solid gray;
+        border-radius: 10px;
+        width: 600px;
+        div{
+            @include flex(15px,flex-start,center);
+            padding: 10px 5px;
+            border-bottom: 1px solid gray;
+            cursor: pointer;
+            &:last-child{
+                border-bottom:0px;
+                @include flex(0,center,center);
+                span{
+                    color: $main;
+                    text-decoration: underline;
+                }
+            }
+            img{
+                margin-left: 10px;
+                width: 30px;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .wallet-connect{
+        section{
+        width: 95vw;
+    }
+    }
+    
+}

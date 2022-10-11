@@ -1,24 +1,27 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { userService } from '../services/userService'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
+import { setIsConnected, setNickName, setAbout, setAddress, resetState } from '../store/reducers/userReducer'
+import { WalletConnect } from '../cmps/wallet-connect'
+import { ExtensionConnect } from '../cmps/extention-connect'
 
-import { setIsConnected, setNickName,setBalance, setHistory, setAbout, setAddress, resetState } from '../store/reducers/userReducer';
-
-export function Profile() {
+export function Profile(props) {
   const dispatch = useDispatch();
-  const accountAddress = useSelector((state) => state.user.address);
-  const isConnected = useSelector((state) => state.user.isConnected);
-  const nickName = useSelector((state) => state.user.nickName);
-  const [haveMetamask, sethaveMetamask] = useState(true);
+  const accountAddress = useSelector((state) => state.user.address)
+  const isConnected = useSelector((state) => state.user.isConnected)
+  const nickName = useSelector((state) => state.user.nickName)
+  const [haveMetamask, sethaveMetamask] = useState(false)
   const { ethereum } = window;
-
-  window.ethereum.on('accountsChanged', async (accounts) => {
-    console.log("acc log", accounts[0])
-    if (!accounts[0]){
+  if (ethereum) {
+    window.ethereum.on('accountsChanged', async (accounts) => {
+      console.log("acc log", accounts[0])
+      if (!accounts[0]) {
         dispatch(setIsConnected(false))
-    }
+      }
     });
+  }
+
   useEffect(() => {
     const { ethereum } = window;
     const checkMetamaskAvailability = async () => {
@@ -32,11 +35,11 @@ export function Profile() {
 
   const disconnectWallet = async () => {
     try {
-        dispatch(resetState());
-        dispatch(setIsConnected(false))
+      dispatch(resetState());
+      dispatch(setIsConnected(false))
     }
     catch (error) {
-       console.log(error)
+      console.log(error)
     }
   }
 
@@ -51,62 +54,34 @@ export function Profile() {
 
 
       const res = await userService.handleAccount(accounts[0])
-      if(res){
+      if (res) {
         dispatch(setAbout(res.about))
         dispatch(setAddress(res.walletAddress))
         dispatch(setNickName(res.nickName))
         dispatch(setIsConnected(true))
-       
+
       }
-      else{
+      else {
         dispatch(setIsConnected(false))
-      
+
       }
-      
+
 
     } catch (error) {
-        dispatch(setIsConnected(false))
+      dispatch(setIsConnected(false))
     }
-  };
+  }
 
-  return (
-    <div >
-      <header >
-        {haveMetamask ? (
-          <div >
-            {isConnected ? (
-              <div >
-                <div >
-                  <h3>Wallet Address:</h3>
-                  <p>
-                    {accountAddress.slice(0, 4)}...
-                    {accountAddress.slice(38, 42)}
-                  </p>
-                </div>
-                <div >
-                  <h3>your name:</h3>
-                  <p>{nickName}</p>
-                </div>
-              </div>
-            ) : (
-              <p>logo</p>
-            )}
-            {isConnected ? (
-              <button  onClick={disconnectWallet}>
-              Disconnect
-            </button>
-              
-            ) : (
-              <button  onClick={connectWallet}>
-                Connect
-              </button>
-            )}
-          </div>
-        ) : (
-          <p>Please Install MataMask</p>
-        )}
-      </header>
-    </div>
-  );
+  if (!ethereum) return <ExtensionConnect mode={props.mode}/>
+
+  else if (!isConnected) return <WalletConnect connectWallet={connectWallet} />
+
+  else return (
+    <>
+        <h3>Wallet Address:{accountAddress.slice(0, 4)}...{accountAddress.slice(38, 42)}</h3>
+        <h3>your name:</h3>
+        <p>{nickName}</p>
+      <button onClick={disconnectWallet}>Disconnect</button>
+   </>
+  )
 }
-
