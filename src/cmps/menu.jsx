@@ -7,12 +7,14 @@ export function Menu(props) {
     const dispatch = useDispatch()
     const textRef = useRef()
     const boxRef = useRef()
+    const nameRef = useRef()
+    const mailRef = useRef()
     const { menu } = useSelector((storeState) => storeState.generalModule)
     let color = props.mode.type === 'light' ? '#1b1e1f' : '#f5f5f5'
 
     const sendFeedback = (ev) => {
         ev.preventDefault()
-        console.log({ txt: textRef.current.value, notify: boxRef.current.checked })
+        console.log({ txt: textRef.current.value, name:nameRef.current.value, email:mailRef.current.value})
     }
 
     switch (menu) {
@@ -37,8 +39,10 @@ export function Menu(props) {
                     <form className="center-start" onSubmit={sendFeedback}>
                         <p>Feedback</p>
                         <textarea rows="5" cols="25" className={props.mode.type} ref={textRef} autoFocus required placeholder="Please tell us how can we improve our product..."></textarea>
-                        <div><input type="checkbox" id="notify" ref={boxRef} />
-                            <label htmlFor="notify"> Notify me for updates and information</label></div>
+                            <input type='text' ref={nameRef} className={`txt ${props.mode.type}`} placeholder='Your name' required/>
+                            <input type='email' ref={mailRef} className={`txt ${props.mode.type}`} placeholder='Your email' required/>
+                        <div><input type="checkbox" id="notify" required ref={boxRef} />
+                            <label htmlFor="notify"> Allow support to contact back</label></div>
                         <button className={`${props.mode.type} border-${props.mode.type}`}>Send</button>
                     </form>
                 </section>
