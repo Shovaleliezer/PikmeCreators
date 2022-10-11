@@ -1,8 +1,19 @@
-.profile{
+.profile {
+    @include flex(10px, center, center, column);
+
+    .profile-banner {
+        width: 99vw;
+        height: 30vh;
+        object-fit: cover;
+    }
 
 }
-.extension-img{
-    width: 340px;
-    aspect-ratio: 1/1;
-    
+
+@media (max-width: $mobile) {
+    .profile {
+        .profile-banner {
+            height: 20vh;
+        }
+    }
+
 }

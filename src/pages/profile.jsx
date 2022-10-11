@@ -75,6 +75,7 @@ export function Profile(props) {
 
   else return (
     <section className={`profile ${props.mode.type}`}>
+      <img className='profile-banner' src='https://images.pexels.com/photos/5186869/pexels-photo-5186869.jpeg?cs=srgb&dl=pexels-fiona-art-5186869.jpg&fm=jpg'/>
       <h3>Wallet Address:{user.address.slice(0, 4)}...{user.address.slice(38, 42)}</h3>
       <p>Welcome back{user.nickName}</p>
       <button onClick={disconnectWallet}>Disconnect</button>
