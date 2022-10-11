@@ -7,6 +7,7 @@ const Schema = mongoose.Schema
 const EventInfoSchema = new Schema({
     title :{
         type:String,
+        index: true ,
         required: true,
     },
     description :{
@@ -39,10 +40,12 @@ const EventInfoSchema = new Schema({
     },
     game :{
         type:String,
+        index: true ,
         required: true
     },
     category  :{
         type:String,
+        index: true ,
         required: true
     },
     teamOneIcon:{
@@ -67,6 +70,7 @@ const EventInfoSchema = new Schema({
 },{timestamps:true});
 //s
 
+EventInfoSchema.index({title: 'text', category:"text", game:"text"});
 const EventInfo = mongoose.model('EventsInfo', EventInfoSchema);
 
 module.exports = EventInfo;
