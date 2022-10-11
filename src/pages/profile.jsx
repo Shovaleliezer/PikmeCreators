@@ -1,11 +1,11 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { userService } from '../services/userService'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
+import { setIsConnected, setNickName,setBalance, setHistory, setAbout, setAddress, resetState } from '../store/reducers/userReducer'
+import { WalletConnect } from '../cmps/wallet-connect'
 
-import { setIsConnected, setNickName,setBalance, setHistory, setAbout, setAddress, resetState } from '../store/reducers/userReducer';
-
-export function Profile() {
+export function Profile(props) {
   const dispatch = useDispatch();
   const accountAddress = useSelector((state) => state.user.address);
   const isConnected = useSelector((state) => state.user.isConnected);
@@ -67,12 +67,12 @@ export function Profile() {
     } catch (error) {
         dispatch(setIsConnected(false))
     }
-  };
+  }
 
   return (
-    <div >
-      <header >
-        {haveMetamask ? (
+    <div>
+      <header>
+        {haveMetamask ? ( //main profile page
           <div >
             {isConnected ? (
               <div >
@@ -87,23 +87,17 @@ export function Profile() {
                   <h3>your name:</h3>
                   <p>{nickName}</p>
                 </div>
-              </div>
-            ) : (
-              <p>logo</p>
-            )}
-            {isConnected ? (
-              <button  onClick={disconnectWallet}>
+                <button  onClick={disconnectWallet}>
               Disconnect
             </button>
-              
-            ) : (
-              <button  onClick={connectWallet}>
-                Connect
-              </button>
+              </div>
+            ) :
+             (
+              <WalletConnect connectWallet={connectWallet}/>//connect to your wallet
             )}
           </div>
         ) : (
-          <p>Please Install MataMask</p>
+          <p>Please Install MataMask</p> //add link to metamask extension
         )}
       </header>
     </div>

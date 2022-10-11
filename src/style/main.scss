@@ -6,12 +6,14 @@
 
 //pages
 @import "/src/style/pages/home";
+@import "src/style/pages/profile";
 
 //components
 @import "/src/style/cmps/register";
 @import "/src/style/cmps/header";
 @import "/src/style/cmps/filter-bar";
 @import "src/style/cmps/menu";
+@import "src/style/cmps/wallet-connect";
 
 * {
     box-sizing: border-box;
