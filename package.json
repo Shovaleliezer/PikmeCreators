@@ -15,7 +15,7 @@
     "ethers": "^5.7.1",
     "express": "^4.18.1",
     "formik": "^2.2.9",
-    "mongoose": "^6.6.0",
+    "mongoose": "^5.13.15",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
     "react": "^18.1.0",
