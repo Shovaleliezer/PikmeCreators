@@ -2,20 +2,18 @@
 import { useState, useEffect } from 'react'
 import { userService } from '../services/userService'
 import { useDispatch, useSelector } from "react-redux"
-import { setIsConnected, setNickName, setAbout, setAddress, resetState } from '../store/reducers/userReducer'
+import { setIsConnected, setNickName, setAbout, setAddress, resetState,setImage } from '../store/reducers/userReducer'
 import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
 
 export function Profile(props) {
-  const dispatch = useDispatch();
-  const accountAddress = useSelector((state) => state.user.address)
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user)
   const isConnected = useSelector((state) => state.user.isConnected)
-  const nickName = useSelector((state) => state.user.nickName)
   const [haveMetamask, sethaveMetamask] = useState(false)
   const { ethereum } = window;
   if (ethereum) {
     window.ethereum.on('accountsChanged', async (accounts) => {
-      console.log("acc log", accounts[0])
       if (!accounts[0]) {
         dispatch(setIsConnected(false))
       }
@@ -59,7 +57,7 @@ export function Profile(props) {
         dispatch(setAddress(res.walletAddress))
         dispatch(setNickName(res.nickName))
         dispatch(setIsConnected(true))
-
+        dispatch(setImage(res.image))
       }
       else {
         dispatch(setIsConnected(false))
@@ -71,17 +69,15 @@ export function Profile(props) {
       dispatch(setIsConnected(false))
     }
   }
-
-  if (!ethereum) return <ExtensionConnect mode={props.mode}/>
-
+  console.log(user)
+  if (!ethereum) return <ExtensionConnect mode={props.mode} />
   else if (!isConnected) return <WalletConnect connectWallet={connectWallet} />
 
   else return (
-    <>
-        <h3>Wallet Address:{accountAddress.slice(0, 4)}...{accountAddress.slice(38, 42)}</h3>
-        <h3>your name:</h3>
-        <p>{nickName}</p>
+    <section className={`profile ${props.mode.type}`}>
+      <h3>Wallet Address:{user.address.slice(0, 4)}...{user.address.slice(38, 42)}</h3>
+      <p>Welcome back{user.nickName}</p>
       <button onClick={disconnectWallet}>Disconnect</button>
-   </>
+    </section>
   )
 }
