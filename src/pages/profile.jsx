@@ -117,7 +117,7 @@ export function Profile(props) {
       </section>
 
       <section className='profile-options'>
-        {options.map(opt => <p onClick={() => setSelected(opt)} className={selected === opt ? 'main-color clickable' : 'clickable'}>
+        {options.map(opt => <p key={opt} onClick={() => setSelected(opt)} className={selected === opt ? 'main-color clickable' : 'clickable'}>
           {opt.charAt(0).toUpperCase() + opt.slice(1)}</p>)}
       </section>
 

@@ -13,8 +13,8 @@ async function query(filter) {
 }
 
 async function getById(eventId) {
-    const stay = await httpService.get(`/${eventId}`)
-    return stay
+    const event = await httpService.get(`handle-event/get-event/${eventId}`)
+    return event
 }
 
 async function addEvent(event) {
