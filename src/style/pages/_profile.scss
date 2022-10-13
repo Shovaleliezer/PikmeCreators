@@ -3,16 +3,46 @@
 
     .profile-banner {
         width: 99vw;
-        height: 30vh;
+        height: 32vh;
         object-fit: cover;
     }
 
+    .user-img{
+        position: absolute;
+        top:24vh;
+        left: 3%;
+        width: 170px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid rgb(233, 233, 233)
+    }
+    .img-cover{
+        @include flex(0px,center,center);
+        background-color: black;
+        opacity:0;
+        cursor: pointer;
+        span{
+            color: white;
+        }
+        input{
+           display: none; 
+        }
+        
+    }
+    .img-cover:hover{
+        opacity: 0.6;
+    }
 }
 
 @media (max-width: $mobile) {
     .profile {
         .profile-banner {
             height: 20vh;
+        }
+        .user-img{
+            top: 18vh;
+            width: 100px;
         }
     }
 

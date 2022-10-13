@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react'
 import { userService } from '../services/userService'
 import { useDispatch, useSelector } from "react-redux"
-import { setIsConnected, setNickName, setAbout, setAddress, resetState,setImage } from '../store/reducers/userReducer'
+import { setIsConnected, setNickName, setAbout, setAddress, resetState, setImage } from '../store/reducers/userReducer'
 import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
+import { uploadService } from '../services/upload.service'
 
 export function Profile(props) {
   const dispatch = useDispatch()
@@ -69,15 +70,27 @@ export function Profile(props) {
       dispatch(setIsConnected(false))
     }
   }
-  console.log(user)
+  const imgChange = async (ev) => {
+    const uploadedImage = await uploadService.uploadImg(ev.target.files[0])
+    const updatedUser = await userService.updateAccount(user.address,{image:uploadedImage.secure_url})
+    dispatch(setImage(updatedUser.image))  
+  }
+
   if (!ethereum) return <ExtensionConnect mode={props.mode} />
   else if (!isConnected) return <WalletConnect connectWallet={connectWallet} />
 
   else return (
     <section className={`profile ${props.mode.type}`}>
-      <img className='profile-banner' src='https://images.pexels.com/photos/5186869/pexels-photo-5186869.jpeg?cs=srgb&dl=pexels-fiona-art-5186869.jpg&fm=jpg'/>
+      <img className='profile-banner' src='https://wallpaperaccess.com/full/1282257.jpg' />
+      <img className='user-img noselect' src={user.image} />
+      <div className='user-img img-cover noselect'>
+        <input accept="image/png, image/jpeg" type="file" id="img" onChange={imgChange}/>
+        <label htmlFor='img'><span className="material-symbols-outlined clickable">edit</span></label>
+        </div>
+
+
       <h3>Wallet Address:{user.address.slice(0, 4)}...{user.address.slice(38, 42)}</h3>
-      <p>Welcome back{user.nickName}</p>
+      <p>Welcome back {user.nickName}</p>
       <button onClick={disconnectWallet}>Disconnect</button>
     </section>
   )

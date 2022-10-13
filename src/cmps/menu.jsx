@@ -15,7 +15,6 @@ export function Menu(props) {
 
     const sendFeedback = async(ev) => {
         ev.preventDefault()
-        console.log({ txt: textRef.current.value, name:nameRef.current.value, email:mailRef.current.value})
         emailjs.sendForm('service_6o4hbxh','template_wcfvzf6',ev.target,'72RBm-BgL2a--9Gky')
         .then(() => {dispatch(setMenu('sent'))}
          , (err) => {
