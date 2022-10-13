@@ -38,6 +38,7 @@ export const userSlice = createSlice({
         about: "",
         history: [],
         nickName: "",
+        image:"",
         address: "",
         userBalance: "",
         isConnected:false,

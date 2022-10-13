@@ -1,49 +1,76 @@
 .profile {
-    @include flex(10px, center, center, column);
-
-    .profile-banner {
-        width: 99vw;
-        height: 32vh;
-        object-fit: cover;
-    }
-
-    .user-img{
-        position: absolute;
-        top:24vh;
-        left: 3%;
-        width: 170px;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 5px solid rgb(233, 233, 233)
-    }
-    .img-cover{
-        @include flex(0px,center,center);
-        background-color: black;
-        opacity:0;
-        cursor: pointer;
-        span{
-            color: white;
+    .img-holder {
+        @include flex(0px, center, center, column);
+        .profile-banner {
+            width: 99vw;
+            height: 32vh;
+            object-fit: cover;
+            margin-bottom: 20px;
         }
-        input{
-           display: none; 
+
+        .user-img {
+            position: absolute;
+            top: 24vh;
+            left: 3%;
+            width: 170px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgb(233, 233, 233);
         }
-        
+        .img-cover {
+            @include flex(0px, center, center);
+            background-color: black;
+            opacity: 0;
+            cursor: pointer;
+            span {
+                color: white;
+            }
+            input {
+                display: none;
+            }
+        }
+        .img-cover:hover {
+            opacity: 0.6;
+        }
     }
-    .img-cover:hover{
-        opacity: 0.6;
+
+    .details {
+        h1 {
+            font-size: 30px;
+            margin-bottom: 4px;
+            margin-top: 10px;
+        }
+        div {
+            @include flex(5px, flex-start, center);
+        }
+    }
+
+    .profile-options{
+        @include flex(20px,flex-start,center);
+        font-size: 24px;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.25);
+        margin-top: 14px;
+        p{
+            margin: 8px;
+        }
     }
 }
 
 @media (max-width: $mobile) {
     .profile {
-        .profile-banner {
-            height: 20vh;
+        .img-holder {
+            .profile-banner {
+                height: 20vh;
+            }
+            .user-img {
+                top: 18vh;
+                width: 100px;
+            }
         }
-        .user-img{
-            top: 18vh;
-            width: 100px;
+        .profile-options{
+            @include flex(0px,space-between,center);
+            font-size: 18px;
         }
     }
-
 }
