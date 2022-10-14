@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
 import { toggleMode } from "../store/actions/general.actions"
 import { setMenu } from "../store/actions/general.actions"
+import { isMobile } from "react-device-detect"
 
 export function Menu(props) {
     const dispatch = useDispatch()
@@ -15,7 +16,6 @@ export function Menu(props) {
 
     const sendFeedback = async(ev) => {
         ev.preventDefault()
-        console.log({ txt: textRef.current.value, name:nameRef.current.value, email:mailRef.current.value})
         emailjs.sendForm('service_6o4hbxh','template_wcfvzf6',ev.target,'72RBm-BgL2a--9Gky')
         .then(() => {dispatch(setMenu('sent'))}
          , (err) => {
@@ -35,6 +35,7 @@ export function Menu(props) {
                     <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
                     <div className="hover-main"><span className="material-symbols-outlined">logout</span> <div>Log out</div></div>
+                {isMobile && <div onClick={()=>dispatch(setMenu(''))} className="close-mobile clickable"><span class="material-symbols-outlined">cancel</span></div>} 
                 </section>
             </>
         case 'feedback':

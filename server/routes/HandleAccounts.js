@@ -4,32 +4,35 @@ const AccountsInfo = require('../dataBase/accountinfo')
 
 
 
-const namelist = ["fred","marco", "nick", "bob", "steve", "alvert", "seo", "kim", "user51321", "user" ]
+const namelist = ["fred", "marco", "nick", "bob", "steve", "alvert", "seo", "kim", "user51321", "user"]
 
-router.post('/wallet-connect/:walletAddress', async (req, res, next ) => {
+router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
 
     var createNewAccount = false;
     const walletAddress = req.params.walletAddress
 
-    await AccountsInfo.find({walletAddress}).then( data => {
+    await AccountsInfo.find({ walletAddress }).then(data => {
 
-        if (data.length>0){
+        if (data.length > 0) {
             return res.send(data[0]);
         }
-        else{
+        else {
             createNewAccount = true;
         }
-        
+
     })
-    .catch((err) => {
-        return res.send({"error":"user not found"});
-    });
+        .catch((err) => {
+            return res.send({ "error": "user not found" });
+        });
 
-    if(createNewAccount){
+    if (createNewAccount) {
 
-        var dt = new Date();   
-        const {nickName, image, about, moneyWon, matchHistory, creationDate} = {nickName:namelist[Math.floor(Math.random() * namelist.length)], image:"none", about:"about", moneyWon:0, matchHistory:[], creationDate:dt};
-
+        var dt = new Date();
+        const { nickName, image, about, moneyWon, matchHistory, creationDate } = {
+            nickName: namelist[Math.floor(Math.random() * namelist.length)],
+            image: "https://images.unsplash.com/photo-1561211919-1947abbbb35b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YWJzdHJhY3QlMjBibHVlfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+            about: "about", moneyWon: 0, matchHistory: [], creationDate: dt
+        }
         const accountInfo = new AccountsInfo({
             nickName,
             about,
@@ -43,45 +46,35 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next ) => {
         await accountInfo.save().then((result) => {
             return res.send(result);
         })
-        .catch((err) => {
-            console.log("err " , err);
-            return res.send(err);
+            .catch((err) => {
+                console.log("err ", err);
+                return res.send(err);
             });
     }
 });
-   
 
 
-router.post('/update-address-info/:walletAddress', async (req, res, next ) => {
 
-    const walletAddress = req.params.walletAddress.toLowerCase();
-    
+router.post('/update-address-info/:walletAddress', async (req, res, next) => {
+    const walletAddress = req.params.walletAddress.toLowerCase()
     let query = {}
+    if (req.body.nickName) {
+        query["nickName"] = req.body.nickName
+    }
+    if (req.body.about) {
+        query["about"] = req.body.about
+    }
+    if (req.body.image) {
+        query["image"] = req.body.image
+    }
 
-    if(req.body.nickName) 
-        {
-            query["nickName"] = req.body.nickName
-        }
-    if(req.body.about) 
-        {
-            query["about"] = req.body.about
-        }
-    if(req.body.image) 
-        {
-            query["image"] = req.body.image
-        }
-
-    console.log(query)
-    await AccountsInfo.findOneAndUpdate({walletAddress:String(walletAddress)}, query, {new: true}).then( data => {
-        console.log(data)
-        if(data) {return res.send(data)} 
-        else {return res.send({error: "address not found"})}
-
-
+    await AccountsInfo.findOneAndUpdate({ walletAddress: String(walletAddress) }, query, { new: true }).then(data => {
+        if (data) res.send(data)
+        else res.send({ error: "address not found" }) 
     })
-    .catch((err) => {
-        return res.send({"error":"user ys found"});
-    });
+        .catch((err) => {
+            return res.send({ "error": "user ys found" });
+        });
 
 });
 

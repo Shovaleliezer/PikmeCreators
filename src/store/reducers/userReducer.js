@@ -8,38 +8,41 @@ export const userSlice = createSlice({
     nickName: "",
     address: "",
     userBalance: "",
-    isConnected:false
+    isConnected:false,
+    image:''
   },
   reducers: {
     setAbout: (state, action) => {
-      state.about = action.payload;
+      state.about = action.payload
     },
     setHistory: (state, action) => {
-      state.history = action.payload;
+      state.history = action.payload
     },
     setNickName: (state, action) => {
-      state.nickName = action.payload;
+      state.nickName = action.payload
     },
     setAddress: (state, action) => {
-      state.address = action.payload;
+      state.address = action.payload
     },
     setBalance: (state, action) => {
-      state.userBalance = action.payload;
+      state.userBalance = action.payload
+    },
+    setImage: (state,action) =>{
+      state.image = action.payload
     },
     setIsConnected:(state, action) => {
-        state.isConnected = action.payload;
+        state.isConnected = action.payload
       },
     resetState: (state, action) => {
-        console.log('he')
       state = {
         about: "",
         history: [],
         nickName: "",
+        image:"",
         address: "",
         userBalance: "",
         isConnected:false,
       };
-      console.log(state)
     },
   },
 });
@@ -50,6 +53,7 @@ export const  {
     setNickName,
     setAddress,
     setBalance,
+    setImage,
     setIsConnected,
     resetState
 } = userSlice.actions;

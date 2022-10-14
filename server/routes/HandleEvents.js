@@ -6,8 +6,6 @@ router.get('/get-events', async (req, res, next) => {
     var dt = new Date()
     // let query = {approved:true , date: { $gte: dt }}
     let query = {}
-    console.log('query:', req.query.search)
-
     if(req.query.search  ){
         let posWord = req.query.search
         for (var i = 0; i < req.query.search.length; i++) {
@@ -26,6 +24,16 @@ router.get('/get-events', async (req, res, next) => {
             return res.send({ "error": "user not found" });
         })
 })
+router.get('/get-event/:id', async (req, res, next) => {
+  const id = req.params.id
+  EventInfo.find({_id:String(id)}).then(data => {
+      return res.json(data[0])
+  })
+      .catch((err) => {
+          return res.send({ "error": "user not found" });
+      })
+})
+
 /*
 router.get("/get-events", async (req, res) => {
     let query = {}

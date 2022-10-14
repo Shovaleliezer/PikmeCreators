@@ -1,15 +1,15 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { SearchBar } from "./search-bar"
 import { setFilter } from '../store/actions/general.actions'
 import { toggleMenu } from "../store/actions/general.actions"
 
-
 export function Header(props) {
     const dispatch = useDispatch()
+    const user = useSelector((state) => state.user)
     let isMobile = window.innerWidth < 700 ? true : false
 
-    const resetFilter = ()=>{
+    const resetFilter = () => {
         dispatch(setFilter(''))
     }
 
@@ -31,12 +31,11 @@ export function Header(props) {
                 </div>
 
             </nav>
-                {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
-                    <NavLink onClick={resetFilter} className={props.mode.type} to='/'><span style={{fontSize:'28px'}} className="material-symbols-outlined">home</span></NavLink>
-                    <NavLink className={props.mode.type} to='/tickets'><span style={{fontSize:'28px'}} className="material-symbols-outlined">sd_card</span></NavLink>
-                    <NavLink className={props.mode.type} to='/profile'>profile</NavLink>
-                </nav>}
-                
+            {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
+                <NavLink onClick={resetFilter} className={props.mode.type} to='/'><span style={{ fontSize: '28px' }} className="material-symbols-outlined">home</span></NavLink>
+                <NavLink className={props.mode.type} to='/tickets'><span style={{ fontSize: '28px' }} className="material-symbols-outlined">sd_card</span></NavLink>
+                <NavLink className={props.mode.type} to='/profile'><img src={user? user.image: require('../style/imgs/user-icon.png')} /></NavLink>
+            </nav>}
         </>
     )
 }

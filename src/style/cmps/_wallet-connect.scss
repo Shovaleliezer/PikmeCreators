@@ -34,6 +34,11 @@
     }
 }
 
+.extension-img{
+    width: 340px;
+    aspect-ratio: 1/1;
+}
+
 @media (max-width: $mobile) {
     .wallet-connect{
         section{
