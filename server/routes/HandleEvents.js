@@ -9,8 +9,13 @@ router.get('/get-events', async (req, res, next) => {
     console.log('query:', req.query.search)
 
     if(req.query.search  ){
-        let r = await EventInfo.find({ $text: { $search: req.query.search, $caseSensitive:false, } } )
-        console.log("res ", r)
+        let posWord = req.query.search
+        for (var i = 0; i < req.query.search.length; i++) {
+          let posLetter = req.query.search.replace(req.query.search[i],'');
+          posWord += " " + posLetter;
+        }
+        console.log("end word ",posWord)
+        let r = await EventInfo.find({ $text: { $search: posWord, $caseSensitive:false, } } )
         return res.json(r)
     }
 
