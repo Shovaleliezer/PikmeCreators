@@ -1,0 +1,28 @@
+.profile-history {
+    table {
+        width: 100%;
+        td {
+            padding: 10px;
+        }
+        tr {
+            font-size: 20px;
+            outline: 1px solid #818181;
+        }
+        .ticket-holder {
+            @include flex(3px, flex-start, center);
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .profile-history {
+        table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+            td {
+                font-size: 14px;
+            }
+        }
+    }
+}

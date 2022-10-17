@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 
 import { userService } from '../services/userService'
@@ -20,6 +20,8 @@ export function Profile(props) {
   const isConnected = useSelector((state) => state.user.isConnected)
   const options = ['history', 'credits', 'tickets', 'settings']
   const [selected, setSelected] = useState('history')
+  const [nameEdit, setNameEdit] = useState(false)
+  const nameRef = useRef()
   const [haveMetamask, sethaveMetamask] = useState(false)
   const { ethereum } = window;
   if (ethereum) {
@@ -85,6 +87,12 @@ export function Profile(props) {
     const updatedUser = await userService.updateAccount(user.address, { image: uploadedImage.secure_url })
     dispatch(setImage(updatedUser.image))
   }
+  const nickNameChange = async(ev)=>{
+    ev.preventDefault()
+    const updatedUser = await userService.updateAccount(user.address, { nickName: nameRef.current.value })
+    dispatch(setNickName(updatedUser.nickName))
+    setNameEdit(false)
+  }
 
   const logOut = async () => {
     await disconnectWallet()
@@ -94,7 +102,6 @@ export function Profile(props) {
 
   if (!ethereum) return <ExtensionConnect mode={props.mode} />
   else if (!isConnected) return <WalletConnect connectWallet={connectWallet} />
-
 
   else return (
     <section className={`profile ${props.mode.type}`}>
@@ -109,7 +116,11 @@ export function Profile(props) {
       </section>
 
       <section className='details'>
-        <h1>{user.nickName.charAt(0).toUpperCase() + user.nickName.slice(1)}</h1>
+        <h1><span onClick={()=>setNameEdit(!nameEdit)} className="material-symbols-outlined clickable noselect">edit</span>
+          {' ' + user.nickName.charAt(0).toUpperCase() + user.nickName.slice(1)}</h1>
+        {nameEdit && <form onSubmit={nickNameChange} >
+         <input className={props.mode.type} autoFocus maxLength="15" type='text' placeholder='Enter your new nickname' ref={nameRef}/>
+         <button className={props.mode.type}><span className="material-symbols-outlined">chevron_right</span></button></form>}
         <div>
           <span className="material-symbols-outlined">account_balance_wallet</span>
           {user.address.slice(0, 4)}...{user.address.slice(38, 42)}
@@ -121,12 +132,10 @@ export function Profile(props) {
           {opt.charAt(0).toUpperCase() + opt.slice(1)}</p>)}
       </section>
 
-      {selected === 'history' && <ProfileHistory/>}
-      {selected === 'credits' && <ProfileCredits/>}
-      {selected === 'settings' && <ProfileSettings/>}
-      {selected === 'tickets' && <ProfileTickets/>}
-
-
+      {selected === 'history' && <ProfileHistory history={user.history} mode={props.mode}/>}
+      {selected === 'credits' && <ProfileCredits />}
+      {selected === 'settings' && <ProfileSettings />}
+      {selected === 'tickets' && <ProfileTickets />}
 
       {/* <button onClick={logOut}>Disconnect</button> */}
     </section>

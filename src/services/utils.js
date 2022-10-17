@@ -46,7 +46,7 @@ function getRandomColor() {
     return (Math.random() * (max - min)) + min
   }
   
-  function makeCommas(price){
+  export function makeCommas(price){
     return Math.floor((price)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
   

@@ -35,7 +35,7 @@ export function Menu(props) {
                     <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
                     <div className="hover-main"><span className="material-symbols-outlined">logout</span> <div>Log out</div></div>
-                {isMobile && <div onClick={()=>dispatch(setMenu(''))} className="close-mobile clickable"><span class="material-symbols-outlined">cancel</span></div>} 
+                {isMobile && <div onClick={()=>dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>} 
                 </section>
             </>
         case 'feedback':
