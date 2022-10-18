@@ -76,7 +76,7 @@ export const AddEvent = () => {
                 </select>}
 
                 <label>event date:</label>
-                <input type="date" ref={date} required></input>
+                <input type="datetime-local" ref={date} required></input>
 
                 <input type='text' ref={description} placeholder='description' required />
 
