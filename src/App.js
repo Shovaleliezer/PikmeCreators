@@ -5,9 +5,8 @@ import { Home } from './pages/home'
 import { Profile } from './pages/profile'
 import { AddEvent } from './pages/addEvent'
 import { Header } from './cmps/header'
-import {Tickets} from './pages/tickets'
-import {EventDetails} from './pages/event-details'
-
+import { Tickets } from './pages/tickets'
+import { EventDetails } from './pages/event-details'
 import { Menu } from "../src/cmps/menu"
 
 function App() {
@@ -16,18 +15,18 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Header mode={mode}/>
+        <Header mode={mode} />
         <main className='main-layout'>
           <Routes>
             <Route path='/register' element={<AddEvent />} />
-            <Route path='/profile' element={<Profile mode={mode}/>} />
-            <Route path='/tickets' element={<Tickets mode={mode}/>} />
-            <Route path='/event/:eventId' element={<EventDetails mode={mode}/>} />
-            <Route path='/' element={<Home mode={mode}/>} />
+            <Route path='/profile' element={<Profile mode={mode} />} />
+            <Route path='/tickets' element={<Tickets mode={mode} />} />
+            <Route path='/event/:eventId' element={<EventDetails mode={mode} />} />
+            <Route path='/' element={<Home mode={mode} />} />
           </Routes>
         </main>
       </div>
-      <Menu mode={mode}/>
+      <Menu mode={mode} />
     </Router>
   )
 }
