@@ -26,7 +26,8 @@ export function Header(props) {
                     : <img className="logo" src={require('../style/imgs/logo.png')} />}
                 <SearchBar mode={props.mode} />
                 <div>
-                    <span className="material-symbols-outlined icons clickable hover-main">notifications</span>
+                    <img className="mattic-icon" src={require('../style/imgs/mattic.png')}/>
+                    <span>2000$</span>
                     <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                 </div>
                 {/* </section> */}

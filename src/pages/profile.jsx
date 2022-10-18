@@ -20,48 +20,25 @@ export function Profile(props) {
   const [selected, setSelected] = useState('history')
   const [nameEdit, setNameEdit] = useState(false)
   const nameRef = useRef()
-  const [haveMetamask, sethaveMetamask] = useState(false)
+
   const { ethereum } = window;
   if (ethereum) {
     window.ethereum.on('accountsChanged', async (accounts) => {
       if (!accounts[0]) {
         dispatch(setIsConnected(false))
       }
-    });
+    })
   }
 
   useEffect(() => {
-    const { ethereum } = window;
-    const checkMetamaskAvailability = async () => {
-      if (!ethereum) {
-        sethaveMetamask(false);
-      }
-      sethaveMetamask(true);
-    };
-    checkMetamaskAvailability();
     setSelected('history')
-  }, []);
-
-  const disconnectWallet = async () => {
-    try {
-      dispatch(resetState());
-      dispatch(setIsConnected(false))
-    }
-    catch (error) {
-      console.log(error)
-    }
-  }
+  }, [])
 
   const connectWallet = async () => {
     try {
-      if (!ethereum) {
-        sethaveMetamask(false);
-      }
       const accounts = await ethereum.request({
         method: 'eth_requestAccounts',
-      });
-
-
+      })
       const res = await userService.handleAccount(accounts[0])
       if (res) {
         dispatch(setAbout(res.about))
@@ -74,8 +51,6 @@ export function Profile(props) {
         dispatch(setIsConnected(false))
 
       }
-
-
     } catch (error) {
       dispatch(setIsConnected(false))
     }
@@ -90,11 +65,6 @@ export function Profile(props) {
     const updatedUser = await userService.updateAccount(user.address, { nickName: nameRef.current.value })
     dispatch(setNickName(updatedUser.nickName))
     setNameEdit(false)
-  }
-
-  const logOut = async () => {
-    await disconnectWallet()
-    dispatch(resetState())
   }
 
   if (!ethereum) return <ExtensionConnect mode={props.mode} />
@@ -134,7 +104,6 @@ export function Profile(props) {
         {selected === 'user stats' && <ProfileStats/>}
         {selected === 'upcoming events' && <ProfileTable history={user.history} mode={props.mode} isHistory={false}/>}
       </div>
-      {/* <button onClick={logOut}>Disconnect</button> */}
     </section>
   )
 }
