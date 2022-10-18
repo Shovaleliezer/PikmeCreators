@@ -3,30 +3,52 @@ const router = express.Router()
 const EventInfo = require('../dataBase/eventsinfo')
 
 router.get('/get-events', async (req, res, next) => {
-    var dt = new Date()
-    // let query = {approved:true , date: { $gte: dt }}
-    let query = {}
-    if(req.query.search  ){
-        let r = await EventInfo.find({ $text: { $search: req.query.search, $caseSensitive:false, } } )
-        console.log("res ", r)
-        return res.json(r)
+  var dt = new Date()
+  // let query = {approved:true , date: { $gte: dt }}
+  let query = {}
+  const allLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  const possibleMistake = "aeiuock";
+  if(req.query.search  ){
+      let posWord = req.query.search
+      let posLetter;
+      let posLetter2;
+      let posLetter3;
+      for (var i = 0; i < req.query.search.length; i++) {
+    
+        console.log("got here1")
+        for (var j = 0; j < allLetters.length; j++) {
+          if(i==0){
+            posLetter2 = req.query.search.replace(req.query.search[i],  allLetters[j] + req.query.search[i] );
+            posLetter = req.query.search.replace(req.query.search[i], req.query.search[i] + allLetters[j]);
+            posWord += " " + posLetter + " " + posLetter2;
+          }
+          else{
+            posLetter = req.query.search.replace(req.query.search[i], req.query.search[i] + allLetters[j]);
+            posWord += " " + posLetter 
+          }
+        }
+        console.log("got here")
+        if (possibleMistake.includes(req.query.search[i]) ){
+          console.log("true")
+          for (var k = 0; k < possibleMistake.length; k++) {
+          posLetter3 = req.query.search.replace(req.query.search[i],  possibleMistake[k]);
+          posWord += " " + posLetter3;
+        }
+        }
+        else{
+          console.log("false")
+        }
+        posLetter = req.query.search.replace(req.query.search[i],'');
+        posWord += " " + posLetter;
     }
+    console.log("end word ",posWord)
+    let r = await EventInfo.find({ $text: { $search: posWord, $caseSensitive:false, } } )
+    return res.json(r)
 
-    EventInfo.find(query).then(data => {
-        return res.json(data)
-    })
-        .catch((err) => {
-            return res.send({ "error": "user not found" });
-        })
-})
-router.get('/get-event/:id', async (req, res, next) => {
-  const id = req.params.id
-  EventInfo.find({_id:String(id)}).then(data => {
-      return res.json(data[0])
+}
+  EventInfo.find(query).then(data => {
+      return res.json(data)
   })
-      .catch((err) => {
-          return res.send({ "error": "user not found" });
-      })
 })
 
 /*
