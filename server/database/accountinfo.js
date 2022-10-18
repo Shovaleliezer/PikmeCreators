@@ -22,7 +22,7 @@ const AccountsInfoSchema = new Schema({
         required: true
     },
     matchHistory :{
-        type:Array,
+        type:Object ,
         required: true
     },
     creationDate:{
