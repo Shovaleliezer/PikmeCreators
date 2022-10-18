@@ -34,15 +34,14 @@ export const userSlice = createSlice({
         state.isConnected = action.payload
       },
     resetState: (state, action) => {
-      state = {
-        about: "",
-        history: [],
-        nickName: "",
-        image:"",
-        address: "",
-        userBalance: "",
-        isConnected:false,
-      }
+      console.log("here1")
+      state.address = ""
+      state.nickName = ""
+      state.isConnected = false
+      state.image = ""
+      state.userBalance = ""
+      state.about = ""
+      state.history = []
     },
   },
 })
