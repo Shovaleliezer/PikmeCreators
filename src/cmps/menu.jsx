@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { NavLink } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
 import { toggleMode } from "../store/actions/general.actions"
@@ -13,6 +14,8 @@ export function Menu(props) {
     const nameRef = useRef()
     const mailRef = useRef()
     const { menu } = useSelector((storeState) => storeState.generalModule)
+    const user = useSelector((state) => state.user)
+    console.log(user)
     let color = props.mode.type === 'light' ? '#1b1e1f' : '#f5f5f5'
 
     const sendFeedback = async (ev) => {
@@ -46,6 +49,9 @@ export function Menu(props) {
                     <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
                     <div onClick={logOut} className="hover-main"><span className="material-symbols-outlined">logout</span> <div>Log out</div></div>
+                    <div className="hover-main"><NavLink to='/profile'><span class="material-symbols-outlined">login</span><div>Login</div></NavLink></div>
+
+
                     {isMobile && <div onClick={() => dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>}
                 </section>
             </>

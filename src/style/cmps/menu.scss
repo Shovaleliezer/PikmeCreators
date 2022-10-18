@@ -41,6 +41,11 @@
             border-radius: 4px;
             box-shadow: 0px 3px 4px 0px rgba($color: #909090, $alpha: 0.5);
         }
+        a{
+            text-decoration: none;
+            @include flex(10px, flex-start, center);
+            color: $main;
+        }
     }
 
     .close {

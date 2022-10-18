@@ -5,16 +5,18 @@ import { useDispatch, useSelector } from "react-redux"
 import { userService } from '../services/userService'
 import { uploadService } from '../services/upload.service'
 
-import { setIsConnected, setNickName, setAbout, setAddress, resetState, setImage } from '../store/reducers/userReducer'
+import { setIsConnected, setNickName, setAbout, setAddress, setImage } from '../store/reducers/userReducer'
 
 import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
 import { ProfileTable } from '../cmps/profile-table'
 import { ProfileStats } from '../cmps/profile-stats'
+import { isConsole } from 'react-device-detect'
 
 export function Profile(props) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
+  const [userEvents, setUserEvents] = useState(null)
   const isConnected = useSelector((state) => state.user.isConnected)
   const options = ['history', 'user stats', 'upcoming events']
   const [selected, setSelected] = useState('history')
@@ -32,7 +34,13 @@ export function Profile(props) {
 
   useEffect(() => {
     setSelected('history')
+    loadUserEvents()
   }, [])
+
+  const loadUserEvents = async () => {
+    const loadedUserEvents = await userService.getUserEvents(user.address)
+    setUserEvents(loadedUserEvents)
+  }
 
   const connectWallet = async () => {
     try {
@@ -99,10 +107,10 @@ export function Profile(props) {
           {options.map(opt => <p key={opt} onClick={() => setSelected(opt)} className={selected === opt ? 'main-color clickable' : 'clickable'}>
             {opt.charAt(0).toUpperCase() + opt.slice(1)}</p>)}
         </section>
-
-        {selected === 'history' && <ProfileTable history={user.history} mode={props.mode} isHistory={true}/>}
-        {selected === 'user stats' && <ProfileStats/>}
-        {selected === 'upcoming events' && <ProfileTable history={user.history} mode={props.mode} isHistory={false}/>}
+        {userEvents && <>
+          {selected === 'history' && <ProfileTable events={userEvents.past} mode={props.mode} isHistory={true} />}
+          {selected === 'user stats' && <ProfileStats />}
+          {selected === 'upcoming events' && <ProfileTable events={userEvents.future} mode={props.mode} isHistory={false} />}</>}
       </div>
     </section>
   )
