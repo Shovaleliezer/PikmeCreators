@@ -1,12 +1,18 @@
 import { makeCommas } from "../services/utils"
 import { isMobile } from "react-device-detect"
+import { NavLink } from "react-router-dom"
 
-export function ProfileHistory(props) {
+export function ProfileTable(props) {
     const { mode } = props
-    const history = getDemo()
+    const events = getDemo()
     return (
         <section className={`profile-history ${mode.type}`}>
-            <table>
+            {events.length===0 && <div className="center">
+                <img className="no-history" src={require('../style/imgs/no-history.png')}/>
+                <p>No tickets to display yet, would you like to <NavLink className={`${props.mode.type} main-color`} to='/'>buy some?</NavLink></p>
+                </div>}
+
+            {events.length > 0 && <table>
                 <thead>
                     <tr>
                         <td>Event name</td>
@@ -14,22 +20,22 @@ export function ProfileHistory(props) {
                         <td>Tickets bought</td>
                         <td>Chosen team</td>
                         <td>Date</td>
-                        <td>Resault</td>
+                        {props.isHistory && <td>Resault</td>}
                     </tr>
                 </thead>
                 <tbody>
-                    {history.map(event =>
+                    {events.map(event =>
                         <tr key={event.eventName}>
                             <td title={event.eventName}>{event.eventName.length > 20 ? event.eventName.substring(0, 20) + '...' : event.eventName}</td>
                             <td>{makeCommas(event.quantity * event.price)}$</td>
-                            <td><div className="ticket-holder"><p>{makeCommas(event.quantity)}</p><img src={require('../style/imgs/ticket-icon.png')}/></div></td>
+                            <td><div className="ticket-holder"><p>{makeCommas(event.quantity)}</p><img src={require('../style/imgs/ticket-icon.png')} /></div></td>
                             <td>{event.team}</td>
                             <td>{event.date}</td>
-                            <td style={{ color: event.totalIncome < 0 ? '#c30000' : '#04C300' }}>{event.totalIncome < 0 ? 'Lost' : 'Won'}</td>
+                            {props.isHistory && <td style={{ color: event.totalIncome < 0 ? '#c30000' : '#04C300' }}>{event.totalIncome < 0 ? 'Lost' : 'Won'}</td>}
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </table>}
         </section>
     )
 }
@@ -64,4 +70,5 @@ function getDemo() {
         totalIncome: -1950,
         team: 'lala',
     }]
+    return []
 }

@@ -1,4 +1,4 @@
-export function ProfileTickets() {
+export function ProfileStats() {
 
     return (
         <p>tickets</p>

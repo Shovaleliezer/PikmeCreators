@@ -9,16 +9,14 @@ import { setIsConnected, setNickName, setAbout, setAddress, resetState, setImage
 
 import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
-import { ProfileCredits } from '../cmps/profile-credits'
-import { ProfileHistory } from '../cmps/profile-history'
-import { ProfileSettings } from '../cmps/profile settings'
-import { ProfileTickets } from '../cmps/profile-tickets'
+import { ProfileTable } from '../cmps/profile-table'
+import { ProfileStats } from '../cmps/profile-stats'
 
 export function Profile(props) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const isConnected = useSelector((state) => state.user.isConnected)
-  const options = ['history', 'credits', 'tickets', 'settings']
+  const options = ['history', 'user stats', 'upcoming events']
   const [selected, setSelected] = useState('history')
   const [nameEdit, setNameEdit] = useState(false)
   const nameRef = useRef()
@@ -97,7 +95,6 @@ export function Profile(props) {
   const logOut = async () => {
     await disconnectWallet()
     dispatch(resetState())
-
   }
 
   if (!ethereum) return <ExtensionConnect mode={props.mode} />
@@ -133,10 +130,9 @@ export function Profile(props) {
             {opt.charAt(0).toUpperCase() + opt.slice(1)}</p>)}
         </section>
 
-        {selected === 'history' && <ProfileHistory history={user.history} mode={props.mode} />}
-        {selected === 'credits' && <ProfileCredits />}
-        {selected === 'settings' && <ProfileSettings />}
-        {selected === 'tickets' && <ProfileTickets />}
+        {selected === 'history' && <ProfileTable history={user.history} mode={props.mode} isHistory={true}/>}
+        {selected === 'user stats' && <ProfileStats/>}
+        {selected === 'upcoming events' && <ProfileTable history={user.history} mode={props.mode} isHistory={false}/>}
       </div>
       {/* <button onClick={logOut}>Disconnect</button> */}
     </section>
