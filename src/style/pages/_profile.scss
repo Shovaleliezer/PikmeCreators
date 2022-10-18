@@ -1,6 +1,7 @@
 .profile {
     .img-holder {
         @include flex(0px, center, center, column);
+
         .profile-banner {
             width: 100%;
             height: 32vh;
@@ -18,59 +19,74 @@
             object-fit: cover;
             border: 5px solid rgb(233, 233, 233);
         }
+
         .img-cover {
             @include flex(0px, center, center);
             background-color: black;
             opacity: 0;
             cursor: pointer;
+
             span {
                 color: white;
             }
+
             input {
                 display: none;
             }
         }
+
         .img-cover:hover {
             opacity: 0.6;
         }
     }
 
-    .details {
-        h1 {
-            font-size: 30px;
-            margin-bottom: 4px;
-            margin-top: 10px;
-        }
-        div {
-            @include flex(5px, flex-start, center);
-        }
-        form{
-            display: flex;
-            margin: 10px 0;
-            input{
-                height: 33px;
-                font-size: 20px;
-                border-width: 0;
-            }
-            input:focus{
-                border-width: 0;
-                outline: 0 solid black;
+    .profile-wrapper {
+        margin-left: 3%;
+        margin-right: 3%;
 
+        .details {
+            h1 {
+                font-size: 30px;
+                margin-bottom: 4px;
+                margin-top: 10px;
             }
-            button{
-                border-width: 0;
-                cursor: pointer;
+
+            div {
+                @include flex(5px, flex-start, center);
+            }
+
+            form {
+                display: flex;
+                margin: 10px 0;
+
+                input {
+                    height: 33px;
+                    font-size: 20px;
+                    border-width: 0;
+                }
+
+                input:focus {
+                    border-width: 0;
+                    outline: 0 solid black;
+
+                }
+
+                button {
+                    border-width: 0;
+                    cursor: pointer;
+                }
             }
         }
     }
 
-    .profile-options{
-        @include flex(20px,flex-start,center);
+    .profile-options {
+        @include flex(20px, flex-start, center);
         font-size: 24px;
         box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.25);
         margin-top: 14px;
         margin-bottom: 20px;
-        p{
+
+        p {
             margin: 8px;
         }
     }
@@ -82,13 +98,20 @@
             .profile-banner {
                 height: 20vh;
             }
+
             .user-img {
                 top: 18vh;
                 width: 100px;
             }
+
+            .profile-wrapper{
+                margin-left: 2px;
+                margin-right: 2px;
+            }
         }
-        .profile-options{
-            @include flex(0px,space-between,center);
+
+        .profile-options {
+            @include flex(0px, space-between, center);
             font-size: 18px;
         }
     }

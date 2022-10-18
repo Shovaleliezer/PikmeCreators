@@ -16,7 +16,7 @@ export function Header(props) {
     return (
         <>
             <nav className={`header ${props.mode.type} noselect`}>
-                {!isMobile ?
+                    {!isMobile ?
                     <div>
                         <img className="logo" src={require('../style/imgs/logo.png')} />
                         <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'>Home</NavLink>
@@ -29,8 +29,9 @@ export function Header(props) {
                     <span className="material-symbols-outlined icons clickable hover-main">notifications</span>
                     <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                 </div>
-
+                {/* </section> */}
             </nav>
+
             {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
                 <NavLink onClick={resetFilter} className={props.mode.type} to='/'><span style={{ fontSize: '28px' }} className="material-symbols-outlined">home</span></NavLink>
                 <NavLink className={props.mode.type} to='/tickets'><span style={{ fontSize: '28px' }} className="material-symbols-outlined">sd_card</span></NavLink>

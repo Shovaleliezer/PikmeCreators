@@ -87,7 +87,7 @@ export function Profile(props) {
     const updatedUser = await userService.updateAccount(user.address, { image: uploadedImage.secure_url })
     dispatch(setImage(updatedUser.image))
   }
-  const nickNameChange = async(ev)=>{
+  const nickNameChange = async (ev) => {
     ev.preventDefault()
     const updatedUser = await userService.updateAccount(user.address, { nickName: nameRef.current.value })
     dispatch(setNickName(updatedUser.nickName))
@@ -115,28 +115,29 @@ export function Profile(props) {
         </div>
       </section>
 
-      <section className='details'>
-        <h1><span onClick={()=>setNameEdit(!nameEdit)} className="material-symbols-outlined clickable noselect">edit</span>
-          {' ' + user.nickName.charAt(0).toUpperCase() + user.nickName.slice(1)}</h1>
-        {nameEdit && <form onSubmit={nickNameChange} >
-         <input className={props.mode.type} autoFocus maxLength="15" type='text' placeholder='Enter your new nickname' ref={nameRef}/>
-         <button className={props.mode.type}><span className="material-symbols-outlined">chevron_right</span></button></form>}
-        <div>
-          <span className="material-symbols-outlined">account_balance_wallet</span>
-          {user.address.slice(0, 4)}...{user.address.slice(38, 42)}
-        </div>
-      </section>
+      <div className='profile-wrapper'>
+        <section className='details'>
+          <h1><span onClick={() => setNameEdit(!nameEdit)} className="material-symbols-outlined clickable noselect">edit</span>
+            {' ' + user.nickName.charAt(0).toUpperCase() + user.nickName.slice(1)}</h1>
+          {nameEdit && <form onSubmit={nickNameChange} >
+            <input className={props.mode.type} autoFocus maxLength="15" type='text' placeholder='Enter your new nickname' ref={nameRef} />
+            <button className={props.mode.type}><span className="material-symbols-outlined">chevron_right</span></button></form>}
+          <div>
+            <span className="material-symbols-outlined">account_balance_wallet</span>
+            {user.address.slice(0, 4)}...{user.address.slice(38, 42)}
+          </div>
+        </section>
 
-      <section className='profile-options'>
-        {options.map(opt => <p key={opt} onClick={() => setSelected(opt)} className={selected === opt ? 'main-color clickable' : 'clickable'}>
-          {opt.charAt(0).toUpperCase() + opt.slice(1)}</p>)}
-      </section>
+        <section className='profile-options'>
+          {options.map(opt => <p key={opt} onClick={() => setSelected(opt)} className={selected === opt ? 'main-color clickable' : 'clickable'}>
+            {opt.charAt(0).toUpperCase() + opt.slice(1)}</p>)}
+        </section>
 
-      {selected === 'history' && <ProfileHistory history={user.history} mode={props.mode}/>}
-      {selected === 'credits' && <ProfileCredits />}
-      {selected === 'settings' && <ProfileSettings />}
-      {selected === 'tickets' && <ProfileTickets />}
-
+        {selected === 'history' && <ProfileHistory history={user.history} mode={props.mode} />}
+        {selected === 'credits' && <ProfileCredits />}
+        {selected === 'settings' && <ProfileSettings />}
+        {selected === 'tickets' && <ProfileTickets />}
+      </div>
       {/* <button onClick={logOut}>Disconnect</button> */}
     </section>
   )
