@@ -2,6 +2,7 @@ import { useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
 import { toggleMode } from "../store/actions/general.actions"
+import { resetState,setIsConnected } from "../store/reducers/userReducer"
 import { setMenu } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 
@@ -14,13 +15,23 @@ export function Menu(props) {
     const { menu } = useSelector((storeState) => storeState.generalModule)
     let color = props.mode.type === 'light' ? '#1b1e1f' : '#f5f5f5'
 
-    const sendFeedback = async(ev) => {
+    const sendFeedback = async (ev) => {
         ev.preventDefault()
-        emailjs.sendForm('service_6o4hbxh','template_wcfvzf6',ev.target,'72RBm-BgL2a--9Gky')
-        .then(() => {dispatch(setMenu('sent'))}
-         , (err) => {
-            console.log('FAILED...', err)
-         })
+        emailjs.sendForm('service_6o4hbxh', 'template_wcfvzf6', ev.target, '72RBm-BgL2a--9Gky')
+            .then(() => { dispatch(setMenu('sent')) }
+                , (err) => {
+                    console.log('FAILED...', err)
+                })
+    }
+
+    const logOut = () => {
+        try{
+        dispatch(resetState())
+        dispatch(setIsConnected(false))
+        }
+        catch{
+            console.log('could not log out')
+        } 
     }
 
     switch (menu) {
@@ -34,8 +45,8 @@ export function Menu(props) {
                     <div className="hover-main" onClick={() => dispatch(toggleMode())}><div className="mode" style={{ background: color }}></div> <div>{props.mode.type === 'light' ? 'Night theme' : 'Light theme'}</div></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
-                    <div className="hover-main"><span className="material-symbols-outlined">logout</span> <div>Log out</div></div>
-                {isMobile && <div onClick={()=>dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>} 
+                    <div onClick={logOut} className="hover-main"><span className="material-symbols-outlined">logout</span> <div>Log out</div></div>
+                    {isMobile && <div onClick={() => dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>}
                 </section>
             </>
         case 'feedback':
@@ -46,8 +57,8 @@ export function Menu(props) {
                     <form className="center-start" onSubmit={sendFeedback}>
                         <p>Feedback</p>
                         <textarea name={'message'} rows="5" cols="25" className={props.mode.type} ref={textRef} autoFocus required placeholder="Please tell us how can we improve our product..."></textarea>
-                            <input name={'user_name'} type='text' ref={nameRef} className={`txt ${props.mode.type}`} placeholder='Your name' required/>
-                            <input name={'user_email'} type='email' ref={mailRef} className={`txt ${props.mode.type}`} placeholder='Your email' required/>
+                        <input name={'user_name'} type='text' ref={nameRef} className={`txt ${props.mode.type}`} placeholder='Your name' required />
+                        <input name={'user_email'} type='email' ref={mailRef} className={`txt ${props.mode.type}`} placeholder='Your email' required />
                         <div><input type="checkbox" id="notify" required ref={boxRef} />
                             <label htmlFor="notify"> Allow support to contact back</label></div>
                         <button className={`${props.mode.type} border-${props.mode.type}`}>Send</button>
@@ -74,12 +85,12 @@ export function Menu(props) {
                 </section>
             </>
         case 'sent':
-            return<>
-            <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
+            return <>
+                <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
                 <section className={`menu ${props.mode.type} noselect`}>
                     <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
                     <p>We got you, our support team are doing their best to improve.</p>
                 </section>
-            </>    
+            </>
     }
 }
