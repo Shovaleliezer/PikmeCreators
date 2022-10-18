@@ -4,7 +4,7 @@ import { setMenu } from "../store/actions/general.actions"
 export function WalletConnect({connectWallet}) {
     const { mode } = useSelector((storeState) => storeState.generalModule)
     const dispatch = useDispatch()
-    let back = mode.type==='dark'? mode.background : '#D4D4D4'
+    let back = mode.type==='dark'? mode.background : '#f5f5f5'
 
     return (
         <div className={`wallet-connect ${mode.type}`} >
