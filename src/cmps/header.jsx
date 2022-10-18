@@ -30,7 +30,6 @@ export function Header(props) {
                     <span>2000$</span>
                     <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                 </div>
-                {/* </section> */}
             </nav>
 
             {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>

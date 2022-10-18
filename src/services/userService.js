@@ -2,7 +2,8 @@ import { httpService } from './http.service.js'
 
 export const userService = {
     handleAccount,
-    updateAccount
+    updateAccount,
+    getUserEvents
 }
 window.cs = userService
 
@@ -15,4 +16,9 @@ async function handleAccount(address) {
 async function updateAccount(address, update) {
     const updatedUser = await httpService.post('handle-account/update-address-info/' + address, update)
     return updatedUser
+}
+
+async function getUserEvents(address) {
+    const events = await httpService.get('handle-account/get-tickets/' + address)
+    return events
 }
