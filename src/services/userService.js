@@ -16,3 +16,7 @@ async function updateAccount(address, update) {
     const updatedUser = await httpService.post('handle-account/update-address-info/' + address, update)
     return updatedUser
 }
+
+async function getUserEvents(address,type) {
+    
+}
