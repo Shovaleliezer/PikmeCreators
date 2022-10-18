@@ -2,6 +2,13 @@ const express = require('express')
 const router = express.Router()
 const AccountsInfo = require('../dataBase/accountinfo')
 
+function mode(arr){
+    return arr.sort((a,b) =>
+          arr.filter(v => v===a).length
+        - arr.filter(v => v===b).length
+    ).pop();
+}
+
 
 
 const namelist = ["fred", "marco", "nick", "bob", "steve", "alvert", "seo", "kim", "user51321", "user"]
@@ -140,5 +147,52 @@ router.get('/get-tickets/:walletAddress', async (req, res, next) => {
             return res.send({ "past": "user not found" });
         })
   })
-  
+  router.get('/get-stats/:walletAddress', async (req, res, next) => {
+    const cDate = new Date();
+    let gamesWon = 0
+    let gamesLose = 0
+    let rank = "unranked"
+    let mostCommon
+    const  gameList = []
+    const walletAddress = req.params.walletAddress.toLowerCase()
+    await AccountsInfo.findOne({walletAddress}).then(data => {
+        const history = data.matchHistory
+        for (const key in history) {
+           if(history[key].result=="won"){
+            gamesWon +=1
+           }
+           else if (history[key].result=="lose"){
+            gamesLose +=1
+           }
+           if(history[key].game){
+            gameList.push(history[key].game)
+           }
+        }
+        console.log("stats wilo ", gamesLose+gamesWon)
+        const winRate = gamesWon / (gamesLose+gamesWon)
+        if (gamesLose+gamesWon <10){
+            rank = "unranked"
+        }
+        else if (0<=winRate<= 0.3){
+            rank = "bronze"
+        }
+        else if (0.3<winRate<= 0.55){
+            rank = "silver"
+        }
+        else if ( 0.55<winRate<= 0.9){
+            rank = "gold"
+        }
+        else if ( 0.9<winRate<= 1 ){
+            rank = "diamond"
+        }
+        else {
+            rank = "unranked"
+        }
+        mostCommon = mode(gameList);
+        return res.json({"gamesWon":gamesWon,"favGame": mostCommon, "rank":rank })
+    })
+        .catch((err) => {
+            return res.send({ "error": err });
+        })
+  })
 module.exports = router;
