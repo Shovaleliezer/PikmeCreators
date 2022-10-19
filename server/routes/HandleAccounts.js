@@ -168,7 +168,7 @@ router.get('/get-tickets/:walletAddress', async (req, res, next) => {
             gameList.push(history[key].game)
            }
         }
-        console.log("stats wilo ", gamesLose+gamesWon)
+        
         const winRate = gamesWon / (gamesLose+gamesWon)
         if (gamesLose+gamesWon <10){
             rank = "unranked"
