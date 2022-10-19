@@ -16,10 +16,15 @@
         }
         td {
             padding: 4px 10px; 
-            p{
+            div{
+                width: fit-content;
+                @include flex(0px,center,center,column);
+               p{
                 margin: 0;
                 margin-bottom: 2px;
+            } 
             }
+            
         }
         tr {
             font-size: 20px;

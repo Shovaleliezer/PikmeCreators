@@ -28,7 +28,7 @@ export function ProfileTable(props) {
                             <td>{makeCommas(event.quantity * event.price)}$</td>
                             <td><div className="ticket-holder"><p>{makeCommas(event.quantity)}</p><img src={require('../style/imgs/ticket-icon.png')} /></div></td>
                             <td>{event.chosenTeam}</td>
-                            <td><p>{formatDate(event.date)}</p><p>{formatHour(event.date)}</p></td>
+                            <td><div><p>{formatDate(event.date)}</p><p>{formatHour(event.date)}</p></div></td>
                             {props.isHistory && <td style={{ color: event.totalIncome < 0 ? '#c30000' : '#04C300' }}>{event.totalIncome < 0 ? 'Lost' : 'Won'}</td>}
                         </tr>
                     )}
