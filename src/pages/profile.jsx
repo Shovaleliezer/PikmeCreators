@@ -11,12 +11,12 @@ import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
 import { ProfileTable } from '../cmps/profile-table'
 import { ProfileStats } from '../cmps/profile-stats'
-import { isConsole } from 'react-device-detect'
 
 export function Profile(props) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const [userEvents, setUserEvents] = useState(null)
+  const [userStats,setUserStats] = useState(null)
   const isConnected = useSelector((state) => state.user.isConnected)
   const options = ['history', 'user stats', 'upcoming events']
   const [selected, setSelected] = useState('history')
@@ -34,11 +34,13 @@ export function Profile(props) {
 
   useEffect(() => {
     setSelected('history')
-    loadUserEvents()
+    loadEventsAndStats()
   }, [user.isConnected])
 
-  const loadUserEvents = async () => {
+  const loadEventsAndStats = async () => {
     const loadedUserEvents = await userService.getUserEvents(user.address)
+    const loadedUserStats = await userService.getUserStats(user.address)
+    console.log(loadedUserEvents)
     setUserEvents(loadedUserEvents)
   }
 
