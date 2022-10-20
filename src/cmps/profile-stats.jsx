@@ -28,7 +28,7 @@ export function ProfileStats({ stats }) {
             <div>
                 <h2>Favorite category:</h2>
                 <h2 className='main-color'>{stats.favGame}</h2>
-                <img src={require('../style/imgs/gold-cup.png')} />
+                <img src={require('../style/imgs/soccer.png')} />
             </div>
             <div>
                 <h2>Current rank:</h2>

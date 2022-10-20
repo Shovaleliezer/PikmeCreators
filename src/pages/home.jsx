@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { eventService } from '../services/eventService'
 import { EventBox } from '../cmps/event-box'
@@ -18,11 +19,16 @@ export function Home(props) {
     }
 
     return (
-        <div>
+        <div className={props.mode.type}>
             <FilterBar mode={props.mode} />
-            <section className='events-container'>
+            {events.length > 0 ? <section className='events-container'>
                 {events.map(ev => <EventBox ev={ev} mode={props.mode} key={ev._id} />)}
-            </section>
+            </section> :
+                <div className="center not-found">
+                    <img className="no-history" src={require('../style/imgs/no-results.png')} />
+                    <p>No matches to display yet, would you like to <NavLink className={`${props.mode.type} main-color`} to='/'>buy some?</NavLink></p>
+                </div>}
+
         </div>
     )
 }

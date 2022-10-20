@@ -5,9 +5,9 @@ export function ProfileTable(props) {
     const { mode, events } = props
     return (
         <section className={`profile-history ${mode.type}`}>
-            {events.length === 0 && <div className="center">
-                <img className="no-history" src={require('../style/imgs/no-history.png')} />
-                <p>No tickets to display yet, would you like to <NavLink className={`${props.mode.type} main-color`} to='/'>buy some?</NavLink></p>
+            {events.length ===0 && <div className="center">
+                <img className="no-history" src={require('../style/imgs/no-results.png')} />
+                <p>No matches to display yet, would you like to <NavLink className={`${props.mode.type} main-color`} to='/'>buy some?</NavLink></p>
             </div>}
 
             {events.length > 0 && <table>
