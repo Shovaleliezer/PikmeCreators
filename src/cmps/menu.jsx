@@ -15,7 +15,6 @@ export function Menu(props) {
     const mailRef = useRef()
     const { menu } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
-    console.log(user)
     let color = props.mode.type === 'light' ? '#1b1e1f' : '#f5f5f5'
 
     const sendFeedback = async (ev) => {

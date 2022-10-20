@@ -55,7 +55,6 @@ export function formatDate(date) {
 }
 
 export function formatHour(date){
-  console.log(new Date)
   return date.substring(14,16) + ':' + date.substring(17,19)
 }
 

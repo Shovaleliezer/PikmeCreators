@@ -14,8 +14,6 @@ router.get('/get-events', async (req, res, next) => {
       let posLetter2;
       let posLetter3;
       for (var i = 0; i < req.query.search.length; i++) {
-    
-        console.log("got here1")
         for (var j = 0; j < allLetters.length; j++) {
           if(i==0){
             posLetter2 = req.query.search.replace(req.query.search[i],  allLetters[j] + req.query.search[i] );
@@ -27,9 +25,7 @@ router.get('/get-events', async (req, res, next) => {
             posWord += " " + posLetter 
           }
         }
-        console.log("got here")
         if (possibleMistake.includes(req.query.search[i]) ){
-          console.log("true")
           for (var k = 0; k < possibleMistake.length; k++) {
           posLetter3 = req.query.search.replace(req.query.search[i],  possibleMistake[k]);
           posWord += " " + posLetter3;
@@ -41,7 +37,6 @@ router.get('/get-events', async (req, res, next) => {
         posLetter = req.query.search.replace(req.query.search[i],'');
         posWord += " " + posLetter;
     }
-    console.log("end word ",posWord)
     let r = await EventInfo.find({ $text: { $search: posWord, $caseSensitive:false, } } )
     return res.json(r)
 
@@ -142,7 +137,6 @@ router.post('/create-event', async (req, res, next) => {
         });
 });
 router.get('/wallet-connect/', async (req, res, next) => {
-    console.log("wallet connect")
     const { title, description, teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
         shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon, banner } = req.params;
 

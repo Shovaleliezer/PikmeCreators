@@ -34,7 +34,6 @@ export const userSlice = createSlice({
         state.isConnected = action.payload
       },
     resetState: (state, action) => {
-      console.log("here1")
       state.address = ""
       state.nickName = ""
       state.isConnected = false
