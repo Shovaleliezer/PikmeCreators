@@ -45,11 +45,13 @@
     div{
         @include flex(0,center,center,column);
         img{
-            width: 80px;
+            width: 160px;
             aspect-ratio: 1/1;
+            margin-bottom: 50px;
         }
         h2{
-            margin: 5px;
+            margin: 0;
+            margin-bottom: 10px;
         }
     }
     
@@ -72,6 +74,7 @@
             @include flex(0,center,center,column);
             img{
                 width: 200px;
+                margin-bottom: 20px;
             }
             h2{
                 font-size: 20px;

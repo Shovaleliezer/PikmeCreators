@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { eventService } from '../services/eventService'
 import { EventBox } from '../cmps/event-box'
@@ -26,7 +25,7 @@ export function Home(props) {
             </section> :
                 <div className="center not-found">
                     <img className="no-history" src={require('../style/imgs/no-results.png')} />
-                    <p>No matches to display yet, would you like to <NavLink className={`${props.mode.type} main-color`} to='/'>buy some?</NavLink></p>
+                    <p>Oops, it seems there are no results that matches your search</p>
                 </div>}
 
         </div>
