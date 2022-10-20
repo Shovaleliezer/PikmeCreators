@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { userService } from '../services/userService'
 import { uploadService } from '../services/upload.service'
 
-import { setIsConnected, setNickName, setAbout, setAddress, setImage } from '../store/reducers/userReducer'
+import { setIsConnected, setNickName, setAbout, setAddress, setImage,setEvents,setStats } from '../store/reducers/userReducer'
 
 import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
@@ -15,8 +15,6 @@ import { ProfileStats } from '../cmps/profile-stats'
 export function Profile(props) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
-  const [userEvents, setUserEvents] = useState(null)
-  const [userStats,setUserStats] = useState(null)
   const isConnected = useSelector((state) => state.user.isConnected)
   const options = ['history', 'user stats', 'upcoming events']
   const [selected, setSelected] = useState('history')
@@ -34,16 +32,8 @@ export function Profile(props) {
 
   useEffect(() => {
     setSelected('history')
-    loadEventsAndStats()
-  }, [user.isConnected])
-
-  const loadEventsAndStats = async () => {
-    const loadedUserEvents = await userService.getUserEvents(user.address)
-    const loadedUserStats = await userService.getUserStats(user.address)
-    console.log(loadedUserEvents)
-    setUserEvents(loadedUserEvents)
-  }
-
+  }, [])
+  
   const connectWallet = async () => {
     try {
       const accounts = await ethereum.request({
@@ -56,10 +46,13 @@ export function Profile(props) {
         dispatch(setNickName(res.nickName))
         dispatch(setIsConnected(true))
         dispatch(setImage(res.image))
+        const loadedEvents = await userService.getUserEvents(res.walletAddress)
+        const loadedStats = await userService.getUserStats(res.walletAddress)
+        dispatch(setEvents(loadedEvents))
+        dispatch(setStats(loadedStats))
       }
       else {
         dispatch(setIsConnected(false))
-
       }
     } catch (error) {
       dispatch(setIsConnected(false))
@@ -109,10 +102,10 @@ export function Profile(props) {
           {options.map(opt => <p key={opt} onClick={() => setSelected(opt)} className={selected === opt ? 'main-color clickable' : 'clickable'}>
             {opt.charAt(0).toUpperCase() + opt.slice(1)}</p>)}
         </section>
-        {userEvents && <>
-          {selected === 'history' && <ProfileTable events={userEvents.past} mode={props.mode} isHistory={true} />}
-          {selected === 'user stats' && <ProfileStats />}
-          {selected === 'upcoming events' && <ProfileTable events={userEvents.future} mode={props.mode} isHistory={false} />}</>}
+        {(user.events && user.stats) && <>
+          {selected === 'history' && <ProfileTable events={user.events.past} mode={props.mode} isHistory={true} />}
+          {selected === 'user stats' && <ProfileStats stats={user.stats} />}
+          {selected === 'upcoming events' && <ProfileTable events={user.events.future} mode={props.mode} isHistory={false} />}</>}
       </div>
     </section>
   )
