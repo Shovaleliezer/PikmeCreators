@@ -35,7 +35,7 @@ export function Profile(props) {
   useEffect(() => {
     setSelected('history')
     loadUserEvents()
-  }, [])
+  }, [user.isConnected])
 
   const loadUserEvents = async () => {
     const loadedUserEvents = await userService.getUserEvents(user.address)
