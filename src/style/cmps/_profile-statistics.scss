@@ -39,6 +39,21 @@
     }
 }
 
+.profile-stats{
+    @include flex(10px,space-around,center);
+    div{
+        @include flex(0,center,center,column);
+        img{
+            width: 80px;
+            aspect-ratio: 1/1;
+        }
+        h2{
+            margin: 5px;
+        }
+    }
+    
+}
+
 @media (max-width: $mobile) {
     .profile-history {
         table {
@@ -47,6 +62,19 @@
             white-space: nowrap;
             td {
                 font-size: 14px;
+            }
+        }
+    }
+    .profile-stats{
+        @include flex(30px,center,center,column);
+        div{
+            @include flex(0,center,center,column);
+            img{
+                width: 200px;
+            }
+            h2{
+                font-size: 20px;
+                font-weight: 300;
             }
         }
     }

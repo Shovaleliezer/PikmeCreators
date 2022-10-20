@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { userService } from '../services/userService'
 import { uploadService } from '../services/upload.service'
 
-import { setIsConnected, setNickName, setAbout, setAddress, setImage,setEvents,setStats } from '../store/reducers/userReducer'
+import { setIsConnected, setNickName, setAbout, setAddress, setImage, setEvents, setStats } from '../store/reducers/userReducer'
 
 import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
@@ -33,7 +33,14 @@ export function Profile(props) {
   useEffect(() => {
     setSelected('history')
   }, [])
-  
+
+  const loadStatistics = async (address) => {
+    const loadedEvents = await userService.getUserEvents(address)
+    const loadedStats = await userService.getUserStats(address)
+    dispatch(setEvents(loadedEvents))
+    dispatch(setStats(loadedStats))
+  }
+
   const connectWallet = async () => {
     try {
       const accounts = await ethereum.request({
@@ -46,10 +53,8 @@ export function Profile(props) {
         dispatch(setNickName(res.nickName))
         dispatch(setIsConnected(true))
         dispatch(setImage(res.image))
-        const loadedEvents = await userService.getUserEvents(res.walletAddress)
-        const loadedStats = await userService.getUserStats(res.walletAddress)
-        dispatch(setEvents(loadedEvents))
-        dispatch(setStats(loadedStats))
+
+        loadStatistics(res.walletAddress)
       }
       else {
         dispatch(setIsConnected(false))
@@ -87,8 +92,10 @@ export function Profile(props) {
 
       <div className='profile-wrapper'>
         <section className='details'>
-          <h1><span onClick={() => setNameEdit(!nameEdit)} className="material-symbols-outlined clickable noselect">edit</span>
-            {' ' + user.nickName.charAt(0).toUpperCase() + user.nickName.slice(1)}</h1>
+          <div className='name-holder'>
+            <h1><span onClick={() => setNameEdit(!nameEdit)} className="material-symbols-outlined clickable noselect">edit</span>
+              {' ' + user.nickName.charAt(0).toUpperCase() + user.nickName.slice(1)}</h1><span onClick={()=>{loadStatistics(user.address)}} class="clickable material-symbols-outlined">refresh</span>
+          </div>
           {nameEdit && <form onSubmit={nickNameChange} >
             <input className={props.mode.type} autoFocus maxLength="15" type='text' placeholder='Enter your new nickname' ref={nameRef} />
             <button className={props.mode.type}><span className="material-symbols-outlined">chevron_right</span></button></form>}

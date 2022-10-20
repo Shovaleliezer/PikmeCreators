@@ -52,7 +52,11 @@
             }
 
             div {
-                @include flex(5px, flex-start, center);
+                @include flex(10px, flex-start, center);
+            }
+
+            .name-holder{
+                @include flex(0,space-between,center)
             }
 
             form {
