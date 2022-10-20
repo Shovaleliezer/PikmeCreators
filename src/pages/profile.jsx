@@ -94,7 +94,7 @@ export function Profile(props) {
         <section className='details'>
           <div className='name-holder'>
             <h1><span onClick={() => setNameEdit(!nameEdit)} className="material-symbols-outlined clickable noselect">edit</span>
-              {' ' + user.nickName.charAt(0).toUpperCase() + user.nickName.slice(1)}</h1><span onClick={()=>{loadStatistics(user.address)}} class="clickable material-symbols-outlined">refresh</span>
+              {' ' + user.nickName.charAt(0).toUpperCase() + user.nickName.slice(1)}</h1><span onClick={()=>{loadStatistics(user.address)}} className="clickable material-symbols-outlined">refresh</span>
           </div>
           {nameEdit && <form onSubmit={nickNameChange} >
             <input className={props.mode.type} autoFocus maxLength="15" type='text' placeholder='Enter your new nickname' ref={nameRef} />

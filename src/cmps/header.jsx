@@ -35,7 +35,7 @@ export function Header(props) {
             {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
                 <NavLink onClick={resetFilter} className={props.mode.type} to='/'><span style={{ fontSize: '28px' }} className="material-symbols-outlined">home</span></NavLink>
                 <NavLink className={props.mode.type} to='/tickets'><span style={{ fontSize: '28px' }} className="material-symbols-outlined">sd_card</span></NavLink>
-                <NavLink className={props.mode.type} to='/profile'><img src={user? user.image: require('../style/imgs/user-icon.png')} /></NavLink>
+                <NavLink className={props.mode.type} to='/profile'><img src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink>
             </nav>}
         </>
     )
