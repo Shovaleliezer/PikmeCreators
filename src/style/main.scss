@@ -25,9 +25,12 @@
     max-width: 98vw;
     margin: auto;
     margin-top: 70px;
-    margin-bottom: 100px;
 }
-
+@media (max-width: $mobile){
+    .main-layout{
+        margin-bottom: 60px;
+    }
+}
 
 
 

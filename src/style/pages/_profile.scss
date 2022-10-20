@@ -1,7 +1,9 @@
 .profile {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(95vh - 55px);
     .img-holder {
         @include flex(0px, center, center, column);
-
         .profile-banner {
             width: 100%;
             height: 32vh;
@@ -43,6 +45,9 @@
     .profile-wrapper {
         margin-left: 3%;
         margin-right: 3%;
+        display: flex;
+        flex-direction: column;
+        flex-grow:1;
 
         .details {
             h1 {
@@ -98,6 +103,7 @@
 
 @media (max-width: $mobile) {
     .profile {
+        
         .img-holder {
             .profile-banner {
                 height: 20vh;

@@ -1,60 +1,70 @@
 .profile-history {
-    img{
+    img {
         border-radius: 10px;
         width: 220px;
     }
+
     table {
         width: 100%;
         border: 1px solid #818181;
         border-radius: 10px;
-        img{
+
+        img {
             width: 20px;
             aspect-ratio: 1/1;
             margin-left: 5px;
         }
-        thead{
+
+        thead {
             border-top-left-radius: 10px;
         }
+
         td {
-            padding: 4px 10px; 
-            div{
+            padding: 4px 10px;
+
+            div {
                 width: fit-content;
-                @include flex(0px,center,center,column);
-               p{
-                margin: 0;
-                margin-bottom: 2px;
-            } 
+                @include flex(0px, center, center, column);
+
+                p {
+                    margin: 0;
+                    margin-bottom: 2px;
+                }
             }
-            
+
         }
+
         tr {
             font-size: 20px;
             box-shadow: 0px 1px 0px 0px #818181;
         }
+
         .ticket-holder {
             @include flex(3px, flex-start, center);
         }
     }
-    tbody tr:last-child{
+
+    tbody tr:last-child {
         box-shadow: 0px 0px 0px 0px #818181;
     }
 }
 
-.profile-stats{
-    @include flex(10px,space-around,center);
-    div{
-        @include flex(0,center,center,column);
-        img{
+.profile-stats {
+    @include flex(10px, space-around, center);
+    flex-grow:1;
+    div {
+        @include flex(0, center, center, column);
+        img {
             width: 160px;
             aspect-ratio: 1/1;
             margin-bottom: 50px;
         }
-        h2{
+
+        h2 {
             margin: 0;
             margin-bottom: 10px;
         }
     }
-    
 }
 
 @media (max-width: $mobile) {
@@ -63,20 +73,25 @@
             display: block;
             overflow-x: auto;
             white-space: nowrap;
+
             td {
                 font-size: 14px;
             }
         }
     }
-    .profile-stats{
-        @include flex(30px,center,center,column);
-        div{
-            @include flex(0,center,center,column);
-            img{
+
+    .profile-stats {
+        @include flex(30px, center, center, column);
+
+        div {
+            @include flex(0, center, center, column);
+
+            img {
                 width: 200px;
                 margin-bottom: 20px;
             }
-            h2{
+
+            h2 {
                 font-size: 20px;
                 font-weight: 300;
             }
