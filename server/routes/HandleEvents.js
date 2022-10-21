@@ -125,6 +125,10 @@ router.post('/create-event', async (req, res, next) => {
         teamOneIcon,
         teamTwoIcon,
         banner,
+        viewers: {},
+        teamOneTickets:0,
+        payed:false,
+        teamTwoTickets:0,
         approved: false
 
     });
@@ -136,6 +140,64 @@ router.post('/create-event', async (req, res, next) => {
             return res.send(err);
         });
 });
+
+router.post('/sell-ticket/:eventId', async (req, res, next) => {
+  const eventId = req.params.eventId
+  const { teamChosen, tickets, buyerAddress} = req.body;
+  let query = {}
+  await EventInfo.findById( eventId).then( async data => {
+  
+    let newViewers = data.viewers
+    if(teamChosen=="teamOne"){
+      const teamOneTickets = tickets + data.teamOneTickets
+      query["teamOneTickets"] = teamOneTickets
+      
+    }
+    else{
+      const teamTwoTickets = tickets + data.teamTwoTickets
+      query["teamTwoTickets"] = teamTwoTickets
+    }
+    
+    if(data.viewers[buyerAddress]){
+      if(data.viewers[buyerAddress].teamChosen!=teamChosen){
+        if(teamChosen=="teamOne"){
+          const teamOneTickets = tickets + data.teamOneTickets + data.viewers[buyerAddress].tickets
+          query["teamOneTickets"] = teamOneTickets
+          query["teamTwoTickets"] = data.teamTwoTickets -  data.viewers[buyerAddress].tickets
+         
+        }
+        else{
+          const teamTwoTickets = tickets + data.teamTwoTickets+ data.viewers[buyerAddress].tickets
+          query["teamTwoTickets"] = teamTwoTickets
+          query["teamOneTickets"] = data.teamOneTickets -  data.viewers[buyerAddress].tickets
+        }
+      }
+      newViewers[buyerAddress] = {teamChosen:teamChosen, tickets:tickets + data.viewers[buyerAddress].tickets }
+    }
+    else{
+      newViewers[buyerAddress] = {teamChosen:teamChosen, tickets:tickets }
+    }
+    
+    query["viewers"] = newViewers
+    await EventInfo.findByIdAndUpdate(eventId, query, { new: true }).then(newData => {
+      if (newData) res.send(newData)
+      else res.send({ error: "event not found" }) 
+  })
+      .catch((err) => {
+        console.log("her", err)
+          return res.send({ "error": "user yss found" });
+      });
+
+
+    })
+    .catch((err) => {
+        return res.send({ "error": "user ys found" });
+    });
+
+  
+
+});
+
 router.get('/wallet-connect/', async (req, res, next) => {
     const { title, description, teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
         shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon, banner } = req.params;

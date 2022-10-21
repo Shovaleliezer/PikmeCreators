@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
-
 const EventInfoSchema = new Schema({
     title :{
         type:String,
@@ -58,12 +57,28 @@ const EventInfoSchema = new Schema({
         required: true,
         
     },
+    teamOneTickets :{
+        type:Number,
+        required: true
+    },
+    teamTwoTickets :{
+        type:Number,
+        required: true
+    },
     banner:{
         type:String,
         required: true,
     },
+    payed:{
+        type:Boolean,
+        required: true
+    },
     approved:{
         type:Boolean,
+        required: true
+    },
+    viewers:{
+        type:Object ,
         required: true
     }
     
