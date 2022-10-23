@@ -34,7 +34,7 @@
         @include flex(0, center, center)
     }
 
-    .timer-wrapper {
+    .timer {
         @include flex(0, center, center);
         width: 100%;
         font-size: 75px;
@@ -42,60 +42,85 @@
     }
 
     .buy-tickets {
-        @include flex(20px, center, center);
-        width: 100%;
-        margin-top: 100px;
+        margin: auto;
+        @include flex(15%, center, center);
 
-        .edit {
-            @include flex(45px, center, center);
-            color: $main;
-            width: 216px;
-            border: 1px solid $main;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.35);
+        .team-side {
+            @include flex(50px, center, center, column);
 
-            input {
-                border: 0;
-                color: $main;
-                width: 49px;
+            .pay {
+                background-color: $main;
+                width: 216px;
+                padding: 13px;
                 font-size: 20px;
-            }
-
-            input:focus {
-                outline: 0px;
-            }
-
-            input::-webkit-outer-spin-button,
-            input::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-
-            input[type="number"] {
-                -moz-appearance: textfield;
-            }
-
-            div {
-                @include flex(0, center, center);
-                font-size: 22px;
-                padding: 5px;
-                height: 28px;
-                width: 28px;
-                border: 1px solid $main;
-                border-radius: 50%;
+                border-radius: 5px;
                 cursor: pointer;
+                box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.35);
+            }
+
+            img {
+                width: 250px;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                border-radius: 50%
+            }
+
+            .vs {
+                height: 250px;
+                @include flex(0, center, center);
+                font-size: 120px;
+            }
+
+            .edit {
+                @include flex(45px, center, center);
+                color: $sec;
+                width: 216px;
+                border: 1px solid $sec;
+                border-radius: 5px;
+                padding: 10px;
+                box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.35);
+
+                input {
+                    border: 0;
+                    color: $sec;
+                    width: 49px;
+                    font-size: 20px;
+                    text-align: center;
+                }
+
+                input:focus {
+                    outline: 0px;
+                }
+
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                input[type="number"] {
+                    -moz-appearance: textfield;
+                }
+
+                div {
+                    @include flex(0, center, center);
+                    font-size: 22px;
+                    padding: 5px;
+                    height: 28px;
+                    width: 28px;
+                    border: 1px solid $sec;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
             }
         }
+    }
+}
 
-        .pay {
-            background-color: $main;
-            width: 216px;
-            padding: 13px;
-            font-size: 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.35);
+@media (max-width: $middle) {
+    .event-details {
+        .buy-tickets {
+            @include flex(10px, center, flex-start);
         }
     }
 }
@@ -103,18 +128,59 @@
 @media (max-width: $mobile) {
     .event-details {
         .event-banner {
-            height: 20vh;
+            height: 33vh;
         }
 
         .title-position {
-            top: calc(20vh - 50px);
+            top: calc(33vh - 50px);
             width: 100%;
             font-size: 22px;
         }
 
+        .timer {
+            font-size: 50px;
+            margin: 20px 0;
+        }
+
         .buy-tickets {
-            flex-direction: column;
-            margin-top: 20px;
+            @include flex(10px, center, flex-start, row);
+            position: relative;
+
+            .team-side {
+                img {
+                    width: 120px;
+                }
+
+                .pay {
+                    font-size: 14px;
+                    padding: 6px;
+                    width: 150px;
+                }
+
+                .vs {
+                    height: 100px;
+                    font-size: 40px;
+                }
+
+                .edit {
+                    @include flex(5px, center, center);                   
+                    position: absolute;
+                    top: 120px;
+                    left: 50%;
+                    transform: translate(-50%, 0);
+                    padding: 5px;
+                    width: unset;
+                    input{
+                        font-size: 14px;
+                    }
+                    div {
+                        font-size: 14px;
+                        padding: 3px;
+                        height: 20px;
+                        width: 20px;
+                    }
+                }
+            }
         }
     }
 }

@@ -10,8 +10,8 @@ function MyTimer({ expiryTimestamp }) {
     } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') })
 
     return (
-        <div className='timer-wrapper'>
-            <div className='timer'>
+        <div className='timer'>
+            <div>
                 <span>{make2digits(days)}</span>:<span>{make2digits(hours)}</span>:<span>{make2digits(minutes)}</span>:<span>{make2digits(seconds)}</span>
             </div>
         </div>
