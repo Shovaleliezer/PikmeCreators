@@ -286,12 +286,12 @@ router.get('/wallet-connect/', async (req, res, next) => {
         });
 });
 router.get('/get-event/:eventId', async (req, res, next) => {
-  const id = req.params.id
+  const id = req.params.eventId
   EventInfo.find({_id:String(id)}).then(data => {
       return res.json(data[0])
 })
       .catch((err) => {
-          return res.send({ "error": "user not found" });
+          return res.send({ "error": "event not found" });
       })
 })
 module.exports = router;

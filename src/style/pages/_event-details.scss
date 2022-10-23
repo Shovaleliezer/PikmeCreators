@@ -1,16 +1,42 @@
 .event-details {
     @include flex(0px, flex-start, flex-start, column);
+    position: relative;
+
     .event-banner {
         width: 100%;
         height: 26vh;
         object-fit: cover;
     }
+
     h1 {
         margin-bottom: 0;
     }
-    p {
-        color: #818181;
+
+    .title-position {
+        position: absolute;
+        height: 50px;
+        left: 50%;
+        top: calc(26vh - 50px);
+        transform: translate(-50%, 0);
+        font-size: 28px;
     }
+
+    .title-back{
+        background-color: #424242;
+        opacity: 0.5;
+        padding: 0 20px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        
+        p{
+            opacity: 0;
+        }
+    }
+    .title-text{
+        color: #f3f3f3;
+        @include flex(0,center,center)
+    }
+
     .buy-tickets {
         @include flex(20px, center, center);
         width: 100%;
@@ -31,17 +57,21 @@
                 width: 49px;
                 font-size: 20px;
             }
+
             input:focus {
                 outline: 0px;
             }
+
             input::-webkit-outer-spin-button,
             input::-webkit-inner-spin-button {
                 -webkit-appearance: none;
                 margin: 0;
             }
+
             input[type="number"] {
                 -moz-appearance: textfield;
             }
+
             div {
                 @include flex(0, center, center);
                 font-size: 22px;
@@ -71,6 +101,12 @@
         .event-banner {
             height: 20vh;
         }
+        .title-position{
+            top: calc(20vh - 50px);
+            width: 100%;
+            font-size: 22px;
+        }
+
         .buy-tickets {
             flex-direction: column;
             margin-top: 20px;
