@@ -143,6 +143,7 @@ router.post('/create-event', async (req, res, next) => {
 
 router.post('/sell-ticket/:eventId', async (req, res, next) => {
   //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
+  // confirm it with the block chain
   const eventId = req.params.eventId
   const { teamChosen, tickets, buyerAddress} = req.body;
   let query = {}
@@ -202,7 +203,7 @@ router.post('/sell-ticket/:eventId', async (req, res, next) => {
 
 
 router.post('/announce-winner/:eventId', async (req, res, next) => {
-  //announce the winner and 
+  //announce the winner ( make sure to check if the sender is admin)
   const eventId = req.params.eventId
   const { teamWon, ownerAddress} = req.body;
   let query = {}
@@ -249,16 +250,10 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
         console.log("her", err)
           return res.send({ "error": "user yss found" });
       });
-
-
-
     })
     .catch((err) => {
         return res.send({ "error": "user ys found" });
     });
-
-  
-
 });
 
 router.get('/wallet-connect/', async (req, res, next) => {
@@ -290,7 +285,7 @@ router.get('/wallet-connect/', async (req, res, next) => {
             return res.send(err);
         });
 });
-router.get('/get-event/:id', async (req, res, next) => {
+router.get('/get-event/:eventId', async (req, res, next) => {
   const id = req.params.id
   EventInfo.find({_id:String(id)}).then(data => {
       return res.json(data[0])
