@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router"
 import { useSelector } from "react-redux"
 import { eventService } from "../services/eventService"
-import { makeCommas } from "../services/utils"
+import { makeCommas, formatHour, formatDate } from "../services/utils"
 import Timer from "../cmps/timer"
 
 export function EventDetails(props) {
@@ -17,6 +17,8 @@ export function EventDetails(props) {
 
     const loadEvent = async () => {
         const loadedEvent = await eventService.getById(eventId)
+        console.log(typeof loadedEvent.teamOneTickets)
+        console.log(loadedEvent)
         setEvent(loadedEvent)
     }
 
@@ -27,8 +29,8 @@ export function EventDetails(props) {
         if (Number(tickets + value) >= 1 && Number(tickets + value) <= 9999) setTickets(Number(tickets + value))
     }
     const buyTickets = async (teamChosen) => {
-        const eventt = await eventService.sellTickets(event._id,{ tickets, teamChosen, buyerAddress: user.address })
-        console.log(eventt)
+        const eventt = await eventService.sellTickets(event._id, { tickets, teamChosen, buyerAddress: user.address })
+        //todo: pop up purchase confirmed
     }
 
     if (!event) return <p>loading...</p>
@@ -38,6 +40,19 @@ export function EventDetails(props) {
             <img className="event-banner" src={event.banner}></img>
             <div className="title-position title-back"><p>{event.title}</p></div>
             <div className="title-position title-text"><p>{event.title}</p></div>
+
+            <section className="event-upper">
+                <h1>Price pool : {makeCommas((event.teamOneTickets + event.teamTwoTickets) * 5)}$</h1>
+                <div className="detail-line">
+                    <p>{formatDate(event.createdAt)}-{formatHour(event.createdAt)}</p>
+                    <div className="detail-options" >
+                        <span className="material-symbols-outlined">thumb_up</span>
+                        <span className="material-symbols-outlined">star</span>
+                        <span className="material-symbols-outlined">share</span>
+                        <span className="material-symbols-outlined">more_horiz</span>
+                    </div>
+                </div>
+            </section>
 
             <Timer eventDate={new Date(event.date)} />
 

@@ -34,6 +34,31 @@
         @include flex(0, center, center)
     }
 
+    .event-upper {
+        border-bottom: 1px solid $gray;
+        width: 100%;
+
+        h1 {
+            font-size: 28px;
+            font-weight: 300;
+            margin-top: 12px;
+        }
+
+        .detail-line {
+            @include flex(0, space-between, space-between);
+            .detail-options {
+                @include flex(50px,center,center);
+                span{
+                    cursor:pointer
+                }
+            }
+            p{
+                color: $gray;
+                margin-top: 0;
+            }
+        }
+    }
+
     .timer {
         @include flex(0, center, center);
         width: 100%;
@@ -163,16 +188,18 @@
                 }
 
                 .edit {
-                    @include flex(5px, center, center);                   
+                    @include flex(5px, center, center);
                     position: absolute;
                     top: 120px;
                     left: 50%;
                     transform: translate(-50%, 0);
                     padding: 5px;
                     width: unset;
-                    input{
+
+                    input {
                         font-size: 14px;
                     }
+
                     div {
                         font-size: 14px;
                         padding: 3px;
