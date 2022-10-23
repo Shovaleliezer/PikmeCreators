@@ -9,8 +9,6 @@ function mode(arr){
     ).pop();
 }
 
-
-
 const namelist = ["fred", "marco", "nick", "bob", "steve", "alvert", "seo", "kim", "user51321", "user"]
 
 router.post('/wallet-connect/:walletAddress', async (req, res, next) => {

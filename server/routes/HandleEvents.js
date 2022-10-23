@@ -131,29 +131,30 @@ router.post('/create-event', async (req, res, next) => {
         teamTwoTickets:0,
         approved: false
 
-    });
+    })
     await eventInfo.save().then((result) => {
         return res.send(result);
     })
         .catch((err) => {
             console.log("err ", err);
             return res.send(err);
-        });
-});
+        })
+})
 
 router.post('/sell-ticket/:eventId', async (req, res, next) => {
   //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
   // confirm it with the block chain
   const eventId = req.params.eventId
+  console.log('id',eventId)
   const { teamChosen, tickets, buyerAddress} = req.body;
   let query = {}
   await EventInfo.findById( eventId).then( async data => {
+    console.log(data)
   
     let newViewers = data.viewers
     if(teamChosen=="teamOne"){
       const teamOneTickets = tickets + data.teamOneTickets
       query["teamOneTickets"] = teamOneTickets
-      
     }
     else{
       const teamTwoTickets = tickets + data.teamTwoTickets
@@ -189,15 +190,10 @@ router.post('/sell-ticket/:eventId', async (req, res, next) => {
         console.log("her", err)
           return res.send({ "error": "user yss found" });
       });
-
-
     })
     .catch((err) => {
         return res.send({ "error": "user ys found" });
     });
-
-  
-
 });
 
 

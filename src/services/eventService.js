@@ -3,13 +3,14 @@ import { httpService } from './http.service.js'
 export const eventService = {
     query,
     getById,
-    addEvent
+    addEvent,
+    sellTickets
 }
 window.cs = eventService
 
 async function query(filter) {
-        const events = await httpService.get(`handle-event/get-events`,filter)
-        return events
+    const events = await httpService.get(`handle-event/get-events`, filter)
+    return events
 }
 
 async function getById(eventId) {
@@ -18,6 +19,11 @@ async function getById(eventId) {
 }
 
 async function addEvent(event) {
-    const uploadedEvent = await httpService.post('handle-event/create-event',event)
+    const uploadedEvent = await httpService.post('handle-event/create-event', event)
     return uploadedEvent
+}
+
+async function sellTickets(eventId, details) {
+    const event = await httpService.post('handle-event/sell-ticket/' + eventId, details)
+    return event
 }

@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router"
+import { useSelector } from "react-redux"
 import { eventService } from "../services/eventService"
 import { makeCommas } from "../services/utils"
 import Timer from "../cmps/timer"
+
 export function EventDetails(props) {
     const [event, setEvent] = useState(null)
     const [tickets, setTickets] = useState(1)
+    const user = useSelector((state) => state.user)
     const { eventId } = useParams()
 
     useEffect(() => {
@@ -14,7 +17,6 @@ export function EventDetails(props) {
 
     const loadEvent = async () => {
         const loadedEvent = await eventService.getById(eventId)
-        console.log(loadedEvent)
         setEvent(loadedEvent)
     }
 
@@ -24,9 +26,11 @@ export function EventDetails(props) {
     const onButtonClick = (value) => {
         if (Number(tickets + value) >= 1 && Number(tickets + value) <= 9999) setTickets(Number(tickets + value))
     }
-    const buyTickets = () => {
-        console.log(tickets)
+    const buyTickets = async (teamChosen) => {
+        const eventt = await eventService.sellTickets(event._id,{ tickets, teamChosen, buyerAddress: user.address })
+        console.log(eventt)
     }
+
     if (!event) return <p>loading...</p>
 
     return (
@@ -40,7 +44,7 @@ export function EventDetails(props) {
             <section className="buy-tickets">
                 <div className="team-side">
                     <img src={event.teamOneIcon} />
-                    <div className={`pay color-${props.mode.type}`} onClick={buyTickets}>Buy tickets : {makeCommas(tickets * 5)}$</div>
+                    <div className={`pay color-${props.mode.type}`} onClick={() => buyTickets('teamOne')}>Buy tickets : {makeCommas(tickets * 5)}$</div>
                 </div>
                 <div className="team-side">
                     <div className="vs"><p>Vs</p></div>
@@ -52,10 +56,10 @@ export function EventDetails(props) {
                 </div>
                 <div className="team-side">
                     <img src={event.teamTwoIcon} />
-                    <div className={`pay color-${props.mode.type}`} onClick={buyTickets}>Buy tickets : {makeCommas(tickets * 5)}$</div>
+                    <div className={`pay color-${props.mode.type}`} onClick={() => buyTickets('teamTwo')}>Buy tickets : {makeCommas(tickets * 5)}$</div>
                 </div>
             </section>
-            
+
         </section>
     )
 }
