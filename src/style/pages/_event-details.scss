@@ -8,10 +8,6 @@
         object-fit: cover;
     }
 
-    h1 {
-        margin-bottom: 0;
-    }
-
     .title-position {
         position: absolute;
         height: 50px;
@@ -21,20 +17,28 @@
         font-size: 28px;
     }
 
-    .title-back{
+    .title-back {
         background-color: #424242;
         opacity: 0.5;
         padding: 0 20px;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-        
-        p{
+
+        p {
             opacity: 0;
         }
     }
-    .title-text{
+
+    .title-text {
         color: #f3f3f3;
-        @include flex(0,center,center)
+        @include flex(0, center, center)
+    }
+
+    .timer-wrapper {
+        @include flex(0, center, center);
+        width: 100%;
+        font-size: 75px;
+        margin: 50px 0;
     }
 
     .buy-tickets {
@@ -101,7 +105,8 @@
         .event-banner {
             height: 20vh;
         }
-        .title-position{
+
+        .title-position {
             top: calc(20vh - 50px);
             width: 100%;
             font-size: 22px;

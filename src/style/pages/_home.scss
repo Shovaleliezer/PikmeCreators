@@ -40,3 +40,9 @@
         margin: 8px;
     }
 }
+
+@media (max-width: $mobile){
+    .events-container {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    }
+}

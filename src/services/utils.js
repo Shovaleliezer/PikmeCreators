@@ -58,11 +58,9 @@ export function formatHour(date){
   return date.substring(14,16) + ':' + date.substring(17,19)
 }
 
-function make2digits(num) {
-  let string = num.toString()
-  if (string.length === 1) string += '.0'
-  if (string.length > 3) string = string.substring(0, 3)
-  return string
+export function make2digits(num) {
+  if(num<10) return '0'+ num.toString()
+  return num
 }
 
   // localStorage.setItem(key, JSON.stringify(value))

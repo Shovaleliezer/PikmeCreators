@@ -1,4 +1,5 @@
-import { useTimer } from 'react-timer-hook';
+import { useTimer } from 'react-timer-hook'
+import { make2digits } from "../services/utils"
 
 function MyTimer({ expiryTimestamp }) {
     const {
@@ -9,20 +10,19 @@ function MyTimer({ expiryTimestamp }) {
     } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') })
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '100px' }}>
-                <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+        <div className='timer-wrapper'>
+            <div className='timer'>
+                <span>{make2digits(days)}</span>:<span>{make2digits(hours)}</span>:<span>{make2digits(minutes)}</span>:<span>{make2digits(seconds)}</span>
             </div>
         </div>
-    );
+    )
 }
 
 export default function Timer(props) {
     const time = props.eventDate
     time.setSeconds(time.getSeconds())
     return (
-        <div>
             <MyTimer expiryTimestamp={time} />
-        </div>
-    );
+    )
 }
+
