@@ -1,0 +1,33 @@
+.dark {
+    background-color: $back-dark;
+    color: $color-dark;
+}
+.light {
+    background-color: $back-light;
+    color: $color-light;
+}
+.border-dark {
+    border-color: $color-dark;
+}
+
+.border-light {
+    border-color: $color-light;
+}
+.color-dark{
+    color: $color-dark;
+}
+.color-light{
+    color: $color-light;
+}
+.back-light{
+    background-color: $back-light;
+}
+.back-dark{
+    background-color: $back-dark;
+}
+.main-color {
+    color: $main
+}
+.sec-color{
+    color:$sec
+}

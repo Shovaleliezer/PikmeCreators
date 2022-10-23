@@ -11,7 +11,7 @@ import { Menu } from "../src/cmps/menu"
 
 function App() {
   const mode = useSelector((storeState) => storeState.generalModule.mode)
-  document.body.style.backgroundColor = mode.background
+  document.body.classList.add(`back-${mode.type}`)
   return (
     <Router>
       <div className="app">

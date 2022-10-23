@@ -37,7 +37,7 @@ export function EventDetails(props) {
                     <input className={props.mode.type} type='number' value={tickets} step={1} onChange={onInputClick} />
                     <div className="noselect" onClick={() => onButtonClick(1)}>+</div>
                 </div>
-                <div className="pay" style={{color:props.mode.background}} onClick={buyTickets}>Buy tickets : {makeCommas(tickets * 5)}$</div>
+                <div className={`pay color-${props.mode.type}`} onClick={buyTickets}>Buy tickets : {makeCommas(tickets * 5)}$</div>
             </div>
 
 
