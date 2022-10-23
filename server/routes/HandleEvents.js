@@ -125,6 +125,10 @@ router.post('/create-event', async (req, res, next) => {
         teamOneIcon,
         teamTwoIcon,
         banner,
+        viewers: {},
+        teamOneTickets:0,
+        payed:false,
+        teamTwoTickets:0,
         approved: false
 
     });
@@ -136,6 +140,122 @@ router.post('/create-event', async (req, res, next) => {
             return res.send(err);
         });
 });
+
+router.post('/sell-ticket/:eventId', async (req, res, next) => {
+  //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
+  // confirm it with the block chain
+  const eventId = req.params.eventId
+  const { teamChosen, tickets, buyerAddress} = req.body;
+  let query = {}
+  await EventInfo.findById( eventId).then( async data => {
+  
+    let newViewers = data.viewers
+    if(teamChosen=="teamOne"){
+      const teamOneTickets = tickets + data.teamOneTickets
+      query["teamOneTickets"] = teamOneTickets
+      
+    }
+    else{
+      const teamTwoTickets = tickets + data.teamTwoTickets
+      query["teamTwoTickets"] = teamTwoTickets
+    }
+    
+    if(data.viewers[buyerAddress]){
+      if(data.viewers[buyerAddress].teamChosen!=teamChosen){
+        if(teamChosen=="teamOne"){
+          const teamOneTickets = tickets + data.teamOneTickets + data.viewers[buyerAddress].tickets
+          query["teamOneTickets"] = teamOneTickets
+          query["teamTwoTickets"] = data.teamTwoTickets -  data.viewers[buyerAddress].tickets
+         
+        }
+        else{
+          const teamTwoTickets = tickets + data.teamTwoTickets+ data.viewers[buyerAddress].tickets
+          query["teamTwoTickets"] = teamTwoTickets
+          query["teamOneTickets"] = data.teamOneTickets -  data.viewers[buyerAddress].tickets
+        }
+      }
+      newViewers[buyerAddress] = {teamChosen:teamChosen, tickets:tickets + data.viewers[buyerAddress].tickets }
+    }
+    else{
+      newViewers[buyerAddress] = {teamChosen:teamChosen, tickets:tickets }
+    }
+    
+    query["viewers"] = newViewers
+    await EventInfo.findByIdAndUpdate(eventId, query, { new: true }).then(newData => {
+      if (newData) res.send(newData)
+      else res.send({ error: "event not found" }) 
+  })
+      .catch((err) => {
+        console.log("her", err)
+          return res.send({ "error": "user yss found" });
+      });
+
+
+    })
+    .catch((err) => {
+        return res.send({ "error": "user ys found" });
+    });
+
+  
+
+});
+
+
+
+router.post('/announce-winner/:eventId', async (req, res, next) => {
+  //announce the winner ( make sure to check if the sender is admin)
+  const eventId = req.params.eventId
+  const { teamWon, ownerAddress} = req.body;
+  let query = {}
+  let moneyPerTicket = 0;
+  let creatorOne = {}
+  let creatorTwo = {}
+  let owner = {}
+  await EventInfo.findById( eventId).then( async data => {
+    let newViewers = data.viewers
+    if (teamWon == "teamOne"){
+      if(data.teamOneTickets>0 && data.teamTwoTickets >0){
+        moneyPerTicket = ((data.teamTwoTickets )*5*0.9 +  data.teamOneTickets*5)/data.teamOneTickets
+      }
+      creatorOne = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.04 }
+      creatorTwo = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.01}
+      owner = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.049}
+    }
+    else if (teamWon == "teamTwo"){
+      if(data.teamOneTickets>0 && data.teamTwoTickets >0){
+        moneyPerTicket = (data.teamTwoTickets*5 +( data.teamOneTickets)*5*0.9)/data.teamTwoTickets
+      }
+      creatorOne = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.04 }
+      creatorTwo = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.01}
+      owner = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.049}
+    }
+    for (var key in newViewers) {
+      if(newViewers[key].teamChosen == teamWon){
+        newViewers[key] = {teamChosen:newViewers[key].teamChosen, tickets:newViewers[key].tickets, moneyWon:newViewers[key].tickets*moneyPerTicket }
+      }
+      else{
+        newViewers[key] = {teamChosen:newViewers[key].teamChosen, tickets:newViewers[key].tickets, moneyWon:0 }
+      }
+    }
+    newViewers[data.teamOneAddress] = creatorOne
+    newViewers[data.teamTwoAddress] = creatorTwo
+    newViewers[ownerAddress] = owner
+    query["viewers"] = newViewers
+    
+    await EventInfo.findByIdAndUpdate(eventId, query, { new: true }).then(newData => {
+      if (newData) res.send(newData)
+      else res.send({ error: "event not found" }) 
+  })
+      .catch((err) => {
+        console.log("her", err)
+          return res.send({ "error": "user yss found" });
+      });
+    })
+    .catch((err) => {
+        return res.send({ "error": "user ys found" });
+    });
+});
+
 router.get('/wallet-connect/', async (req, res, next) => {
     const { title, description, teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
         shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon, banner } = req.params;
@@ -165,7 +285,7 @@ router.get('/wallet-connect/', async (req, res, next) => {
             return res.send(err);
         });
 });
-router.get('/get-event/:id', async (req, res, next) => {
+router.get('/get-event/:eventId', async (req, res, next) => {
   const id = req.params.id
   EventInfo.find({_id:String(id)}).then(data => {
       return res.json(data[0])
