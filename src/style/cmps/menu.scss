@@ -46,7 +46,7 @@
             @include flex(10px, flex-start, center);
         }
         a:hover{
-            color:$main
+            color: $main;
         }
     }
 

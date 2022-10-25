@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from "react-redux"
 import { setPopup } from "../store/actions/general.actions"
+import { isMobile } from "react-device-detect"
 import { userService } from "../services/userService"
-import { setIsConnected, setNickName, setAbout, setAddress, setImage, setEvents, setStats } from '../store/reducers/userReducer'
+import { setIsConnected, setNickName, setAbout, setAddress, setImage } from '../store/reducers/userReducer'
 import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
 
 export function Popup({ mode }) {
     const dispatch = useDispatch()
     const { popup } = useSelector((storeState) => storeState.generalModule)
-    console.log(popup)
     const { ethereum } = window
 
     if (ethereum) {
@@ -45,7 +45,8 @@ export function Popup({ mode }) {
     return (<>
         <div className="screen blur" onClick={() => { dispatch(setPopup('')) }}></div>
         <section className={`popup ${mode.type}`}>
-            {popup === 'connect' && <div> {ethereum?  'lalaaaaa' : 'lolooooo'}</div>}
+            {popup === 'connect' && ethereum?  <WalletConnect connectWallet={connectWallet} from='popup'/> : <ExtensionConnect mode={mode} />}
+            <div onClick={() => dispatch(setPopup(''))} className={`popup-close ${mode.type}`}><p>Tap to close</p></div>
         </section>
     </>
     )

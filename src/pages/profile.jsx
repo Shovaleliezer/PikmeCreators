@@ -76,7 +76,7 @@ export function Profile(props) {
   }
 
   if (!ethereum) return <ExtensionConnect mode={props.mode} />
-  else if (!isConnected) return <WalletConnect connectWallet={connectWallet} />
+  else if (!isConnected) return <WalletConnect connectWallet={connectWallet} from='profile'/>
 
   else return (
     <section className={`profile ${props.mode.type}`}>
