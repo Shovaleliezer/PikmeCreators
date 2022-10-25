@@ -9,7 +9,6 @@ import { ExtensionConnect } from '../cmps/extention-connect'
 export function Popup({ mode }) {
     const dispatch = useDispatch()
     const { popup } = useSelector((storeState) => storeState.generalModule)
-    if(popup === 'connected') setTimeout(()=>{dispatch(setPopup(''))},800)
     const user = useSelector((state) => state.user)
     const { ethereum } = window
 

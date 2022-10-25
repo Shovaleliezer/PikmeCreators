@@ -2,47 +2,59 @@
     display: grid;
     grid-gap: 30px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    margin-top: 18px;
+}
 
-    .event-preview {
-        img {
-            object-fit: cover;
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 6px;
-        }
-
-        img:hover {
-            transform: scale(1.02);
-        }
-
-        h2 {
-            margin-top: 5px;
-            margin-bottom: 4px;
-            color: $main;
-        }
-
-        p {
-            margin-bottom: 4px;
-        }
-    }
+.container-few {
+    @include flex(20vh, center, center,column);
+    width: 55%;
+    margin: auto;
 }
 
 .not-found {
-    @include flex(0,center,center,column);
+    @include flex(0, center, center, column);
     margin-top: 25vh;
+
     img {
         width: 220px;
     }
-    p{
+
+    p {
         text-align: center;
         font-size: 30px;
         margin: 8px;
     }
 }
 
-@media (max-width: $mobile){
+.event-preview {
+    img {
+        object-fit: cover;
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 6px;
+    }
+
+    img:hover {
+        transform: scale(1.02);
+    }
+
+    h2 {
+        margin-top: 5px;
+        margin-bottom: 4px;
+        color: $main;
+    }
+
+    p {
+        margin-bottom: 4px;
+    }
+}
+
+@media (max-width: $mobile) {
     .events-container {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    }
+    .container-few{
+        width: 100%;
+        gap: 30px;
+        
     }
 }

@@ -22,6 +22,7 @@
 * {
     box-sizing: border-box;
     font-family: roboto-normal;
+    scroll-behavior: smooth;
 }
 .main-layout{
     max-width: 98vw;
@@ -29,6 +30,7 @@
     margin-top: 70px;
     margin-bottom: 60px;
 }
+
 @media (max-width: $mobile){
     .main-layout{
         margin-bottom: 60px;
