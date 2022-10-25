@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { eventService } from "../services/eventService"
 import { makeCommas, formatHour, formatDate } from "../services/utils"
+import { setPopup } from "../store/actions/general.actions"
 import Timer from "../cmps/timer"
 
 export function EventDetails(props) {
+    const dispatch = useDispatch()
     const [event, setEvent] = useState(null)
     const [tickets, setTickets] = useState(1)
     const user = useSelector((state) => state.user)
@@ -17,8 +19,6 @@ export function EventDetails(props) {
 
     const loadEvent = async () => {
         const loadedEvent = await eventService.getById(eventId)
-        console.log(typeof loadedEvent.teamOneTickets)
-        console.log(loadedEvent)
         setEvent(loadedEvent)
     }
 
@@ -29,6 +29,10 @@ export function EventDetails(props) {
         if (Number(tickets + value) >= 1 && Number(tickets + value) <= 9999) setTickets(Number(tickets + value))
     }
     const buyTickets = async (teamChosen) => {
+        if (!user.isConnected) {
+            dispatch(setPopup('connect'))
+            return
+        }
         const eventt = await eventService.sellTickets(event._id, { tickets, teamChosen, buyerAddress: user.address })
         //todo: pop up purchase confirmed
     }

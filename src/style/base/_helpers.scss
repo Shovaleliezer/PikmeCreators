@@ -42,7 +42,10 @@
     width: 99vw;
     opacity: 0;
     background-color: black;
-    z-index: 9;
+    z-index: 10;
+}
+.blur{
+    opacity: 0.3;
 }
 
 .clickable {

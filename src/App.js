@@ -8,6 +8,7 @@ import { Header } from './cmps/header'
 import { Tickets } from './pages/tickets'
 import { EventDetails } from './pages/event-details'
 import { Menu } from "../src/cmps/menu"
+import {Popup} from "../src/cmps/popup"
 
 function App() {
   const mode = useSelector((storeState) => storeState.generalModule.mode)
@@ -27,6 +28,7 @@ function App() {
         </main>
       </div>
       <Menu mode={mode} />
+      <Popup mode={mode} />
     </Router>
   )
 }

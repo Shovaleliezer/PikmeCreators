@@ -44,7 +44,9 @@
         a{
             text-decoration: none;
             @include flex(10px, flex-start, center);
-            color: $main;
+        }
+        a:hover{
+            color:$main
         }
     }
 

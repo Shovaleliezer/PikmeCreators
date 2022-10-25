@@ -3,7 +3,8 @@ const INITIAL_STATE = {
         type: 'light',
     },
     filter: '',
-    menu: ''
+    menu: '',
+    popup:''
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {
@@ -27,9 +28,11 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, filter: action.filter }
         case 'SET_MENU':
             return { ...state, menu: action.menu }
-            case 'TOGGLE_MENU':
-                if(state.menu==='') return { ...state, menu: 'normal' }
-                else return { ...state, menu: '' }
+        case 'SET_POPUP':
+            return { ...state, popup: action.popup }
+        case 'TOGGLE_MENU':
+            if (state.menu === '') return { ...state, menu: 'normal' }
+            else return { ...state, menu: '' }
         default:
 
             return state;

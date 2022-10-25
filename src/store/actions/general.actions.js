@@ -27,6 +27,11 @@ export function setMenu(menu){
         dispatch({ type: 'SET_MENU',menu })
     }
 }
+export function setPopup(popup){
+    return (dispatch) => {
+        dispatch({ type: 'SET_POPUP',popup })
+    }
+}
 export function toggleMenu(){
     return (dispatch) => {
         dispatch({ type: 'TOGGLE_MENU' })
