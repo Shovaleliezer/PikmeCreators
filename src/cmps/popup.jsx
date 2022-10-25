@@ -9,6 +9,8 @@ import { ExtensionConnect } from '../cmps/extention-connect'
 export function Popup({ mode }) {
     const dispatch = useDispatch()
     const { popup } = useSelector((storeState) => storeState.generalModule)
+    if(popup === 'connected') setTimeout(()=>{dispatch(setPopup(''))},800)
+    const user = useSelector((state) => state.user)
     const { ethereum } = window
 
     if (ethereum) {
@@ -31,6 +33,7 @@ export function Popup({ mode }) {
                 dispatch(setNickName(res.nickName))
                 dispatch(setIsConnected(true))
                 dispatch(setImage(res.image))
+                dispatch(setPopup('connected'))
             }
             else {
                 dispatch(setIsConnected(false))
@@ -43,10 +46,16 @@ export function Popup({ mode }) {
     if (!popup) return <></>
 
     return (<>
-        <div className="screen blur" onClick={() => { dispatch(setPopup('')) }}></div>
+        <div className="screen blur" onClick={() => { dispatch(setPopup('')) }}>
+            {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}            
+        </div>
         <section className={`popup ${mode.type}`}>
-            {popup === 'connect' && ethereum?  <WalletConnect connectWallet={connectWallet} from='popup'/> : <ExtensionConnect mode={mode} />}
-            <div onClick={() => dispatch(setPopup(''))} className={`popup-close ${mode.type}`}><p>Tap to close</p></div>
+        {(!isMobile && popup !== 'connected') && <div onClick={() => dispatch(setPopup(''))} className={`popup-close ${mode.type} clickable`}><span className="material-symbols-outlined">cancel</span></div>}
+            {popup === 'connect' && <div>{ethereum ? <WalletConnect connectWallet={connectWallet} from='popup' /> : <ExtensionConnect mode={mode} />}</div>}
+            {popup === 'connected' && <div className="wellcome">
+                <h1>welcome back {user.nickName}</h1>
+                <div onClick={() => dispatch(setPopup(''))}>Done</div>
+                </div>}
         </section>
     </>
     )
