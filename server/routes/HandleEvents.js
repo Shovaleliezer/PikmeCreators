@@ -126,6 +126,7 @@ router.post('/create-event', async (req, res, next) => {
         teamTwoIcon,
         banner,
         viewers: {},
+        likes:{},
         teamOneTickets:0,
         payed:false,
         teamTwoTickets:0,
@@ -203,6 +204,7 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
   const eventId = req.params.eventId
   const { teamWon, ownerAddress} = req.body;
   let query = {}
+  let ticketCost = 0.02;
   let moneyPerTicket = 0;
   let creatorOne = {}
   let creatorTwo = {}
@@ -211,22 +213,28 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
     let newViewers = data.viewers
     if (teamWon == "teamOne"){
       if(data.teamOneTickets>0 && data.teamTwoTickets >0){
-        moneyPerTicket = ((data.teamTwoTickets )*5*0.9 +  data.teamOneTickets*5)/data.teamOneTickets
+        moneyPerTicket = ((data.teamTwoTickets )*ticketCost*0.9 +  data.teamOneTickets*ticketCost)/data.teamOneTickets
       }
-      creatorOne = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.04 }
-      creatorTwo = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.01}
-      owner = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.049}
+      creatorOne = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.04 }
+      creatorTwo = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.01}
+      owner = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.049}
     }
     else if (teamWon == "teamTwo"){
       if(data.teamOneTickets>0 && data.teamTwoTickets >0){
-        moneyPerTicket = (data.teamTwoTickets*5 +( data.teamOneTickets)*5*0.9)/data.teamTwoTickets
+        moneyPerTicket = (data.teamTwoTickets*ticketCost +( data.teamOneTickets)*ticketCost*0.9)/data.teamTwoTickets
       }
-      creatorOne = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.04 }
-      creatorTwo = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.01}
-      owner = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.049}
+      creatorOne = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.04 }
+      creatorTwo = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.01}
+      owner = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.049}
+    }
+    else if (teamWon == "draw"){
+      moneyPerTicket = ticketCost
     }
     for (var key in newViewers) {
       if(newViewers[key].teamChosen == teamWon){
+        newViewers[key] = {teamChosen:newViewers[key].teamChosen, tickets:newViewers[key].tickets, moneyWon:newViewers[key].tickets*moneyPerTicket }
+      }
+      else if(teamWon=="draw"){
         newViewers[key] = {teamChosen:newViewers[key].teamChosen, tickets:newViewers[key].tickets, moneyWon:newViewers[key].tickets*moneyPerTicket }
       }
       else{
@@ -249,6 +257,51 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
     })
     .catch((err) => {
         return res.send({ "error": "user ys found" });
+    });
+});
+
+router.post('/makeLike/:eventId', async (req, res, next) => {
+  //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
+  // confirm it with the block chain
+  const eventId = req.params.eventId
+  console.log('id',eventId)
+  const { buyerAddress, didLike} = req.body;
+  let query = {}
+  await EventInfo.findById( eventId).then( async data => {
+    console.log(data.likes)
+  
+    let newLikes = data.likes
+  
+    newLikes[buyerAddress] = didLike;
+  
+    query["likes"] = newLikes
+    
+    
+    await EventInfo.findByIdAndUpdate(eventId, query, { new: true }).then(newData => {
+      let countLikes = 0;
+      let didLikeUser = false;
+      
+      if (newData) {
+        for (var key in newData.likes) {
+          if(newData.likes[key]){
+            countLikes += 1;
+          }
+        }
+        if(newData.likes[buyerAddress]){
+          didLikeUser = true;
+        }
+    
+        res.send({"didLike":didLikeUser, "numberOfLikes":countLikes })
+      } 
+      else res.send({ error: "ops not found" }) 
+  })
+      .catch((err) => {
+        console.log("her", err)
+          return res.send({ "error": "event not found" });
+      });
+    })
+    .catch((err) => {
+        return res.send({ "error": "event not found" });
     });
 });
 
@@ -281,6 +334,7 @@ router.get('/wallet-connect/', async (req, res, next) => {
             return res.send(err);
         });
 });
+
 router.get('/get-event/:eventId', async (req, res, next) => {
   const id = req.params.eventId
   EventInfo.find({_id:String(id)}).then(data => {
@@ -290,4 +344,41 @@ router.get('/get-event/:eventId', async (req, res, next) => {
           return res.send({ "error": "event not found" });
       })
 })
+
+
+router.get('/getEventStats/:eventId', async (req, res, next) => {
+  //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
+  // confirm it with the block chain
+  const eventId = req.params.eventId
+  const { buyerAddress} = req.body;
+ 
+  await EventInfo.findById( eventId).then( async newData => {
+   
+      let ticketsSold = 0;
+      let countLikes = 0;
+      let didLikeUser = false;
+      
+      if (newData) {
+        for (var key in newData.views) {
+          ticketsSold += newData.views[key].tickets
+        }
+        for (var key in newData.likes) {
+          if(newData.likes[key]){
+            countLikes += 1;
+          }
+        }
+        if(newData.likes[buyerAddress]){
+          didLikeUser = true;
+        }
+    
+        res.send({"didLike":didLikeUser, "numberOfLikes":countLikes, ticketsSold})
+      } 
+      else res.send({ error: "ops not found" }) 
+  })
+
+    .catch((err) => {
+        return res.send({ "error": "event not found" });
+    });
+});
+
 module.exports = router;
