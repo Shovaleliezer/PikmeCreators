@@ -80,7 +80,11 @@ const EventInfoSchema = new Schema({
     viewers:{
         type:Object ,
         required: true
-    }
+    },
+    likes:{
+        type:Object ,
+        required: true
+    },
     
 },{timestamps:true});
 //s
