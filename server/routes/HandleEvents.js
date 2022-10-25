@@ -204,6 +204,7 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
   const eventId = req.params.eventId
   const { teamWon, ownerAddress} = req.body;
   let query = {}
+  let ticketCost = 0.02;
   let moneyPerTicket = 0;
   let creatorOne = {}
   let creatorTwo = {}
@@ -212,22 +213,28 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
     let newViewers = data.viewers
     if (teamWon == "teamOne"){
       if(data.teamOneTickets>0 && data.teamTwoTickets >0){
-        moneyPerTicket = ((data.teamTwoTickets )*5*0.9 +  data.teamOneTickets*5)/data.teamOneTickets
+        moneyPerTicket = ((data.teamTwoTickets )*ticketCost*0.9 +  data.teamOneTickets*ticketCost)/data.teamOneTickets
       }
-      creatorOne = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.04 }
-      creatorTwo = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.01}
-      owner = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.049}
+      creatorOne = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.04 }
+      creatorTwo = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.01}
+      owner = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.049}
     }
     else if (teamWon == "teamTwo"){
       if(data.teamOneTickets>0 && data.teamTwoTickets >0){
-        moneyPerTicket = (data.teamTwoTickets*5 +( data.teamOneTickets)*5*0.9)/data.teamTwoTickets
+        moneyPerTicket = (data.teamTwoTickets*ticketCost +( data.teamOneTickets)*ticketCost*0.9)/data.teamTwoTickets
       }
-      creatorOne = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.04 }
-      creatorTwo = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.01}
-      owner = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*5*0.049}
+      creatorOne = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.04 }
+      creatorTwo = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.01}
+      owner = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.049}
+    }
+    else if (teamWon == "draw"){
+      moneyPerTicket = ticketCost
     }
     for (var key in newViewers) {
       if(newViewers[key].teamChosen == teamWon){
+        newViewers[key] = {teamChosen:newViewers[key].teamChosen, tickets:newViewers[key].tickets, moneyWon:newViewers[key].tickets*moneyPerTicket }
+      }
+      else if(teamWon=="draw"){
         newViewers[key] = {teamChosen:newViewers[key].teamChosen, tickets:newViewers[key].tickets, moneyWon:newViewers[key].tickets*moneyPerTicket }
       }
       else{
@@ -327,6 +334,7 @@ router.get('/wallet-connect/', async (req, res, next) => {
             return res.send(err);
         });
 });
+
 router.get('/get-event/:eventId', async (req, res, next) => {
   const id = req.params.eventId
   EventInfo.find({_id:String(id)}).then(data => {
