@@ -11,10 +11,11 @@ export function Home(props) {
     const { filter } = useSelector((storeState) => storeState.generalModule)
     let gridView = '300px'
     if (events) {
-        if (events.length > 10) gridView = '300px'
-        else if (events.length > 6) gridView = '30%'
-        else gridView = '45%'
+        if (events.length > 10) gridView = '300px' //11+
+        else if (events.length >= 5) gridView = '30%' //5-10
+        else gridView = '100%' //6-
     }
+
 
     useEffect(() => {
         loadEvents(filter)
@@ -28,7 +29,7 @@ export function Home(props) {
     return (
         <div className={props.mode.type}>
             <FilterBar mode={props.mode} />
-            {events.length > 0 ? <section className='events-container' style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${gridView}, 1fr))` }}>
+            {events.length > 0 ? <section className='events-container' style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${gridView}, 1fr))`, width:'55vw', margin:'auto'}}>
                 {events.map(ev => <EventBox ev={ev} mode={props.mode} key={ev._id} />)}
             </section> :
                 <div className="center not-found">
