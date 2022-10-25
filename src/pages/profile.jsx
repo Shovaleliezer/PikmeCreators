@@ -20,8 +20,8 @@ export function Profile(props) {
   const [selected, setSelected] = useState('history')
   const [nameEdit, setNameEdit] = useState(false)
   const nameRef = useRef()
+  const { ethereum } = window
 
-  const { ethereum } = window;
   if (ethereum) {
     window.ethereum.on('accountsChanged', async (accounts) => {
       if (!accounts[0]) {
