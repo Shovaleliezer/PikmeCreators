@@ -43,7 +43,7 @@ export function FilterBar({ mode }) {
         {name:'rocket league',search:'rocket league'},
     ]
     return (
-        <div className='wrapper'>
+        
             <div className={`filter-bar ${mode.type} noselect`} style={{ overflowX: isScroll }}>
                 <div style={{ display: showArrows, right: '10px' }} className={`${mode.type} filter-nav clickable`}><span className="material-symbols-outlined" onClick={() => scroll(window.innerWidth * 0.75)}>chevron_right</span></div>
                 <div style={{ display: showArrows, left: '10px' }} className={`${mode.type} filter-nav clickable`}><span className="material-symbols-outlined" onClick={() => scroll(-window.innerWidth * 0.75)}>chevron_left</span></div>
@@ -52,7 +52,7 @@ export function FilterBar({ mode }) {
                      key={search.name} onClick={() => clickFilter(search)}>{search.name.toLocaleUpperCase()}</div>
                 })}
             </div>
-        </div>
+       
 
     )
 }
