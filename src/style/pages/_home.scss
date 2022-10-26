@@ -5,7 +5,7 @@
 }
 
 .container-few {
-    @include flex(10vh, center, center,column);
+    @include flex(calc(20vh - 100px), center, center,column);
     width: 1100px;
     margin: auto;
     .event-preview{

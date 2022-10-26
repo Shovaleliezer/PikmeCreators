@@ -5,8 +5,8 @@ export function EventBox(props) {
     let desc = description.length>120? description.slice(0,120)+'...' : description
 
     return (
-        <div className='event-preview clickable' >
-            <NavLink to={`/event/${_id}`} className={`undecorate ${props.mode.type}`}>
+        <div className='event-preview' >
+            <NavLink to={`/event/${_id}`} className={`undecorate ${props.mode.type} clickable`}>
                 <img src={banner} />
                 <h2>{title}</h2>
                 <p>{desc}</p>

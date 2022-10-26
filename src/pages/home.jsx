@@ -44,7 +44,7 @@ export function Home(props) {
                 {events.map(ev => <EventBox margin={false} ev={ev} mode={props.mode} key={ev._id} />)}
             </section>}
 
-            {(events.length < 5 && events.length > 0) && <section className='container-few' scroll="no">
+            {(events.length < 5 && events.length > 0) && <section className='container-few'>
                 {events.map((ev,idx) => <EventBox margin={true} ev={ev} mode={props.mode} key={ev._id}/>)}
             </section>}
 
