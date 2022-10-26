@@ -9,33 +9,24 @@ export function Home(props) {
     const dispatch = useDispatch()
     const [events, setEvents] = useState([])
     const { filter } = useSelector((storeState) => storeState.generalModule)
-    const [item, setItem] = useState(0)
     let gridView = events.length <= 9 ? '30%' : '300px'
 
     useEffect(() => {
         loadEvents(filter)
     }, [filter])
 
-    const loadEvents = async (filter) => {
-        const loadedEvents = await eventService.query(filter)
-        setEvents(loadedEvents.slice(0, 4))
-    }
-
     useEffect(() => {
-        window.addEventListener("wheel", e => handleScrolling(e), { passive: false })
-        return window.removeEventListener("wheel", e => handleScrolling(e))
-    }, [])
+        console.log(props.item)
+        const element = document.getElementsByClassName("event-preview")[props.item]
+        if (element) element.scrollIntoView({ alignToTop: true })
+        else console.log('no el found')
+    }, [props.item])
 
-    const handleScrolling = (e) => {
-        // e.preventDefault()
-        // if (e.wheelDeltaY > 0) console.log('up')
-        // else console.log('down')
-    }
-    const arrowClick = (value) => {
-        if (item + value < 0 || item + value > events.length) return
-        const element = document.getElementsByClassName("event-preview")[item + value]
-        element.scrollIntoView({ alignToTop: true })
-        setItem(item + value)
+    const loadEvents = async (filter) => {
+        let loadedEvents = await eventService.query(filter)
+        loadedEvents = loadedEvents.slice(0, 4)
+        setEvents(loadedEvents)
+        props.setEventsLength(loadedEvents.length)
     }
 
     if (!events) return <p>loading...</p>
@@ -50,8 +41,8 @@ export function Home(props) {
             {(events.length < 5 && events.length > 0) && <><section className='container-few'>
                 {events.map((ev, idx) => <EventBox margin={true} ev={ev} mode={props.mode} key={ev._id} />)}
             </section>
-                <div onClick={() => { arrowClick(-1) }} className='next-event up noselect'><span className="material-symbols-outlined">arrow_upward</span></div>
-                <div onClick={() => { arrowClick(1) }} className='next-event down noselect'><span className="material-symbols-outlined">arrow_downward</span></div>
+                <div onClick={() => { props.arrowClick(-1) }} className='next-event up noselect'><span className="material-symbols-outlined">arrow_upward</span></div>
+                <div onClick={() => { props.arrowClick(1) }} className='next-event down noselect'><span className="material-symbols-outlined">arrow_downward</span></div>
             </>}
 
             {events.length === 0 && <div className="center not-found">

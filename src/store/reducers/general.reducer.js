@@ -4,7 +4,8 @@ const INITIAL_STATE = {
     },
     filter: '',
     menu: '',
-    popup:''
+    popup: '',
+    sleep: true
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {
@@ -34,9 +35,6 @@ export function generalReducer(state = INITIAL_STATE, action) {
             if (state.menu === '') return { ...state, menu: 'normal' }
             else return { ...state, menu: '' }
         default:
-
             return state;
-
-
     }
 }

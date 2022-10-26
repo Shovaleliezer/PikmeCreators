@@ -16,7 +16,7 @@ export function Header(props) {
     return (
         <>
             <nav className={`header ${props.mode.type} noselect`}>
-                    {!isMobile ?
+                {!isMobile ?
                     <div>
                         <img className="logo" src={require('../style/imgs/logo.png')} />
                         <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'>Home</NavLink>
