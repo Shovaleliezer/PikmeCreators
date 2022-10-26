@@ -2,8 +2,10 @@
 	@include flex(20px,flex-start);
     width: 99%;
 	white-space: nowrap;
-	padding: 4px;
-	margin-bottom: 25px;
+	position: fixed;
+	top:55px;
+	padding: 10px;
+	z-index: 1;
 	
 	& :nth-child(3){
 		margin-left: 30px;
@@ -22,6 +24,11 @@
 		position: absolute;
 		z-index: 1;
 		color: $main;
+		position: fixed;
+		top: 65px;
+		right: 10px;
+		width: fit-content;
+		z-index: 1;
 	}
 }
 
