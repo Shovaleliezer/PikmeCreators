@@ -5,9 +5,12 @@
 }
 
 .container-few {
-    @include flex(20vh, center, center,column);
-    width: 55%;
+    @include flex(10vh, center, center,column);
+    width: 1100px;
     margin: auto;
+    .event-preview{
+        padding-top: 75px
+    }
 }
 
 .not-found {
@@ -54,7 +57,15 @@
     }
     .container-few{
         width: 100%;
-        gap: 30px;
-        
+        gap: 30px; 
+        .event-preview{
+            padding-top: 0;
+        } 
+    }
+}
+
+@media (max-width: 1110px) {
+    .container-few{
+        width: 100%; 
     }
 }
