@@ -16,11 +16,17 @@ export function Home(props) {
     }, [filter])
 
     useEffect(() => {
-        console.log(props.item)
         const element = document.getElementsByClassName("event-preview")[props.item]
         if (element) element.scrollIntoView({ alignToTop: true })
-        else console.log('no el found')
     }, [props.item])
+
+    useEffect(() => {
+        return function cleanup() {
+            window.removeEventListener("wheel", props.handleScrolling)
+            window.removeEventListener("wheel", props.preventScrolling)
+        }
+    }, [])
+    
 
     const loadEvents = async (filter) => {
         let loadedEvents = await eventService.query(filter)

@@ -8,10 +8,6 @@ export function HomeWrapper({ mode }) {
     useEffect(() => {
         window.addEventListener("wheel", handleScrolling, { passive: false })
         window.addEventListener("wheel", preventScrolling, { passive: false })
-        return function cleanup() {
-            window.removeEventListener("wheel", e => handleScrolling(e))
-            window.removeEventListener("wheel", e => handleScrolling(e))
-        }
     }, [])
 
     const preventScrolling = (e) => {
@@ -27,6 +23,7 @@ export function HomeWrapper({ mode }) {
         //     if (item + 1 < eventsLength)  setItem(item + 1)
         //     console.log('down')
         // }
+        console.log('wrapper',item)
         setItem(item + 1)
         window.removeEventListener("wheel", handleScrolling)
         debounce()
@@ -41,5 +38,5 @@ export function HomeWrapper({ mode }) {
         setTimeout(() => window.addEventListener("wheel", handleScrolling, { passive: false }), 500)
     }
 
-    return <Home mode={mode} arrowClick={arrowClick} item={item} setEventsLength={setEventsLength} />
+    return <Home mode={mode} handleScrolling={handleScrolling} preventDefault={preventScrolling} arrowClick={arrowClick} item={item} setEventsLength={setEventsLength} />
 }
