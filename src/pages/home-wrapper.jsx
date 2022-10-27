@@ -5,10 +5,10 @@ export function HomeWrapper({ mode }) {
     const [item, setItem] = useState(0)
     const [eventsLength, setEventsLength] = useState()
 
-    useEffect(() => {
-        window.addEventListener("wheel", handleScrolling, { passive: false })
-        window.addEventListener("wheel", preventScrolling, { passive: false })
-    }, [])
+    // useEffect(() => {
+    //     window.addEventListener("wheel", handleScrolling, { passive: false })
+    //     window.addEventListener("wheel", preventScrolling, { passive: false })
+    // }, [])
 
     const preventScrolling = (e) => {
         e.preventDefault()

@@ -15,9 +15,9 @@ export function SearchBar(props) {
     }
 
     return (
-        <form onSubmit={onSearch} className={props.mode.type}>
-            <input className={`${props.mode.type} border-${props.mode.type}`} type='text' ref={searchRef}/>
-            <button className={`${props.mode.type} border-${props.mode.type} clickable`}><span className="material-symbols-outlined">search</span></button>
+        <form onSubmit={onSearch} className={`${props.mode.type } border-${props.mode.type} search-bar`}>
+            <button className={props.mode.type}><span className="material-symbols-outlined" >search</span></button>
+            <input className={props.mode.type} type='text' ref={searchRef} placeholder='Search...'/>
         </form>
     )
 }

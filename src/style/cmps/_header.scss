@@ -13,36 +13,6 @@
         border-bottom: 2px solid $main;
     }
 
-    form {
-        height: 32px;
-        display: flex;
-        margin-right: 16%;
-
-        input {
-            border-top-left-radius: 8px;
-            border-bottom-left-radius: 8px;
-            background-color: inherit;
-            border-width: 1px;
-            border-style: solid;
-            border-right-width: 0;
-            font-size: 20px;
-            height: 100%;
-            width: 30vw;
-        }
-
-        input:focus {
-            outline: 0px;
-        }
-
-        button {
-            border-width: 1px;
-            border-style: solid;
-            height: 100%;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-    }
-
     div {
         @include flex(3vw);
         .mattic-icon{
@@ -84,29 +54,5 @@
         aspect-ratio: 1/1;
         object-fit: cover;
         border-radius: 50%;
-    }
-}
-
-@media (max-width: $middle) {
-    .header {
-        form {
-            margin-right: 0;
-        }
-    }
-}
-
-@media (max-width: $mobile) {
-    .header {
-        form {
-            input {
-                width: 45vw;
-                border-width: 0;
-                border-bottom: 1px solid;
-                border-bottom-left-radius: 0;
-            }
-            button {
-                border-width: 0;
-            }
-        }
     }
 }
