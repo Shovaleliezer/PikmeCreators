@@ -1,6 +1,6 @@
 .menu {
     position: fixed;
-    top: 55px;
+    top: 61px;
     right: 0;
     padding: 16px;
     width: 320px;
@@ -109,5 +109,6 @@
         box-shadow: unset;
         border-left: unset;
         border-bottom-left-radius: unset;
+        border-width: 0;
     }
 }
