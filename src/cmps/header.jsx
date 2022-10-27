@@ -15,8 +15,8 @@ export function Header(props) {
         dispatch(setFilter(''))
     }
 
-    const filterClick = (filter)=>{
-        dispatch(setFilter({search:filter}))
+    const filterClick = (filter) => {
+        dispatch(setFilter({ search: filter }))
         navigate('/')
     }
 
@@ -24,15 +24,15 @@ export function Header(props) {
         <>
             <nav className={`header ${props.mode.type} noselect`}>
                 <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
-                    
+
                 <SearchBar mode={props.mode} />
 
                 <div className="left-bar">
-                    {! isMobile && <>
-                   <img onClick={()=>{filterClick('fifa')}} className="bar-logo" src={require('../style/imgs/fifa-logo.png')} />
-                    <img onClick={()=>{filterClick('valorant')}} className="bar-logo" src={require('../style/imgs/valorant-logo.png')} />
-                    <img title="watch stream" className="bar-logo" src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} />
-                    <NavLink to='/profile'><img className='header-user-img' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink></>}
+                    {!isMobile && <>
+                        <img onClick={() => { filterClick('fifa') }} className="bar-logo" src={require('../style/imgs/fifa-logo.png')} />
+                        <img onClick={() => { filterClick('valorant') }} className="bar-logo" src={require('../style/imgs/valorant-logo.png')} />
+                        <NavLink to="/register"><img title="watch stream" className="bar-logo" src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
+                        <NavLink to='/profile'><img className='header-user-img' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink></>}
                     <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                 </div>
             </nav>

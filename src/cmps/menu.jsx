@@ -1,21 +1,23 @@
 import { useRef } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink,useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
 import { toggleMode } from "../store/actions/general.actions"
 import { resetState, setIsConnected } from "../store/reducers/userReducer"
-import { setMenu } from "../store/actions/general.actions"
+import { setMenu,setFilter } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 
 export function Menu(props) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const textRef = useRef()
     const boxRef = useRef()
     const nameRef = useRef()
     const mailRef = useRef()
     const { menu } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
-    let color = props.mode.type === 'light' ? '#1b1e1f' : '#f5f5f5'
+    let color = props.mode.type === 'light' ? '#202225' : '#f5f5f5'
+    let isNarrow = window.innerWidth < 980 ? true : false
 
     const sendFeedback = async (ev) => {
         ev.preventDefault()
@@ -36,6 +38,12 @@ export function Menu(props) {
         }
     }
 
+    const filterClick = (filter)=>{
+        dispatch(setFilter({ search: filter }))
+        dispatch(setMenu(''))
+        navigate('/')
+    }
+
     switch (menu) {
         case '':
             return <></>
@@ -43,6 +51,10 @@ export function Menu(props) {
             return <>
                 <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
                 <section className={`menu ${props.mode.type} noselect`}>
+                    {isNarrow && <>
+                        <div onClick={() => { filterClick('fifa') }} className="hover-main"><img  src={require('../style/imgs/fifa-logo.png')} /><div>Fifa</div></div>
+                        <div onClick={() => { filterClick('valorant') }} className="hover-main"><img  src={require('../style/imgs/valorant-logo.png')} /><div>Valorant</div></div>
+                        <div onClick={() => { filterClick('sport') }} className="hover-main"><div>Sport</div></div></>}
                     <div className="hover-main"><NavLink className={props.mode.type} to='/profile'><span className="material-symbols-outlined">history</span> <div>History</div></NavLink></div>
                     <div className="hover-main" onClick={() => dispatch(toggleMode())}><div className="mode" style={{ background: color }}></div> <div>{props.mode.type === 'light' ? 'Night theme' : 'Light theme'}</div></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
