@@ -7,6 +7,7 @@ export function SearchBar(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const searchRef = useRef()
+    let placeHolder = window.innerWidth < 980 ? 'search...' : 'search for upcoming events...'
 
     const onSearch = (ev) => {
         ev.preventDefault()
@@ -17,7 +18,7 @@ export function SearchBar(props) {
     return (
         <form onSubmit={onSearch} className={`${props.mode.type } border-${props.mode.type} search-bar`}>
             <button className={props.mode.type}><span className="material-symbols-outlined" >search</span></button>
-            <input className={props.mode.type} type='text' ref={searchRef} placeholder='Search...'/>
+            <input className={props.mode.type} type='text' ref={searchRef} placeholder={placeHolder}/>
         </form>
     )
 }

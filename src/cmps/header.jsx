@@ -7,7 +7,7 @@ import { toggleMenu } from "../store/actions/general.actions"
 export function Header(props) {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
-    let isMobile = window.innerWidth < 700 ? true : false
+    let isMobile = window.innerWidth < 980 ? true : false
 
     const resetFilter = () => {
         dispatch(setFilter(''))
@@ -16,26 +16,24 @@ export function Header(props) {
     return (
         <>
             <nav className={`header ${props.mode.type} noselect`}>
-                {!isMobile ?
-                    <div>
-                        <img className="logo" src={require('../style/imgs/logo.png')} />
-                        <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'>Home</NavLink>
-                        <NavLink className={`undecorate ${props.mode.type} hover-main`} to='/profile'>Profile</NavLink>
-                        <NavLink className={`undecorate ${props.mode.type} hover-main`} to='/register'>Tickets</NavLink>
-                    </div>
-                    : <img className="logo" src={require('../style/imgs/logo.png')} />}
+                <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
+                    
                 <SearchBar mode={props.mode} />
-                <div>
-                    {/* <img className="mattic-icon" src={require('../style/imgs/mattic.png')}/>
-                    <span>2000$</span> */}
+
+                <div className="left-bar">
+                    {! isMobile && <>
+                    <img className="bar-logo" src={require('../style/imgs/fifa-logo.png')} />
+                    <img className="bar-logo" src={require('../style/imgs/valorant-logo.png')} />
+                    <img title="watch stream" className="bar-logo" src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} />
+                    <NavLink to='/profile'><img className='header-user-img' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink></>}
                     <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                 </div>
             </nav>
 
             {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
-                <NavLink onClick={resetFilter} className={props.mode.type} to='/'><span style={{ fontSize: '28px' }} className="material-symbols-outlined">home</span></NavLink>
-                <NavLink className={props.mode.type} to='/tickets'><span style={{ fontSize: '28px' }} className="material-symbols-outlined">sd_card</span></NavLink>
-                <NavLink className={props.mode.type} to='/profile'><img src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink>
+                <NavLink onClick={resetFilter} className={props.mode.type} to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
+                <NavLink onClick={resetFilter} className={props.mode.type} to='/'><img src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
+                <NavLink to='/profile'><img className='circle' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink>
             </nav>}
         </>
     )
