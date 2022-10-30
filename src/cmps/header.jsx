@@ -42,10 +42,10 @@ export function Header(props) {
             {isMobile && <>
                 <nav className={`header ${props.mode.type} noselect`}>
                     {headerMode === 'search' ? <div className="mobile-search-wrapper">
+                        <span onClick={() => { setHeaderMode('') }} className="material-symbols-outlined">arrow_back_ios_new</span>
                         <SearchBar mode={props.mode} />
-                        <span onClick={()=>{setHeaderMode('')}} className="material-symbols-outlined">expand_less</span>
-                        </div> : <>
-                        <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
+                    </div> : <>
+                        <NavLink onClick={resetFilter} to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
                         <div className="header-mobile-bar">
                             <span className="material-symbols-outlined search-icon" onClick={() => setHeaderMode('search')}>search</span>
                             <img onClick={() => { setHeaderMode('games-bar') }} className="games-menu" src={require('../style/imgs/games-menu.png')} />
@@ -55,7 +55,7 @@ export function Header(props) {
                             <img onClick={() => { filterClick('valorant') }} className="bar-logo" src={require('../style/imgs/valorant-logo.png')} />
                             <img onClick={() => { filterClick('fifa') }} className="bar-logo fifa" src={require('../style/imgs/fifa-logo.png')} />
                             <img onClick={() => { filterClick('sport') }} className="bar-logo" src={require('../style/imgs/sport-logo.png')} />
-                            <span onClick={()=>{setHeaderMode('')}} className="material-symbols-outlined">expand_less</span>
+                            <span onClick={() => { setHeaderMode('') }} className="material-symbols-outlined">expand_less</span>
                         </div>}
                     </>}
                 </nav>

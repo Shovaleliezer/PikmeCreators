@@ -69,13 +69,9 @@
         }
     }
     .mobile-search-wrapper{
-        span{
-            position: absolute;
-            top: 4px;
-            right: 4px;
-
-        }
-
+        height: 40px;
+        width: 100%;
+        @include flex(5px,center,center);
     }
 
     .menu-icon {
