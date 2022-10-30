@@ -17,7 +17,6 @@ export function Menu(props) {
     const { menu } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
     let color = props.mode.type === 'light' ? '#202225' : '#f5f5f5'
-    let isNarrow = window.innerWidth < 980 ? true : false
 
     const sendFeedback = async (ev) => {
         ev.preventDefault()
@@ -51,10 +50,6 @@ export function Menu(props) {
             return <>
                 <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
                 <section className={`menu ${props.mode.type} noselect`}>
-                    {isNarrow && <>
-                        <div onClick={() => { filterClick('fifa') }} className="hover-main"><img  src={require('../style/imgs/fifa-logo.png')} /><div>Fifa</div></div>
-                        <div onClick={() => { filterClick('valorant') }} className="hover-main"><img  src={require('../style/imgs/valorant-logo.png')} /><div>Valorant</div></div>
-                        <div onClick={() => { filterClick('sport') }} className="hover-main"><div>Sport</div></div></>}
                     <div className="hover-main"><NavLink className={props.mode.type} to='/profile'><span className="material-symbols-outlined">history</span> <div>History</div></NavLink></div>
                     <div className="hover-main" onClick={() => dispatch(toggleMode())}><div className="mode" style={{ background: color }}></div> <div>{props.mode.type === 'light' ? 'Night theme' : 'Light theme'}</div></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
