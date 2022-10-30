@@ -9,9 +9,13 @@
     padding: 8px 3vw;
     box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25);
 
+    .logo{
+        height: 30px;
+        object-fit: contain;
+    }
+
     .left-bar {
         @include flex(40px, center, center);
-
         .header-user-img {
             width: 35px;
             aspect-ratio: 1/1;
@@ -23,24 +27,59 @@
         .bar-logo {
             height: 35px;
             object-fit: contain;
-            outline: 1px red;
             cursor: pointer;
         }
-        .fifa{
+        .fifa {
             height: 42px;
         }
     }
+    .header-mobile-bar {
+        @include flex(28px, center, center);
+        flex: 1;
+        .menu-icon {
+            font-size: 40px;
+        }
+        .games-menu {
+            object-fit: contain;
+            height: 26px;
+        }
+        .search-icon {
+            font-size: 32px;
+            flex: 1;
+            text-align: right;
+        }
+    }
+    .games-bar{
+        width: 100%;
+        position: fixed;
+        top: 56px;
+        right: 0;
+        padding: 3vw 4px;
+        @include flex(10px,space-around,center);
+        img{
+            width: 30px;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+        span{
+            position: absolute;
+            top: 4px;
+            right: 4px;
 
-    .icons {
-        font-size: 35px;
+        }
+    }
+    .mobile-search-wrapper{
+        span{
+            position: absolute;
+            top: 4px;
+            right: 4px;
+
+        }
+
     }
 
-    .logo {
-        width: 50px;
-    }
-
-    .option {
-        width: 35px;
+    .menu-icon {
+        font-size: 40px;
     }
 }
 
@@ -55,19 +94,18 @@
     @include flex(1px, space-around, center);
     box-shadow: 0px -3px 4px 0px rgba(0, 0, 0, 0.25);
 
-        img {
-            height: 30px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-        }
-        .home-icon{
-            height: 25px ;
-        }
+    img {
+        height: 30px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+    .home-icon {
+        height: 25px;
+    }
 }
 
 @media (max-width: $mobile) {
     .header {
-        @include flex(15px, space-between, center);
+        @include flex(6px, space-between, center);
     }
-
 }
