@@ -10,6 +10,7 @@ export function Header(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [headerMode, setHeaderMode] = useState('')
+    const { filter } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
     let isMobile = window.innerWidth < 930 ? true : false
 
