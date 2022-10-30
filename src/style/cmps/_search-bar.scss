@@ -4,6 +4,7 @@
     border-radius: 10px;
     padding: 6px;
     flex: 1;
+    border-width: 0;
 
     input {
         background-color: inherit;
@@ -25,6 +26,10 @@
         cursor: pointer;
         border-radius: 10px;
         background-color: rgba(0, 0, 0, 0);
+        span{
+            font-size: 28px;
+            padding: 0;
+        }
     }
 }
 

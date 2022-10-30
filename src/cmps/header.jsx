@@ -29,8 +29,9 @@ export function Header(props) {
 
                 <div className="left-bar">
                     {!isMobile && <>
-                        <img onClick={() => { filterClick('fifa') }} className="bar-logo" src={require('../style/imgs/fifa-logo.png')} />
                         <img onClick={() => { filterClick('valorant') }} className="bar-logo" src={require('../style/imgs/valorant-logo.png')} />
+                        <img onClick={() => { filterClick('fifa') }} className="bar-logo fifa" src={require('../style/imgs/fifa-logo.png')} />
+                        <img onClick={() => { filterClick('sport') }} className="bar-logo" src={require('../style/imgs/sport-logo.png')} />
                         <NavLink to="/register"><img title="watch stream" className="bar-logo" src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
                         <NavLink to='/profile'><img className='header-user-img' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink></>}
                     <span className="material-symbols-outlined icons clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
