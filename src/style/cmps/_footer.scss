@@ -88,7 +88,10 @@
 
         .account {
             flex: 5;
-            @include flex(50px, center, center)
+            @include flex(50px, center, center);
+            p{
+                cursor: pointer;
+            }
         }
     }
 
@@ -96,6 +99,7 @@
         p {
             font-size: 13px;
             color: rgba($color: $bright-text, $alpha: 0.85);
+            cursor: pointer;
         }
 
         p::first-letter {
