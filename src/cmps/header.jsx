@@ -29,8 +29,9 @@ export function Header(props) {
             {!isMobile && <nav className={`header ${props.mode.type} noselect`}>
                 <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
 
-                {isSearch ? <SearchBar mode={props.mode} addX={true} setIsSearch={setIsSearch}/> : <div className="search-placeholder"><button className={props.mode.type}>
-                    <span className="material-symbols-outlined" onClick={()=>setIsSearch(true)}>search</span></button></div>}
+                {isSearch ? <SearchBar mode={props.mode} addX={true} setIsSearch={setIsSearch}/> : <div className="search-placeholder">
+                    <button className={props.mode.type} onClick={()=>setIsSearch(true)}><img  className="search-icon" src={require('../style/imgs/search-icon.png')}/></button></div>}
+                  
 
                 <div className="left-bar">
                     <img onClick={() => { filterClick('valorant') }} className="bar-logo" src={require('../style/imgs/valorant-logo.png')} />
@@ -66,7 +67,7 @@ export function Header(props) {
                 <nav className={`footer-mobile ${props.mode.type}`}>
                     <NavLink onClick={resetFilter} to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
                     <NavLink onClick={resetFilter} to='/'><img src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
-                    <NavLink to='/profile'><img className='circle' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink>
+                    <NavLink to='/profile'><img className='user-img circle' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink>
                 </nav></>}
         </>
     )
