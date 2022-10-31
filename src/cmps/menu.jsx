@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
 import { toggleMode } from "../store/actions/general.actions"
 import { resetState, setIsConnected } from "../store/reducers/userReducer"
-import { setMenu,setFilter } from "../store/actions/general.actions"
+import { setMenu } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 
 export function Menu(props) {
