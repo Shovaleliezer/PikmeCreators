@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { NavLink,useNavigate } from "react-router-dom"
+import { NavLink} from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
 import { toggleMode } from "../store/actions/general.actions"
@@ -9,14 +9,12 @@ import { isMobile } from "react-device-detect"
 
 export function Menu(props) {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const textRef = useRef()
     const boxRef = useRef()
     const nameRef = useRef()
     const mailRef = useRef()
     const { menu } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
-    let color = props.mode.type === 'light' ? '#202225' : '#f5f5f5'
 
     const sendFeedback = async (ev) => {
         ev.preventDefault()
@@ -35,12 +33,6 @@ export function Menu(props) {
         catch {
             console.log('could not log out')
         }
-    }
-
-    const filterClick = (filter)=>{
-        dispatch(setFilter({ search: filter }))
-        dispatch(setMenu(''))
-        navigate('/')
     }
 
     switch (menu) {

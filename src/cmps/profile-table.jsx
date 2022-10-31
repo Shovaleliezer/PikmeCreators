@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom"
 
 export function ProfileTable(props) {
     const { mode, events } = props
-    let back = mode.type==='dark' ? '#262b2f' : 'rgba(21, 178, 229,0.04)'
     return (
         <section className={`profile-history ${mode.type}`}>
             {events.length ===0 && <div className="center">
@@ -11,7 +10,7 @@ export function ProfileTable(props) {
                 <p>No matches to display yet, would you like to <NavLink className={`${props.mode.type} main-color`} to='/'>buy some?</NavLink></p>
             </div>}
 
-            {events.length > 0 && <table style={{background : back}}>
+            {events.length > 0 && <table >
                 <thead>
                     <tr>
                         <td>Event name</td>
