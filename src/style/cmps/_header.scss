@@ -9,13 +9,30 @@
     padding: 8px 3vw;
     box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25);
 
-    .logo{
+    .logo {
         height: 30px;
         object-fit: contain;
     }
 
+    .search-placeholder {
+        flex: 4;
+        height: 47px;
+        @include flex(0, flex-start, center);
+        padding-left: 6px;
+        button{
+            border-width: 0;
+        }
+        span {
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+    }
+
     .left-bar {
-        @include flex(40px, center, center);
+        @include flex(30PX, space-between, center);
+        flex: 2;
+
         .header-user-img {
             width: 35px;
             aspect-ratio: 1/1;
@@ -29,52 +46,63 @@
             object-fit: contain;
             cursor: pointer;
         }
+
         .fifa {
             height: 42px;
         }
     }
+
     .header-mobile-bar {
-        @include flex(28px, center, center);
+        @include flex(50px, center, center);
         flex: 1;
+
         .menu-icon {
             font-size: 40px;
         }
+
         .games-menu {
             object-fit: contain;
             height: 26px;
         }
+
         .search-icon {
             font-size: 32px;
             flex: 1;
             text-align: right;
         }
     }
-    .games-bar{
+
+    .games-bar {
         width: 100%;
         position: fixed;
         top: 56px;
         right: 0;
         padding: 3vw 4px;
-        @include flex(10px,space-around,center);
-        img{
+        border-top: 1px solid $color-dark;
+        @include flex(10px, space-around, center);
+
+        img {
             width: 30px;
             object-fit: cover;
             aspect-ratio: 1/1;
         }
-        span{
+
+        span {
             position: absolute;
             top: 4px;
             right: 4px;
 
         }
+
         .fifa {
             height: 36px;
         }
     }
-    .mobile-search-wrapper{
+
+    .mobile-search-wrapper {
         height: 40px;
         width: 100%;
-        @include flex(5px,center,center);
+        @include flex(5px, center, center);
     }
 
     .menu-icon {
@@ -88,23 +116,25 @@
     bottom: 0;
     right: 0;
     z-index: 5;
-    padding: 8px;
+    height: 7%;
     font-weight: 100;
-    @include flex(1px, space-around, center);
+    @include flex(0, space-around, center);
     box-shadow: 0px -3px 4px 0px rgba(0, 0, 0, 0.25);
 
     img {
-        height: 30px;
-        aspect-ratio: 1/1;
-        object-fit: cover;
-    }
-    .home-icon {
-        height: 25px;
+        height: 35px;
+        object-fit: contain;
     }
 }
 
 @media (max-width: $mobile) {
     .header {
         @include flex(6px, space-between, center);
+    }
+}
+
+@media (max-width: $mobile) {
+    .header-mobile-bar {
+        gap: 28px !important;
     }
 }
