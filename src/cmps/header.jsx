@@ -27,17 +27,20 @@ export function Header(props) {
     return (
         <>
             {!isMobile && <nav className={`header ${props.mode.type} noselect`}>
+                
                 <NavLink onClick={resetFilter} className={`undecorate ${props.mode.type} hover-main`} to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
 
-                {isSearch ? <SearchBar mode={props.mode} addX={true} setIsSearch={setIsSearch}/> : <div className="search-placeholder">
+                {isSearch ? <> <div className="screen" onClick={()=>{setIsSearch(false)}}></div> <SearchBar mode={props.mode} addX={true} setIsSearch={setIsSearch}/> </> :
+                 
+                <div className="search-placeholder">
                     <button className={props.mode.type} onClick={()=>setIsSearch(true)}><img  className="search-icon" src={require('../style/imgs/search-icon.png')}/></button></div>}
                   
 
                 <div className="left-bar">
-                    <img onClick={() => { filterClick('valorant') }} className="bar-logo" src={require('../style/imgs/valorant-logo.png')} />
+                    <img onClick={() => { filterClick('valorant') }} className="bar-logo valorant" src={require('../style/imgs/valorant-logo.png')} />
                     <img onClick={() => { filterClick('fifa') }} className="bar-logo fifa" src={require('../style/imgs/fifa-logo.png')} />
                     <img onClick={() => { filterClick('sport') }} className="bar-logo" src={require('../style/imgs/sport-logo.png')} />
-                    <NavLink to="/register"><img title="watch stream" className="bar-logo" src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
+                    <NavLink to="/register"><img title="watch stream" className="bar-logo stream" src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
                     <NavLink to='/profile'><img className='header-user-img' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink>
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                 </div>
