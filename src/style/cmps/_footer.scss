@@ -1,0 +1,21 @@
+.footer {
+    background-color: $bright-back;
+    @include flex(30px,space-between,center);
+
+    h3 {
+        font-size: 24px;
+        color: $bright-text;
+    }
+    p {
+        font-size: 20px;
+        color: $bright-text;
+    }
+
+    .email{
+
+    }
+    .contact{
+
+    }
+    
+}
