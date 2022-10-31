@@ -1,21 +1,128 @@
-.footer {
-    background-color: $bright-back;
-    @include flex(30px,space-between,center);
+.footer-wrapper {
+    background-color: #060816;
+    @include flex(0, flex-start, center, column);
+    width: 100%;
+    padding: 5px 100px;
 
-    h3 {
-        font-size: 24px;
-        color: $bright-text;
-    }
-    p {
-        font-size: 20px;
-        color: $bright-text;
+    .footer {
+        @include flex(50px, flex-start, flex-start);
+
+        border-bottom: 1px solid rgba($color: #606060, $alpha: 0.2);
+        width: 100%;
+
+        h3 {
+            font-size: 18px;
+            color: rgba($color: $bright-text, $alpha: 0.9);
+            margin-bottom: 25px;
+        }
+
+        p {
+            font-size: 15px;
+            color: rgba($color: $bright-text, $alpha: 0.85);
+            margin-bottom: 20px;
+        }
+
+        p::first-letter {
+            text-transform: capitalize;
+        }
+
+        h3::first-letter {
+            text-transform: capitalize;
+        }
+
+        .email {
+            flex: 6;
+
+            form {
+                height: 50px;
+                @include flex(0, center, center);
+                width: 90%;
+                border-radius: 10px;
+                margin-bottom: 35px;
+
+                input {
+                    border: 1px solid rgba($color: #606060, $alpha: 0.2);
+                    background-color: rgba(0, 0, 0, 0);
+                    border-right-width: 0;
+                    font-size: 18px;
+                    height: 100%;
+                    flex: 1;
+                    border-top-left-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    padding-left: 10px;
+                    color: rgba($color: $bright-text, $alpha: 0.9);
+                }
+
+                input:focus {
+                    outline: 0px;
+                }
+
+                button {
+                    height: 100%;
+                    border-width: 0;
+                    cursor: pointer;
+                    border-radius: 10px;
+                    background-color: $main;
+                    color: $bright-text;
+                    font-size: 18px;
+                    padding: 0 8px;
+                }
+            }
+
+        }
+
+        .contact {
+            flex: 4;
+
+            div {
+                @include flex(50px, flex-start, center);
+
+                img {
+                    width: 40px;
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                }
+            }
+        }
+
+        .account {
+            flex: 5;
+            @include flex(50px, center, center)
+        }
     }
 
-    .email{
+    .footer-bottom {
+        p {
+            font-size: 13px;
+            color: rgba($color: $bright-text, $alpha: 0.85);
+        }
 
-    }
-    .contact{
+        p::first-letter {
+            text-transform: capitalize;
+        }
 
+        @include flex(20px, space-between, center);
+        width: 100%;
+
+        div {
+            @include flex(100px, space-between, center);
+        }
     }
-    
+}
+
+@media (max-width: $middle) {
+    .footer-wrapper {
+        padding: 5px 12px;
+        margin-bottom: 60px;
+
+        .footer {
+            @include flex(20px,center,flex-start,column);
+
+            .email {
+                form {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
 }

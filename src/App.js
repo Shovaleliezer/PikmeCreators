@@ -5,6 +5,7 @@ import { HomeWrapper } from './pages/home-wrapper'
 import { Profile } from './pages/profile'
 import { AddEvent } from './pages/addEvent'
 import { Header } from './cmps/header'
+import { Footer } from './cmps/footer'
 import { Tickets } from './pages/tickets'
 import { EventDetails } from './pages/event-details'
 import { Menu } from "../src/cmps/menu"
@@ -26,6 +27,7 @@ function App() {
             <Route path='/' element={<HomeWrapper mode={mode} />} />
           </Routes>
         </main>
+      <Footer />
       </div>
       <Menu mode={mode} />
       <Popup mode={mode} />

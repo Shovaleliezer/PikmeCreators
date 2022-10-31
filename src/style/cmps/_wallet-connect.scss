@@ -1,6 +1,7 @@
 .wallet-connect {
     @include flex(20px, center, center, column);
     margin-top: 20vh;
+    margin-bottom: 25vh;
     padding: 10px;
     * {
         margin: 0;

@@ -37,6 +37,7 @@
 .not-found {
     @include flex(0, center, center, column);
     margin-top: 25vh;
+    margin-bottom: 25vh;
 
     img {
         width: 220px;
