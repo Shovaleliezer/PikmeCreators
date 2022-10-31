@@ -5,7 +5,7 @@
     left: 0;
     @include flex(40px, space-between, center);
     font-size: 24px;
-    z-index: 5;
+    z-index: 100;
     padding: 8px 3vw;
     box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25);
 
@@ -32,23 +32,31 @@
     .left-bar {
         @include flex(30PX, space-between, center);
         flex: 2;
-
+        
+        .bar-logo {
+            height: 35px;
+            object-fit: contain;
+            cursor: pointer;
+        }
         .header-user-img {
-            width: 35px;
+            width: 34px;
             aspect-ratio: 1/1;
             border-radius: 50%;
             margin-top: 4px;
             object-fit: cover;
         }
 
-        .bar-logo {
-            height: 35px;
-            object-fit: contain;
-            cursor: pointer;
-        }
-
         .fifa {
-            height: 42px;
+            height: 45px;
+        }
+        .valorant{
+            height: 30px;
+        }
+        .stream{
+            height: 28px;
+        }
+        .sport{
+            height: 38px;
         }
     }
 
