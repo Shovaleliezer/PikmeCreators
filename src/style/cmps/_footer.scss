@@ -73,9 +73,12 @@
 
         .contact {
             flex: 4;
+            h3{
+                text-align: center
+            }
 
             div {
-                @include flex(50px, flex-start, center);
+                @include flex(50px, center, center);
 
                 img {
                     width: 40px;
