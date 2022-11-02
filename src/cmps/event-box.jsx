@@ -6,7 +6,7 @@ export function EventBox(props) {
 
     return (
         <div className='event-preview' >
-            <NavLink to={`/event/${_id}`} className={`undecorate ${props.mode.type} clickable`}>
+            <NavLink to={`/event/${_id}`} className={`undecorate clickable`}>
                 <img src={banner} />
                 <h2>{title}</h2>
                 <p>{desc}</p>

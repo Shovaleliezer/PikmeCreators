@@ -1,23 +1,94 @@
 
-
-.next-event{
-    @include flex(0,center,center);
-    border-radius: 50%;
+.featured-banner {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     cursor: pointer;
-    background-color: rgb(233, 233, 233);
-    span{
-        font-size: 35px;
-        padding: 6px;
+}
+.featured-text{
+    width: 340px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 40px;
+    font-weight: 400;
+    p{
+        margin-bottom: 8px;
+        margin-top: 8px;
     }
-    color: $color-light;
+    span{
+        text-transform: capitalize;
+        color: #f59d10;
+    }
+    button{
+        margin: auto !important;
+        background-color: $main;
+        color: $bright-text;
+        cursor: pointer;
+        padding: 0px 10px;
+        font-size: 32px;
+        border-width: 0;
+        border-radius: 10px;
+    }
 }
-.up{
-    position: fixed;
-    right: 10px;
-    top: 65px;
+
+
+.event-box-wrapper {
+    @include flex(0, center, center);
+    .event-box-side {
+        @include flex(20px, center, center, column);
+        padding: 12px 0;
+        .event-box-nav {
+            @include flex(0, center, center);
+            border-radius: 50%;
+            cursor: pointer;
+            background-color: rgb(233, 233, 233);
+            width: 50px;
+            height: 50px;
+            span {
+                font-size: 35px;
+                padding: 6px;
+                color: $back-dark;
+            }
+            img {
+                height: 30px;
+                object-fit: contain;
+            }
+        }
+    }
 }
-.down{
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
+
+.not-found {
+    @include flex(0, center, center, column);
+    margin-top: 25vh;
+    margin-bottom: 25vh;
+
+    img {
+        width: 220px;
+    }
+
+    p {
+        text-align: center;
+        font-size: 30px;
+        margin: 8px;
+    }
 }
+
+@media (max-width: $mobile){
+    .featured-banner{
+       object-position: -1100px 0 
+    } 
+    .featured-text{
+        width: 230px;
+        font-size: 28px;
+        div{
+            margin-top: 24px;
+        }
+        button{
+            font-size: 24px;
+            padding: 2 8px;
+            
+        }
+    }
+}
+
