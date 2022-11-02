@@ -29,7 +29,7 @@ export function Home({ mode }) {
     return (
         <div className={`${mode.type} relative`}>
             <img className='featured-banner' src={require('../style/imgs/event-banner.png')} onClick={() => dispatch(setFilter('lol'))} />
-            <div className='featured-text'>
+            <div className='featured-text' onClick={() => dispatch(setFilter('lol'))}>
                 <p><span>bet</span> on the <span>biggest</span> event of the <span>year!</span></p>
                 <div className='center'><button>Bet On</button></div>
             </div>
