@@ -49,67 +49,7 @@ router.get('/get-events', async (req, res, next) => {
   })
 })
 
-/*
-router.get("/get-events", async (req, res) => {
-    let query = {}
-    try{console.log("test ", req.query.search )}
-    catch{console.log("notfound")}
-    try {
-        
-      if (req.query.search) {
-        let results;
-        if (req.query.search.includes(",") || req.query.search.includes(" ")) {
-          results = await EventInfo.aggregate([
-              {
-                $search: {
-                  index: "autocomplete",
-                  autocomplete: {
-                    query: "fifa",
-                    path: "game",
-             
-                    tokenOrder: "any",
-                  },
-                },
-              },
-           
-             
-            ])
-  
-          return res.send(results);
-        }
-  
-        results =  await EventInfo.aggregate([
-            {
-              $search: {
-                index: "autocomplete",
-                autocomplete: {
-                  query: "fifa",
-                  path: "game",
-                  tokenOrder: "any",
-                },
-              },
-            },
-            
-     
-          ])
-          
-          console.log("r ", results)
-        return res.send(results);
-      }
 
-      EventInfo.find(query).then(data => {
-        return res.json(data)
-    })
-        .catch((err) => {
-            return res.send({ "error": "user not found" });
-        })
-    } catch (error) {
-      console.error(error);
-      res.send([]);
-    }
-  });
-
-*/
 router.post('/create-event', async (req, res, next) => {
     const {  teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
         shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon } = req.body;
