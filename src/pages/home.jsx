@@ -12,6 +12,7 @@ export function Home({ mode }) {
 
     useEffect(() => {
         loadEvents(filter)
+        console.log(filter)
     }, [filter])
 
     const arrowClick = (val) => {
@@ -21,6 +22,7 @@ export function Home({ mode }) {
 
     const loadEvents = async (filter) => {
         let loadedEvents = await eventService.query(filter)
+        console.log(loadedEvents)
         setEvents(loadedEvents)
     }
 
@@ -34,7 +36,7 @@ export function Home({ mode }) {
                 <div className='center'><button>Bet On</button></div>
             </div>
 
-            {events.length > 0 ? <seaction className='event-box-wrapper'>
+            {events.length > 0 ? <section className='event-box-wrapper'>
                 <div className='event-box-side'>
                     <div className='event-box-nav noselect'><img src={require('../style/imgs/info.png')} /></div>
                 </div>
@@ -47,7 +49,7 @@ export function Home({ mode }) {
                         <span className="material-symbols-outlined">arrow_downward</span></div>
 
                 </div>
-            </seaction> :
+            </section> :
 
                 <div className="center not-found">
                     <img className="no-history" src={require('../style/imgs/no-results.png')} />
