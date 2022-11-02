@@ -12,7 +12,6 @@ export function Home({ mode }) {
 
     useEffect(() => {
         loadEvents(filter)
-        console.log(filter)
     }, [filter])
 
     const arrowClick = (val) => {
@@ -22,7 +21,6 @@ export function Home({ mode }) {
 
     const loadEvents = async (filter) => {
         let loadedEvents = await eventService.query(filter)
-        console.log(loadedEvents)
         setEvents(loadedEvents)
     }
 

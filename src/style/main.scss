@@ -8,7 +8,6 @@
 //pages
 @import "/src/style/pages/home";
 @import "src/style/pages/profile";
-@import "src/style/pages/event-details";
 
 //components
 @import "/src/style/cmps/register";
@@ -20,6 +19,7 @@
 @import "src/style/cmps/profile-statistics";
 @import "src/style/cmps/search-bar";
 @import "src/style/cmps/footer";
+@import "src/style/cmps/event-box";
 
 
 * {

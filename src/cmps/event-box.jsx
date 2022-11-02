@@ -1,9 +1,55 @@
+import Timer from "./timer"
+import { getDateName, formatHour } from "../services/utils"
+export function EventBox({ ev }) {
 
-export function EventBox({ev}) {
+    const getRatios = (redTickets, blueTickets) => {
+        const all = redTickets + blueTickets
+        const redPrecent = Math.floor((redTickets / all) * 100) + 1
+        const bluePrecent = Math.floor((blueTickets / all) * 100)
+        return { redPrecent, bluePrecent }
+    }
 
+    const ratios = getRatios(527, 931)
     return (
-        <div className='event-preview' >
-            <p>{ev._id}</p>
+        <div className='event-box' >
+            <section className="event-details">
+                <img className="event-img" src={ev.teamOneIcon} />
+                <div className="timer-holder">
+                    <p>Match Live in :</p>
+                    <Timer eventDate={new Date(ev.date)} />
+                </div>
+                <div className="pricepool-holder">
+                    <div>
+                        <img className="coins" src={require('../style/imgs/coins.png')} />
+                        <p>34K</p>
+                    </div>
+                    <div>
+                        <img className="sand-watch" src={require('../style/imgs/sand-watch.png')} />
+                        <div className="date-holder">
+                            <p>{getDateName(ev.date)}</p>
+                            <p>{formatHour(ev.date)} GMT</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="event-distribution">
+                <h2>Bet Distribution :</h2>
+                <div className="bar-wrapper">
+                    <p>{ratios.redPrecent}%</p>
+                    <div className="distribution-bar">
+                        <div style={{ width: `${ratios.redPrecent}%` }} className="team-red"></div>
+                        <div style={{ width: `${ratios.bluePrecent}%` }} className="team-blue"></div>
+                    </div>
+                    <p>{ratios.bluePrecent}%</p>
+
+                </div>
+            </section>
+            <section className="event-teams">
+                <div></div>
+                <img src={require('../style/imgs/choose.png')} className='choose'/>
+            </section>
+
         </div>
     )
 }

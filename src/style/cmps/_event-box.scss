@@ -1,0 +1,95 @@
+.event-box {
+    @include flex(0, center, center, column);
+    border: 3px solid $bright-back;
+    border-radius: 15px;
+    .event-details {
+        @include flex(12vw, space-between, center);
+        background-color: $bright-back;
+        padding: 0 20px;
+        .event-img {
+            width: 120px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .timer-holder {
+            @include flex(10px, center, center, column);
+            padding: 20px 0;
+            p {
+                font-size: 36px;
+                margin: 0;
+            }
+            .timer {
+                @include flex(0, center, center);
+                font-size: 48px;
+                margin: 0;
+                padding: 0;
+            }
+        }
+        .pricepool-holder{
+            @include flex(10px, center, flex-start, column);
+            padding: 20px 0;
+            div{
+                @include flex(10px,flex-start,center)
+            }
+            .coins{
+                height: 40px;
+                aspect-ratio: 40px;
+            }
+            .sand-watch{
+                height: 50px;
+                width: 40px;
+                object-fit: cover
+            }
+            .date-holder{
+                @include flex(10px,flex-start,flex-start,column);
+                p{
+                    margin: 0;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .event-distribution{
+        width: 100%;
+        h2{
+            margin: 4px auto;
+            font-size: 32px;
+            font-weight: 400;
+            text-align: center
+        }
+        .bar-wrapper{
+            @include flex(10px,center,center);
+            margin-bottom: 30px;
+            p{
+                font-size: 20px;
+                font-weight: 400;
+                margin: 0;
+            }
+            .distribution-bar{
+                width: 70%;
+                @include flex(0,center,center);
+            }
+            
+            .team-red{
+                background-color: #be1111;
+                height: 30px;
+                border-bottom-left-radius: 20px;
+                border-top-left-radius: 20px;
+            }
+            .team-blue{
+                background-color: #1E12A8;
+                height: 30px;
+                border-bottom-right-radius: 20px;
+                border-top-right-radius: 20px;
+            }
+        }
+    }
+    .event-teams{
+        @include flex(0,space-between,center);
+        border-radius:15px;
+        .choose{
+            width: 136px;
+        }
+    }
+}
