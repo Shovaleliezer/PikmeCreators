@@ -4,6 +4,7 @@
     height: 200px;
     object-fit: cover;
     cursor: pointer;
+    margin-bottom: 80px;
 }
 .featured-text{
     width: 340px;
@@ -33,26 +34,26 @@
     }
 }
 
-
 .event-box-wrapper {
     @include flex(0, center, center);
     .event-box-side {
-        @include flex(20px, center, center, column);
-        padding: 12px 0;
+        @include flex(120px, center, space-around, column);
+        margin: 80px;
         .event-box-nav {
             @include flex(0, center, center);
             border-radius: 50%;
             cursor: pointer;
             background-color: rgb(233, 233, 233);
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             span {
-                font-size: 35px;
+                font-size: 48px;
+                font-weight: 700;
                 padding: 6px;
-                color: $back-dark;
+                color: $bright-back;
             }
             img {
-                height: 30px;
+                height: 40px;
                 object-fit: contain;
             }
         }

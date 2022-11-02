@@ -1,9 +1,11 @@
 .event-box {
     @include flex(0, center, center, column);
-    border: 3px solid $bright-back;
+    border: 4px solid $bright-back;
     border-radius: 15px;
+    width: 1180px;
     .event-details {
-        @include flex(12vw, space-between, center);
+        width: 100%;
+        @include flex(30px, space-between, center);
         background-color: $bright-back;
         padding: 0 20px;
         .event-img {
@@ -26,70 +28,115 @@
                 padding: 0;
             }
         }
-        .pricepool-holder{
+        .pricepool-holder {
             @include flex(10px, center, flex-start, column);
             padding: 20px 0;
-            div{
-                @include flex(10px,flex-start,center)
+            div {
+                @include flex(10px, flex-start, center);
             }
-            .coins{
+            .coins {
                 height: 40px;
                 aspect-ratio: 40px;
             }
-            .sand-watch{
+            .sand-watch {
                 height: 50px;
                 width: 40px;
-                object-fit: cover
+                object-fit: cover;
             }
-            .date-holder{
-                @include flex(10px,flex-start,flex-start,column);
-                p{
+            .date-holder {
+                @include flex(10px, flex-start, flex-start, column);
+                p {
                     margin: 0;
                     text-align: center;
                 }
             }
         }
     }
-    .event-distribution{
+    .event-distribution {
         width: 100%;
-        h2{
+        h2 {
             margin: 4px auto;
             font-size: 32px;
             font-weight: 400;
-            text-align: center
+            text-align: center;
         }
-        .bar-wrapper{
-            @include flex(10px,center,center);
+        .bar-wrapper {
+            @include flex(18px, center, center);
             margin-bottom: 30px;
-            p{
-                font-size: 20px;
+            p {
+                font-size: 32px;
                 font-weight: 400;
                 margin: 0;
             }
-            .distribution-bar{
+            .distribution-bar {
                 width: 70%;
-                @include flex(0,center,center);
+                @include flex(0, center, center);
             }
-            
-            .team-red{
+
+            .team-red {
                 background-color: #be1111;
                 height: 30px;
                 border-bottom-left-radius: 20px;
                 border-top-left-radius: 20px;
             }
-            .team-blue{
-                background-color: #1E12A8;
+            .team-blue {
+                background-color: #1e12a8;
                 height: 30px;
                 border-bottom-right-radius: 20px;
                 border-top-right-radius: 20px;
             }
         }
     }
-    .event-teams{
-        @include flex(0,space-between,center);
-        border-radius:15px;
-        .choose{
+    .event-teams {
+        width: 100%;
+        @include flex(30px, space-between, center);
+        border-radius: 15px;
+        .choose {
             width: 136px;
+        }
+        .team-1-holder,
+        .team-2-holder {
+            @include flex(30px, space-between, center);
+            border-top: 4px solid $bright-back;
+            padding: 10px;
+            width: 495px;
+            div{
+                @include flex(8px,center,center)
+            }
+            h2{
+                font-size: 48px;
+                margin: 0;
+            }
+            p{
+                font-size: 24px;
+                max-width: 150px;
+            }
+        }
+        .team-1-holder{
+            border-right: 4px solid $bright-back;
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+            h2{
+                margin-right: 30px;
+            }
+           
+        }
+        .team-2-holder{
+            border-left: 4px solid $bright-back;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            p{
+                text-align: right;
+            }
+            h2{
+                margin-left: 30px;
+            }
+        }
+        .team-icon {
+            width: 105px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 50%;
         }
     }
 }

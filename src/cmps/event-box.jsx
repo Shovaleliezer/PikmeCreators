@@ -1,6 +1,7 @@
 import Timer from "./timer"
 import { getDateName, formatHour } from "../services/utils"
 export function EventBox({ ev }) {
+    console.log(ev)
 
     const getRatios = (redTickets, blueTickets) => {
         const all = redTickets + blueTickets
@@ -42,12 +43,25 @@ export function EventBox({ ev }) {
                         <div style={{ width: `${ratios.bluePrecent}%` }} className="team-blue"></div>
                     </div>
                     <p>{ratios.bluePrecent}%</p>
-
                 </div>
             </section>
             <section className="event-teams">
-                <div></div>
-                <img src={require('../style/imgs/choose.png')} className='choose'/>
+                <div className="team-1-holder clickable">
+                    <div>
+                        <img className="team-icon" src={ev.teamOneIcon} />
+                        <p>{ev.teamOneName}</p>
+                    </div>
+                    <h2>2.67</h2>
+
+                </div>
+                <img src={require('../style/imgs/choose.png')} className='choose' />
+                <div className="team-2-holder clickable">
+                    <h2>2.67</h2>
+                    <div>
+                        <p>{ev.teamTwoName}</p>
+                        <img className="team-icon" src={ev.teamTwoIcon} />
+                    </div>
+                </div>
             </section>
 
         </div>
