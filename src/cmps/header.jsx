@@ -21,6 +21,7 @@ export function Header(props) {
 
     const filterClick = (filter) => {
         dispatch(setFilter({ search: filter }))
+        setHeaderMode('')
         navigate('/')
     }
 
