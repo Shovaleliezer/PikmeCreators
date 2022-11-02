@@ -4,15 +4,7 @@ const Schema = mongoose.Schema
 
 
 const EventInfoSchema = new Schema({
-    title :{
-        type:String,
-        index: true ,
-        required: true,
-    },
-    description :{
-        type:String,
-        required: true
-    },
+
     teamOneAddress :{
         type:String,
         required: true
@@ -65,10 +57,7 @@ const EventInfoSchema = new Schema({
         type:Number,
         required: true
     },
-    banner:{
-        type:String,
-        required: true,
-    },
+
     payed:{
         type:Boolean,
         required: true

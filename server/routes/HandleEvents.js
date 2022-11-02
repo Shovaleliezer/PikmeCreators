@@ -2,13 +2,16 @@ const express = require('express')
 const router = express.Router()
 const EventInfo = require('../dataBase/eventsinfo')
 
+
 router.get('/get-events', async (req, res, next) => {
   var dt = new Date()
-  // let query = {approved:true , date: { $gte: dt }}
-  let query = {}
+  let query = {approved:true , date: { $gte: dt }}
+  
   const allLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   const possibleMistake = "aeiuock";
   if(req.query.search  ){
+    console.log("search is "
+    , req.query.search)
       let posWord = req.query.search
       let posLetter;
       let posLetter2;
@@ -37,7 +40,7 @@ router.get('/get-events', async (req, res, next) => {
         posLetter = req.query.search.replace(req.query.search[i],'');
         posWord += " " + posLetter;
     }
-    let r = await EventInfo.find({ $text: { $search: posWord, $caseSensitive:false, } } )
+    let r = await EventInfo.find({ query, $text: { $search: posWord, $caseSensitive:false, } } )
     return res.json(r)
 
 }
@@ -108,12 +111,11 @@ router.get("/get-events", async (req, res) => {
 
 */
 router.post('/create-event', async (req, res, next) => {
-    const { title, description, teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
-        shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon, banner } = req.body;
+    const {  teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
+        shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon } = req.body;
 
     const eventInfo = new EventInfo({
-        title,
-        description,
+  
         teamOneAddress,
         teamTwoAddress,
         teamOneName,
@@ -124,7 +126,6 @@ router.post('/create-event', async (req, res, next) => {
         category,
         teamOneIcon,
         teamTwoIcon,
-        banner,
         viewers: {},
         likes:{},
         teamOneTickets:0,
@@ -260,6 +261,8 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
     });
 });
 
+
+
 router.post('/makeLike/:eventId', async (req, res, next) => {
   //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
   // confirm it with the block chain
@@ -306,12 +309,11 @@ router.post('/makeLike/:eventId', async (req, res, next) => {
 });
 
 router.get('/wallet-connect/', async (req, res, next) => {
-    const { title, description, teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
-        shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon, banner } = req.params;
+    const {  teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
+        shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon } = req.params;
 
     const eventInfo = new EventInfo({
-        title,
-        description,
+      
         teamOneAddress,
         teamTwoAddress,
         teamOneName,
@@ -322,7 +324,6 @@ router.get('/wallet-connect/', async (req, res, next) => {
         category,
         teamOneIcon,
         teamTwoIcon,
-        banner,
         approved: false
 
     });
@@ -346,12 +347,12 @@ router.get('/get-event/:eventId', async (req, res, next) => {
 })
 
 
+
 router.get('/getEventStats/:eventId', async (req, res, next) => {
   //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
   // confirm it with the block chain
   const eventId = req.params.eventId
   const { buyerAddress} = req.body;
- 
   await EventInfo.findById( eventId).then( async newData => {
    
       let ticketsSold = 0;
