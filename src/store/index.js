@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import  userReducer  from "./reducers/userReducer"
 import { generalReducer } from "./reducers/general.reducer";
 import { configureStore } from '@reduxjs/toolkit'
+import blockchainReducer from './reducers/blockchainReducer'
 
 import {
   persistStore,
@@ -18,7 +19,8 @@ import storage from 'redux-persist/lib/storage'
 
 const reducers = combineReducers({
     user: userReducer,
-    generalModule: generalReducer
+    generalModule: generalReducer,
+    blockchainModule: blockchainReducer,
   })
 
 export const store = configureStore({
@@ -30,7 +32,6 @@ export const store = configureStore({
     },
     reducers
   ),
- 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
