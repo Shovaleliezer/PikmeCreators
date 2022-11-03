@@ -9,6 +9,7 @@ export function EventBox({ ev }) {
     const [chosen, setChosen] = useState('teamOne')
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
+    let isNarrow = window.innerWidth < 1500 ? true : false
 
     const getRatios = (redTickets, blueTickets) => {
         const all = redTickets + blueTickets
@@ -40,7 +41,10 @@ export function EventBox({ ev }) {
         <div>
             <div className='event-box' >
                 <section className="event-details">
-                    <img className="event-img" src={ev.teamOneIcon} />
+                    {isNarrow ? <div className="event-img-wrapper">
+                        <img className="event-img" src={ev.teamOneIcon} />
+                    </div> :
+                        <img className="event-img" src={ev.teamOneIcon} />}
                     <div className="timer-holder">
                         <p>Match Live in :</p>
                         <Timer eventDate={new Date(ev.date)} />
@@ -71,6 +75,7 @@ export function EventBox({ ev }) {
                         <p>{ratios.bluePrecent}%</p>
                     </div>
                 </section>
+                {isNarrow && <img src={require('../style/imgs/choose.png')} className='choose' />}
                 <section className="event-teams">
                     <div className={`team-1-holder clickable ${chosen === 'teamOne' ? 'border-main' : ''}`}
                         onClick={() => setChosen('teamOne')}
@@ -82,7 +87,8 @@ export function EventBox({ ev }) {
                         <h2>{ratios.team1ratio}</h2>
 
                     </div>
-                    <img src={require('../style/imgs/choose.png')} className='choose' />
+
+                    {!isNarrow && <img src={require('../style/imgs/choose.png')} className='choose' />}
 
                     <div className={`team-2-holder clickable ${chosen === 'teamTwo' ? 'border-main' : ''}`}
                         onClick={() => setChosen('teamTwo')}>

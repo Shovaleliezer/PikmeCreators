@@ -39,8 +39,7 @@ export function Home({ mode }) {
                     <div className='event-box-nav noselect'><img src={require('../style/imgs/info.png')} /></div>
                 </div>
                 <EventBox ev={events[item]} />
-                <div className='event-box-side'>
-
+                <div className='event-box-side disappearable'>
                     <div onClick={() => { arrowClick(-1) }} className='event-box-nav noselect'>
                         <span className="material-symbols-outlined">arrow_upward</span></div>
                     <div onClick={() => { arrowClick(1) }} className='event-box-nav noselect'>
@@ -48,7 +47,6 @@ export function Home({ mode }) {
 
                 </div>
             </section> :
-
                 <div className="center not-found">
                     <img className="no-history" src={require('../style/imgs/no-results.png')} />
                     <p>Oops! it seems there are no results that matches your search...</p>

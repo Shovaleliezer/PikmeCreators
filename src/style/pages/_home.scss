@@ -78,7 +78,8 @@
 
 @media (max-width: $mobile){
     .featured-banner{
-       object-position: -1100px 0 
+       object-position: -1100px 0 ;
+       margin-bottom:8px;
     } 
     .featured-text{
         width: 230px;
@@ -91,6 +92,25 @@
             padding: 2 8px;
             
         }
+    }
+    .event-box-wrapper {
+        @include flex(10px, flex-start, center,column);
+        .event-box-side{
+            margin: 0;
+            align-self: flex-start;
+            .event-box-nav{
+                height: 30px;
+                width: 30px;
+                img {
+                    height: 20px;
+                    object-fit: contain;
+                }
+            }
+        }
+    }
+
+    .disappearable{
+        display: none !important;
     }
 }
 
