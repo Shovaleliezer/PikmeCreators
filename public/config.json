@@ -1,0 +1,18 @@
+{
+    "CONTRACT_ADDRESS": "0x8eF20Cf0799e597dFe7942Bf66B7855D92Eb36C3",
+    "SCAN_LINK": "https://etherscan.io/address/0x8eF20Cf0799e597dFe7942Bf66B7855D92Eb36C3",
+    "NETWORK": {
+      "NAME": "Ethereum",
+      "SYMBOL": "ETH",
+      "ID": 1
+    },
+    "NFT_NAME": "CosmiVerse",
+    "SYMBOL": "CVC",
+    "MAX_SUPPLY": 10000,
+    "WEI_COST": 200000000000000000,
+    "DISPLAY_COST": 0.2,
+    "GAS_LIMIT": 285000,
+    "MARKETPLACE": "Opeansea",
+    "MARKETPLACE_LINK": "https://opensea.io/collection/cosmi-verse-club",
+    "SHOW_BACKGROUND": true
+  }
