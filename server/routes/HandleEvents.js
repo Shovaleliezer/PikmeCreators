@@ -2,6 +2,23 @@ const express = require('express')
 const router = express.Router()
 const EventInfo = require('../dataBase/eventsinfo')
 
+//get random event from events 
+router.get('/get-random-event', async (req, res, next) => {
+    await EventInfo.find().then(data => {
+        if (data.length > 0) {
+            return res.send(data[Math.floor(Math.random() * data.length)]);
+        }
+        else {
+            return res.send({ "error": "no events found" });
+        }
+    })
+        .catch((err) => {
+            return res.send({ "error": "no events found" });
+        });
+});
+
+
+
 
 router.get('/get-events', async (req, res, next) => {
   var dt = new Date()
