@@ -9,6 +9,7 @@ import { ExtensionConnect } from '../cmps/extention-connect'
 export function Popup({ mode }) {
     const dispatch = useDispatch()
     const { popup } = useSelector((storeState) => storeState.generalModule)
+    const { popupInfo } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
     const { ethereum } = window
 
@@ -58,6 +59,9 @@ export function Popup({ mode }) {
             {popup === 'bought' && <div className="wellcome">
                 <h1>Tickets purchased successfully !</h1>
                 <div onClick={() => dispatch(setPopup(''))}>Done</div>
+            </div>}
+            {popup === 'info' && <div className="wellcome">
+                <h1>{popupInfo.player1name}</h1>
             </div>}
         </section>
     </>

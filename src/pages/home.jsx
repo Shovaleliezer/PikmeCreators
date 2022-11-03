@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { eventService } from '../services/eventService'
-import { setFilter } from '../store/actions/general.actions'
+import { setFilter,setPopup,setPopupInfo } from '../store/actions/general.actions'
 import { EventBox } from '../cmps/event-box'
 
 export function Home({ mode }) {
@@ -24,6 +24,18 @@ export function Home({ mode }) {
         setEvents(loadedEvents)
     }
 
+    const showInfo = (ev) => {
+        dispatch(setPopupInfo({
+        player1name:ev.teamOneName,
+        player2name:ev.teamTwoName,
+        player1Img:ev.teamOneIcon,
+        player2Img:ev.teamTwoIcon,
+        player1About:ev.teamOneAbout,
+        player2About:ev.teamTwoAbout,
+        }))
+        dispatch(setPopup('info'))
+    }
+
     if (!events) return <p>loading...</p>
 
     return (
@@ -36,7 +48,7 @@ export function Home({ mode }) {
 
             {events.length > 0 ? <section className='event-box-wrapper'>
                 <div className='event-box-side'>
-                    <svg width="70" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="clickable hover-darker-svg">
+                    <svg onClick={()=>showInfo(events[item])} width="70" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="clickable hover-darker-svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M80 40C80 62.0913 62.0914 80 40 80C17.9086 80 0 62.0913 0 40C0 17.9087 17.9086 0 40 0C62.0914 0 80 17.9087 80 40ZM39.8422 27.7241C41.9751 27.7241 43.7042 25.9951 43.7042 23.8623C43.7042 21.729 41.9751 20 39.8422 20C37.7092 20 35.98 21.729 35.98 23.8623C35.98 25.9951 37.7092 27.7241 39.8422 27.7241ZM42.7931 54.4829H48.3104C49.042 54.4829 49.7437 54.7734 50.261 55.2905C50.7783 55.8081 51.069 56.5098 51.069 57.2412C51.069 57.9731 50.7783 58.6748 50.261 59.1919C49.7437 59.7095 49.042 60 48.3104 60H31.7586C31.027 60 30.3253 59.7095 29.808 59.1919C29.2906 58.6748 29 57.9731 29 57.2412C29 56.5098 29.2906 55.8081 29.808 55.2905C30.3253 54.7734 31.027 54.4829 31.7586 54.4829H37.2759V37.9312H34.5172C33.7856 37.9312 33.0839 37.6406 32.5666 37.123C32.0493 36.606 31.7586 35.9038 31.7586 35.1724C31.7586 34.4409 32.0493 33.7393 32.5666 33.2217C33.0839 32.7046 33.7856 32.4136 34.5172 32.4136H42.7931V54.4829Z" fill="white" />
                     </svg>
 

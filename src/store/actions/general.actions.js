@@ -16,23 +16,28 @@ export function turnLight() {
     }
 }
 
-export function setFilter(filter){
+export function setFilter(filter) {
     return (dispatch) => {
-        dispatch({ type: 'SET_FILTER',filter })
+        dispatch({ type: 'SET_FILTER', filter })
     }
 }
 
-export function setMenu(menu){
+export function setMenu(menu) {
     return (dispatch) => {
-        dispatch({ type: 'SET_MENU',menu })
+        dispatch({ type: 'SET_MENU', menu })
     }
 }
-export function setPopup(popup){
+export function setPopup(popup) {
     return (dispatch) => {
-        dispatch({ type: 'SET_POPUP',popup })
+        dispatch({ type: 'SET_POPUP', popup })
     }
 }
-export function toggleMenu(){
+export function setPopupInfo(popupInfo) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_POPUP_INFO', popupInfo })
+    }
+}
+export function toggleMenu() {
     return (dispatch) => {
         dispatch({ type: 'TOGGLE_MENU' })
     }
