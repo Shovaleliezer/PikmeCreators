@@ -52,7 +52,7 @@ export function EventBox({ ev }) {
                     <div className="pricepool-holder">
                         <div>
                             <img className="coins" src={require('../style/imgs/coins.png')} />
-                            <p>34K</p>
+                            <p className="total-pricepool">34K</p>
                         </div>
                         <div>
                             <img className="sand-watch" src={require('../style/imgs/sand-watch.png')} />
@@ -65,7 +65,7 @@ export function EventBox({ ev }) {
                 </section>
 
                 <section className="event-distribution">
-                    <h2>Bet Distribution :</h2>
+                    <h2>Bet Distribution</h2>
                     <div className="bar-wrapper">
                         <p>{ratios.redPrecent}%</p>
                         <div className="distribution-bar">
@@ -77,7 +77,7 @@ export function EventBox({ ev }) {
                 </section>
                 {isNarrow && <img src={require('../style/imgs/choose.png')} className='choose' />}
                 <section className="event-teams">
-                    <div className={`team-1-holder clickable ${chosen === 'teamOne' ? 'border-main' : ''}`}
+                    <div className={`team-1-holder clickable ${chosen === 'teamOne' ? 'border-main team1-glow' : ''}`}
                         onClick={() => setChosen('teamOne')}
                         style={{ borderColor: chosen === 'teamOne' ? '$main' : '' }}>
                         <div>
@@ -90,7 +90,7 @@ export function EventBox({ ev }) {
 
                     {!isNarrow && <img src={require('../style/imgs/choose.png')} className='choose' />}
 
-                    <div className={`team-2-holder clickable ${chosen === 'teamTwo' ? 'border-main' : ''}`}
+                    <div className={`team-2-holder clickable ${chosen === 'teamTwo' ? 'border-main team2-glow' : ''}`}
                         onClick={() => setChosen('teamTwo')}>
                         <h2>{ratios.team2ratio}</h2>
                         <div>

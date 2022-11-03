@@ -37,13 +37,14 @@
 .event-box-wrapper {
     @include flex(0, center, center);
     .event-box-side {
-        @include flex(120px, center, space-around, column);
+        @include flex(80px, center, space-around, column);
         margin: 80px;
+        margin-top: 8px;
         .event-box-nav {
             @include flex(0, center, center);
             border-radius: 50%;
             cursor: pointer;
-            background-color: rgb(233, 233, 233);
+            background-color: #ffffff;
             width: 80px;
             height: 80px;
             span {
