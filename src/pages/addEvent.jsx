@@ -101,7 +101,6 @@ export const AddEvent = () => {
 
                 <button className="clickable register-button"> Continue </button>
             </form>
-
         </section>
     )
 }
