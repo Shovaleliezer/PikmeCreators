@@ -40,7 +40,10 @@ router.get('/get-events', async (req, res, next) => {
         posLetter = req.query.search.replace(req.query.search[i],'');
         posWord += " " + posLetter;
     }
-    let r = await EventInfo.find({ query, $text: { $search: posWord, $caseSensitive:false, } } )
+    query["$text"] = { $search: posWord };
+
+    let r = await EventInfo.find(query )
+    console.log("r is ", r)
     return res.json(r)
 
 }
