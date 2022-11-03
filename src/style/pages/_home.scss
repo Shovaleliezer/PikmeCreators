@@ -40,23 +40,9 @@
         @include flex(80px, center, space-around, column);
         margin: 80px;
         margin-top: 8px;
-        .event-box-nav {
-            @include flex(0, center, center);
-            border-radius: 50%;
+        .event-box-nav {  
             cursor: pointer;
-            background-color: #ffffff;
-            width: 80px;
-            height: 80px;
-            span {
-                font-size: 48px;
-                font-weight: 700;
-                padding: 6px;
-                color: $bright-back;
-            }
-            img {
-                height: 40px;
-                object-fit: contain;
-            }
+            width: 70px;
         }
     }
 }
