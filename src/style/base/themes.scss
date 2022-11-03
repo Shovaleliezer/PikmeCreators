@@ -37,3 +37,12 @@
 .gray-color{
     color:$gray
 }
+.hover-main-svg:hover{
+    path{
+        fill:$main !important;
+    } 
+    circle{
+        fill: $main !important;
+    }
+  }
+  
