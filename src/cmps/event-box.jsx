@@ -104,7 +104,7 @@ export function EventBox({ ev }) {
             </div>
             <section className="buy-tickets">
                 <div className="edit">
-                    <div className="noselect" onClick={() => onButtonClick(-1)}><span class="material-symbols-outlined">remove</span></div>
+                    <div className="noselect" onClick={() => onButtonClick(-1)}><span className="material-symbols-outlined">remove</span></div>
                         
                     
                     <input type='number' value={tickets} step={1} onChange={onInputClick} />
