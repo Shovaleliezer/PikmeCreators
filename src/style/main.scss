@@ -44,8 +44,8 @@ body{
   }
 @media only screen and (max-width: 580px) {
     .gist-messenger-bubble-iframe iframe, .gist-notification-iframe iframe, .gist-post-small-iframe iframe, .gist-prompt-iframe iframe {
-      bottom: 100px !important; // Change the 80px to move the Messenger vertically from bottom edge fo the screen
-      right: 20px!important; // Change the 40px to move the Messenger horizontally from right edge fo the screen
+      bottom: 55px !important; // Change the 80px to move the Messenger vertically from bottom edge fo the screen
+      right: 8px!important; // Change the 40px to move the Messenger horizontally from right edge fo the screen
       // left: 40px!important; // Change the 40px to move the Messenger horizontally from left edge fo the screen
     }
   }
