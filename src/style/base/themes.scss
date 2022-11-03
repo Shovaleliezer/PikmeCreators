@@ -2,10 +2,12 @@
     background-color: $back-dark;
     color: $color-dark;
 }
+
 .light {
     background-color: $back-light;
     color: $color-light;
 }
+
 .border-dark {
     border-color: $color-dark;
 }
@@ -13,44 +15,65 @@
 .border-light {
     border-color: $color-light;
 }
-.border-main{
+
+.border-main {
     border-color: $main !important;
 }
-.color-dark{
+
+.color-dark {
     color: $color-dark;
 }
-.color-light{
+
+.color-light {
     color: $color-light;
 }
-.back-light{
+
+.back-light {
     background-color: $back-light;
 }
-.back-dark{
+
+.back-dark {
     background-color: $back-dark;
 }
+
 .main-color {
     color: $main
 }
-.sec-color{
-    color:$sec
+
+.sec-color {
+    color: $sec
 }
-.gray-color{
-    color:$gray
+
+.gray-color {
+    color: $gray
 }
-.hover-main-svg:hover{
-    path{
-        fill:$main !important;
-    } 
-    circle{
+
+.hover-main-svg:hover {
+    path {
         fill: $main !important;
     }
-  }
-  .sec-svg{
-    path{
-        fill:$sec !important;
-    } 
-    circle{
+
+    circle {
+        fill: $main !important;
+    }
+}
+
+.sec-svg {
+    path {
         fill: $sec !important;
     }
-  }
-  
+
+    circle {
+        fill: $sec !important;
+    }
+}
+
+.hover-darker-svg:hover {
+    path {
+        fill: rgb(182, 182, 182) !important;
+    }
+
+    circle {
+        fill: rgb(182, 182, 182) !important;
+    }
+}
