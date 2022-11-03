@@ -71,7 +71,7 @@ router.get('/get-events', async (req, res, next) => {
 
 
 router.post('/create-event', async (req, res, next) => {
-    const {  teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
+    const {  teamOneAddress, teamTwoAddress, teamOneName,teamOneAbout,teamTwoAbout, teamTwoName,
         shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon } = req.body;
 
     const eventInfo = new EventInfo({
@@ -79,7 +79,9 @@ router.post('/create-event', async (req, res, next) => {
         teamOneAddress,
         teamTwoAddress,
         teamOneName,
+        teamOneAbout,
         teamTwoName,
+        teamTwoAbout,
         shareWithCommunity,
         date,
         game,

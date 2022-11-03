@@ -17,6 +17,14 @@ const EventInfoSchema = new Schema({
         type:String,
         required: true
     },
+    teamOneAbout :{
+        type:String,
+        required: true
+    },
+    teamTwoAbout :{
+        type:String,
+        required: true
+    },
     teamTwoName :{
         type:String,
         required: true
