@@ -13,6 +13,9 @@
 .border-light {
     border-color: $color-light;
 }
+.border-main{
+    border-color: $main !important;
+}
 .color-dark{
     color: $color-dark;
 }

@@ -46,15 +46,19 @@ export function Popup({ mode }) {
 
     return (<>
         <div className="screen blur" onClick={() => { dispatch(setPopup('')) }}>
-            {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}            
+            {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
         <section className={`popup ${mode.type}`}>
-        {(!isMobile && popup !== 'connected') && <div onClick={() => dispatch(setPopup(''))} className={`popup-close ${mode.type} clickable`}><span className="material-symbols-outlined">cancel</span></div>}
+            {(!isMobile && popup !== 'connected') && <div onClick={() => dispatch(setPopup(''))} className={`popup-close ${mode.type} clickable`}><span className="material-symbols-outlined">cancel</span></div>}
             {popup === 'connect' && <div>{ethereum ? <WalletConnect connectWallet={connectWallet} from='popup' /> : <ExtensionConnect mode={mode} />}</div>}
             {popup === 'connected' && <div className="wellcome">
                 <h1>welcome back {user.nickName}</h1>
                 <div onClick={() => dispatch(setPopup(''))}>Done</div>
-                </div>}
+            </div>}
+            {popup === 'bought' && <div className="wellcome">
+                <h1>Tickets purchased successfully !</h1>
+                <div onClick={() => dispatch(setPopup(''))}>Done</div>
+            </div>}
         </section>
     </>
     )

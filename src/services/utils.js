@@ -1,3 +1,5 @@
+import { ConsoleView } from "react-device-detect";
+
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
   var color = '#';
@@ -51,15 +53,22 @@ export function makeCommas(price) {
 }
 
 export function formatDate(date) {
- return date.substring(8,10)+'/'+date.substring(5,7)+'/'+date.substring(0,4)
+  return date.substring(8, 10) + '/' + date.substring(5, 7) + '/' + date.substring(0, 4)
 }
 
-export function formatHour(date){
-  return date.substring(14,16) + ':' + date.substring(17,19)
+export function formatHour(date) {
+  return date.substring(14, 16) + ':' + date.substring(17, 19)
+}
+
+export function getDateName(date) {
+  const monthNames = ["JAN", "FEB", "MAR", "ApR", "MAY", "JUN",
+    "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+
+  return (monthNames[+date.slice(5, 7) - 1] + ' ' + date.slice(8, 10))
 }
 
 export function make2digits(num) {
-  if(num<10) return '0'+ num.toString()
+  if (num < 10) return '0' + num.toString()
   return num
 }
 

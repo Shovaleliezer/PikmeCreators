@@ -11,9 +11,7 @@ function MyTimer({ expiryTimestamp }) {
 
     return (
         <div className='timer'>
-            <div>
-                <span>{make2digits(days)}</span>:<span>{make2digits(hours)}</span>:<span>{make2digits(minutes)}</span>:<span>{make2digits(seconds)}</span>
-            </div>
+            <span>{make2digits(days)}</span>:<span>{make2digits(hours)}</span>:<span>{make2digits(minutes)}</span>:<span>{make2digits(seconds)}</span>
         </div>
     )
 }
@@ -22,7 +20,7 @@ export default function Timer(props) {
     const time = props.eventDate
     time.setSeconds(time.getSeconds())
     return (
-            <MyTimer expiryTimestamp={time} />
+        <MyTimer expiryTimestamp={time} />
     )
 }
 
