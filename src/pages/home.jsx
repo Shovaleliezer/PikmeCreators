@@ -36,15 +36,12 @@ export function Home({ mode }) {
 
             {events.length > 0 ? <section className='event-box-wrapper'>
                 <div className='event-box-side'>
-                    <div className='event-box-nav noselect'><img src={require('../style/imgs/info.png')} /></div>
+                <img onClick={() => { arrowClick(-1) }} src={require('../style/imgs/box-info.png')} className='event-box-nav'/>
                 </div>
                 <EventBox ev={events[item]} />
                 <div className='event-box-side disappearable'>
-                    <div onClick={() => { arrowClick(-1) }} className='event-box-nav noselect'>
-                        <span className="material-symbols-outlined">arrow_upward</span></div>
-                    <div onClick={() => { arrowClick(1) }} className='event-box-nav noselect'>
-                        <span className="material-symbols-outlined">arrow_downward</span></div>
-
+                        <img onClick={() => { arrowClick(-1) }} src={require('../style/imgs/up-arrow.png')} className='event-box-nav'/>
+                        <img onClick={() => { arrowClick(1) }} src={require('../style/imgs/down-arrow.png')} className='event-box-nav'/>
                 </div>
             </section> :
                 <div className="center not-found">

@@ -9,7 +9,9 @@ export function EventBox({ ev }) {
     const [chosen, setChosen] = useState('teamOne')
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
-    let isNarrow = window.innerWidth < 1500 ? true : false
+    let isNarrow = window.innerWidth < 1400 ? true : false
+    let mainImg = 'sport'
+    if (ev.category !== 'sport') mainImg = ev.game
 
     const getRatios = (redTickets, blueTickets) => {
         const all = redTickets + blueTickets
@@ -42,9 +44,9 @@ export function EventBox({ ev }) {
             <div className='event-box' >
                 <section className="event-details">
                     {isNarrow ? <div className="event-img-wrapper">
-                        <img className="event-img" src={ev.teamOneIcon} />
+                        <img className="event-img" src={require(`../style/imgs/games-icons/${mainImg}-big.png`)} />
                     </div> :
-                        <img className="event-img" src={ev.teamOneIcon} />}
+                        <img className="event-img" src={require(`../style/imgs/games-icons/${mainImg}-big.png`)} />}
                     <div className="timer-holder">
                         <p>Match Live in :</p>
                         <Timer eventDate={new Date(ev.date)} />
@@ -102,11 +104,13 @@ export function EventBox({ ev }) {
             </div>
             <section className="buy-tickets">
                 <div className="edit">
-                    <div className="noselect" onClick={() => onButtonClick(-1)}>-</div>
+                    <div className="noselect" onClick={() => onButtonClick(-1)}><span class="material-symbols-outlined">remove</span></div>
+                        
+                    
                     <input type='number' value={tickets} step={1} onChange={onInputClick} />
                     <div className="noselect" onClick={() => onButtonClick(1)}>+</div>
                 </div>
-                <div className='pay' onClick={() => buyTickets()}>Buy tickets : {makeCommas(tickets * 5)}$</div>
+                <div className='pay' onClick={() => buyTickets()}><p>Buy tickets </p><p className="tickets-price">{makeCommas(tickets * 5)}$</p></div>
             </section>
         </div>
     )
