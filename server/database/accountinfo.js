@@ -25,6 +25,10 @@ const AccountsInfoSchema = new Schema({
         type:Object ,
         required: true
     },
+    creatorEvents :{
+        type:Object,
+        required: true
+    },
     creationDate:{
         type:Date,
         required: true
@@ -32,7 +36,11 @@ const AccountsInfoSchema = new Schema({
     walletAddress:{
         type:String,
         required: true
-    }
+    },
+    approvedCreator:{
+        type:Boolean,
+        required: true
+    },
     
     
 },{timestamps:true});
