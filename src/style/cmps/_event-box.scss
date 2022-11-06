@@ -187,7 +187,7 @@
 .buy-tickets {
     margin: auto;
     @include flex(30px, center, center);
-    margin-top: 40px;
+    margin-top: 20px;
 
     .pay {
         @include flex(10px, space-between, center);
