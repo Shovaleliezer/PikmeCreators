@@ -21,9 +21,6 @@ export function Profile(props) {
   const [nameEdit, setNameEdit] = useState(false)
   const nameRef = useRef()
   const { ethereum } = window
-  // document.getElementById('ff').scrollIntoView({behavior: "smooth", inline: "center"});
-  let elem = document.getElementById('ff')
-  console.log(elem)
 
   if (ethereum) {
     window.ethereum.on('accountsChanged', async (accounts) => {
@@ -108,7 +105,7 @@ export function Profile(props) {
           </div>
         </section>
 
-        <section className='profile-options' id="ff">
+        <section className='profile-options'>
           {options.map(opt => <p key={opt} onClick={() => setSelected(opt)} className={selected === opt ? 'main-color clickable' : 'clickable'}>
             {opt.charAt(0).toUpperCase() + opt.slice(1)}</p>)}
         </section>

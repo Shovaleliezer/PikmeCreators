@@ -10,14 +10,53 @@ export function Home({ mode }) {
     const [item, setItem] = useState(0)
     const { filter } = useSelector((storeState) => storeState.generalModule)
 
+    // useEffect(() => {
+    //     window.addEventListener("wheel", checkVisible, { passive: false })
+    // }, [])
+
+    // function checkVisible() {
+    //     window.removeEventListener("wheel", checkVisible)
+    //     window.addEventListener("wheel",preventScroll, { passive: false })
+    //     resetListener()
+
+    //     let elements = []
+    //     let visibles = []
+    //     for (let i = 0; i >= 0; i++) {
+    //         let elm = document.getElementById(i)
+    //         if (elm) {
+    //             elements.push(elm)
+    //             var rect = elm.getBoundingClientRect()
+    //             var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight)
+    //             visibles.push(!(rect.bottom < 0 || rect.top - viewHeight >= 0))
+    //         }
+    //         else {
+    //             break
+    //         }
+    //     }
+    //     scroll(visibles.lastIndexOf(true))
+    // }
+
+    // const scroll = (idx) => {
+    //     console.log(idx)
+    //     setTimeout(() => {
+    //         let elm = document.getElementById(idx)
+    //         elm.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" })
+    //         window.removeEventListener("wheel", preventScroll)
+    //     }, 400)
+    // }
+
+    // const preventScroll = (e) => {
+    //     e.preventDefault()
+    // }
+
+    // const resetListener = () => {
+    //     setTimeout(() => window.addEventListener("wheel", checkVisible, { passive: false }), 200)
+    // }
+
+
     useEffect(() => {
         loadEvents(filter)
     }, [filter])
-
-    const arrowClick = (val) => {
-        if (item + val >= events.length || item + val < 0) return
-        setItem(item + val)
-    }
 
     const loadEvents = async (filter) => {
         let loadedEvents = await eventService.query(filter)
@@ -36,19 +75,24 @@ export function Home({ mode }) {
         dispatch(setPopup('info'))
     }
 
+    const arrowClick = (val) => {
+        if (item + val >= events.length || item + val < 0) return
+        setItem(item + val)
+    }
+
     if (!events) return <p>loading...</p>
 
     return (
         <div className={`${mode.type} relative`}>
-            <img className='featured-banner' src={require('../style/imgs/event-banner.png')} onClick={() => dispatch(setFilter('lol'))} />
-            <div className='featured-text' onClick={() => dispatch(setFilter('lol'))}>
+            <img className='featured-banner' src={require('../style/imgs/event-banner.png')} />
+            <div className='featured-text' >
                 <p><span>bet</span> on the <span>biggest</span> event of the <span>year!</span></p>
                 <div className='center'><button>Bet On</button></div>
             </div>
 
-            {events.length > 0 ? 
-                (events.map(event => <section key={event._id} className='event-box-wrapper'>
-                    <div className='event-box-side'>
+            {events.length > 0 ?
+                <div className='events-wrapper'>{(events.map((event, idx) => <section key={event._id} className='event-box-wrapper'>
+                    <div className='event-box-side' id={idx}>
                         <svg onClick={() => showInfo(event)} width="70" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="clickable hover-darker-svg info">
                             <path fillRule="evenodd" clipRule="evenodd" d="M80 40C80 62.0913 62.0914 80 40 80C17.9086 80 0 62.0913 0 40C0 17.9087 17.9086 0 40 0C62.0914 0 80 17.9087 80 40ZM39.8422 27.7241C41.9751 27.7241 43.7042 25.9951 43.7042 23.8623C43.7042 21.729 41.9751 20 39.8422 20C37.7092 20 35.98 21.729 35.98 23.8623C35.98 25.9951 37.7092 27.7241 39.8422 27.7241ZM42.7931 54.4829H48.3104C49.042 54.4829 49.7437 54.7734 50.261 55.2905C50.7783 55.8081 51.069 56.5098 51.069 57.2412C51.069 57.9731 50.7783 58.6748 50.261 59.1919C49.7437 59.7095 49.042 60 48.3104 60H31.7586C31.027 60 30.3253 59.7095 29.808 59.1919C29.2906 58.6748 29 57.9731 29 57.2412C29 56.5098 29.2906 55.8081 29.808 55.2905C30.3253 54.7734 31.027 54.4829 31.7586 54.4829H37.2759V37.9312H34.5172C33.7856 37.9312 33.0839 37.6406 32.5666 37.123C32.0493 36.606 31.7586 35.9038 31.7586 35.1724C31.7586 34.4409 32.0493 33.7393 32.5666 33.2217C33.0839 32.7046 33.7856 32.4136 34.5172 32.4136H42.7931V54.4829Z" fill="white" />
                         </svg>
@@ -62,10 +106,9 @@ export function Home({ mode }) {
                             <path fillRule="evenodd" clipRule="evenodd" d="M40 80C62.0914 80 80 62.0914 80 40C80 17.9086 62.0914 0 40 0C17.9086 0 0 17.9086 0 40C0 62.0914 17.9086 80 40 80ZM37.7332 20.7321C38.202 20.2634 38.8378 20 39.5008 20C40.1637 20 40.7995 20.2634 41.2683 20.7321C41.7371 21.2009 42.0005 21.8368 42.0005 22.4997L42.0005 51.4615L52.7293 40.7277C53.1987 40.2583 53.8353 39.9946 54.4991 39.9946C55.1629 39.9946 55.7995 40.2583 56.2689 40.7277C56.7383 41.1971 57.002 41.8337 57.002 42.4975C57.002 43.1613 56.7383 43.7979 56.2689 44.2673L41.2705 59.2656C41.0383 59.4984 40.7625 59.6831 40.4588 59.8091C40.1551 59.9351 39.8295 60 39.5007 60C39.1719 60 38.8464 59.9351 38.5427 59.8091C38.239 59.6831 37.9631 59.4984 37.7309 59.2656L22.7326 44.2673C22.5002 44.0349 22.3158 43.759 22.1901 43.4553C22.0643 43.1516 21.9995 42.8262 21.9995 42.4975C21.9995 42.1688 22.0643 41.8433 22.1901 41.5397C22.3158 41.236 22.5002 40.9601 22.7326 40.7277C22.965 40.4953 23.2409 40.3109 23.5446 40.1851C23.8483 40.0593 24.1737 39.9946 24.5024 39.9946C24.8311 39.9946 25.1566 40.0593 25.4602 40.1851C25.7639 40.3109 26.0398 40.4953 26.2722 40.7277L37.001 51.4615L37.001 22.4997C37.001 21.8368 37.2644 21.2009 37.7332 20.7321Z" fill="white" />
                         </svg>
                     </div>
-                </section>
+                </section>))}</div>
 
-                ))
-             : //none found
+                : //none found
                 <div className="center not-found">
                     <img className="no-history" src={require('../style/imgs/no-results.png')} />
                     <p>Oops! it seems there are no results that matches your search...</p>

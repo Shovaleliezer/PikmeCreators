@@ -32,10 +32,13 @@
         border-radius: 10px;
     }
 }
+.events-wrapper{
+    @include flex(100px,space-between,center,column);
+    padding-bottom: 100px;
+}
 
 .event-box-wrapper {
     @include flex(0, center, center);
-    margin-bottom: 26vh;
     .event-box-side {
         @include flex(80px, center, space-around, column);
         margin: 80px;
