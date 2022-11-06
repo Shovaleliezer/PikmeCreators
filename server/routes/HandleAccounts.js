@@ -88,7 +88,6 @@ router.post('/update-address-history/:walletAddress', async (req, res, next) => 
     console.log("test " , req.body)
 
     const walletAddress = req.params.walletAddress.toLowerCase()
-    console.log("here " ,walletAddress)
     let newQuery = req.body
     newQuery.date = new Date(newQuery.date);
     console.log("new data to add ", newQuery)
