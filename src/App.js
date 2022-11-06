@@ -1,14 +1,12 @@
 import './style/main.scss'
 import { useSelector } from 'react-redux'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
-// import { HomeWrapper } from './pages/home-wrapper'
 import {Home} from './pages/home'
 import { Profile } from './pages/profile'
 import { AddEvent } from './pages/addEvent'
 import { Header } from './cmps/header'
 import { Footer } from './cmps/footer'
 import { Tickets } from './pages/tickets'
-import { EventDetails } from './pages/event-details'
 import { Menu } from "../src/cmps/menu"
 import {Popup} from "../src/cmps/popup"
 
@@ -24,7 +22,6 @@ function App() {
             <Route path='/register' element={<AddEvent />} />
             <Route path='/profile' element={<Profile mode={mode} />} />
             <Route path='/tickets' element={<Tickets mode={mode} />} />
-            <Route path='/event/:eventId' element={<EventDetails mode={mode} />} />
             <Route path='/' element={<Home mode={mode} />} />
           </Routes>
         </main>

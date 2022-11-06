@@ -12,6 +12,7 @@ export function Home({ mode }) {
 
     useEffect(() => {
         loadEvents(filter)
+        item.current = 0
     }, [filter])
 
     useEffect(() => {
@@ -34,7 +35,7 @@ export function Home({ mode }) {
     }
 
     const resetListener = () => {
-        setTimeout(() => window.addEventListener("wheel", onWheel,{ passive: false }), 100)
+        setTimeout(() => window.addEventListener("wheel", onWheel,{ passive: false }), 200)
     }
 
     const loadEvents = async (filter) => {
@@ -43,11 +44,12 @@ export function Home({ mode }) {
     }
 
     const scrollTo = (val) => {
+        resetListener()
         if (item.current + val > events.length || item.current + val < 0) return
-        item.current = item.current + val
+        else if(item.current + val > events.length) item.current = 0
+        else item.current = item.current + val
         let elm = document.getElementById(item.current)
         elm.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" })
-        resetListener()
     }
 
     const showInfo = (ev) => {
