@@ -100,5 +100,9 @@
             
         }
     }
+    .events-wrapper{
+        @include flex(30px,space-between,center,column);
+        padding-bottom: 20px;
+    }
 }
 
