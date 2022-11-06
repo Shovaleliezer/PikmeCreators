@@ -3,16 +3,26 @@ import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setPopup } from "../store/actions/general.actions"
 import { eventService } from "../services/eventService"
+
 import { getDateName, formatHour, makeCommas } from "../services/utils"
+import {ERC20TransferABI} from "../abi"
+import Web3 from 'web3';
+
 export function EventBox({ ev }) {
+    const { ethereum } = window;
+    const web3 = new Web3(ethereum);
+    const daiToken = new web3.eth.Contract(ERC20TransferABI, "0x16780a9ecDF08ec74c0aE95a5425eE8e0C5ACCfa")
+    console.log( "here ", daiToken)
     const [tickets, setTickets] = useState(1)
     const [chosen, setChosen] = useState('teamOne')
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     let isNarrow = window.innerWidth < 1400 ? true : false
-    let mainImg = 'sport'
-    if (ev.category !== 'sport') mainImg = ev.game
+    let mainImg = 'sport';
+    let gasLimit = 125000;
 
+    if (ev.category !== 'sport') mainImg = ev.game
+    
     const getRatios = (redTickets, blueTickets) => {
         const all = redTickets + blueTickets
         const redPrecent = Math.floor((redTickets / all) * 100) + 1
@@ -29,13 +39,41 @@ export function EventBox({ ev }) {
         if (Number(tickets + value) >= 1 && Number(tickets + value) <= 9999) setTickets(Number(tickets + value))
     }
     const buyTickets = async () => {
+        //generate random number with 6 figures 
+        const confirmNumber = Math.floor(Math.random() * 1000000)
+
+        console.log("random number "  ,confirmNumber)
         if (!user.isConnected) {
             dispatch(setPopup('connect'))
             return
         }
         if (tickets <= 0) return
-        const eventt = await eventService.sellTickets(ev._id, { tickets, chosen, buyerAddress: user.address })
-        if (eventt) dispatch(setPopup('bought'))
+        const price = await daiToken.methods.PRICE_PER_TOKEN().call()
+        console.log("The balance is: ", price* tickets , "user connected: " , user.address)  
+        const tx_dict={
+            nonce: await web3.eth.getTransactionCount(user.address),
+            from: user.address,
+            gasPrice: web3.utils.toHex(String(gasLimit*tickets)*50000),
+            gasLimit: web3.utils.toHex(String(gasLimit*tickets)),
+            value: web3.utils.toHex(price),
+            chainId: 56,
+              };
+        await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
+        .once("error", async (err) => {
+            console.log(" oof: " , err);
+            //something went wrong
+          })
+          .then( async (receipt) => {
+            console.log("receipt: " , receipt);
+            if (receipt.blockNumber){
+                console.log("success")
+                const eventt = await eventService.sellTickets(ev._id, { tickets, chosen, buyerAddress: user.address, confirmNumber })
+                if (eventt) dispatch(setPopup('bought'))
+            }
+            
+          });
+        
+
     }
 
     const ratios = getRatios(527, 931)

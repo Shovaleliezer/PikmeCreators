@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const EventInfo = require('../dataBase/eventsinfo')
+const Web3 = require('web3');
+const ERC20TransferABI = [{"inputs":[],"name":"PRICE_PER_TOKEN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"confirmCodeNumber","type":"uint256"}],"name":"buyTicket","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"confirmCode","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"saleIsActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"sendTo","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"sendMoney","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"newState","type":"bool"}],"name":"setSaleState","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+
+  var web3 = new Web3(new Web3.providers.HttpProvider('https://eth-mainnet.g.alchemy.com/v2/Dw2lyLZ9i5UDecBD1L9GKqzvFE8Ddyvv'));
+  const daiToken = new web3.eth.Contract(ERC20TransferABI, "0x16780a9ecDF08ec74c0aE95a5425eE8e0C5ACCfa")
 
 //get random event from events 
 router.get('/get-random-event', async (req, res, next) => {
@@ -75,7 +80,7 @@ router.post('/create-event', async (req, res, next) => {
         shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon } = req.body;
 
     const eventInfo = new EventInfo({
-  
+
         teamOneAddress,
         teamTwoAddress,
         teamOneName,
@@ -110,8 +115,13 @@ router.post('/sell-ticket/:eventId', async (req, res, next) => {
   // confirm it with the block chain
   const eventId = req.params.eventId
   console.log('id',eventId)
-  const { teamChosen, tickets, buyerAddress} = req.body;
+  const { teamChosen, tickets, buyerAddress, confirmNumber} = req.body;
+  console.log("confirmNumber: ",confirmNumber)
   let query = {}
+  console.log(daiToken.methods)
+  const smartConfrim = await daiToken.methods.confirmCode(buyerAddress)
+  console.log("smartConfrim: ",smartConfrim)
+  if (smartConfrim == confirmNumber){
   await EventInfo.findById( eventId).then( async data => {
     console.log(data)
   
@@ -158,13 +168,18 @@ router.post('/sell-ticket/:eventId', async (req, res, next) => {
     .catch((err) => {
         return res.send({ "error": "user ys found" });
     });
+  }
+  else{
+    console.log("not the same confirm")
+    return res.send({ "error": "Something went wrong with confirm" });
+  }
 });
 
 
 
 router.post('/announce-winner/:eventId', async (req, res, next) => {
   //announce the winner ( make sure to check if the sender is admin)
-  const eventId = req.params.eventId
+  const eventId = req.params.eventId;
   const { teamWon, ownerAddress} = req.body;
   let query = {}
   let ticketCost = 0.02;
