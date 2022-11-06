@@ -33,7 +33,7 @@
     }
 }
 .events-wrapper{
-    @include flex(100px,space-between,center,column);
+    @include flex(150px,space-between,center,column);
     padding-bottom: 100px;
 }
 
