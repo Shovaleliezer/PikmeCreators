@@ -6,7 +6,6 @@ import { eventService } from "../services/eventService"
 import { getDateName, formatHour, makeCommas } from "../services/utils"
 
 export function EventBox({ ev }) {
-    console.log(ev.date)
     const [tickets, setTickets] = useState(1)
     const [chosen, setChosen] = useState('teamOne')
     const user = useSelector((state) => state.user)
