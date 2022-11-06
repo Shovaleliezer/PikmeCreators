@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from "react-redux"
 import { setPopup } from "../store/actions/general.actions"
 import { eventService } from "../services/eventService"
 import { getDateName, formatHour, makeCommas } from "../services/utils"
+
 export function EventBox({ ev }) {
+    console.log(ev.date)
     const [tickets, setTickets] = useState(1)
     const [chosen, setChosen] = useState('teamOne')
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
-    let isNarrow = window.innerWidth < 1400 ? true : false
+    let isNarrow = window.innerWidth < 1200 ? true : false
     let mainImg = 'sport'
     if (ev.category !== 'sport') mainImg = ev.game
 

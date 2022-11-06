@@ -84,13 +84,9 @@
         .event-box-side{
             margin: 0;
             align-self: flex-start;
-            .event-box-nav{
-                height: 30px;
+            svg{
                 width: 30px;
-                img {
-                    height: 20px;
-                    object-fit: contain;
-                }
+                height: 30px;
             }
         }
     }
