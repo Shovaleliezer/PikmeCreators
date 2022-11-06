@@ -60,6 +60,22 @@
         margin: 8px;
     }
 }
+@media (max-width: 1500px){
+    .disappearable{
+        display: none !important;
+    }
+    .event-box-wrapper {
+        @include flex(10px, flex-start, center,column);
+        .event-box-side{
+            margin: 0;
+            align-self: flex-start;
+            svg{
+                width: 30px;
+                height: 30px;
+            }
+        }
+    }
+}
 
 @media (max-width: $mobile){
     .featured-banner{
@@ -78,25 +94,6 @@
             padding: 2 8px;
             
         }
-    }
-    .event-box-wrapper {
-        @include flex(10px, flex-start, center,column);
-        .event-box-side{
-            margin: 0;
-            align-self: flex-start;
-            .event-box-nav{
-                height: 30px;
-                width: 30px;
-                img {
-                    height: 20px;
-                    object-fit: contain;
-                }
-            }
-        }
-    }
-
-    .disappearable{
-        display: none !important;
     }
 }
 

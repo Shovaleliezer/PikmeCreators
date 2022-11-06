@@ -250,14 +250,15 @@
             border: 3px solid $sec;
             border-radius: 50%;
             cursor: pointer;
-            span{
+
+            span {
                 font-weight: 700;
             }
         }
     }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
     .event-box {
         width: 100%;
         border-radius: 10px;
@@ -267,6 +268,113 @@
             @include flex(0px, space-between, center);
             padding: 0 10px;
 
+            .date-holder {
+                gap: 0 !important;
+            }
+        }
+
+        .event-distribution {
+            h2 {
+                font-size: 16px;
+            }
+
+            .bar-wrapper {
+                @include flex(10px, center, center);
+
+                p {
+                    font-size: 14px;
+                }
+
+                .team-red {
+                    height: 15px;
+                    border-bottom-left-radius: 10px;
+                    border-top-left-radius: 10px;
+                }
+
+                .team-blue {
+                    height: 15px;
+                    border-bottom-right-radius: 10px;
+                    border-top-right-radius: 10px;
+                }
+            }
+        }
+
+        .choose {
+            width: 180px;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+
+        .event-teams {
+            width: 100%;
+            @include flex(1px, center, center);
+            border-radius: 15px;
+
+            .team-1-holder,
+            .team-2-holder {
+                @include flex(15px, space-between, center);
+                padding: 4px;
+                width: calc(50% - 4px);
+                img{
+                    width: 80px;
+                }
+
+                div {
+                    @include flex(8px, center, center)
+                }
+
+            }
+
+            .team-1-holder {
+                border-right: 4px solid $bright-back;
+                border-bottom-right-radius: 0;
+                border-top-right-radius: 0px;
+
+            }
+
+            .team-2-holder {
+                border-left: 4px solid $bright-back;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+
+            }
+
+        }
+    }
+
+    .buy-tickets {
+        margin: auto;
+        margin-top: 28px;
+
+        .pay {
+            width: 185px;
+            font-size: 16px;
+            padding: 16px;
+        }
+
+        .edit {
+            @include flex(10px, center, center);
+            padding: 6px 4px;
+
+            input {
+                width: 52px;
+                font-size: 20px;
+            }
+
+            div {
+                @include flex(0, center, center);
+                font-size: 24px;
+                padding: 15px;
+                height: 18px;
+                width: 18px;
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .event-box {
+        .event-details {
             .event-img-wrapper {
                 width: 89px;
 
@@ -305,58 +413,16 @@
                     margin: 0;
                 }
             }
-
-            .date-holder {
-                gap: 0 !important;
-            }
         }
-
-        .event-distribution {
-            h2 {
-                font-size: 16px;
-            }
-
-            .bar-wrapper {
-                @include flex(10px, center, center);
-
-                p {
-                    font-size: 14px;
-                }
-
-                .team-red {
-                    height: 15px;
-                    border-bottom-left-radius: 10px;
-                    border-top-left-radius: 10px;
-                }
-
-                .team-blue {
-                    height: 15px;
-                    border-bottom-right-radius: 10px;
-                    border-top-right-radius: 10px;
-                }
-            }
-        }
-
-        .choose {
-            width: 110px;
-            margin: auto;
-            margin-bottom: 20px;
-        }
-
         .event-teams {
             width: 100%;
-            @include flex(0, center, center);
+            @include flex(1px, center, center);
             border-radius: 15px;
 
             .team-1-holder,
             .team-2-holder {
-                @include flex(15px, space-between, center);
-                padding: 4px;
-                width: calc(50% - 4px);
-
-                div {
-                    @include flex(8px, center, center)
-                }
+               
+                width: calc(50% - 6px);
 
                 h2 {
                     font-size: 14px;
@@ -364,15 +430,12 @@
                 }
 
                 p {
-                    font-size: 12px;
+                    font-size: 14px;
                     max-width: 150px;
                 }
             }
 
             .team-1-holder {
-                border-right: 4px solid $bright-back;
-                border-bottom-right-radius: 0;
-                border-top-right-radius: 0px;
 
                 h2 {
                     margin-right: 30px;
@@ -381,10 +444,7 @@
             }
 
             .team-2-holder {
-                border-left: 4px solid $bright-back;
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-
+        
                 p {
                     text-align: right;
                 }
@@ -395,38 +455,17 @@
             }
 
             .team-icon {
-                width: 40px;
+                width: 50px !important;
             }
         }
+
+        .choose{
+             width: 110px;
+        }
+
     }
 
     .buy-tickets {
-        margin: auto;
-        @include flex(25px, center, center, column);
-        margin-top: 28px;
-
-        .pay {
-            width: 185px;
-            font-size: 16px;
-            padding: 16px;
-        }
-
-        .edit {
-            @include flex(10px, center, center);
-            padding: 6px 4px;
-
-            input {
-                width: 52px;
-                font-size: 20px;
-            }
-
-            div {
-                @include flex(0, center, center);
-                font-size: 30px;
-                padding: 20px;
-                height: 18px;
-                width: 18px;
-            }
-        }
+        flex-direction: column;
     }
 }

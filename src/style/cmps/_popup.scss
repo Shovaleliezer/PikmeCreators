@@ -60,6 +60,12 @@
             @include flex(10px, space-between, center);
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+            svg:hover {
+                cursor: pointer;
+                circle {
+                    fill: rgb(182, 182, 182) !important;
+                }
+            }
 
             div {
                 @include flex(10px, space-between, center);
@@ -79,11 +85,13 @@
 
         .players-about {
             padding: 25px;
-            p{
+
+            p {
                 font-size: 24px;
                 margin-bottom: 100px;
             }
-            div{
+
+            div {
                 cursor: pointer;
                 background-color: $main;
                 font-size: 36px;
@@ -108,14 +116,6 @@
     color: white
 }
 
-.popup-close {
-    position: absolute;
-    @include flex(0, center, center);
-    background: rgba(0, 0, 0, 0);
-    top: 12px;
-    right: 12px;
-}
-
 @media (max-width: $mobile) {
     .popup {
         width: 95vw;
@@ -126,7 +126,21 @@
                     border-right-width: 0;
                     border-left-width: 0;
                 }
+            }
+        }
 
+        .players-info {
+            .players-about {
+                p {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                    margin-top: 0;
+                }
+
+                div {
+                    font-size: 24px;
+                    padding: 10px 55px;
+                }
             }
         }
     }

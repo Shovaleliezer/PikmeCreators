@@ -57,7 +57,7 @@ export function formatDate(date) {
 }
 
 export function formatHour(date) {
-  return date.substring(14, 16) + ':' + date.substring(17, 19)
+  return date.slice(date.indexOf('T')+1, 13) + ':' +date.slice(14, 16)
 }
 
 export function getDateName(date) {
