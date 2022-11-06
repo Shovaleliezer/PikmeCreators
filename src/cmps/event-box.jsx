@@ -19,6 +19,7 @@ export function EventBox({ ev }) {
     const dispatch = useDispatch()
     let isNarrow = window.innerWidth < 1400 ? true : false
     let mainImg = 'sport'
+    const gasLimit = 285000;
     if (ev.category !== 'sport') mainImg = ev.game
     
     const getRatios = (redTickets, blueTickets) => {
