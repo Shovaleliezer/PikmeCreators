@@ -38,19 +38,6 @@
             margin-top: 40px;
             margin-bottom: 40px;
         }
-
-        div {
-            cursor: pointer;
-            background-color: $main;
-            text-align: center;
-            font-size: 24px;
-            margin: auto;
-            margin-bottom: 40px;
-            padding: 10px 14px;
-            width: fit-content;
-            border-radius: 10px;
-        }
-
     }
 
     .players-info {
@@ -60,8 +47,10 @@
             @include flex(10px, space-between, center);
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+
             svg:hover {
                 cursor: pointer;
+
                 circle {
                     fill: rgb(182, 182, 182) !important;
                 }
@@ -90,19 +79,41 @@
                 font-size: 24px;
                 margin-bottom: 100px;
             }
+        }
+    }
 
-            div {
-                cursor: pointer;
-                background-color: $main;
-                font-size: 36px;
-                color: white;
-                padding: 10px 55px;
-                width: fit-content;
-                margin: auto;
-                border-radius: 12px;
+    .bought {
+        padding: 20px;
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        div {
+            @include flex(30px, center, center);
+            font-size: 20px;
+            padding: 0;
+            img {
+                width: 200px;
+                aspect-ratio: 2/3;
+                object-fit: cover;
+            }
+            div{
+                @include flex(0, center, flex-start,column);
             }
         }
     }
+}
+
+.done {
+    cursor: pointer;
+    background-color: $main;
+    font-size: 36px;
+    color: white;
+    padding: 10px 55px;
+    width: fit-content;
+    margin: auto;
+    border-radius: 12px;
 }
 
 
@@ -137,7 +148,7 @@
                     margin-top: 0;
                 }
 
-                div {
+                .done {
                     font-size: 24px;
                     padding: 10px 55px;
                 }

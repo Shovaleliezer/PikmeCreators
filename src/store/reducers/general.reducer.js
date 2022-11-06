@@ -5,13 +5,19 @@ const INITIAL_STATE = {
     filter: '',
     menu: '',
     popup: '',
-    popupInfo:{
-        player1name:'',
-        player2name:'',
-        player1Img:'',
-        player2Img:'',
-        player1About:'',
-        player2About:''
+    popupInfo: {
+        player1name: '',
+        player2name: '',
+        player1Img: '',
+        player2Img: '',
+        player1About: '',
+        player2About: ''
+    },
+    popupBought: {
+        player1: '',
+        player2: '',
+        tickets: '',
+        date: '',
     },
     sleep: true
 }
@@ -40,7 +46,9 @@ export function generalReducer(state = INITIAL_STATE, action) {
         case 'SET_POPUP':
             return { ...state, popup: action.popup }
         case 'SET_POPUP_INFO':
-            return { ...state, popupInfo: action.popupInfo }    
+            return { ...state, popupInfo: action.popupInfo }
+        case 'SET_POPUP_BOUGHT':
+            return { ...state, popupBought: action.popupBought }
         case 'TOGGLE_MENU':
             if (state.menu === '') return { ...state, menu: 'normal' }
             else return { ...state, menu: '' }

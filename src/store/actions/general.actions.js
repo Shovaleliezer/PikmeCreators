@@ -37,6 +37,11 @@ export function setPopupInfo(popupInfo) {
         dispatch({ type: 'SET_POPUP_INFO', popupInfo })
     }
 }
+export function setPopupBought(popupBought) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_POPUP_BOUGHT', popupBought })
+    }
+}
 export function toggleMenu() {
     return (dispatch) => {
         dispatch({ type: 'TOGGLE_MENU' })

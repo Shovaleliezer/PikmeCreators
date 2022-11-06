@@ -1,11 +1,10 @@
 import Timer from "./timer"
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { setPopup } from "../store/actions/general.actions"
-import { eventService } from "../services/eventService"
+import { setPopup, setPopupBought } from "../store/actions/general.actions"
 
 import { getDateName, formatHour, makeCommas } from "../services/utils"
-import {ERC20TransferABI} from "../abi"
+import { ERC20TransferABI } from "../abi"
 import Web3 from 'web3';
 
 export function EventBox({ ev }) {
@@ -20,7 +19,7 @@ export function EventBox({ ev }) {
     let mainImg = 'sport'
     const gasLimit = 105000;
     if (ev.category !== 'sport') mainImg = ev.game
-    
+
     const getRatios = (redTickets, blueTickets) => {
         const all = redTickets + blueTickets
         const redPrecent = Math.floor((redTickets / all) * 100) + 1
@@ -36,37 +35,42 @@ export function EventBox({ ev }) {
     const onButtonClick = (value) => {
         if (Number(tickets + value) >= 1 && Number(tickets + value) <= 9999) setTickets(Number(tickets + value))
     }
-    const buyTickets = async () => {
-        //generate random number with 6 figures 
-        var confirmNumber = Math.floor(Math.random() * 1000000)
-        if (!user.isConnected) {
-            dispatch(setPopup('connect'))
-            return
-        }
-        if (tickets <= 0) return
-        console.log("test ", await daiToken.methods.confirmCode(user.address).call())
-        const price = await daiToken.methods.PRICE_PER_TOKEN().call()
-        const tx_dict={
-            nonce: await web3.eth.getTransactionCount(user.address),
-            from: user.address,
-            gasPrice: web3.utils.toHex(String(gasLimit*tickets)*50000),
-            gasLimit: web3.utils.toHex(String(gasLimit*tickets)),
-            value: web3.utils.toHex(price),
-            chainId: 56,
-              };
-        await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
-        .once("error", async (err) => {
-            //something went wrong
-          })
-          .then( async (receipt) => {
-            if (receipt.blockNumber){
-                const eventt = await eventService.sellTickets(ev._id, { tickets, chosen, buyerAddress: user.address, confirmNumber })
-                if (eventt) dispatch(setPopup('bought'))
-            }
-            
-          });
-        
+    const buyTickets = async (e) => {
+        // var confirmNumber = Math.floor(Math.random() * 1000000)
+        // if (!user.isConnected) {
+        //     dispatch(setPopup('connect'))
+        //     return
+        // }
+        // if (tickets <= 0) return
+        // console.log("test ", await daiToken.methods.confirmCode(user.address).call())
+        // const price = await daiToken.methods.PRICE_PER_TOKEN().call()
+        // const tx_dict={
+        //     nonce: await web3.eth.getTransactionCount(user.address),
+        //     from: user.address,
+        //     gasPrice: web3.utils.toHex(String(gasLimit*tickets)*50000),
+        //     gasLimit: web3.utils.toHex(String(gasLimit*tickets)),
+        //     value: web3.utils.toHex(price),
+        //     chainId: 56,
+        //       };
+        // await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
+        // .once("error", async (err) => {
+        //     //something went wrong
+        //   })
+        //   .then( async (receipt) => {
+        //     if (receipt.blockNumber){
+        //         const eventt = await eventService.sellTickets(ev._id, { tickets, chosen, buyerAddress: user.address, confirmNumber })
+        //         if (eventt) dispatch(setPopup('bought'))
+        //     }
 
+        //   });
+        console.log(ev)
+        dispatch(setPopupBought({
+            player1: ev.teamOneName,
+            player2: ev.teamTwoName,
+            tickets,
+            date: ev.date,
+        }))
+        dispatch(setPopup('bought'))
     }
 
     const ratios = getRatios(527, 931)
@@ -136,12 +140,12 @@ export function EventBox({ ev }) {
             <section className="buy-tickets">
                 <div className="edit">
                     <div className="noselect" onClick={() => onButtonClick(-1)}><span className="material-symbols-outlined">remove</span></div>
-                        
-                    
+
+
                     <input type='number' value={tickets} step={1} onChange={onInputClick} />
                     <div className="noselect" onClick={() => onButtonClick(1)}>+</div>
                 </div>
-                <div className='pay' onClick={() => buyTickets()}><p>Buy tickets </p><p className="tickets-price">{makeCommas(tickets * 5)}$</p></div>
+                <div className='pay' onClick={buyTickets}><p>Buy tickets </p><p className="tickets-price">{makeCommas(tickets * 5)}$</p></div>
             </section>
         </div>
     )
