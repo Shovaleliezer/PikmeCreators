@@ -18,7 +18,7 @@ export function EventBox({ ev }) {
     const dispatch = useDispatch()
     let isNarrow = window.innerWidth < 1400 ? true : false
     let mainImg = 'sport'
-    const gasLimit = 285000;
+    const gasLimit = 105000;
     if (ev.category !== 'sport') mainImg = ev.game
     
     const getRatios = (redTickets, blueTickets) => {
@@ -38,12 +38,13 @@ export function EventBox({ ev }) {
     }
     const buyTickets = async () => {
         //generate random number with 6 figures 
-        const confirmNumber = Math.floor(Math.random() * 1000000)
+        var confirmNumber = Math.floor(Math.random() * 1000000)
         if (!user.isConnected) {
             dispatch(setPopup('connect'))
             return
         }
         if (tickets <= 0) return
+        console.log("test ", await daiToken.methods.confirmCode(user.address).call())
         const price = await daiToken.methods.PRICE_PER_TOKEN().call()
         const tx_dict={
             nonce: await web3.eth.getTransactionCount(user.address),

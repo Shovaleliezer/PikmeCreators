@@ -4,7 +4,7 @@ const EventInfo = require('../dataBase/eventsinfo')
 const Web3 = require('web3');
 const ERC20TransferABI = [{"inputs":[],"name":"PRICE_PER_TOKEN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"confirmCodeNumber","type":"uint256"}],"name":"buyTicket","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"confirmCode","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"saleIsActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"sendTo","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"sendMoney","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"newState","type":"bool"}],"name":"setSaleState","outputs":[],"stateMutability":"nonpayable","type":"function"}]
 
-  var web3 = new Web3(new Web3.providers.HttpProvider('https://eth-mainnet.g.alchemy.com/v2/Dw2lyLZ9i5UDecBD1L9GKqzvFE8Ddyvv'));
+  var web3 = new Web3(new Web3.providers.HttpProvider('https://bscrpc.com'));
   const daiToken = new web3.eth.Contract(ERC20TransferABI, "0x16780a9ecDF08ec74c0aE95a5425eE8e0C5ACCfa")
 
 //get random event from events 
@@ -119,7 +119,7 @@ router.post('/sell-ticket/:eventId', async (req, res, next) => {
   console.log("confirmNumber: ",confirmNumber)
   let query = {}
   console.log(daiToken.methods)
-  const smartConfrim = await daiToken.methods.confirmCode(buyerAddress)
+  const smartConfrim = await daiToken.methods.confirmCode(buyerAddress).call()
   console.log("smartConfrim: ",smartConfrim)
   if (smartConfrim == confirmNumber){
   await EventInfo.findById( eventId).then( async data => {
