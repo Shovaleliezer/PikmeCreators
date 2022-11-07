@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
     mode: {
-        type: 'light',
+        type: 'dark',
     },
     filter: '',
     menu: '',
@@ -19,7 +19,6 @@ const INITIAL_STATE = {
         tickets: '',
         date: '',
     },
-    sleep: true,
     footerId: 10,
 }
 
