@@ -19,7 +19,8 @@ const INITIAL_STATE = {
         tickets: '',
         date: '',
     },
-    sleep: true
+    sleep: true,
+    footerId: 10,
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {

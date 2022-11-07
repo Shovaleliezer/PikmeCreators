@@ -1,13 +1,11 @@
-import { useRef } from 'react'
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setMenu } from "../store/actions/general.actions"
 import emailjs from 'emailjs-com'
 
 export function Footer() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
     const onRegisterEmail = (ev) => {
         ev.preventDefault()
         emailjs.sendForm('service_6o4hbxh', 'template_wcfvzf6', ev.target, '72RBm-BgL2a--9Gky')
@@ -20,7 +18,7 @@ export function Footer() {
     return (
         <div className='footer-wrapper'>
 
-            <section className="footer">
+            <section className="footer" id={footerId}>
 
                 <section className="email">
                     <h3>don't miss the show</h3>
@@ -45,15 +43,15 @@ export function Footer() {
                 <section className="account">
                     <div className='my-account'>
                         <h3>my account</h3>
-                        <p onClick={()=>{navigate('/profile')}}>my profile</p>
-                        <p onClick={()=>{navigate('/profile')}}>stream history</p>
-                        <p onClick={()=>{navigate('/profile')}}>upcoming events</p>
+                        <p onClick={() => { navigate('/profile') }}>my profile</p>
+                        <p onClick={() => { navigate('/profile') }}>stream history</p>
+                        <p onClick={() => { navigate('/profile') }}>upcoming events</p>
                     </div>
                     <div className='support'>
                         <h3>support</h3>
                         <p>learn</p>
-                        <p onClick={()=>dispatch(setMenu('help'))}>help</p>
-                        <p onClick={()=>dispatch(setMenu('feedback'))}>feedback</p>
+                        <p onClick={() => dispatch(setMenu('help'))}>help</p>
+                        <p onClick={() => dispatch(setMenu('feedback'))}>feedback</p>
                     </div>
                 </section>
             </section>
