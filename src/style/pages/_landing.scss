@@ -1,0 +1,52 @@
+.landing-upper {
+    background: url("../imgs/landing-upper.png") no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: calc(98vh - 60px);
+
+    .choose-wrapper {
+        @include flex(0, center, center);
+        padding-top: 70px;
+        padding-bottom: 40px;
+
+        .choose {
+            width: 265px;
+        }
+    }
+
+    .images-container {
+        width: 100%;
+        @include flex(200px, center, center);
+
+        img {
+            width: 500px;
+            cursor: pointer;
+        }
+    }
+
+}
+
+.landing-lower {
+    h1{
+        font-size: 48px;
+        font-weight: 600;
+        text-align: center;
+        color:white;
+        margin-top: 0;
+    }
+    .roadmap-wrapper {
+        @include flex(0, center, center);
+        margin-bottom: 130px;
+        img {
+            width:1000px;
+        }
+    }
+    .wallets-container{
+        width: 1000px;
+        margin: auto;
+        @include flex(0, space-between, center);
+    }
+    img{
+        width:185px;
+    }
+}
