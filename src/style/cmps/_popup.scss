@@ -84,38 +84,49 @@
 
     .bought {
         padding: 20px;
+
         h1 {
             text-align: center;
             margin-top: 0;
+            font-size: 36px;
+            margin-bottom: 50px;
+
         }
 
         div {
-            @include flex(30px, center, center);
+            @include flex(30px, flex-start, flex-start);
             font-size: 20px;
             padding: 0;
+
             img {
                 width: 200px;
                 aspect-ratio: 2/3;
                 object-fit: cover;
             }
-            div{
-                @include flex(0, center, flex-start,column);
+
+            .headers {
+                @include flex(35px, flex-start, flex-start, column);
+
+                p {
+                    margin: 0;
+                    font-weight: 600;
+                    color: white;
+                    width: max-content;
+                }
+            }
+
+            .details {
+                @include flex(35px, flex-start, flex-start, column);
+                margin-bottom: 60px;
+                p {
+                    margin: 0;
+                    font-weight: 300;
+                    color: rgba(255,255,255,0.8)
+                }
             }
         }
     }
 }
-
-.done {
-    cursor: pointer;
-    background-color: $main;
-    font-size: 36px;
-    color: white;
-    padding: 10px 55px;
-    width: fit-content;
-    margin: auto;
-    border-radius: 12px;
-}
-
 
 .popup-close-mobile {
     position: absolute;
@@ -155,4 +166,15 @@
             }
         }
     }
+}
+
+.done {
+    cursor: pointer;
+    background-color: $main;
+    font-size: 36px !important;
+    color: white;
+    padding: 10px 55px !important;
+    width: fit-content;
+    margin: auto;
+    border-radius: 12px;
 }

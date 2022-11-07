@@ -65,11 +65,18 @@ export function Popup({ mode }) {
                 <h1>successfully purchased!</h1>
                 <div>
                     <img src={require('../style/imgs/valorant-purchase.png')} />
-                    <div>
-                        <p>Event : {popupBought.player1 + ' Vs ' + popupBought.player2}</p>
-                        <p>Date :  {getDateName(popupBought.date)} , {formatHour(popupBought.date)} GMT</p>
-                        <p>Tickets : {makeCommas(popupBought.tickets)}</p>
-                        <p>Prize pool : In case your team/player wins the prize pool is Divided among all viewers. it may take up to 48 hours from the end of the game for you to see the income.</p>
+                    <div className="headers">
+                        <p>Event: </p>
+                        <p>Date:  </p>
+                        <p>Tickets: </p>
+                        <p>Prize pool:</p>
+                    </div>
+                    <div className="details">
+                        <p>{popupBought.player1 + ' Vs ' + popupBought.player2}</p>
+                        <p>{getDateName(popupBought.date)} , {formatHour(popupBought.date)} GMT</p>
+                        <p>{makeCommas(popupBought.tickets)}</p>
+                        <p> In case your team/player wins the prize pool is Divided among all viewers.
+                             it may take up to 48 hours from the end of the game for you to see the income.</p>
                     </div>
                 </div>
                 <div className="done" onClick={() => dispatch(setPopup(''))}>Done!</div>

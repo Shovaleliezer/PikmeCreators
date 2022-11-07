@@ -63,7 +63,6 @@ export function EventBox({ ev }) {
         //     }
 
         //   });
-        console.log(ev)
         dispatch(setPopupBought({
             player1: ev.teamOneName,
             player2: ev.teamTwoName,
