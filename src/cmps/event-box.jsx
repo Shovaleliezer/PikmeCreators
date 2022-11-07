@@ -2,7 +2,7 @@ import Timer from "./timer"
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setPopup, setPopupBought } from "../store/actions/general.actions"
-
+import { eventService } from "../services/eventService"
 import { getDateName, formatHour, makeCommas } from "../services/utils"
 import { ERC20TransferABI } from "../abi"
 import Web3 from 'web3';
@@ -36,41 +36,44 @@ export function EventBox({ ev }) {
         if (Number(tickets + value) >= 1 && Number(tickets + value) <= 9999) setTickets(Number(tickets + value))
     }
     const buyTickets = async (e) => {
-        // var confirmNumber = Math.floor(Math.random() * 1000000)
-        // if (!user.isConnected) {
-        //     dispatch(setPopup('connect'))
-        //     return
-        // }
-        // if (tickets <= 0) return
-        // console.log("test ", await daiToken.methods.confirmCode(user.address).call())
-        // const price = await daiToken.methods.PRICE_PER_TOKEN().call()
-        // const tx_dict={
-        //     nonce: await web3.eth.getTransactionCount(user.address),
-        //     from: user.address,
-        //     gasPrice: web3.utils.toHex(String(gasLimit*tickets)*50000),
-        //     gasLimit: web3.utils.toHex(String(gasLimit*tickets)),
-        //     value: web3.utils.toHex(price),
-        //     chainId: 56,
-        //       };
-        // await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
-        // .once("error", async (err) => {
-        //     //something went wrong
-        //   })
-        //   .then( async (receipt) => {
-        //     if (receipt.blockNumber){
-        //         const eventt = await eventService.sellTickets(ev._id, { tickets, chosen, buyerAddress: user.address, confirmNumber })
-        //         if (eventt) dispatch(setPopup('bought'))
-        //     }
+        var confirmNumber = Math.floor(Math.random() * 1000000)
+        if (!user.isConnected) {
+            dispatch(setPopup('connect'))
+            return
+        }
+        if (tickets <= 0) return
+        console.log("test ", await daiToken.methods.confirmCode(user.address).call())
+        const price = await daiToken.methods.PRICE_PER_TOKEN().call()
+        const tx_dict={
+            nonce: await web3.eth.getTransactionCount(user.address),
+            from: user.address,
+            gasPrice: web3.utils.toHex(String(gasLimit*tickets)*50000),
+            gasLimit: web3.utils.toHex(String(gasLimit*tickets)),
+            value: web3.utils.toHex(price),
+            chainId: 56,
+              };
+        await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
+        .once("error", async (err) => {
+            //something went wrong
+          })
+          .then( async (receipt) => {
+            if (receipt.blockNumber){
+                const eventt = await eventService.sellTickets(ev._id, { tickets, chosen, buyerAddress: user.address, confirmNumber })
+                if (eventt) {
+                    dispatch(setPopupBought({
+                        player1: ev.teamOneName,
+                        player2: ev.teamTwoName,
+                        tickets,
+                        date: ev.date,
+                    }))
+                    dispatch(setPopup('bought'))
+                }
+                }
+                
+            }
 
-        //   });
-        dispatch(setPopupBought({
-            player1: ev.teamOneName,
-            player2: ev.teamTwoName,
-            tickets,
-            date: ev.date,
-        }))
-        dispatch(setPopup('bought'))
-    }
+          );
+        }
 
     const ratios = getRatios(8946, 9319)
     return (
