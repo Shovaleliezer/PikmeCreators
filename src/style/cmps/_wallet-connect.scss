@@ -60,6 +60,7 @@
 @media (max-width: $mobile) {
     .wallet-connect {
         margin-top: 20px;
+        margin-bottom: 0 !important;
 
         h1 {
             font-size: 30px;
