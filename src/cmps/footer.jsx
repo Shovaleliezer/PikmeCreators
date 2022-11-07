@@ -18,7 +18,7 @@ export function Footer() {
     return (
         <div className='footer-wrapper'>
 
-            <section className="footer" id={footerId}>
+            <section className="footer">
 
                 <section className="email">
                     <h3>don't miss the show</h3>

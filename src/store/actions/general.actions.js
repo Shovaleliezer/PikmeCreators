@@ -42,6 +42,7 @@ export function setPopupBought(popupBought) {
         dispatch({ type: 'SET_POPUP_BOUGHT', popupBought })
     }
 }
+
 export function toggleMenu() {
     return (dispatch) => {
         dispatch({ type: 'TOGGLE_MENU' })
