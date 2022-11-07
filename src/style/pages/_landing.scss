@@ -87,3 +87,52 @@
         }
     }
 }
+
+@media (max-width: $mobile) {
+    .landing-upper {
+        height: calc(100vh - 155px);
+        padding-bottom: 100px;
+        display: block;
+
+        .images-container {
+            height: 100%;
+            width: 100%;
+            padding-top: 20px;
+            @include flex(40px, flex-start, center, column);
+
+            .choose {
+                height: 4%;
+                object-fit: contain;
+            }
+
+            img {
+                height: 45%;
+                width: unset;
+
+            }
+        }
+    }
+
+    .landing-lower {
+        h1 {
+            font-size: 36px;
+        }
+
+        .roadmap-wrapper {
+            img {
+                width: unset;
+                height: 710px;
+                object-fit: contain;
+            }
+        }
+
+        .wallets-container {
+            width: 100%;
+            margin: auto;
+
+            img {
+                width: 110px;
+            }
+        }
+    }
+}
