@@ -8,6 +8,7 @@ export function Home({ mode }) {
     const dispatch = useDispatch()
     const [events, setEvents] = useState([])
     const item = useRef(0)
+    const eventLen = useRef(0)
     const { filter } = useSelector((storeState) => storeState.generalModule)
 
     useEffect(() => {
@@ -15,6 +16,14 @@ export function Home({ mode }) {
         item.current = 0
     }, [filter])
 
+    useEffect(() => {
+        if (performance.navigation.type === 1) {
+          console.log("This page is reloaded");
+          window.scrollTo({top: 0, left: 0});   
+        } else {
+          console.log("This page is not reloaded");
+        }
+      });
     useEffect(() => {
         window.addEventListener("wheel", preventScroll, { passive: false })
         window.addEventListener("wheel", onWheel,{ passive: false })
@@ -41,12 +50,14 @@ export function Home({ mode }) {
     const loadEvents = async (filter) => {
         let loadedEvents = await eventService.query(filter)
         setEvents(loadedEvents)
+        eventLen.current = loadedEvents.length
     }
 
     const scrollTo = (val) => {
+        console.log("im here ", item.current , "val ", val  , " event length ", eventLen.current)
         resetListener()
-        if (item.current + val > events.length || item.current + val < 0) return
-        else if(item.current + val > events.length) item.current = 0
+        if (item.current + val > eventLen.current || item.current + val < 0) return
+        else if(item.current + val > eventLen.current) item.current = 0
         else item.current = item.current + val
         let elm = document.getElementById(item.current)
         elm.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" })
