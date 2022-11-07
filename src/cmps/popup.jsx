@@ -16,6 +16,7 @@ export function Popup({ mode }) {
     const user = useSelector((state) => state.user)
     const [player, setPlayer] = useState(1)
     const { ethereum } = window
+    let isNarrow = window.innerWidth < 700 ? true : false
 
     if (ethereum) {
         window.ethereum.on('accountsChanged', async (accounts) => {
@@ -63,7 +64,8 @@ export function Popup({ mode }) {
 
             {popup === 'bought' && <div className="bought">
                 <h1>successfully purchased!</h1>
-                <div>
+
+                {!isNarrow ? <div className="inner-bought">
                     <img src={require('../style/imgs/valorant-purchase.png')} />
                     <div className="headers">
                         <p>Event: </p>
@@ -76,9 +78,31 @@ export function Popup({ mode }) {
                         <p>{getDateName(popupBought.date)} , {formatHour(popupBought.date)} GMT</p>
                         <p>{makeCommas(popupBought.tickets)}</p>
                         <p> In case your team/player wins the prize pool is Divided among all viewers.
-                             it may take up to 48 hours from the end of the game for you to see the income.</p>
+                            it may take up to 48 hours from the end of the game for you to see the income.</p>
                     </div>
-                </div>
+                </div> :
+                    <div className="inner-bought">
+                        <img src={require('../style/imgs/event-banner.png')}/>
+                        <div>
+                            <h3>Event:</h3>
+                            <p>{popupBought.player1 + ' Vs ' + popupBought.player2}</p>
+                        </div>
+                        <div>
+                            <h3>Date</h3>
+                            <p>{getDateName(popupBought.date)} , {formatHour(popupBought.date)} GMT</p>
+                        </div>
+                        <div>
+                            <h3>Tickets:</h3>
+                            <p>{makeCommas(popupBought.tickets)}</p>
+                        </div>
+                        <div>
+                            <h3>Prize pool:</h3>
+                            <p>In case your team/player wins the prize pool is Divided among all viewers.
+                            it may take up to 48 hours from the end of the game for you to see the income.</p>
+                        </div>
+
+                    </div>}
+
                 <div className="done" onClick={() => dispatch(setPopup(''))}>Done!</div>
             </div>}
 
