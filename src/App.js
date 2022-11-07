@@ -5,6 +5,7 @@ import {Home} from './pages/home'
 import { Profile } from './pages/profile'
 import { AddEvent } from './pages/addEvent'
 import { Header } from './cmps/header'
+import { LandingPage } from './pages/landing-page'
 import { Footer } from './cmps/footer'
 import { Tickets } from './pages/tickets'
 import { Menu } from "../src/cmps/menu"
@@ -19,7 +20,7 @@ function App() {
         <Header mode={mode} />
         <main className='main-layout'>
           <Routes>
-            <Route path='/register' element={<AddEvent />} />
+            <Route path='/register' element={<LandingPage />} />
             <Route path='/profile' element={<Profile mode={mode} />} />
             <Route path='/tickets' element={<Tickets mode={mode} />} />
             <Route path='/' element={<Home mode={mode} />} />

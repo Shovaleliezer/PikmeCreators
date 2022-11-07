@@ -25,10 +25,18 @@
             }
         }
 
-        .extension {
-            text-align: center;
-            padding: 10px;
+        .extension-wrapper {
+            padding-bottom: 40px;
+
+            .extension {
+                height: unset;
+                text-align: center;
+                padding: 10px;
+                border-radius: 10px;
+                padding-bottom: 20px;
+            }
         }
+
     }
 
     .wellcome {
@@ -118,10 +126,11 @@
             .details {
                 @include flex(35px, flex-start, flex-start, column);
                 margin-bottom: 60px;
+
                 p {
                     margin: 0;
                     font-weight: 300;
-                    color: rgba(255,255,255,0.8);
+                    color: rgba(255, 255, 255, 0.8);
                 }
             }
         }
@@ -172,42 +181,50 @@
 
             }
         }
-        .bought{
+
+        .bought {
             padding: 0;
             padding-bottom: 30px;
-            h1{
+
+            h1 {
                 font-size: 24px;
                 margin-top: 12px;
-                margin-bottom:12px;
+                margin-bottom: 12px;
             }
-            .inner-bought{
-                @include flex(25px, flex-start, flex-start,column);
+
+            .inner-bought {
+                @include flex(25px, flex-start, flex-start, column);
                 font-size: 20px;
                 padding: 0;
                 margin-bottom: 55px;
-                img{
+
+                img {
                     width: 100%;
                     aspect-ratio: 3/1;
                     object-fit: cover;
                 }
-                div{
+
+                div {
                     padding: 0 15px;
-                    h3{
+
+                    h3 {
                         font-size: 18px;
                         font-weight: 600;
                         color: white;
                         margin: 0;
                         margin-bottom: 5px;
                     }
-                    p{
+
+                    p {
                         font-size: 18px;
                         font-weight: 300;
-                        color: rgba(255,255,255,0.8);
+                        color: rgba(255, 255, 255, 0.8);
                         margin: 0;
                     }
                 }
             }
         }
+
         .done {
             font-size: 26px !important;
             padding: 8px 35px !important;

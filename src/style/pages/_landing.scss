@@ -1,0 +1,138 @@
+.landing-upper {
+    background: url("../imgs/landing-upper.png") no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: calc(98vh - 60px);
+
+    .choose-wrapper {
+        @include flex(0, center, center);
+        padding-top: 70px;
+        padding-bottom: 40px;
+
+        .choose {
+            width: 265px;
+        }
+    }
+
+    .images-container {
+        width: 100%;
+        @include flex(200px, center, center);
+
+        img {
+            width: 500px;
+            cursor: pointer;
+        }
+    }
+
+}
+
+.landing-lower {
+    h1 {
+        font-size: 48px;
+        font-weight: 600;
+        text-align: center;
+        color: white;
+        margin-top: 0;
+    }
+
+    .roadmap-wrapper {
+        @include flex(0, center, center);
+        margin-bottom: 130px;
+
+        img {
+            width: 1000px;
+        }
+    }
+
+    .wallets-container {
+        width: 1000px;
+        margin: auto;
+        @include flex(0, space-between, center);
+    }
+
+    img {
+        width: 185px;
+    }
+}
+
+@media (max-width: 1250px) {
+    .landing-upper {
+        height: fit-content;
+        padding-bottom: 100px;
+
+        .images-container {
+            width: 100%;
+            @include flex(10%, center, center);
+
+            img {
+                width: 40%;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .landing-lower {
+        .roadmap-wrapper {
+            img {
+                width: 90%;
+            }
+        }
+
+        .wallets-container {
+            width: 90%;
+
+            img {
+                width: 185px;
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .landing-upper {
+        height: calc(100vh - 155px);
+        padding-bottom: 100px;
+        display: block;
+
+        .images-container {
+            height: 100%;
+            width: 100%;
+            padding-top: 20px;
+            @include flex(40px, flex-start, center, column);
+
+            .choose {
+                height: 4%;
+                object-fit: contain;
+            }
+
+            img {
+                height: 45%;
+                width: unset;
+
+            }
+        }
+    }
+
+    .landing-lower {
+        h1 {
+            font-size: 36px;
+        }
+
+        .roadmap-wrapper {
+            img {
+                width: unset;
+                height: 710px;
+                object-fit: contain;
+            }
+        }
+
+        .wallets-container {
+            width: 100%;
+            margin: auto;
+
+            img {
+                width: 110px;
+            }
+        }
+    }
+}

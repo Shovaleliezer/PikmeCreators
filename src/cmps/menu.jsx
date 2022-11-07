@@ -42,8 +42,7 @@ export function Menu(props) {
             return <>
                 <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
                 <section className={`menu ${props.mode.type} noselect`}>
-                    <div className="hover-main"><NavLink className={props.mode.type} to='/profile'><span className="material-symbols-outlined">history</span> <div>History</div></NavLink></div>
-                    {/* <div className="hover-main" onClick={() => dispatch(toggleMode())}><div className="mode" style={{ background: color }}></div> <div>{props.mode.type === 'light' ? 'Night theme' : 'Light theme'}</div></div> */}
+                    <div className="hover-main" onClick={()=>{dispatch(setMenu(''))}}><NavLink className={props.mode.type} to='/profile'><span className="material-symbols-outlined">history</span> <div>History</div></NavLink></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                     <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
                     {user.isConnected ? <div onClick={() => { logOut(); dispatch(setMenu('')) }} className="hover-main"><span className="material-symbols-outlined">logout</span> <div>Log out</div></div> :

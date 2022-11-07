@@ -55,7 +55,8 @@ export function Popup({ mode }) {
             {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
         <section className={`popup ${mode.type}`}>
-            {popup === 'connect' && <div>{ethereum ? <WalletConnect connectWallet={connectWallet} from='popup' /> : <ExtensionConnect mode={mode} />}</div>}
+            {popup === 'connect' && <div>{ethereum ? <WalletConnect connectWallet={connectWallet} from='popup' /> : 
+            <div className="extension-wrapper"><ExtensionConnect mode={mode} /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}
 
             {popup === 'connected' && <div className="wellcome">
                 <h1>welcome back {user.nickName}</h1>

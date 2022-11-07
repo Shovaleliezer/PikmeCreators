@@ -8,6 +8,7 @@
 //pages
 @import "/src/style/pages/home";
 @import "src/style/pages/profile";
+@import "src/style/pages/landing";
 
 //components
 @import "/src/style/cmps/register";
@@ -20,7 +21,7 @@
 @import "src/style/cmps/search-bar";
 @import "src/style/cmps/footer";
 @import "src/style/cmps/event-box";
-
+@import "src/style/cmps/chat-box";
 
 * {
     box-sizing: border-box;
@@ -36,19 +37,3 @@ body{
     margin-top: 70px;
     margin-bottom: 60px; 
 }
-
-
-
-
-.gist-messenger-bubble-iframe iframe, .gist-notification-iframe iframe, .gist-post-small-iframe iframe, .gist-prompt-iframe iframe {
-    bottom: 20px !important; // Change the 80px to move the Messenger vertically from bottom edge fo the screen
-    right: 20px!important; // Change the 40px to move the Messenger horizontally from right edge fo the screen
-    // left: 40px!important; // Change the 40px to move the Messenger horizontally from left edge fo the screen
-  }
-@media only screen and (max-width: 580px) {
-    .gist-messenger-bubble-iframe iframe, .gist-notification-iframe iframe, .gist-post-small-iframe iframe, .gist-prompt-iframe iframe {
-      bottom: 75px !important; // Change the 80px to move the Messenger vertically from bottom edge fo the screen
-      right: 8px!important; // Change the 40px to move the Messenger horizontally from right edge fo the screen
-      // left: 40px!important; // Change the 40px to move the Messenger horizontally from left edge fo the screen
-    }
-  }
