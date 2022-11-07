@@ -22,7 +22,8 @@ export function Header(props) {
     }
 
     const filterClick = (filterr) => {
-        dispatch(setFilter({ search: filterr }))
+        if (filterr === filter.search) resetFilter()
+        else dispatch(setFilter({ search: filterr }))
         setHeaderMode('')
         navigate('/')
     }

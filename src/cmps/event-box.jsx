@@ -72,7 +72,7 @@ export function EventBox({ ev }) {
         dispatch(setPopup('bought'))
     }
 
-    const ratios = getRatios(527, 931)
+    const ratios = getRatios(8946, 9319)
     return (
         <div>
             <div className='event-box' >
