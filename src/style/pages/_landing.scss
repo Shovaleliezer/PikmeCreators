@@ -27,26 +27,63 @@
 }
 
 .landing-lower {
-    h1{
+    h1 {
         font-size: 48px;
         font-weight: 600;
         text-align: center;
-        color:white;
+        color: white;
         margin-top: 0;
     }
+
     .roadmap-wrapper {
         @include flex(0, center, center);
         margin-bottom: 130px;
+
         img {
-            width:1000px;
+            width: 1000px;
         }
     }
-    .wallets-container{
+
+    .wallets-container {
         width: 1000px;
         margin: auto;
         @include flex(0, space-between, center);
     }
-    img{
-        width:185px;
+
+    img {
+        width: 185px;
+    }
+}
+
+@media (max-width: 1250px) {
+    .landing-upper {
+        height: fit-content;
+        padding-bottom: 100px;
+
+        .images-container {
+            width: 100%;
+            @include flex(10%, center, center);
+
+            img {
+                width: 40%;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .landing-lower {
+        .roadmap-wrapper {
+            img {
+                width: 90%;
+            }
+        }
+
+        .wallets-container {
+            width: 90%;
+
+            img {
+                width: 185px;
+            }
+        }
     }
 }
