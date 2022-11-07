@@ -2,34 +2,42 @@
     @include flex(20px, center, center, column);
     margin-top: 20vh;
     padding: 10px;
+
     * {
         margin: 0;
     }
+
     a {
         color: $main;
     }
+
     h1 {
         font-size: 40px;
     }
+
     section {
         background-color: $table-back;
         border: 1px solid gray;
         border-radius: 10px;
         width: 700px;
         font-size: 22px;
+
         div {
             @include flex(15px, flex-start, center);
             padding: 15px 10px;
             border-bottom: 1px solid gray;
             cursor: pointer;
+
             &:last-child {
                 border-bottom: 0px;
                 @include flex(0, center, center);
+
                 span {
                     color: $main;
                     text-decoration: underline;
                 }
             }
+
             img {
                 margin-left: 10px;
                 width: 30px;
@@ -40,17 +48,23 @@
     }
 }
 
-.extension-img {
-    width: 340px;
-    aspect-ratio: 1/1;
+.extension {
+    height: 80vh;
+    .extension-img {
+        width: 340px;
+        aspect-ratio: 1/1;
+    }
 }
+
 
 @media (max-width: $mobile) {
     .wallet-connect {
         margin-top: 20px;
+
         h1 {
             font-size: 30px;
         }
+
         section {
             width: 95vw;
             font-size: 16px;
