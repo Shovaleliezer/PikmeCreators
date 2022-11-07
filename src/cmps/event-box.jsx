@@ -47,9 +47,9 @@ export function EventBox({ ev }) {
         const tx_dict={
             nonce: await web3.eth.getTransactionCount(user.address),
             from: user.address,
-            gasPrice: web3.utils.toHex(String(gasLimit*tickets)*50000),
-            gasLimit: web3.utils.toHex(String(gasLimit*tickets)),
-            value: web3.utils.toHex(price),
+            gasPrice: web3.utils.toHex(String(gasLimit)*50000),
+            gasLimit: web3.utils.toHex(String(gasLimit)),
+            value: web3.utils.toHex(price*tickets),
             chainId: 56,
               };
         await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
