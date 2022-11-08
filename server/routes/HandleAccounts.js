@@ -33,10 +33,10 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
     if (createNewAccount) {
 
         var dt = new Date();
-        const { nickName, image, about, moneyWon, matchHistory, creationDate, creatorEvents } = {
+        const { nickName, image, about, moneyWon, matchHistory, creationDate,  } = {
             nickName: namelist[Math.floor(Math.random() * namelist.length)],
             image: "https://images.unsplash.com/photo-1561211919-1947abbbb35b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YWJzdHJhY3QlMjBibHVlfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
-            about: "about", moneyWon: 0, matchHistory: {}, creationDate: dt, creatorEvents: {}
+            about: "about", moneyWon: 0, matchHistory: {}, creationDate: dt
         }
         const accountInfo = new AccountsInfo({
             nickName,
@@ -46,8 +46,6 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
             matchHistory,
             creationDate,
             walletAddress,
-            creatorEvents,
-            approvedCreator: false
         })
 
         await accountInfo.save().then((result) => {

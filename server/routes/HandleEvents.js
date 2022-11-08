@@ -76,23 +76,16 @@ router.get('/get-events', async (req, res, next) => {
 
 
 router.post('/create-event', async (req, res, next) => {
-    const {  teamOneAddress, teamTwoAddress, teamOneName,teamOneAbout,teamTwoAbout, teamTwoName,
-        shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon } = req.body;
+    const {  team1, shareWithCommunity, date, game, category } = req.body;
 
     const eventInfo = new EventInfo({
 
-        teamOneAddress,
-        teamTwoAddress,
-        teamOneName,
-        teamOneAbout,
-        teamTwoName,
-        teamTwoAbout,
+        team1,
+        team2:{},
         shareWithCommunity,
         date,
         game,
         category,
-        teamOneIcon,
-        teamTwoIcon,
         viewers: {},
         likes:{},
         teamOneTickets:0,
@@ -109,6 +102,32 @@ router.post('/create-event', async (req, res, next) => {
             return res.send(err);
         })
 })
+
+// update player 2 object inside the event id that was sent from the pharams only if player2 is empty
+router.put('/accept-event/:eventId', async (req, res, next) => {
+    const { team2 } = req.body;
+    const id = req.params.eventId;
+    await EventInfo.findById(id).then((result) => {
+        if (Object.keys(team2).length === 0) {
+            result.team2 = team2;
+            result.save().then((result) => {
+                return res.send(result);
+            })
+                .catch((err) => {
+                    console.log("err ", err);
+                    return res.send(err);
+                })
+        }
+        else {
+            return res.send({ "error": "player 2 already exists" });
+        }
+    })
+        .catch((err) => {
+            console.log("err ", err);
+            return res.send(err);
+        })
+})
+
 
 router.post('/sell-ticket/:eventId', async (req, res, next) => {
   //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
@@ -219,8 +238,8 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
         newViewers[key] = {teamChosen:newViewers[key].teamChosen, tickets:newViewers[key].tickets, moneyWon:0 }
       }
     }
-    newViewers[data.teamOneAddress] = creatorOne
-    newViewers[data.teamTwoAddress] = creatorTwo
+    newViewers[data.team1.address] = creatorOne
+    newViewers[data.team2.address] = creatorTwo
     newViewers[ownerAddress] = owner
     query["viewers"] = newViewers
     
@@ -286,21 +305,15 @@ router.post('/makeLike/:eventId', async (req, res, next) => {
 });
 
 router.get('/wallet-connect/', async (req, res, next) => {
-    const {  teamOneAddress, teamTwoAddress, teamOneName, teamTwoName,
-        shareWithCommunity, date, game, category, teamOneIcon, teamTwoIcon } = req.params;
+    const {  team1, team2, shareWithCommunity, date, game, category} = req.params;
 
     const eventInfo = new EventInfo({
-      
-        teamOneAddress,
-        teamTwoAddress,
-        teamOneName,
-        teamTwoName,
+        team1,
+        team2,
         shareWithCommunity,
         date,
         game,
         category,
-        teamOneIcon,
-        teamTwoIcon,
         approved: false
 
     });

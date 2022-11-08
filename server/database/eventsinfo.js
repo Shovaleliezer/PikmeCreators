@@ -4,31 +4,15 @@ const Schema = mongoose.Schema
 
 
 const EventInfoSchema = new Schema({
-
-    teamOneAddress :{
-        type:String,
+    player1:{
+        type:Object,
         required: true
     },
-    teamTwoAddress :{
-        type:String,
+    player2:{
+        type:Object,
         required: true
     },
-    teamOneName :{
-        type:String,
-        required: true
-    },
-    teamOneAbout :{
-        type:String,
-        required: true
-    },
-    teamTwoAbout :{
-        type:String,
-        required: true
-    },
-    teamTwoName :{
-        type:String,
-        required: true
-    },
+    
     shareWithCommunity:{
         type:Boolean,
         required: true
@@ -46,16 +30,6 @@ const EventInfoSchema = new Schema({
         type:String,
         index: true ,
         required: true
-    },
-    teamOneIcon:{
-        type:String,
-        required: true,
-        
-    },
-    teamTwoIcon:{
-        type:String,
-        required: true,
-        
     },
     teamOneTickets :{
         type:Number,

@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const HandleAccounts = require('./routes/HandleAccounts')
+const HandleCreators = require('./routes/HandleCreators')
 const HandleEvent = require('./routes/HandleEvents')
 
 
@@ -38,6 +39,7 @@ else {
 
 app.use('/handle-event', HandleEvent)
 app.use('/handle-account', HandleAccounts)
+app.use('/handle-creator', HandleCreators)
 
 app.use((req,res,next)=>{
     const error = new Error('Not fsound')
