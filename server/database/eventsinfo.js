@@ -4,13 +4,15 @@ const Schema = mongoose.Schema
 
 
 const EventInfoSchema = new Schema({
-    player1:{
+    team1:{
         type:Object,
-        required: true
+        required: true,
+        minimize: false
     },
-    player2:{
+    team2:{
         type:Object,
-        required: true
+        required: true,
+        minimize: false
     },
     
     shareWithCommunity:{
@@ -50,14 +52,16 @@ const EventInfoSchema = new Schema({
     },
     viewers:{
         type:Object ,
-        required: true
+        required: true,
+        minimize: false
     },
     likes:{
         type:Object ,
-        required: true
+        required: true,
+        minimize: false
     },
     
-},{timestamps:true});
+},{timestamps:true, minimize: false});
 //s
 
 EventInfoSchema.index({title: 'text', category:"text", game:"text"});
