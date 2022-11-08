@@ -15,7 +15,8 @@ const CreatorsInfoSchema = new Schema({
     },
     creatorEvents :{
         type:Object,
-        required: true
+        required: true,
+        minimize: false
     },
     creationDate:{
         type:Date,
@@ -57,7 +58,7 @@ const CreatorsInfoSchema = new Schema({
 
 
     
-},{timestamps:true});
+},{timestamps:true, minimize: false});
 //s
 
 const CreatorsInfo = mongoose.model('CreatorsInfo', CreatorsInfoSchema);

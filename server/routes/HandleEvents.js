@@ -274,7 +274,7 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
 
 
 
-router.post('/makeLike/:eventId', async (req, res, next) => {
+router.post('/make-like/:eventId', async (req, res, next) => {
   //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
   // confirm it with the block chain
   try{
@@ -366,21 +366,31 @@ router.get('/get-event/:eventId', async (req, res, next) => {
 
 
 
-router.get('/getEventStats/:eventId', async (req, res, next) => {
+router.get('/get-event-stats/:eventId', async (req, res, next) => {
   //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
   // confirm it with the block chain
   try{
     const eventId = req.params.eventId
     const { buyerAddress} = req.body;
-    await EventInfo.findById( eventId).then( async newData => {
-     
+    await EventInfo.find({_id:String(eventId)}).then( async newData => {
         let ticketsSold = 0;
         let countLikes = 0;
         let didLikeUser = false;
-        
-        if (newData) {
-          for (var key in newData.views) {
-            ticketsSold += newData.views[key].tickets
+        let teamOneSold = 0;
+        let teamTwoSold = 0;
+        let teamOneDistribution = 0;
+        let teamOneRatio = 1;
+        let teamTwoRatio = 1;
+        if (newData && newData.length > 0) {
+          console.log("newData views", newData)
+          for (var key in newData.viewers) {
+            ticketsSold += newData.viewers[key].tickets
+            if(newData.viewers[key].teamChosen == "teamOne"){
+              teamOneSold += newData.viewers[key].tickets
+            }
+            else if(newData.viewers[key].teamChosen == "teamTwo"){
+              teamTwoSold += newData.viewers[key].tickets
+            }
           }
           for (var key in newData.likes) {
             if(newData.likes[key]){
@@ -390,8 +400,21 @@ router.get('/getEventStats/:eventId', async (req, res, next) => {
           if(newData.likes[buyerAddress]){
             didLikeUser = true;
           }
-      
-          res.send({"didLike":didLikeUser, "numberOfLikes":countLikes, ticketsSold})
+          if(teamOneSold==0 && teamTwoSold==0){
+            teamOneDistribution = 50;
+          }
+          else if(teamOneSold==0){
+            teamOneDistribution = 0;
+          }
+          else if(teamTwoSold==0){
+            teamOneDistribution = 100;
+          }
+          else{
+            teamOneRatio = (teamTwoSold / teamOneSold) + teamOneSold
+            teamTwoRatio = (teamOneSold / teamTwoSold) + teamTwoSold
+            teamOneDistribution = Math.round((teamOneSold/(teamOneSold+teamTwoSold))*100)
+          }
+          res.send({"didLike":didLikeUser, "numberOfLikes":countLikes, "prizePool": 0.02*ticketsSold, teamOneDistribution, "teamTwoDistribution": (100-teamOneDistribution), teamOneRatio, teamTwoRatio })
         } 
         else res.status(400).send('Event not found');
     })

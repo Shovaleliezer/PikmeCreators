@@ -23,7 +23,8 @@ const AccountsInfoSchema = new Schema({
     },
     matchHistory :{
         type:Object ,
-        required: true
+        required: true,
+        minimize: false
     },
     creationDate:{
         type:Date,
@@ -36,7 +37,7 @@ const AccountsInfoSchema = new Schema({
 
     
     
-},{timestamps:true});
+},{timestamps:true, minimize: false});
 //s
 
 const AccountsInfo = mongoose.model('AccountsInfo', AccountsInfoSchema);
