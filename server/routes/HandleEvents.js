@@ -2,11 +2,20 @@ const express = require('express')
 const router = express.Router()
 const EventInfo = require('../dataBase/eventsinfo')
 const Web3 = require('web3');
-const ERC20TransferABI = [{"inputs":[],"name":"PRICE_PER_TOKEN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"confirmCodeNumber","type":"uint256"}],"name":"buyTicket","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"confirmCode","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"saleIsActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"sendTo","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"sendMoney","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"newState","type":"bool"}],"name":"setSaleState","outputs":[],"stateMutability":"nonpayable","type":"function"}]
-
+const ERC20TransferABI = [{"inputs":[],"name":"PRICE_PER_TOKEN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"confirmCodeNumber","type":"uint256"}],"name":"buyTicket","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"confirmCode","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"saleIsActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"sendTo","type":"address[]"},{"internalType":"uint256[]","name":"amount","type":"uint256[]"}],"name":"sendMoney","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"newState","type":"bool"}],"name":"setSaleState","outputs":[],"stateMutability":"nonpayable","type":"function"}]
 var web3 = new Web3(new Web3.providers.HttpProvider('https://bscrpc.com'));
-const daiToken = new web3.eth.Contract(ERC20TransferABI, "0x16780a9ecDF08ec74c0aE95a5425eE8e0C5ACCfa")
+const daiToken = new web3.eth.Contract(ERC20TransferABI, "0xc4e7146C0446D33aBb77Cc0cABfB0689bB68182D")
 
+
+//get events that are in the futrue  and not approved which both team1 and team2 are not empty objects
+router.get('/get-unapproved-events', async (req, res) => {
+    try {
+        const events = await EventInfo.find({ date: { $gt: new Date() }, approved: false, team1: { $ne: {} }, team2: { $ne: {} } })
+        res.json(events)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
 
 
 
@@ -107,7 +116,7 @@ router.put('/accept-event/:eventId', async (req, res, next) => {
     const { team2 } = req.body;
     const id = req.params.eventId;
     await EventInfo.findById(id).then((result) => {
-        if (Object.keys(team2).length === 0) {
+        if (Object.keys(result.team2).length === 0) {
             result.team2 = team2;
             result.save().then((result) => {
                 return res.send(result);
@@ -118,7 +127,7 @@ router.put('/accept-event/:eventId', async (req, res, next) => {
                 })
         }
         else {
-            return res.send({ "error": "player 2 already exists" });
+            return res.status(404).send('Something went wrong');
         }
     })
         .catch((err) => {
@@ -211,7 +220,7 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
     const eventId = req.params.eventId;
     const { teamWon, ownerAddress} = req.body;
     let query = {}
-    let ticketCost = 0.02;
+    let ticketCost = 20000000000000000;
     let moneyPerTicket = 0;
     let creatorOne = {}
     let creatorTwo = {}
@@ -222,17 +231,17 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
         if(data.teamOneTickets>0 && data.teamTwoTickets >0){
           moneyPerTicket = ((data.teamTwoTickets )*ticketCost*0.9 +  data.teamOneTickets*ticketCost)/data.teamOneTickets
         }
-        creatorOne = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.04 }
-        creatorTwo = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.01}
-        owner = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.049}
+        creatorOne = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets )*ticketCost*0.04 }
+        creatorTwo = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets )*ticketCost*0.01}
+        owner = {teamChosen:"teamOne", moneyWon:(data.teamTwoTickets )*ticketCost*0.05}
       }
       else if (teamWon == "teamTwo"){
         if(data.teamOneTickets>0 && data.teamTwoTickets >0){
           moneyPerTicket = (data.teamTwoTickets*ticketCost +( data.teamOneTickets)*ticketCost*0.9)/data.teamTwoTickets
         }
-        creatorOne = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.04 }
-        creatorTwo = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.01}
-        owner = {teamChosen:"teamTwo", moneyWon:(data.teamTwoTickets + data.teamOneTickets)*ticketCost*0.049}
+        creatorOne = {teamChosen:"teamTwo", moneyWon:(data.teamOneTickets)*ticketCost*0.04 }
+        creatorTwo = {teamChosen:"teamTwo", moneyWon:( data.teamOneTickets)*ticketCost*0.01}
+        owner = {teamChosen:"teamTwo", moneyWon:( data.teamOneTickets)*ticketCost*0.05}
       }
       else if (teamWon == "draw"){
         moneyPerTicket = ticketCost
@@ -248,13 +257,16 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
           newViewers[key] = {teamChosen:newViewers[key].teamChosen, tickets:newViewers[key].tickets, moneyWon:0 }
         }
       }
-      newViewers[data.team1.address] = creatorOne
-      newViewers[data.team2.address] = creatorTwo
-      newViewers[ownerAddress] = owner
+   
+      newViewers[data.team1.walletAddress] = creatorOne
+      newViewers[data.team2.walletAddress] = creatorTwo
+      newViewers["0xae8B9A0e3759F32D36CDD80d998Bb18fB9Ccf53d"] = owner
       query["viewers"] = newViewers
       
       await EventInfo.findByIdAndUpdate(eventId, query, { new: true }).then(newData => {
-        if (newData) res.send(newData)
+        if (newData) {
+          res.send(newData)
+        }
         else res.status(400).send('Event not found');
     })
         .catch((err) => {
@@ -272,6 +284,31 @@ router.post('/announce-winner/:eventId', async (req, res, next) => {
   
 });
 
+
+// return spesific event viewers address into one list and money won into another list
+router.get('/get-viewers/:eventId', async (req, res, next) => {
+  try{
+    const eventId = req.params.eventId;
+    let viewers = []
+    let moneyWon = []
+    await EventInfo.findById( eventId).then( async data => {
+      for (var key in data.viewers) {
+        if(data.viewers[key].moneyWon > 0){
+          viewers.push(key)
+          moneyWon.push(data.viewers[key].moneyWon)
+        }
+
+      }
+      res.send({viewers:viewers, moneyWon:moneyWon})
+    })
+    .catch((err) => {
+      res.status(404).send('Something went wrong');
+    });
+  }catch(err){
+    console.log(err)
+    res.status(404).send('Something went wrong');
+  }
+});
 
 
 router.post('/make-like/:eventId', async (req, res, next) => {
@@ -355,10 +392,11 @@ router.get('/get-event/:eventId', async (req, res, next) => {
         return res.json(data[0])
   })
         .catch((err) => {
+        
           res.status(404).send('Something went wrong');
         })
   }catch(err){
-    console.log(err)
+
     res.status(404).send('Something went wrong');
   }
   
@@ -410,8 +448,8 @@ router.get('/get-event-stats/:eventId', async (req, res, next) => {
             teamOneDistribution = 100;
           }
           else{
-            teamOneRatio = (teamTwoSold / teamOneSold) + teamOneSold
-            teamTwoRatio = (teamOneSold / teamTwoSold) + teamTwoSold
+            teamOneRatio = (teamTwoSold / teamOneSold)*0.9 + teamOneSold
+            teamTwoRatio = (teamOneSold / teamTwoSold)*0.9 + teamTwoSold
             teamOneDistribution = Math.round((teamOneSold/(teamOneSold+teamTwoSold))*100)
           }
           res.send({"didLike":didLikeUser, "numberOfLikes":countLikes, "prizePool": 0.02*ticketsSold, teamOneDistribution, "teamTwoDistribution": (100-teamOneDistribution), teamOneRatio, teamTwoRatio })

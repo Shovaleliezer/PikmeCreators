@@ -17,6 +17,7 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
         await CreatorsInfo.find({ walletAddress }).then(data => {
     
             if (data.length > 0) {
+                console.log("found creator");
                 return res.send(data[0]);
             }
             else {
@@ -60,7 +61,7 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
                 status: req.body.status,
                 region: req.body.region,
                 experience: req.body.experience,
-                approvedCreator:false
+                approvedCreator:true
         }
             const creatorInfo = new CreatorsInfo({
                 nickName,

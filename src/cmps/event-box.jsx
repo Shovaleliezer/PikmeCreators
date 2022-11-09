@@ -10,7 +10,7 @@ import Web3 from 'web3';
 export function EventBox({ ev }) {
     const { ethereum } = window;
     const web3 = new Web3(ethereum);
-    const daiToken = new web3.eth.Contract(ERC20TransferABI, "0x16780a9ecDF08ec74c0aE95a5425eE8e0C5ACCfa")
+    const daiToken = new web3.eth.Contract(ERC20TransferABI, "0xc4e7146C0446D33aBb77Cc0cABfB0689bB68182D")
     const [tickets, setTickets] = useState(1)
     const [chosen, setChosen] = useState('teamOne')
     const user = useSelector((state) => state.user)
@@ -37,6 +37,7 @@ export function EventBox({ ev }) {
     }
     const buyTickets = async (e) => {
         var confirmNumber = Math.floor(Math.random() * 1000000)
+        console.log('confirmNumber ', confirmNumber)
         if (!user.isConnected) {
             dispatch(setPopup('connect'))
             return
@@ -55,10 +56,11 @@ export function EventBox({ ev }) {
         await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
         .once("error", async (err) => {
             //something went wrong
+            console.log(err)
           })
           .then( async (receipt) => {
             if (receipt.blockNumber){
-                const eventt = await eventService.sellTickets(ev._id, { tickets, chosen, buyerAddress: user.address, confirmNumber })
+                const eventt = await eventService.sellTickets(ev._id, { tickets, teamChosen:chosen, buyerAddress: user.address, confirmNumber })
                 if (eventt) {
                     dispatch(setPopupBought({
                         player1: ev.teamOneName,
@@ -120,8 +122,8 @@ export function EventBox({ ev }) {
                         onClick={() => setChosen('teamOne')}
                         style={{ borderColor: chosen === 'teamOne' ? '$main' : '' }}>
                         <div>
-                            <img className="team-icon" src={ev.teamOneIcon} />
-                            <p>{ev.teamOneName}</p>
+                            <img className="team-icon" src={ev.team1.image} />
+                            <p>{ev.team1.nickName}</p>
                         </div>
                         <h2>{ratios.team1ratio}</h2>
 
@@ -133,8 +135,8 @@ export function EventBox({ ev }) {
                         onClick={() => setChosen('teamTwo')}>
                         <h2>{ratios.team2ratio}</h2>
                         <div>
-                            <p>{ev.teamTwoName}</p>
-                            <img className="team-icon" src={ev.teamTwoIcon} />
+                            <p>{ev.team2.nickName}</p>
+                            <img className="team-icon" src={ev.team2.image} />
                         </div>
                     </div>
                 </section>
@@ -147,7 +149,7 @@ export function EventBox({ ev }) {
                     <input type='number' value={tickets} step={1} onChange={onInputClick} />
                     <div className="noselect" onClick={() => onButtonClick(1)}>+</div>
                 </div>
-                <div className='pay' onClick={buyTickets}><p>Buy tickets </p><p className="tickets-price">{makeCommas(tickets * 5)}$</p></div>
+                <div className='pay' onClick={() => buyTickets()}><p>Buy tickets </p><p className="tickets-price">{makeCommas(tickets * 5)}$</p></div>
             </section>
         </div>
     )
