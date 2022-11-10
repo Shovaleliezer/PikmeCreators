@@ -63,12 +63,8 @@ export function Home({ mode }) {
 
     const showInfo = (ev) => {
         dispatch(setPopupInfo({
-            player1name: ev.teamOneName,
-            player2name: ev.teamTwoName,
-            player1Img: ev.teamOneIcon,
-            player2Img: ev.teamTwoIcon,
-            player1About: ev.teamOneAbout,
-            player2About: ev.teamTwoAbout,
+           player1:ev.team1,
+           player2:ev.team2
         }))
         dispatch(setPopup('info'))
     }

@@ -6,12 +6,12 @@ const INITIAL_STATE = {
     menu: '',
     popup: '',
     popupInfo: {
-        player1name: '',
-        player2name: '',
-        player1Img: '',
-        player2Img: '',
-        player1About: '',
-        player2About: ''
+        player1 : {
+            nickName: '',
+        },
+        player2:{
+            nickName: '',
+        }
     },
     popupBought: {
         player1: '',

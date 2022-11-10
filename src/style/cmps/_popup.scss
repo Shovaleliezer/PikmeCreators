@@ -48,7 +48,8 @@
         }
     }
 
-    .players-info {
+    .bought {
+        padding-bottom: 20px;
         .upper-navbar {
             background-color: $bright-back;
             padding: 20px;
@@ -76,22 +77,10 @@
 
                 h1 {
                     font-size: 28px;
+                    margin:0;
                 }
             }
         }
-
-        .players-about {
-            padding: 25px;
-
-            p {
-                font-size: 24px;
-                margin-bottom: 100px;
-            }
-        }
-    }
-
-    .bought {
-        padding: 20px;
 
         h1 {
             text-align: center;
@@ -104,7 +93,7 @@
         .inner-bought {
             @include flex(30px, flex-start, flex-start);
             font-size: 20px;
-            padding: 0;
+            padding: 20px;
 
             img {
                 width: 200px;
@@ -112,8 +101,14 @@
                 object-fit: cover;
             }
 
+            .contact-creator{
+                width: 30px;
+                height: 30px;
+            }
+
             .headers {
-                @include flex(35px, flex-start, flex-start, column);
+                height: 300px;
+                @include flex(0, space-between, flex-start, column);
 
                 p {
                     margin: 0;
@@ -124,13 +119,18 @@
             }
 
             .details {
-                @include flex(35px, flex-start, flex-start, column);
-                margin-bottom: 60px;
+                height: 300px;
+                @include flex(0, space-between, flex-start, column);
 
                 p {
                     margin: 0;
                     font-weight: 300;
                     color: rgba(255, 255, 255, 0.8);
+                }
+                img{
+                    width: 25px;
+                    height: 25px;
+                    cursor: pointer;
                 }
             }
         }
@@ -168,17 +168,6 @@
                     border-right-width: 0;
                     border-left-width: 0;
                 }
-            }
-        }
-
-        .players-info {
-            .players-about {
-                p {
-                    font-size: 24px;
-                    margin-bottom: 20px;
-                    margin-top: 0;
-                }
-
             }
         }
 
