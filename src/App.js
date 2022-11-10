@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import {Home} from './pages/home'
 import { Profile } from './pages/profile'
-import { AddEvent } from './pages/addEvent'
 import { Header } from './cmps/header'
 import { LandingPage } from './pages/landing-page'
 import { Footer } from './cmps/footer'
@@ -13,18 +12,21 @@ import {Popup} from "../src/cmps/popup"
 
 function App() {
   const mode = useSelector((storeState) => storeState.generalModule.mode)
+  const {tutorialDone} = useSelector((storeState) => storeState.generalModule)
+  console.log(tutorialDone)
   document.body.classList=[`back-${mode.type}`]
   return (
     <Router>
       <div className="app">
         <Header mode={mode} />
+        
         <main className='main-layout'>
-          <Routes>
+          {tutorialDone ? <Routes>
             <Route path='/register' element={<LandingPage />} />
             <Route path='/profile' element={<Profile mode={mode} />} />
             <Route path='/tickets' element={<Tickets mode={mode} />} />
             <Route path='/' element={<Home mode={mode} />} />
-          </Routes>
+          </Routes> : <LandingPage />}
         </main>
       <Footer />
       </div>
