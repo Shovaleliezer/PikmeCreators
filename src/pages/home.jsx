@@ -77,10 +77,11 @@ export function Home({ mode }) {
 
     return (
         <div className={`${mode.type} relative`}>
-            <img className='featured-banner' src={require('../style/imgs/event-banner.png')} id={0} />
-            <div className='featured-text' >
-                <p><span>bet</span> on the <span>biggest</span> event of the <span>year!</span></p>
-                <div className='center'><button>Bet On</button></div>
+            <div className='featured-banner' id={0}>
+                <div className='featured-text'>
+                    <p>bet on the <span>biggest</span> event of the <span>year!</span></p>
+                    <div className='center button-wrapper'><button>Bet On</button></div>
+                </div>
             </div>
 
             {events.length > 0 ?

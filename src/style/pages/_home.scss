@@ -4,46 +4,63 @@
     object-fit: cover;
     cursor: pointer;
     margin-bottom: 80px;
-}
-.featured-text{
-    width: 340px;
-    position: absolute;
-    top: 10px;
-    right: 150px;
-    font-size: 40px;
-    font-weight: 400;
-    cursor: pointer;
-    p{
-        margin-bottom: 8px;
-        margin-top: 8px;
-    }
-    span{
-        text-transform: capitalize;
-        color: #f59d10;
-    }
-    button{
-        margin: auto !important;
-        background-color: $main;
-        color: $bright-text;
+    position: sticky;
+    top: -50px;
+    background-image: url('../imgs/event-banner.png');
+    background-size: cover;
+
+    .featured-text {
+        width: 340px;
+        position: absolute;
+        top: 10px;
+        right: 150px;
+        font-size: 40px;
+        font-weight: 400;
         cursor: pointer;
-        padding: 1px 28px;
-        font-size: 32px;
-        border-width: 0;
-        border-radius: 10px;
+
+        p {
+            margin-bottom: 8px;
+            margin-top: 8px;
+        }
+
+        span {
+            text-transform: capitalize;
+            color: #f59d10;
+        }
+
+        .button-wrapper {
+            margin-top: 22px;
+
+            button {
+                margin: auto !important;
+                background-color: $main;
+                color: $bright-text;
+                cursor: pointer;
+                padding: 1px 28px;
+                font-size: 32px;
+                border-width: 0;
+                border-radius: 10px;
+            }
+        }
     }
 }
-.events-wrapper{
-    @include flex(150px,space-between,center,column);
+
+
+
+.events-wrapper {
+    @include flex(150px, space-between, center, column);
 }
 
 .event-box-wrapper {
     @include flex(0, center, center);
     margin-bottom: 60px;
+
     .event-box-side {
         @include flex(80px, center, space-around, column);
         margin: 80px;
         margin-top: 8px;
-        svg{
+
+        svg {
             cursor: pointer;
         }
     }
@@ -64,16 +81,20 @@
         margin: 8px;
     }
 }
-@media (max-width: 1500px){
-    .disappearable{
+
+@media (max-width: 1500px) {
+    .disappearable {
         display: none !important;
     }
+
     .event-box-wrapper {
-        @include flex(10px, flex-start, center,column);
-        .event-box-side{
+        @include flex(10px, flex-start, center, column);
+
+        .event-box-side {
             margin: 0;
             align-self: flex-start;
-            svg{
+
+            svg {
                 width: 30px;
                 height: 30px;
             }
@@ -81,27 +102,40 @@
     }
 }
 
-@media (max-width: $mobile){
-    .featured-banner{
-       object-position: -1100px 0 ;
-       margin-bottom:8px;
-    } 
-    .featured-text{
-        width: 240px;
-        font-size: 28px;
-        right: 10px;
-        div{
-            margin-top: 24px;
-        }
-        button{
+@media (max-width: $mobile) {
+    .featured-banner {
+        top: -70px;
+        background-position-x: -20px;
+        background-position-y: bottom;
+        margin-bottom: 8px;
+
+        .featured-text {
+            width: 230px;
+            text-align: center;
             font-size: 24px;
-            padding: 2 8px;
-            
+            right: unset;
+            top: 40px;
+            padding-top: 10px;
+            position: sticky;
+
+            .button-wrapper {
+                margin-top: 10px;
+                padding-top: 15px;
+                position: sticky;
+                top: 70px;
+                padding-bottom: 20px;
+
+                button {
+                    font-size: 24px;
+                    padding: 2 8px;
+                    top: 300px;
+                }
+            }
         }
     }
-    .events-wrapper{
-        @include flex(30px,space-between,center,column);
+
+    .events-wrapper {
+        @include flex(30px, space-between, center, column);
         padding-bottom: 20px;
     }
 }
-

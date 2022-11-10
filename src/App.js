@@ -13,7 +13,6 @@ import {Popup} from "../src/cmps/popup"
 function App() {
   const mode = useSelector((storeState) => storeState.generalModule.mode)
   const {tutorialDone} = useSelector((storeState) => storeState.generalModule)
-  console.log(tutorialDone)
   document.body.classList=[`back-${mode.type}`]
   return (
     <Router>
