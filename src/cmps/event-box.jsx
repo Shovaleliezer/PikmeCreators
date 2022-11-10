@@ -55,7 +55,6 @@ export function EventBox({ ev }) {
               };
         await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
         .once("error", async (err) => {
-            //something went wrong
             console.log(err)
           })
           .then( async (receipt) => {
