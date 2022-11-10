@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { setMenu } from "../store/actions/general.actions"
+import { useDispatch } from "react-redux"
+import { setMenu, tutorialDone } from "../store/actions/general.actions"
 import emailjs from 'emailjs-com'
 
 export function Footer() {

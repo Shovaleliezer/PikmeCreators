@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { setFilter } from '../store/actions/general.actions'
+import { setFilter,tutorialDone } from '../store/actions/general.actions'
 
 
 export function LandingPage() {
@@ -10,6 +10,7 @@ export function LandingPage() {
 
     const imgClick = (filter)=>{
         dispatch(setFilter({ search: filter }))
+        dispatch(tutorialDone())
         navigate('/')
     }
 
@@ -36,6 +37,5 @@ export function LandingPage() {
                 </div>
             </section>
         </>
-
     )
 }

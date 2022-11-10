@@ -63,23 +63,7 @@ export function Header(props) {
                     </svg>
                     <NavLink to="/register">
                         <svg width="30" height="37" viewBox="0 0 41 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="clickable hover-main-svg gradient">
-                        <defs>
-                            <linearGradient
-                                id="linear-gradient"
-                                gradientUnits="userSpaceOnUse"
-                                x1="1041.6901"
-                                y1="169.485"
-                                x2="1383.9301"
-                                y2="169.485"
-                                gradientTransform="matrix(1 0 0 -1 -761.14 398.97)"
-                            >
-                                <stop offset="14%" stopColor="#2f343b" stopOpacity="0%" />
-                                <stop offset="43%" stopColor="#337082" stopOpacity="41%" />
-                                <stop offset="67%" stopColor="#369fb9" stopOpacity="73%" />
-                                <stop offset="79%" stopColor="#37b1cf" stopOpacity="85%" />
-                            </linearGradient>
-                        </defs>
-                            <path d="M40.6409 7.27273H23.2045L29.1863 1.29091L27.9136 0L20.6409 7.27273L13.3681 0L12.0772 1.29091L18.0772 7.27273H0.640869V36.3636H40.6409V7.27273ZM37.0045 32.7273H4.27723V10.9091H37.0045V32.7273ZM15.1863 14.5455V29.0909L27.9136 21.8182L15.1863 14.5455Z" fill="url(linear-gradient)" />
+                            <path d="M40.6409 7.27273H23.2045L29.1863 1.29091L27.9136 0L20.6409 7.27273L13.3681 0L12.0772 1.29091L18.0772 7.27273H0.640869V36.3636H40.6409V7.27273ZM37.0045 32.7273H4.27723V10.9091H37.0045V32.7273ZM15.1863 14.5455V29.0909L27.9136 21.8182L15.1863 14.5455Z" fill="#ffffff" />
                         </svg>
                     </NavLink>
 

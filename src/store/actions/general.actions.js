@@ -48,3 +48,9 @@ export function toggleMenu() {
         dispatch({ type: 'TOGGLE_MENU' })
     }
 }
+
+export function tutorialDone(){
+    return (dispatch) => {
+        dispatch({ type: 'TUTORIAL_DONE' })
+    }
+}
