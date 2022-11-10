@@ -71,8 +71,8 @@ export function EventBox({ ev }) {
         //     }
         //     )
             dispatch(setPopupBought({
-                player1: ev.teamOneName,
-                player2: ev.teamTwoName,
+                player1: ev.team1.nickName,
+                player2: ev.team2.nickName,
                 tickets,
                 date: ev.date,
             }))

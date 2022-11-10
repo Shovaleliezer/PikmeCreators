@@ -68,17 +68,16 @@ export function Popup({ mode }) {
             </div>}
 
             {(popup === 'bought') && <div className="bought">
-                <h1>successfully purchased!</h1>
-
+              <h1>successfully purchased!</h1>
                 {!isNarrow ? <div className="inner-bought">
                     <img src={require('../style/imgs/valorant-purchase.png')} />
-                    <div className="headers">
+                    <div className="headers" style={{justifyContent:'flex-start'}}>
                         <p>Event: </p>
                         <p>Date:  </p>
                         <p>Tickets: </p>
                         <p>Prize pool:</p>
                     </div>
-                    <div className="details">
+                    <div className="details" style={{justifyContent:'flex-start'}}>
                         <p>{popupBought.player1 + ' Vs ' + popupBought.player2}</p>
                         <p>{getDateName(popupBought.date)} , {formatHour(popupBought.date)} GMT</p>
                         <p>{makeCommas(popupBought.tickets)}</p>
@@ -86,7 +85,7 @@ export function Popup({ mode }) {
                             it may take up to 48 hours from the end of the game for you to see the income.</p>
                     </div>
                 </div> :
-                    <div className="inner-bought">
+                    <div className="inner-bought" >
                         <img src={require('../style/imgs/event-banner.png')} />
                         <div>
                             <h3>Event:</h3>
@@ -129,21 +128,13 @@ export function Popup({ mode }) {
                 </div>
                 {!isNarrow ? <div className="inner-bought">
                     <img src={require('../style/imgs/valorant-purchase.png')} />
-                    <div className="headers">
-                        <p>Experience: </p>
-                        <p>Region:  </p>
-                        <p>Status: </p>
-                        <p>Top achivement:</p>
-                        <p>Proficiency game:</p>
-                        <p>Find me at:</p>
-                    </div>
-                    <div className="details">
-                        <p>{new Date().getFullYear() - new Date(player.experience).getFullYear()} Years</p>
-                        <p>{player.region}</p>
-                        <p>{player.status}</p>
-                        <p>{player.topAchievement}</p>
-                        <p>{player.proficiencyGame}</p>
-                        <a href={player.socialLink} target="_blank"> <img src={require(`../style/imgs/contact/${getSocialIcon(player.socialLink)}.png`)}/></a>
+                    <div className="player-details">
+                        <p>Experience: <span>{new Date().getFullYear() - new Date(player.experience).getFullYear()} Years</span></p>
+                        <p>Region: <span>{player.region}</span></p>
+                        <p>Status: <span>{player.status}</span></p>
+                        <p>Top achivement: <span>{player.topAchievement}</span></p>
+                        <p>Proficiency game: <span>{player.proficiencyGame}</span></p>
+                        <p>Find me at: <a href={player.socialLink} target="_blank"> <img src={require(`../style/imgs/contact/${getSocialIcon(player.socialLink)}.png`)}/></a></p>
                     </div>
                 </div> :
                     <div className="inner-bought">

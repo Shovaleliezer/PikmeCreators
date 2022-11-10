@@ -50,6 +50,7 @@
 
     .bought {
         padding-bottom: 20px;
+
         .upper-navbar {
             background-color: $bright-back;
             padding: 20px;
@@ -77,16 +78,15 @@
 
                 h1 {
                     font-size: 28px;
-                    margin:0;
+                    margin: 0;
                 }
             }
         }
 
         h1 {
             text-align: center;
-            margin-top: 0;
             font-size: 36px;
-            margin-bottom: 50px;
+            margin: 25px 0;
 
         }
 
@@ -101,14 +101,14 @@
                 object-fit: cover;
             }
 
-            .contact-creator{
+            .contact-creator {
                 width: 30px;
                 height: 30px;
             }
 
             .headers {
                 height: 300px;
-                @include flex(0, space-between, flex-start, column);
+                @include flex(35px, flex-start, flex-start, column);
 
                 p {
                     margin: 0;
@@ -120,16 +120,40 @@
 
             .details {
                 height: 300px;
-                @include flex(0, space-between, flex-start, column);
+                @include flex(35px, flex-start, flex-start, column);
 
                 p {
                     margin: 0;
                     font-weight: 300;
                     color: rgba(255, 255, 255, 0.8);
                 }
-                img{
+
+                img {
                     width: 25px;
                     height: 25px;
+                    cursor: pointer;
+                }
+
+            }
+
+            .player-details {
+                height: 300px;
+                @include flex(0, space-between, flex-start, column);
+
+                p {
+                    @include flex(20px, flex-start, center);
+                    margin: 0;
+                    font-weight: 600;
+
+                    span {
+                        font-weight: 300;
+                        color: rgba(255, 255, 255, 0.8);
+                    }
+                }
+
+                img {
+                    width: 35px;
+                    height: 35px;
                     cursor: pointer;
                 }
             }
