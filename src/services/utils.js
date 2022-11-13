@@ -80,5 +80,12 @@ export function getSocialIcon(link){
   return 'instagram' 
 }
 
+export function putKandM(num) {
+  if (typeof num !== 'number') return 'To be added'
+  if (num < 100000) return makeCommas(num)
+  if (num < 1000000) return (num / 1000).toFixed(2) + 'K'
+  return (num / 1000000).toFixed(2) + 'M'
+}
+
   // localStorage.setItem(key, JSON.stringify(value))
   // JSON.parse(localStorage.getItem(key))

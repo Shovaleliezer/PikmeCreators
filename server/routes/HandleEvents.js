@@ -346,26 +346,26 @@ router.post('/make-like/:eventId', async (req, res, next) => {
       
           res.send({"didLike":didLikeUser, "numberOfLikes":countLikes })
         } 
-        else res.status(400).send('not found');
+        else res.status(400).send('not found')
     })
         .catch((err) => {
           console.log("her", err)
-          res.status(404).send('Something went wrong');
+          res.status(404).send('Something went wrong')
         });
       })
       .catch((err) => {
-        res.status(404).send('Something went wrong');
+        res.status(404).send('Something went wrong')
       });
   }
   catch(err){
     console.log(err)
-    res.status(404).send('Something went wrong');
+    res.status(404).send('Something went wrong')
   }
   
 });
 
 router.get('/wallet-connect/', async (req, res, next) => {
-    const {  team1, team2, shareWithCommunity, date, game, category} = req.params;
+    const {  team1, team2, shareWithCommunity, date, game, category} = req.params
 
     const eventInfo = new EventInfo({
         team1,
@@ -381,7 +381,7 @@ router.get('/wallet-connect/', async (req, res, next) => {
         return res.send(result);
     })
         .catch((err) => {
-            console.log("err ", err);
+            console.log("err ", err)
             return res.send(err);
         });
 });
@@ -394,11 +394,11 @@ router.get('/get-event/:eventId', async (req, res, next) => {
   })
         .catch((err) => {
         
-          res.status(404).send('Something went wrong');
+          res.status(404).send('Something went wrong')
         })
   }catch(err){
 
-    res.status(404).send('Something went wrong');
+    res.status(404).send('Something went wrong')
   }
   
 })
@@ -454,19 +454,19 @@ router.get('/get-event-stats/:eventId', async (req, res, next) => {
           }
           res.send({"numberOfLikes":countLikes, "prizePool": 0.02*ticketsSold, teamOneDistribution, "teamTwoDistribution": (100-teamOneDistribution), teamOneRatio, teamTwoRatio })
         } 
-        else res.status(400).send('Event not found');
+        else res.status(400).send('Event not found')
     })
   
       .catch((err) => {
-          res.status(400).send('Event not found');
+          res.status(400).send('Event not found')
       });
   }
   catch(e){
     console.log(e)
-    res.status(404).send('Something went wrong');
+    res.status(404).send('Something went wrong')
   }
 
   
 });
 
-module.exports = router;
+module.exports = router

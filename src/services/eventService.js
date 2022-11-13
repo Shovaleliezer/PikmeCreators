@@ -30,8 +30,6 @@ async function sellTickets(eventId, details) {
 }
 
 async function getStats(eventId) {
-    console.log(eventId)
     const stats = await httpService.get('handle-event/get-event-stats/' + eventId)
-    console.log(stats)
     return stats
 }
