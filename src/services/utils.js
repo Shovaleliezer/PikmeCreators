@@ -73,6 +73,7 @@ export function make2digits(num) {
 }
 
 export function getSocialIcon(link){
+  if(!link) return 'instagram'
   if (link.includes('twitter')) return 'twitter'
   if(link.includes('tiktok')) return 'tiktok'
   if (link.includes('youtube')) return 'youtube'

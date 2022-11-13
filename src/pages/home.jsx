@@ -14,17 +14,17 @@ export function Home({ mode }) {
     useEffect(() => {
         loadEvents(filter)
         item.current = 0
+        scrollToTop()
     }, [filter])
-
-    useEffect(() => {
-        if (performance.navigation.type === 1) window.scrollTo({ top: 0, left: 0 })
-    })
+        
     useEffect(() => {
         window.addEventListener("wheel", preventScroll, { passive: false })
         window.addEventListener("wheel", onWheel, { passive: false })
+        window.addEventListener('load', scrollToTop)
         return () => {
             window.removeEventListener("wheel", preventScroll)
             window.removeEventListener("wheel", onWheel)
+            window.removeEventListener("load", scrollToTop)
         }
     }, [item.current])
 
@@ -36,6 +36,10 @@ export function Home({ mode }) {
 
     const preventScroll = (e) => {
         e.preventDefault()
+    }
+
+    const scrollToTop=()=>{
+        window.scrollTo({ top: 0, left: 0 })
     }
 
     const resetListener = () => {
@@ -99,7 +103,7 @@ export function Home({ mode }) {
                     </div>
                 </section>))}</div>
 
-                : //none found
+                :
                 <div className="center not-found">
                     <img className="no-history" src={require('../style/imgs/no-results.png')} />
                     <p>Oops! it seems there are no results that matches your search...</p>
@@ -108,3 +112,5 @@ export function Home({ mode }) {
         </div>
     )
 }
+
+// (performance.navigation.type === 1) 

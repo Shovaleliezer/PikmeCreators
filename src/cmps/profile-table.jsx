@@ -3,9 +3,10 @@ import { NavLink } from "react-router-dom"
 
 export function ProfileTable(props) {
     const { mode, events } = props
+    if(!events) return <h1>loading...</h1>
     return (
         <section className={`profile-history ${mode.type}`}>
-            {events.length ===0 && <div className="center">
+            {events.length === 0 && <div className="center">
                 <img className="no-history" src={require('../style/imgs/no-results.png')} />
                 <p>No matches to display yet, would you like to <NavLink className={`${props.mode.type} main-color`} to='/'>buy some?</NavLink></p>
             </div>}
