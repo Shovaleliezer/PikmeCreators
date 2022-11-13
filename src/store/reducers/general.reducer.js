@@ -24,7 +24,6 @@ const INITIAL_STATE = {
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {
-
     switch (action.type) {
         case 'TOGGLE_MODE':
             if (state.mode.type === 'dark')
