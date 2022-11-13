@@ -103,7 +103,7 @@ export function Home({ mode }) {
                     </div>
                 </section>))}</div>
 
-                : //none found
+                :
                 <div className="center not-found">
                     <img className="no-history" src={require('../style/imgs/no-results.png')} />
                     <p>Oops! it seems there are no results that matches your search...</p>

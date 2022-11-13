@@ -408,6 +408,7 @@ router.get('/get-event/:eventId', async (req, res, next) => {
 router.get('/get-event-stats/:eventId', async (req, res, next) => {
   //let client buy ticket and fill it in the db to know what team he choose what address he has and how many tickets he got ( called when payed to the blockchain)
   // confirm it with the block chain
+  console.log('hereeee')
   try{
     const eventId = req.params.eventId
     const { buyerAddress} = req.body;

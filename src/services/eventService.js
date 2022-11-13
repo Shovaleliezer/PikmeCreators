@@ -4,7 +4,8 @@ export const eventService = {
     query,
     getById,
     addEvent,
-    sellTickets
+    sellTickets,
+    getStats
 }
 window.cs = eventService
 
@@ -26,4 +27,11 @@ async function addEvent(event) {
 async function sellTickets(eventId, details) {
     const event = await httpService.post('handle-event/sell-ticket/' + eventId, details)
     return event
+}
+
+async function getStats(eventId) {
+    console.log(eventId)
+    const stats = await httpService.get('handle-event/get-event-stats/' + eventId)
+    console.log(stats)
+    return stats
 }

@@ -1,14 +1,15 @@
 import Timer from "./timer"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { eventService } from "../services/eventService"
 import { setPopup, setPopupBought } from "../store/actions/general.actions"
 import { getDateName, formatHour, makeCommas } from "../services/utils"
 import { ERC20TransferABI } from "../abi"
 import Web3 from 'web3';
 
 export function EventBox({ ev }) {
-    const { ethereum } = window;
-    const web3 = new Web3(ethereum);
+    const { ethereum } = window
+    const web3 = new Web3(ethereum)
     const daiToken = new web3.eth.Contract(ERC20TransferABI, "0xc4e7146C0446D33aBb77Cc0cABfB0689bB68182D")
     const [tickets, setTickets] = useState(1)
     const [chosen, setChosen] = useState('teamOne')
@@ -19,6 +20,8 @@ export function EventBox({ ev }) {
     const gasLimit = 105000;
     if (ev.category !== 'sport') mainImg = ev.game
 
+    useEffect(() => {getStats()}, [])
+
     const getRatios = (redTickets, blueTickets) => {
         const all = redTickets + blueTickets
         const redPrecent = Math.floor((redTickets / all) * 100) + 1
@@ -28,6 +31,10 @@ export function EventBox({ ev }) {
         return { redPrecent, bluePrecent, team1ratio, team2ratio }
     }
 
+    const getStats = async()=>{
+        return eventService.getStats(ev._id)
+    }
+
     const onInputClick = (e) => {
         if (e.target.value >= 0 && e.target.value <= 9999) setTickets(Number(e.target.value))
     }
@@ -35,48 +42,40 @@ export function EventBox({ ev }) {
         if (Number(tickets + value) >= 1 && Number(tickets + value) <= 9999) setTickets(Number(tickets + value))
     }
     const buyTickets = async (e) => {
-        // var confirmNumber = Math.floor(Math.random() * 1000000)
-        // console.log('confirmNumber ', confirmNumber)
-        // if (!user.isConnected) {
-        //     dispatch(setPopup('connect'))
-        //     return
-        // }
-        // if (tickets <= 0) return
-        // const price = await daiToken.methods.PRICE_PER_TOKEN().call()
-        // const tx_dict = {
-        //     nonce: await web3.eth.getTransactionCount(user.address),
-        //     from: user.address,
-        //     gasPrice: web3.utils.toHex(String(gasLimit) * 50000),
-        //     gasLimit: web3.utils.toHex(String(gasLimit)),
-        //     value: web3.utils.toHex(price * tickets),
-        //     chainId: 56,
-        // };
-        // await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
-        //     .once("error", async (err) => {
-        //         console.log(err)
-        //     })
-        //     .then(async (receipt) => {
-        //         if (receipt.blockNumber) {
-        //             const eventt = await eventService.sellTickets(ev._id, { tickets, teamChosen: chosen, buyerAddress: user.address, confirmNumber })
-        //             if (eventt) {
-        //                 dispatch(setPopupBought({
-        //                     player1: ev.teamOneName,
-        //                     player2: ev.teamTwoName,
-        //                     tickets,
-        //                     date: ev.date,
-        //                 }))
-        //                 dispatch(setPopup('bought'))
-        //             }
-        //         }
-        //     }
-        //     )
-            dispatch(setPopupBought({
-                player1: ev.team1.nickName,
-                player2: ev.team2.nickName,
-                tickets,
-                date: ev.date,
-            }))
-            dispatch(setPopup('bought'))
+        var confirmNumber = Math.floor(Math.random() * 1000000)
+        console.log('confirmNumber ', confirmNumber)
+        if (!user.isConnected) {
+            dispatch(setPopup('connect'))
+            return
+        }
+        if (tickets <= 0) return
+        const price = await daiToken.methods.PRICE_PER_TOKEN().call()
+        const tx_dict = {
+            nonce: await web3.eth.getTransactionCount(user.address),
+            from: user.address,
+            gasPrice: web3.utils.toHex(String(gasLimit) * 50000),
+            gasLimit: web3.utils.toHex(String(gasLimit)),
+            value: web3.utils.toHex(price * tickets),
+            chainId: 56,
+        };
+        await daiToken.methods.buyTicket(tickets, confirmNumber).send(tx_dict)
+            .once("error", async (err) => {
+                console.log(err)
+            })
+            .then(async (receipt) => {
+                if (receipt.blockNumber) {
+                    const eventt = await eventService.sellTickets(ev._id, { tickets, teamChosen: chosen, buyerAddress: user.address, confirmNumber })
+                    if (eventt) {
+                        dispatch(setPopupBought({
+                            player1: ev.team1.nickName,
+                            player2: ev.team2.nickName,
+                            tickets,
+                            date: ev.date,
+                        }))
+                        dispatch(setPopup('bought'))
+                    }
+                }
+            })
     }
 
     const ratios = getRatios(8946, 9319)
