@@ -3,7 +3,7 @@ import { useState,useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { eventService } from "../services/eventService"
 import { setPopup, setPopupBought } from "../store/actions/general.actions"
-import { getDateName, formatHour, makeCommas } from "../services/utils"
+import { getDateName, formatHour, makeCommas,putKandM } from "../services/utils"
 import { ERC20TransferABI } from "../abi"
 import Web3 from 'web3';
 
@@ -12,6 +12,7 @@ export function EventBox({ ev }) {
     const web3 = new Web3(ethereum)
     const daiToken = new web3.eth.Contract(ERC20TransferABI, "0xc4e7146C0446D33aBb77Cc0cABfB0689bB68182D")
     const [tickets, setTickets] = useState(1)
+    const [stats, setStats] = useState(null)
     const [chosen, setChosen] = useState('teamOne')
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
@@ -32,7 +33,8 @@ export function EventBox({ ev }) {
     }
 
     const getStats = async()=>{
-        return eventService.getStats(ev._id)
+        const loadedStats = await eventService.getStats(ev._id)
+        setStats(loadedStats)
     }
 
     const onInputClick = (e) => {
@@ -79,6 +81,7 @@ export function EventBox({ ev }) {
     }
 
     const ratios = getRatios(8946, 9319)
+    if(!stats) return <h1>loading...</h1>
     return (
         <div>
             <div className='event-box' >
@@ -94,7 +97,7 @@ export function EventBox({ ev }) {
                     <div className="pricepool-holder">
                         <div>
                             <img className="coins" src={require('../style/imgs/coins.png')} />
-                            <p className="total-pricepool">34K</p>
+                            <p className="total-pricepool">{putKandM(stats.prizePool)}</p>
                         </div>
                         <div>
                             <img className="sand-watch" src={require('../style/imgs/sand-watch.png')} />
@@ -109,12 +112,12 @@ export function EventBox({ ev }) {
                 <section className="event-distribution">
                     <h2>Bet Distribution</h2>
                     <div className="bar-wrapper">
-                        <p>{ratios.redPrecent}%</p>
+                        <p>{stats.teamOneDistribution}%</p>
                         <div className="distribution-bar">
-                            <div style={{ width: `${ratios.redPrecent}%` }} className="team-red"></div>
-                            <div style={{ width: `${ratios.bluePrecent}%` }} className="team-blue"></div>
+                            <div style={{ width: `${stats.teamOneDistribution}%` }} className="team-red"></div>
+                            <div style={{ width: `${stats.teamTwoDistribution}%` }} className="team-blue"></div>
                         </div>
-                        <p>{ratios.bluePrecent}%</p>
+                        <p>{stats.teamTwoDistribution}%</p>
                     </div>
                 </section>
                 {isNarrow && <img src={require('../style/imgs/choose.png')} className='choose' />}
@@ -126,7 +129,7 @@ export function EventBox({ ev }) {
                             <img className="team-icon" src={ev.team1.image} />
                             <p>{ev.team1.nickName}</p>
                         </div>
-                        <h2>{ratios.team1ratio}</h2>
+                        <h2>{stats.teamOneRatio}</h2>
 
                     </div>
 
@@ -134,7 +137,7 @@ export function EventBox({ ev }) {
 
                     <div className={`team-2-holder clickable ${chosen === 'teamTwo' ? 'border-main team2-glow' : ''}`}
                         onClick={() => setChosen('teamTwo')}>
-                        <h2>{ratios.team2ratio}</h2>
+                        <h2>{stats.teamTwoRatio}</h2>
                         <div>
                             <p>{ev.team2.nickName}</p>
                             <img className="team-icon" src={ev.team2.image} />
@@ -145,8 +148,6 @@ export function EventBox({ ev }) {
             <section className="buy-tickets">
                 <div className="edit">
                     <div className="noselect" onClick={() => onButtonClick(-1)}><span className="material-symbols-outlined">remove</span></div>
-
-
                     <input type='number' value={tickets} step={1} onChange={onInputClick} />
                     <div className="noselect" onClick={() => onButtonClick(1)}>+</div>
                 </div>

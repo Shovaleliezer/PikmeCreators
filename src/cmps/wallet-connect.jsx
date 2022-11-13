@@ -1,9 +1,42 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setMenu, setPopup } from "../store/actions/general.actions"
+import { setIsConnected, setNickName, setAbout, setAddress, setImage } from '../store/reducers/userReducer'
+import { userService } from '../services/userService'
 
-export function WalletConnect({ connectWallet, from }) {
-    const { mode } = useSelector((storeState) => storeState.generalModule)
+export function WalletConnect({ from }) {
     const dispatch = useDispatch()
+    const { mode } = useSelector((storeState) => storeState.generalModule)
+    const { ethereum } = window
+
+    if (ethereum) {
+        window.ethereum.on('accountsChanged', async (accounts) => {
+            if (!accounts[0]) {
+                dispatch(setIsConnected(false))
+            }
+        })
+    }
+
+    const connectWallet = async () => {
+        try {
+            const accounts = await ethereum.request({
+                method: 'eth_requestAccounts',
+            })
+            const res = await userService.handleAccount(accounts[0])
+            if (res) {
+                dispatch(setAbout(res.about))
+                dispatch(setAddress(res.walletAddress))
+                dispatch(setNickName(res.nickName))
+                dispatch(setIsConnected(true))
+                dispatch(setImage(res.image))
+                dispatch(setPopup('connected'))
+            }
+            else {
+                dispatch(setIsConnected(false))
+            }
+        } catch (error) {
+            dispatch(setIsConnected(false))
+        }
+    }
 
     return (
         <div className={`wallet-connect ${mode.type}`} style={{ marginBottom: from === 'popup' ? '0' : '25vh' }}>

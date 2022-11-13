@@ -3,6 +3,8 @@
     width: 100%;
     top: 0;
     left: 0;
+    color: white;
+    background-color: $back-dark;
     @include flex(40px, space-between, center);
     font-size: 24px;
     z-index: 100;
@@ -12,6 +14,15 @@
     .logo {
         height: 35px;
         object-fit: contain;
+    }
+
+    .create{
+        background-color: $main;
+        font-size: 18px;
+        padding:4px 14px;
+        border-radius: 6px;
+        color: white;
+        cursor: pointer;
     }
 
     .search-placeholder {
@@ -28,7 +39,7 @@
         }
     }
 
-    .left-bar {
+    .options-bar {
         @include flex(30PX, space-between, center);
         flex: 2;
         

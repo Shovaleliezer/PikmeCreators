@@ -41,28 +41,6 @@ export function Profile(props) {
     dispatch(setStats(loadedStats))
   }
 
-  const connectWallet = async () => {
-    try {
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      })
-      const res = await userService.handleAccount(accounts[0])
-      if (res) {
-        dispatch(setAbout(res.about))
-        dispatch(setAddress(res.walletAddress))
-        dispatch(setNickName(res.nickName))
-        dispatch(setIsConnected(true))
-        dispatch(setImage(res.image))
-
-        loadStatistics(res.walletAddress)
-      }
-      else {
-        dispatch(setIsConnected(false))
-      }
-    } catch (error) {
-      dispatch(setIsConnected(false))
-    }
-  }
   const imgChange = async (ev) => {
     const uploadedImage = await uploadService.uploadImg(ev.target.files[0])
     const updatedUser = await userService.updateAccount(user.address, { image: uploadedImage.secure_url })
@@ -75,10 +53,10 @@ export function Profile(props) {
     setNameEdit(false)
   }
 
-  if (!ethereum) return <ExtensionConnect mode={props.mode} />
-  else if (!isConnected) return <WalletConnect connectWallet={connectWallet} from='profile'/>
+  if (!ethereum) return <ExtensionConnect/>
+  else if (!isConnected) return <WalletConnect from='profile'/>
 
-  else return (
+  return (
     <section className={`profile ${props.mode.type}`}>
 
       <section className='img-holder'>

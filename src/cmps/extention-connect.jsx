@@ -1,8 +1,8 @@
 import { isMobile } from 'react-device-detect'
 
-export function ExtensionConnect({mode}) {
+export function ExtensionConnect() {
     return(
-        <div className={`extension center ${mode.type}`}>
+        <div className='extension center'>
     <img className='extension-img' src={require('../style/imgs/metamask-big.png')} />
     <p> Metamask wallet support could not be detected. in order to connect your wallet please install it
       <a href={isMobile ? "https://play.google.com/store/apps/details?id=io.metamask" : "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"}
