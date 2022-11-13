@@ -53,10 +53,10 @@ export function Profile(props) {
     setNameEdit(false)
   }
 
-  if (!ethereum) return <ExtensionConnect mode={props.mode} />
+  if (!ethereum) return <ExtensionConnect/>
   else if (!isConnected) return <WalletConnect from='profile'/>
 
-  else return (
+  return (
     <section className={`profile ${props.mode.type}`}>
 
       <section className='img-holder'>
