@@ -4,7 +4,7 @@ import { setPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 import { userService } from "../services/userService"
 import { setIsConnected, setNickName, setAbout, setAddress, setImage } from '../store/reducers/userReducer'
-import { getDateName, formatHour, makeCommas,getSocialIcon } from "../services/utils"
+import { getDateName, formatHour, makeCommas, getSocialIcon } from "../services/utils"
 import { WalletConnect } from '../cmps/wallet-connect'
 import { ExtensionConnect } from '../cmps/extention-connect'
 
@@ -30,28 +30,6 @@ export function Popup({ mode }) {
         })
     }
 
-    const connectWallet = async () => {
-        try {
-            const accounts = await ethereum.request({
-                method: 'eth_requestAccounts',
-            })
-            const res = await userService.handleAccount(accounts[0])
-            if (res) {
-                dispatch(setAbout(res.about))
-                dispatch(setAddress(res.walletAddress))
-                dispatch(setNickName(res.nickName))
-                dispatch(setIsConnected(true))
-                dispatch(setImage(res.image))
-                dispatch(setPopup('connected'))
-            }
-            else {
-                dispatch(setIsConnected(false))
-            }
-        } catch (error) {
-            dispatch(setIsConnected(false))
-        }
-    }
-
     if (!popup) return <></>
 
     return (<>
@@ -59,7 +37,7 @@ export function Popup({ mode }) {
             {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
         <section className={`popup ${mode.type}`}>
-            {popup === 'connect' && <div>{ethereum ? <WalletConnect connectWallet={connectWallet} from='popup' /> :
+            {popup === 'connect' && <div>{ethereum ? <WalletConnect from='popup' /> :
                 <div className="extension-wrapper"><ExtensionConnect mode={mode} /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}
 
             {popup === 'connected' && <div className="wellcome">
@@ -68,16 +46,16 @@ export function Popup({ mode }) {
             </div>}
 
             {(popup === 'bought') && <div className="bought">
-              <h1>successfully purchased!</h1>
+                <h1>successfully purchased!</h1>
                 {!isNarrow ? <div className="inner-bought">
                     <img src={require('../style/imgs/valorant-purchase.png')} />
-                    <div className="headers" style={{justifyContent:'flex-start'}}>
+                    <div className="headers" style={{ justifyContent: 'flex-start' }}>
                         <p>Event: </p>
                         <p>Date:  </p>
                         <p>Tickets: </p>
                         <p>Prize pool:</p>
                     </div>
-                    <div className="details" style={{justifyContent:'flex-start'}}>
+                    <div className="details" style={{ justifyContent: 'flex-start' }}>
                         <p>{popupBought.player1 + ' Vs ' + popupBought.player2}</p>
                         <p>{getDateName(popupBought.date)} , {formatHour(popupBought.date)} GMT</p>
                         <p>{makeCommas(popupBought.tickets)}</p>
@@ -134,7 +112,7 @@ export function Popup({ mode }) {
                         <p>Status: <span>{player.status}</span></p>
                         <p>Top achivement: <span>{player.topAchievement}</span></p>
                         <p>Proficiency game: <span>{player.proficiencyGame}</span></p>
-                        <p>Find me at: <a href={player.socialLink} target="_blank"> <img src={require(`../style/imgs/contact/${getSocialIcon(player.socialLink)}.png`)}/></a></p>
+                        <p>Find me at: <a href={player.socialLink} target="_blank"> <img src={require(`../style/imgs/contact/${getSocialIcon(player.socialLink)}.png`)} /></a></p>
                     </div>
                 </div> :
                     <div className="inner-bought">
@@ -161,7 +139,7 @@ export function Popup({ mode }) {
                         </div>
                         <div>
                             <h3>Find me at:</h3>
-                            <a href={player.socialLink} target="_blank"> <img className='contact-creator' src={require(`../style/imgs/contact/${getSocialIcon(player.socialLink)}.png`)}/></a>
+                            <a href={player.socialLink} target="_blank"> <img className='contact-creator' src={require(`../style/imgs/contact/${getSocialIcon(player.socialLink)}.png`)} /></a>
                         </div>
                     </div>}
                 <div className="done" onClick={() => dispatch(setPopup(''))}>Got it!</div>
