@@ -9,6 +9,29 @@ function mode(arr){
     ).pop();
 }
 
+// returns if the walletaddress ]is already in the database
+router.post('/is-creator/:walletAddress', async (req, res, next) => {
+    try{
+        const walletAddress = req.params.walletAddress
+        await CreatorsInfo.find({ walletAddress }).then(data => {
+            if (data.length > 0) {
+                return res.send(true);
+            }
+            else {
+                return res.send(false);
+            }
+        })
+        .catch((err) => {
+            return res.status(400).send('Something when wrong');
+        });
+    }
+    catch(err){
+        return res.status(400).send('Something when wrong');
+    }
+})
+
+
+
 router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
     try{
         var createNewAccount = false;
