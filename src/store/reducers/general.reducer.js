@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     },
     filter: '',
     menu: '',
+    menuSide:'right',
     popup: '',
     popupInfo: {
         player1 : {
@@ -24,7 +25,6 @@ const INITIAL_STATE = {
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {
-
     switch (action.type) {
         case 'TOGGLE_MODE':
             if (state.mode.type === 'dark')
@@ -44,6 +44,8 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, filter: action.filter }
         case 'SET_MENU':
             return { ...state, menu: action.menu }
+        case 'SET_MENU_SIDE':
+            return { ...state, menuSide: action.side }
         case 'SET_POPUP':
             return { ...state, popup: action.popup }
         case 'SET_POPUP_INFO':
