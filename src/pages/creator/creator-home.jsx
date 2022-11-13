@@ -16,8 +16,12 @@ export function CreatorHome() {
         })
     }
 
+    const handleCreatorAddress = (address)=>{
+        console.log(address)
+    }
+
     if (!ethereum) return <ExtensionConnect />
-    if (!isConnected) return <WalletConnect from='profile'/>
+    if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress}/>
     
     return <h1>fsdfsdgsdgdfsg</h1>
 }
