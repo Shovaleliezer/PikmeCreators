@@ -410,16 +410,16 @@ router.get('/get-event-stats/:eventId', async (req, res, next) => {
   // confirm it with the block chain
   try{
     const eventId = req.params.eventId
-    const { buyerAddress} = req.body;
+    console.log("test")
     await EventInfo.find({_id:String(eventId)}).then( async newData => {
         let ticketsSold = 0;
         let countLikes = 0;
-        let didLikeUser = false;
         let teamOneSold = 0;
         let teamTwoSold = 0;
         let teamOneDistribution = 0;
         let teamOneRatio = 1;
         let teamTwoRatio = 1;
+        console.log("test")
         if (newData && newData.length > 0) {
           console.log("newData views", newData)
           for (var key in newData.viewers) {
@@ -436,9 +436,7 @@ router.get('/get-event-stats/:eventId', async (req, res, next) => {
               countLikes += 1;
             }
           }
-          if(newData.likes[buyerAddress]){
-            didLikeUser = true;
-          }
+        
           if(teamOneSold==0 && teamTwoSold==0){
             teamOneDistribution = 50;
           }
@@ -453,7 +451,7 @@ router.get('/get-event-stats/:eventId', async (req, res, next) => {
             teamTwoRatio = (teamOneSold / teamTwoSold)*0.9 + teamTwoSold
             teamOneDistribution = Math.round((teamOneSold/(teamOneSold+teamTwoSold))*100)
           }
-          res.send({"didLike":didLikeUser, "numberOfLikes":countLikes, "prizePool": 0.02*ticketsSold, teamOneDistribution, "teamTwoDistribution": (100-teamOneDistribution), teamOneRatio, teamTwoRatio })
+          res.send({"numberOfLikes":countLikes, "prizePool": 0.02*ticketsSold, teamOneDistribution, "teamTwoDistribution": (100-teamOneDistribution), teamOneRatio, teamTwoRatio })
         } 
         else res.status(400).send('Event not found');
     })
