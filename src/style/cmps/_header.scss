@@ -16,38 +16,25 @@
         object-fit: contain;
     }
 
-    .create{
+    .create {
         background-color: $main;
         font-size: 18px;
-        padding:4px 14px;
+        padding: 4px 14px;
         border-radius: 6px;
         color: white;
         cursor: pointer;
     }
 
-    .search-placeholder {
-        flex: 4;
-        height: 47px;
-        @include flex(0, flex-start, center);
-        padding-left: 6px;
-        button{
-            border-width: 0;
-        }
-        span {
-            font-size: 28px;
-            cursor: pointer;
-        }
-    }
-
     .options-bar {
-        @include flex(30PX, space-between, center);
+        @include flex(30px, space-between, center);
         flex: 2;
-        
+
         .bar-logo {
             height: 35px;
             object-fit: contain;
             cursor: pointer;
         }
+
         .header-user-img {
             width: 34px;
             aspect-ratio: 1/1;
@@ -55,79 +42,14 @@
             margin-top: 4px;
             object-fit: cover;
         }
+
         .header-user-img:hover {
             outline: 2px solid $main;
         }
 
-        .fifa {
-            height: 45px;
-        }
-        .valorant{
-            height: 30px;
-        }
-        .stream{
-            height: 28px;
-        }
-        .sport{
-            height: 38px;
-        }
-    }
-
-    .header-mobile-bar {
-        @include flex(50px, center, center);
-        flex: 1;
-
         .menu-icon {
             font-size: 40px;
         }
-
-        .games-menu {
-            object-fit: contain;
-            height: 26px;
-        }
-
-        .search-icon {
-            font-size: 32px;
-            flex: 1;
-            text-align: right;
-        }
-    }
-
-    .games-bar {
-        width: 100%;
-        position: fixed;
-        top: 56px;
-        right: 0;
-        padding: 3vw 4px;
-        border-top: 1px solid $color-dark;
-        @include flex(10px, space-around, center);
-
-        img {
-            width: 30px;
-            object-fit: cover;
-            aspect-ratio: 1/1;
-        }
-
-        span {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-
-        }
-
-        .fifa {
-            height: 36px;
-        }
-    }
-
-    .mobile-search-wrapper {
-        height: 40px;
-        width: 100%;
-        @include flex(5px, center, center);
-    }
-
-    .menu-icon {
-        font-size: 40px;
     }
 }
 
@@ -146,7 +68,8 @@
         height: 35px;
         object-fit: contain;
     }
-    .user-img{
+
+    .user-img {
         aspect-ratio: 1/1;
         object-fit: cover;
     }
@@ -156,10 +79,7 @@
     .header {
         @include flex(6px, space-between, center);
     }
-}
-
-@media (max-width: $mobile) {
-    .header-mobile-bar {
-        gap: 28px !important;
+    .options-bar{
+        gap:10px !important;
     }
 }

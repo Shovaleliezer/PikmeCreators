@@ -6,24 +6,16 @@
 @import "/src/style/base/themes";
 
 //pages
-@import "/src/style/pages/home";
-@import "src/style/pages/profile";
-@import "src/style/pages/landing";
-@import "src/style/pages/stream";
+
 
 //components
 @import "/src/style/cmps/register";
 @import "/src/style/cmps/header";
-@import "/src/style/cmps/filter-bar";
 @import "src/style/cmps/menu";
 @import "src/style/cmps/popup";
 @import "src/style/cmps/wallet-connect";
-@import "src/style/cmps/profile-statistics";
-@import "src/style/cmps/search-bar";
 @import "src/style/cmps/footer";
-@import "src/style/cmps/event-box";
 @import "src/style/cmps/chat-box";
-@import "src/style/cmps/register";
 
 * {
     box-sizing: border-box;
