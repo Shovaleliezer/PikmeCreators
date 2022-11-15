@@ -5,7 +5,8 @@ export const userService = {
     updateAccount,
     getUserEvents,
     getUserStats,
-    checkIsCreator
+    checkIsCreator,
+    addCreator
 }
 window.cs = userService
 
@@ -32,5 +33,11 @@ async function getUserStats(address) {
 
 async function checkIsCreator(address) {
     const isCreator = await httpService.get('handle-creator/is-creator/' + address)
+    return isCreator
+}
+
+async function addCreator(address, creator) {
+    console.log(address, creator)
+    const isCreator = await httpService.post('handle-creator/add-creator/' + address,creator)
     return isCreator
 }

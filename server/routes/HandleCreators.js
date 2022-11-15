@@ -31,7 +31,7 @@ router.get('/is-creator/:walletAddress', async (req, res, next) => {
     }
 })
 
-router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
+router.post('/add-creator/:walletAddress', async (req, res, next) => {
     try{
         var createNewAccount = false;
         const walletAddress = req.params.walletAddress
@@ -74,7 +74,6 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
             const { nickName, image, creatorEvents, creationDate, walletAddress, socialLink, proficiencyGame,topAchievement, status, region,  experience, approvedCreator} = {
                 nickName: req.body.nickName,
                 image: req.body.image,
-                creatorEvents: req.body.creatorEvents,
                 creationDate: dt,
                 walletAddress: req.params.walletAddress,
                 socialLink: req.body.socialLink,
@@ -88,7 +87,7 @@ router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
             const creatorInfo = new CreatorsInfo({
                 nickName,
                 image,
-                creatorEvents,
+                creatorEvents:{},
                 creationDate,
                 walletAddress,
                 socialLink,

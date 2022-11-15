@@ -61,6 +61,59 @@
         }
     }
 
+    .phase2 {
+        .two-wrapper {
+            @include flex(165px,center,center);
+            margin-bottom: 60px;
+        }
+
+        .h3-wrapper {
+            h3 {
+                margin-bottom: 10px;
+            }
+
+            .select-wrapper {
+                border: 2px solid $bright-back;
+                border-radius: 10px;
+                @include flex(0, center, center);
+                padding: 0 10px;
+
+                select {
+                    width: 300px;
+                    color: white;
+                    background-color: $back-dark;
+                    font-size: 32px;
+                    padding: 10px 20px;
+                    border-width: 0;
+                    border-radius: 10px;
+                    
+                }
+
+                select:focus {
+                    outline: 0px;
+                }
+
+
+                img {
+                    width: 40px;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     .progress {
         width: 800px;
         margin-top: 90px;
@@ -68,7 +121,8 @@
         @include flex(0, space-between, center);
 
         .main-progress {
-            @include flex(10px,center,center,column);
+            @include flex(10px, center, center, column);
+
             div {
                 width: 60px;
                 height: 60px;
@@ -76,22 +130,30 @@
                 font-size: 40px;
                 background-color: $bright-back;
                 @include flex(0, center, center);
+
+                span {
+                    font-size: 40px;
+                }
             }
-            p{
+
+            p {
                 font-size: 24px;
                 text-align: center;
                 margin: 0;
             }
         }
-        .mid-progress{
-            @include flex(10px,center,center,column);
+
+        .mid-progress {
+            @include flex(10px, center, center, column);
+
             div {
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;
                 background-color: $bright-back;
             }
-            p{
+
+            p {
                 font-size: 24px;
                 text-align: center;
                 visibility: hidden;

@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
@@ -9,7 +8,6 @@ import { ExtensionConnect } from '../cmps/extention-connect'
 export function Popup({ mode }) {
     const dispatch = useDispatch()
     const { popup } = useSelector((storeState) => storeState.generalModule)
-    const { popupInfo } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
     const { ethereum } = window
     let isNarrow = window.innerWidth < 700 ? true : false

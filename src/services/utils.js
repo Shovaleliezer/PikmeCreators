@@ -87,5 +87,13 @@ export function putKandM(num) {
   return (num / 1000000).toFixed(2) + 'M'
 }
 
+export function getYears(){
+  const years = []
+  for(let i = Number(new Date().getFullYear()); i > 1999; i--){
+    years.push(i)
+  }
+  return years
+}
+
   // localStorage.setItem(key, JSON.stringify(value))
   // JSON.parse(localStorage.getItem(key))
