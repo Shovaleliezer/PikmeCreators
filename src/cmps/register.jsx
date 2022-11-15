@@ -1,4 +1,4 @@
-export function CreatorRegister(){
+export function Register(){
     return <section className="register">
         <h1>Create a Nickname</h1>
         <form>

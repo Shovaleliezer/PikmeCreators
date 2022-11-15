@@ -2,26 +2,9 @@ const INITIAL_STATE = {
     mode: {
         type: 'dark',
     },
-    filter: '',
     menu: '',
     menuSide:'right',
     popup: '',
-    popupInfo: {
-        player1 : {
-            nickName: '',
-        },
-        player2:{
-            nickName: '',
-        }
-    },
-    popupBought: {
-        player1: '',
-        player2: '',
-        tickets: '',
-        date: '',
-    },
-    footerId: 10,
-    tutorialDone: false,
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {

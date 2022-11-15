@@ -1,26 +1,4 @@
-export function toggleMode() {
-    return (dispatch) => {
-        dispatch({ type: 'TOGGLE_MODE' })
-    }
-}
 
-export function turnDark() {
-    return (dispatch) => {
-        dispatch({ type: 'TURN_DARK' })
-    }
-}
-
-export function turnLight() {
-    return (dispatch) => {
-        dispatch({ type: 'TURN_LIGHT' })
-    }
-}
-
-export function setFilter(filter) {
-    return (dispatch) => {
-        dispatch({ type: 'SET_FILTER', filter })
-    }
-}
 
 export function setMenu(menu) {
     return (dispatch) => {
@@ -37,16 +15,6 @@ export function setPopup(popup) {
         dispatch({ type: 'SET_POPUP', popup })
     }
 }
-export function setPopupInfo(popupInfo) {
-    return (dispatch) => {
-        dispatch({ type: 'SET_POPUP_INFO', popupInfo })
-    }
-}
-export function setPopupBought(popupBought) {
-    return (dispatch) => {
-        dispatch({ type: 'SET_POPUP_BOUGHT', popupBought })
-    }
-}
 
 export function toggleMenu() {
     return (dispatch) => {
@@ -54,8 +22,3 @@ export function toggleMenu() {
     }
 }
 
-export function tutorialDone(){
-    return (dispatch) => {
-        dispatch({ type: 'TUTORIAL_DONE' })
-    }
-}
