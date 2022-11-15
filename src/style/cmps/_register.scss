@@ -1,30 +1,102 @@
-.register{
+.register {
     margin: auto;
-    @include flex(20px,center,center,column);
-    color:white;
-    h1{
+    @include flex(20px, center, center, column);
+    color: white;
+
+    h1 {
         font-size: 40px;
     }
-    form{
-        h3{
-            color:$main;
+
+    form {
+        @include flex(18px, flex-start, flex-start, column);
+
+        h3 {
+            color: $main;
             font-size: 32px;
+            margin: 0;
         }
-        input{
+
+        input {
             font-size: 32px;
             padding: 5px 2px;
-            border:2px solid $bright-back;
+            border: 2px solid $bright-back;
             background-color: $back-dark;
-            color:white;
+            color: white;
             border-radius: 10px;
         }
-        .img-upload{
-            border:2px solid $bright-back;
-            @include flex(0,center,center);
-            margin: auto;
+
+        label {
+            width: 100%;
+
+            .upload-img {
+                width: 100%;
+                border: 2px solid $bright-back;
+                @include flex(0, center, center);
+                border-radius: 10px;
+                cursor: pointer;
+
+                img {
+                    width: 50px;
+                    aspect-ratio: 1/1;
+                }
+            }
         }
+
         input:focus {
             outline: 0px;
+        }
+
+        button {
+            width: 300px;
+            text-align: center;
+            font-size: 32px;
+            padding: 5px;
+            border-width: 0;
+            background-color: $main;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 30px;
+            align-self: center;
+        }
+    }
+
+    .progress {
+        width: 800px;
+        margin-top: 90px;
+        margin-bottom: 30px;
+        @include flex(0, space-between, center);
+
+        .main-progress {
+            @include flex(10px,center,center,column);
+            div {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                font-size: 40px;
+                background-color: $bright-back;
+                @include flex(0, center, center);
+            }
+            p{
+                font-size: 24px;
+                text-align: center;
+                margin: 0;
+            }
+        }
+        .mid-progress{
+            @include flex(10px,center,center,column);
+            div {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: $bright-back;
+            }
+            p{
+                font-size: 24px;
+                text-align: center;
+                visibility: hidden;
+                margin: 0;
+            }
         }
     }
 }
