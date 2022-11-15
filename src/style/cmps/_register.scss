@@ -1,32 +1,30 @@
-.add-event {
-    width: 568px;
-    margin:auto;
-    position: relative;
-    margin-top: 20px;
-    form {
-        min-width: max-content;
-        display: flex;
-        flex-direction: column;
-        padding: 1.5rem 2rem;
-        border: 1px solid gray;
-        border-radius: 10px;
-        background-color: white;
-
-        *{
-            margin-bottom: 15px;
+.register{
+    margin: auto;
+    @include flex(20px,center,center,column);
+    color:white;
+    h1{
+        font-size: 40px;
+    }
+    form{
+        h3{
+            color:$main;
+            font-size: 32px;
         }
-        button{
-            background-color: white;
-            border: 2px solid #1976d2;
-            border-radius: 8px;
-            color: #1976d2;
-            font-size: larger;
-            padding: 5px;
+        input{
+            font-size: 32px;
+            padding: 5px 2px;
+            border:2px solid $bright-back;
+            background-color: $back-dark;
+            color:white;
+            border-radius: 10px;
+        }
+        .img-upload{
+            border:2px solid $bright-back;
+            @include flex(0,center,center);
             margin: auto;
-            margin-top: 10px;
-            margin-bottom: 10px;
+        }
+        input:focus {
+            outline: 0px;
         }
     }
-
 }
-

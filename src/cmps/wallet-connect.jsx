@@ -3,7 +3,7 @@ import { setMenu, setPopup } from "../store/actions/general.actions"
 import { setIsConnected, setNickName, setAbout, setAddress, setImage } from '../store/reducers/userReducer'
 import { userService } from '../services/userService'
 
-export function WalletConnect({ from }) {
+export function WalletConnect({ from,handleCreatorAddress }) {
     const dispatch = useDispatch()
     const { mode } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
@@ -29,6 +29,7 @@ export function WalletConnect({ from }) {
                 dispatch(setIsConnected(true))
                 dispatch(setImage(res.image))
                 dispatch(setPopup('connected'))
+                if(handleCreatorAddress) handleCreatorAddress(res.walletAddress)
             }
             else {
                 dispatch(setIsConnected(false))

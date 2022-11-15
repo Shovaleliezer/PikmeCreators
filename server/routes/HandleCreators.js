@@ -10,11 +10,12 @@ function mode(arr){
 }
 
 // returns if the walletaddress ]is already in the database
-router.post('/is-creator/:walletAddress', async (req, res, next) => {
+router.get('/is-creator/:walletAddress', async (req, res, next) => {
     try{
         const walletAddress = req.params.walletAddress
         await CreatorsInfo.find({ walletAddress }).then(data => {
             if (data.length > 0) {
+                console.log("is creator", data[0])
                 return res.send(true);
             }
             else {
@@ -29,8 +30,6 @@ router.post('/is-creator/:walletAddress', async (req, res, next) => {
         return res.status(400).send('Something when wrong');
     }
 })
-
-
 
 router.post('/wallet-connect/:walletAddress', async (req, res, next) => {
     try{
