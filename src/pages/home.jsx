@@ -35,6 +35,6 @@ export function Home() {
     if(!isCreator) return <Register/>
     
     return (<section className="creator-home">
-        
+        <Register/>
     </section>)
 }

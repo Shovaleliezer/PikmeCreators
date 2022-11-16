@@ -11,7 +11,8 @@ export const userSlice = createSlice({
     isConnected: false,
     image: '',
     events:[77,77],
-    stats:{stat1:77}
+    stats:{stat1:77},
+    creator:false
   },
   reducers: {
     setAbout: (state, action) => {
@@ -41,6 +42,9 @@ export const userSlice = createSlice({
     setStats: (state, action) => {
       state.stats = action.payload
     },
+    setCreator: (state, action) => {
+      state.creator = action.payload
+    },
     resetState: (state, action) => {
       state.address = ""
       state.nickName = ""
@@ -64,6 +68,7 @@ export const {
   resetState,
   setEvents,
   setStats,
+  setCreator,
 } = userSlice.actions
 
 export default userSlice.reducer

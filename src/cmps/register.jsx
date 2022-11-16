@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { uploadService } from '../services/upload.service.js'
 import { RegisterProgress } from './register-progress.jsx'
 import { getYears } from '../services/utils.js'
+import { setCreator } from '../store/reducers/userReducer.js'
 import { userService } from '../services/userService.js'
 
 export function Register() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { address } = useSelector((state) => state.user)
     const [phase, setPhase] = useState(1)
     const [creatorDetails, setCreatorDetails] = useState({
@@ -21,6 +23,8 @@ export function Register() {
         experience: '',
         socialLink: ''
     })
+    const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
+    const [category, setCategory] = useState('gaming')
     const years = getYears()
     const nameRef = useRef()
     const imgRef = useRef()
@@ -37,9 +41,11 @@ export function Register() {
     }, [creatorDetails.experience])
 
     const addCreator = async () => {
-        const lala = await userService.addCreator(address, creatorDetails)
-        console.log(lala)
-        if (lala) navigate('/profile')
+        const newCreator = await userService.addCreator(address, creatorDetails)
+        if (newCreator) {
+            dispatch(setCreator(newCreator))
+            navigate('/profile')
+        }
     }
 
     const completePhase1 = async (e) => {
@@ -62,7 +68,16 @@ export function Register() {
             ...creatorDetails, status: statusRef.current.value, experience: experienceRef.current.value,
             socialLink: socialRef.current.value
         })
+    }
 
+    const handleImg = (e) => {
+        const { name, value } = e.target
+        if(name === 'category'){
+            if(value === 'gaming') setImg({ category: 'gaming', game: 'valorant' })
+            else setImg({ category: 'sports', game: 'table-tennis' })
+            setCategory(value)
+        } 
+        else setImg({ ...img, [name]: value })
     }
 
     return <section className="register">
@@ -83,27 +98,37 @@ export function Register() {
                     <div className='h3-wrapper'>
                         <h3>Category</h3>
                         <div className='select-wrapper'>
-                            <img src={require('../style/imgs/valorant-logo.png')} />
-                            <select ref={categoryRef}>
+                            <img src={require(`../style/imgs/register/${img.category}.png`)} />
+                            <select ref={categoryRef} onClick={handleImg} name='category'>
                                 <option value="gaming">Gaming</option>
                                 <option value="sports">Sports</option>
                             </select>
                         </div>
                     </div>
-                    <div className='h3-wrapper'>
+                    {category === 'gaming' ? <div className='h3-wrapper'>
                         <h3>Game</h3>
                         <div className='select-wrapper'>
-                            <img src={require('../style/imgs/valorant-logo.png')} />
-                            <select ref={gameRef}>
+                            <img src={require(`../style/imgs/register/${img.game}.png`)} />
+                            <select ref={gameRef} onClick={handleImg} name='game'>
                                 <option value="valorant">Valorant</option>
                                 <option value="fifa">Fifa</option>
                             </select>
                         </div>
-                    </div>
+                    </div> :
+                        <div className='h3-wrapper'>
+                            <h3>sport type</h3>
+                            <div className='select-wrapper'>
+                                <img src={require(`../style/imgs/register/${img.game}.png`)} />
+                                <select ref={gameRef} onClick={handleImg} name='game'>
+                                    <option value="table-tennis">Table tennis</option>
+                                    <option value="poker">Poker</option>
+                                </select>
+                            </div>
+                        </div>}
                     <div className='h3-wrapper'>
                         <h3>Region</h3>
                         <div className='select-wrapper'>
-                            <img src={require('../style/imgs/valorant-logo.png')} />
+                            <img src={require('../style/imgs/register/region.png')} />
                             <select ref={regionRef}>
                                 <option value="europe">Europe</option>
                                 <option value="asia">Asia</option>
@@ -116,7 +141,7 @@ export function Register() {
                     <div className='h3-wrapper'>
                         <h3>Top achivement</h3>
                         <div className='select-wrapper'>
-                            <img src={require('../style/imgs/valorant-logo.png')} />
+                            <img src={require('../style/imgs/register/achievement.png')} />
                             <select ref={topAchivementRef}>
                                 <option value="top10">Top 10</option>
                                 <option value="top 100">Top 100</option>
@@ -134,26 +159,24 @@ export function Register() {
         {phase === 3 && <>
             <h1>Your Gaming Experience</h1>
             <form className='phase2' onSubmit={completePhase3}>
-                    <div className='h3-wrapper'>
-                        <h3>Status</h3>
-                        <div className='select-wrapper'>
-                            <img src={require('../style/imgs/valorant-logo.png')} />
-                            <select ref={statusRef}>
-                                <option value="gaming influencer">Gaming influencer</option>
-                                <option value="streamer">Streamer</option>
-                                <option value="pro player">Pro player</option>
-                            </select>
-                        </div>
+                <div className='h3-wrapper'>
+                    <h3>Status</h3>
+                    <div className='select-wrapper'>
+                        <select ref={statusRef}>
+                            <option value="gaming influencer">Gaming influencer</option>
+                            <option value="streamer">Streamer</option>
+                            <option value="pro player">Pro player</option>
+                        </select>
                     </div>
-                    <div className='h3-wrapper'>
-                        <h3>Experience from</h3>
-                        <div className='select-wrapper'>
-                            <img src={require('../style/imgs/valorant-logo.png')} />
-                            <select ref={experienceRef}>
-                                {years.map(year => <option key={year} value={year}>{year}</option>)}
-                            </select>
-                        </div>
+                </div>
+                <div className='h3-wrapper'>
+                    <h3>Experience from</h3>
+                    <div className='select-wrapper'>
+                        <select ref={experienceRef}>
+                            {years.map(year => <option key={year} value={year}>{year}</option>)}
+                        </select>
                     </div>
+                </div>
                 <input type="text" placeholder="link to social page" ref={socialRef} />
                 <button>Create <span className="material-symbols-outlined">arrow_forward</span></button>
             </form>

@@ -37,7 +37,6 @@ async function checkIsCreator(address) {
 }
 
 async function addCreator(address, creator) {
-    console.log(address, creator)
-    const isCreator = await httpService.post('handle-creator/add-creator/' + address,creator)
-    return isCreator
+    const newCreator = await httpService.post('handle-creator/add-creator/' + address,creator)
+    return newCreator
 }
