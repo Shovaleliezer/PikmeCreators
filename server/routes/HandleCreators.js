@@ -35,7 +35,6 @@ router.post('/add-creator/:walletAddress', async (req, res, next) => {
     try{
         var createNewAccount = false;
         const walletAddress = req.params.walletAddress
-        console.log('addresssss:',walletAddress)
     
         await CreatorsInfo.find({ walletAddress }).then(data => {
     
@@ -110,9 +109,7 @@ router.post('/add-creator/:walletAddress', async (req, res, next) => {
         console.log(err)
         res.status(404).send('Something went wrong');
     }
-
-    
-});
+})
 
 
 

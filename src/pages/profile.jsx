@@ -1,31 +1,44 @@
 import { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
+import { userService } from "../services/userService"
 import { uploadService } from "../services/upload.service"
+import { setCreator } from "../store/reducers/userReducer"
 import { getYears } from "../services/utils"
 
 export function Profile() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
 
-    const [creator, setCreator] = useState(null)
+    const [creator, setLocalCreator] = useState(null)
     const [img, setImg] = useState('valorant')
     const [isLoader, setIsLoader] = useState(false)
 
     const years = getYears()
 
     useEffect(() => {
-        if (user && user.creator){
-            setCreator({ ...user.creator, experience: new Date(user.creator.experience).getFullYear() })
-            setImg(user.creator.proficiencyGame)
-        } 
-        else {navigate('/')
-        return <></>
-    }
+        if (user && user.creator) {
+            loadCreator()
+        }
+        else {
+            navigate('/')
+            return <></>
+        }
     }, [])
 
-    const save = () => {
-        console.log(creator)
+    const save = async () => {
+        const updatedCreator = await userService.editCreator(user.address,creator)
+        if (updatedCreator) {
+            dispatch(setCreator(updatedCreator))
+            navigate('/')
+        }
+    }
+
+    const loadCreator = async () => {
+        const loadedCreator = await userService.addCreator(user.address, null)
+        setLocalCreator({ ...loadedCreator, experience: new Date(loadedCreator.experience).getFullYear() })
+        setImg(loadedCreator.proficiencyGame)
     }
 
     const copy = () => {
@@ -33,19 +46,18 @@ export function Profile() {
     }
 
     const handleImg = (e) => {
-        const { name, value } = e.target
-        setImg(value)
+        setImg(e.target.value)
         handleChange(e)
     }
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        setCreator({ ...creator, [name]: value })
+        setLocalCreator({ ...creator, [name]: value })
     }
 
     const handleChangeImage = async (e) => {
         const uploadedImg = await uploadService.uploadImg(e.target.files[0])
-        setCreator({ ...creator, image: uploadedImg.secure_url })
+        setLocalCreator({ ...creator, image: uploadedImg.secure_url })
     }
 
     if (!creator) return <></>
@@ -64,18 +76,18 @@ export function Profile() {
             </div>
             <div className="main-img-wrapper">
                 <label htmlFor='img'><img className="main-img" src={image} /></label>
-                <input id='img' className="non-appear" type="file" accept="image/*" onChange={handleChangeImage}/>
+                <input id='img' className="non-appear" type="file" accept="image/*" onChange={handleChangeImage} />
             </div>
             <div className='h3-wrapper'>
                 <h3>Game</h3>
                 <div className='img-wrapper second'>
                     <img src={require(`../style/imgs/register/${img}.png`)} />
-                        <select value={proficiencyGame} onChange={handleImg} name='proficiencyGame'>
-                            <option value="table-tennis">Table tennis</option>
-                            <option value="poker">Poker</option>
-                            <option value="valorant">Valorant</option>
-                            <option value="fifa">Fifa</option>
-                        </select>
+                    <select value={proficiencyGame} onChange={handleImg} name='proficiencyGame'>
+                        <option value="table-tennis">Table tennis</option>
+                        <option value="poker">Poker</option>
+                        <option value="valorant">Valorant</option>
+                        <option value="fifa">Fifa</option>
+                    </select>
                 </div>
             </div>
 
