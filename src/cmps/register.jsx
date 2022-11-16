@@ -10,7 +10,9 @@ import { userService } from '../services/userService.js'
 export function Register() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
     const { address } = useSelector((state) => state.user)
+
     const [phase, setPhase] = useState(1)
     const [creatorDetails, setCreatorDetails] = useState({
         nickName: '',
@@ -25,7 +27,11 @@ export function Register() {
     })
     const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
     const [category, setCategory] = useState('gaming')
+    const [isLoader, setIsLoader] = useState(false)
+    const [file,setFile] = useState(null)
+
     const years = getYears()
+
     const nameRef = useRef()
     const imgRef = useRef()
     const categoryRef = useRef()
@@ -50,10 +56,12 @@ export function Register() {
 
     const completePhase1 = async (e) => {
         e.preventDefault()
+        setIsLoader(true)
         const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
         setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value })
         setPhase(2)
     }
+
     const completePhase2 = (e) => {
         e.preventDefault()
         setCreatorDetails({
@@ -62,6 +70,7 @@ export function Register() {
         })
         setPhase(3)
     }
+
     const completePhase3 = (e) => {
         e.preventDefault()
         setCreatorDetails({
@@ -80,6 +89,11 @@ export function Register() {
         else setImg({ ...img, [name]: value })
     }
 
+    const handleFile = (e)=>{
+        console.log(e.target.files[0])
+        setFile(e.target.files[0])
+    }
+
     return <section className="register">
         {phase === 1 && <>
             <h1>Create a Nickname</h1>
@@ -87,8 +101,9 @@ export function Register() {
                 <h3>Nickname</h3>
                 <input type="text" placeholder="Enter your nickname" required maxLength={15} ref={nameRef} />
                 <h3>Image</h3>
-                <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} /></div></label>
-                <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} />
+                <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{file && file.name}</div></label>
+                <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile}/>
+                {isLoader && <div className="loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
                 <button>Continue <span className="material-symbols-outlined">arrow_forward</span></button>
             </form></>}
         {phase === 2 && <>
