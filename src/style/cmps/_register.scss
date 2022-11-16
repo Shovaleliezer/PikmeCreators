@@ -62,9 +62,11 @@
     }
 
     .phase2 {
-        .two-wrapper {
-            @include flex(165px,center,center);
-            margin-bottom: 60px;
+
+        .all-select-wrapper {
+            width: 850px;
+            @include flex(40px, center, center);
+            flex-wrap: wrap;
         }
 
         .h3-wrapper {
@@ -86,7 +88,7 @@
                     padding: 10px 20px;
                     border-width: 0;
                     border-radius: 10px;
-                    
+
                 }
 
                 select:focus {
@@ -100,19 +102,6 @@
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     .progress {
         width: 800px;
@@ -159,6 +148,52 @@
                 visibility: hidden;
                 margin: 0;
             }
+        }
+    }
+}
+
+@media (max-width: 850px) {
+    .register {
+        .phase2 {
+            .all-select-wrapper {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .register {
+        .progress {
+            width: 100%;
+
+            .main-progress {
+                div {
+                    width: 30px;
+                    height: 30px;
+                    font-size: 16px;
+
+                    span {
+                        font-size: 16px;
+                    }
+                }
+
+                p {
+                    font-size: 12px;
+                }
+            }
+
+            .mid-progress {
+                div {
+                    width: 15px;
+                    height: 15px;
+                }
+
+                p {
+                    font-size: 12px;
+                }
+            }
+
         }
     }
 }

@@ -37,9 +37,9 @@ export function Register() {
     }, [creatorDetails.experience])
 
     const addCreator = async () => {
-        const lala = await userService.addCreator(address,creatorDetails)
+        const lala = await userService.addCreator(address, creatorDetails)
         console.log(lala)
-        if(lala) navigate('/profile')
+        if (lala) navigate('/profile')
     }
 
     const completePhase1 = async (e) => {
@@ -79,7 +79,7 @@ export function Register() {
         {phase === 2 && <>
             <h1>Your Gaming Career</h1>
             <form className='phase2' onSubmit={completePhase2}>
-                <div className='two-wrapper'>
+                <div className='all-select-wrapper'>
                     <div className='h3-wrapper'>
                         <h3>Category</h3>
                         <div className='select-wrapper'>
@@ -100,8 +100,6 @@ export function Register() {
                             </select>
                         </div>
                     </div>
-                </div>
-                <div className='two-wrapper'>
                     <div className='h3-wrapper'>
                         <h3>Region</h3>
                         <div className='select-wrapper'>
@@ -114,6 +112,7 @@ export function Register() {
                             </select>
                         </div>
                     </div>
+
                     <div className='h3-wrapper'>
                         <h3>Top achivement</h3>
                         <div className='select-wrapper'>
@@ -135,7 +134,6 @@ export function Register() {
         {phase === 3 && <>
             <h1>Your Gaming Experience</h1>
             <form className='phase2' onSubmit={completePhase3}>
-                <div className='two-wrapper'>
                     <div className='h3-wrapper'>
                         <h3>Status</h3>
                         <div className='select-wrapper'>
@@ -156,7 +154,6 @@ export function Register() {
                             </select>
                         </div>
                     </div>
-                </div>
                 <input type="text" placeholder="link to social page" ref={socialRef} />
                 <button>Create <span className="material-symbols-outlined">arrow_forward</span></button>
             </form>
