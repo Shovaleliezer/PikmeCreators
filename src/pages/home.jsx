@@ -8,7 +8,7 @@ import { ExtensionConnect } from "../cmps/extention-connect"
 
 export function Home() {
     const dispatch = useDispatch()
-    const [isCreator, setIsCreator] = useState(false)
+    const [creator, setCreator] = useState(false)
     const { ethereum } = window
     const isConnected = useSelector((state) => state.user.isConnected)
     const { address } = useSelector((state) => state.user)
@@ -26,15 +26,16 @@ export function Home() {
     }
 
     const handleCreatorAddress = async (address) => {
-        const loadedIsCreator = await userService.checkIsCreator(address)
-        if (loadedIsCreator) setIsCreator(true)
+        const loadedCreator = await userService.addCreator(address, null)
+        console.log(loadedCreator)
+        if (loadedCreator) setCreator(loadedCreator)
     }
 
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
-    if(!isCreator) return <Register/>
+    if(!creator) return <Register/>
     
     return (<section className="creator-home">
-        <h1>dfgdfgdfdfgg</h1>
+        <h1>aaa</h1>
     </section>)
 }

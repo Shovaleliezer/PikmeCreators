@@ -11,7 +11,6 @@ export function Header(props) {
 
     return (
         <>
-            {/* creator header */}
             <div className="header">
                 <div className="options-bar" style={{ flex: '0' }}>
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>

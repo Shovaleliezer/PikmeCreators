@@ -3,9 +3,8 @@ import { useSelector } from 'react-redux'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 
 //pages
-import {Home} from './pages/home'
+import { Home } from './pages/home'
 import { Header } from './cmps/header'
-import { Create } from './pages/create'
 import { Profile } from './pages/profile'
 import { Footer } from './cmps/footer'
 
@@ -19,10 +18,9 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Header mode={mode}/>
+        <Header mode={mode} />
         <main className='main-layout'>
           <Routes>
-            <Route path='/create' element={<Create />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/' element={<Home mode={mode} />} />
           </Routes>

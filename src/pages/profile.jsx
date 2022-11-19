@@ -18,12 +18,11 @@ export function Profile() {
     const years = getYears()
 
     useEffect(() => {
-        if (user && user.creator) {
+        if (user) {
             loadCreator()
         }
         else {
             navigate('/')
-            return <></>
         }
     }, [])
 
@@ -37,6 +36,10 @@ export function Profile() {
 
     const loadCreator = async () => {
         const loadedCreator = await userService.addCreator(user.address, null)
+        if(!loadedCreator) {
+            navigate('/')
+            return
+        }
         setLocalCreator({ ...loadedCreator, experience: new Date(loadedCreator.experience).getFullYear() })
         setImg(loadedCreator.proficiencyGame)
     }
