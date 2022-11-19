@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { userService } from "../services/userService"
 import { WalletConnect } from "../cmps/wallet-connect"
 import { Register } from "../cmps/register"
+import { EventCard } from "../cmps/event-card"
 import { setIsConnected } from "../store/reducers/userReducer"
 import { ExtensionConnect } from "../cmps/extention-connect"
 
@@ -27,8 +28,7 @@ export function Home() {
 
     const handleCreatorAddress = async (address) => {
         const loadedCreator = await userService.addCreator(address, null)
-        console.log(loadedCreator)
-        if (loadedCreator) setCreator(loadedCreator)
+        if (loadedCreator) setCreator({...loadedCreator,creatorEvents:getEvents()})
     }
 
     if (!ethereum) return <ExtensionConnect />
@@ -38,7 +38,9 @@ export function Home() {
     return (<section className="creator-home">
         <section className="home">
             <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
-            { }
+            {creator.creatorEvents ? <div className="events-container">
+                {creator.creatorEvents.map((ev,idx) => <EventCard ev={ev} key={idx}/>)}</div> 
+            : <div className="no-events">You have no events yet</div>}
         </section>
     </section>)
 }
@@ -53,15 +55,15 @@ function getEvents() {
             status: 'waiting'
         },
         {
-            category: 'sports',
-            game: 'poker',
+            category: 'Esports',
+            game: 'valorant',
             opponent: 'idan',
             date: '11/5/23',
             status: 'approved'
         },
         {
             category: 'sports',
-            game: 'poker',
+            game: 'tennis',
             opponent: 'nave',
             date: '11/12/23',
             status: 'waiting'
