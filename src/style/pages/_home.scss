@@ -81,4 +81,18 @@
             }
         }
     }
+    .no-events{
+        margin: auto;
+        margin-top: 50px;
+        @include flex(50px,center,center,column);
+        padding: 0 15px;
+
+        h1{
+            font-size: 32px;
+            text-align: center;
+        }
+        img{
+            width: 220px;
+        }
+    }
 }

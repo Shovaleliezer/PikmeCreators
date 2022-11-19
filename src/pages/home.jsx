@@ -38,14 +38,18 @@ export function Home() {
     return (<section className="creator-home">
         <section className="home">
             <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
-            {creator.creatorEvents ? <div className="events-container">
+            {creator.creatorEvents.length>0 ? <div className="events-container">
                 {creator.creatorEvents.map((ev,idx) => <EventCard ev={ev} key={idx}/>)}</div> 
-            : <div className="no-events">You have no events yet</div>}
+            : <div className="no-events">
+                <h1>You don't have any events yet, you can create one right <span className="clickable main-color">here</span></h1>
+                <img src={require('../style/imgs/no-events.png')}/>
+                </div>}
         </section>
     </section>)
 }
 
 function getEvents() {
+    return []
     return [
         {
             category: 'sports',
