@@ -14,7 +14,7 @@ export function Home() {
     const { address } = useSelector((state) => state.user)
 
     useEffect(() => {
-        if(address) handleCreatorAddress(address)
+        if (address) handleCreatorAddress(address)
     }, [])
 
     if (ethereum) {
@@ -33,9 +33,38 @@ export function Home() {
 
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
-    if(!creator) return <Register/>
-    
+    if (!creator) return <Register />
+
     return (<section className="creator-home">
-        <h1>aaa</h1>
+        <section className="home">
+            <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
+            { }
+        </section>
     </section>)
+}
+
+function getEvents() {
+    return [
+        {
+            category: 'sports',
+            game: 'poker',
+            opponent: 'idan',
+            date: '11/2/23',
+            status: 'waiting'
+        },
+        {
+            category: 'sports',
+            game: 'poker',
+            opponent: 'idan',
+            date: '11/5/23',
+            status: 'approved'
+        },
+        {
+            category: 'sports',
+            game: 'poker',
+            opponent: 'nave',
+            date: '11/12/23',
+            status: 'waiting'
+        },
+    ]
 }
