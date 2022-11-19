@@ -95,3 +95,11 @@
         margin-bottom: 30px;
     }
 }
+
+@media (max-width: $mobile) {
+    .create{
+        .all-select-wrapper{
+            gap: 0 ;
+        }
+    }
+}
