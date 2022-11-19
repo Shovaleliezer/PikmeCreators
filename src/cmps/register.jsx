@@ -31,7 +31,6 @@ export function Register() {
     const [file,setFile] = useState(null)
 
     const years = getYears()
-
     const nameRef = useRef()
     const imgRef = useRef()
     const categoryRef = useRef()

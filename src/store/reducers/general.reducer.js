@@ -37,9 +37,7 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, popupBought: action.popupBought }
         case 'TOGGLE_MENU':
             if (state.menu === '') return { ...state, menu: 'normal' }
-            else return { ...state, menu: '' }
-        case 'TUTORIAL_DONE':
-            return { ...state, tutorialDone: true }   
+            else return { ...state, menu: '' }  
         default:
             return state;
     }

@@ -5,6 +5,7 @@ import { WalletConnect } from "../cmps/wallet-connect"
 import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
 import { setIsConnected } from "../store/reducers/userReducer"
+import { setPopup } from "../store/actions/general.actions"
 import { ExtensionConnect } from "../cmps/extention-connect"
 
 export function Home() {
@@ -41,7 +42,7 @@ export function Home() {
             {creator.creatorEvents.length>0 ? <div className="events-container">
                 {creator.creatorEvents.map((ev,idx) => <EventCard ev={ev} key={idx}/>)}</div> 
             : <div className="no-events">
-                <h1>You don't have any events yet, you can create one right <span className="clickable main-color">here</span></h1>
+                <h1>You don't have any events yet, you can create one right <span onClick={()=>{dispatch(setPopup('create'))}} className="clickable main-color">here</span>.</h1>
                 <img src={require('../style/imgs/no-events.png')}/>
                 </div>}
         </section>

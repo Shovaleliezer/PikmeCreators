@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
-import { toggleMenu, setMenuSide } from "../store/actions/general.actions"
+import { toggleMenu, setMenuSide,setPopup } from "../store/actions/general.actions"
 
 export function Header(props) {
     const dispatch = useDispatch()
@@ -31,7 +31,7 @@ export function Header(props) {
                     </NavLink>
                 </div>
                 <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
-                <NavLink className='undecorate' to='/create'><div className="create">Create</div></NavLink>
+                <div onClick={()=>dispatch(setPopup('create'))} className="create">Create</div>
             </div>
             {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
                 <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>

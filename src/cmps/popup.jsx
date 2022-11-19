@@ -3,6 +3,7 @@ import { setPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 import { setIsConnected } from '../store/reducers/userReducer'
 import { WalletConnect } from '../cmps/wallet-connect'
+import { Create } from "./create"
 import { ExtensionConnect } from '../cmps/extention-connect'
 
 export function Popup({ mode }) {
@@ -34,6 +35,8 @@ export function Popup({ mode }) {
                 <h1>welcome back {user.nickName}</h1>
                 <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div>
             </div>}
+
+            {popup ==='create' && <Create/>}
 
         </section>
     </>
