@@ -21,4 +21,3 @@ export function toggleMenu() {
         dispatch({ type: 'TOGGLE_MENU' })
     }
 }
-
