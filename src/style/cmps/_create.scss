@@ -1,0 +1,97 @@
+.create {
+    background-color: $mid-back;
+    border-radius: 10px;
+    .create-upper{
+        background-color: #090C1F;
+        padding: 10px 20px;
+        @include flex(0,space-between,center);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        h1{
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        img{
+            width: 30px;
+            cursor: pointer;
+        }
+    }
+    .all-select-wrapper {
+        width: 100%;
+        @include flex(40px, center, center);
+        flex-wrap: wrap;
+    }
+
+    .h3-wrapper {
+        h3 {
+            margin-bottom: 10px;
+            color: $main;
+        }
+
+        .select-wrapper {
+            border: 2px solid $bright-back;
+            border-radius: 10px;
+            @include flex(0, center, center);
+            padding: 0 10px;
+
+            select,
+            input {
+                width: 240px;
+                color: white;
+                background-color: $back-dark;
+                font-size: 24px;
+                padding: 10px 20px;
+                border-width: 0;
+                border-radius: 10px;
+            }
+            input {
+                width: 280px;
+            }
+            ::-webkit-calendar-picker-indicator {
+                filter: invert(1);
+                cursor: pointer;
+            }
+
+            select,
+            input:focus {
+                outline: 0px;
+            }
+
+            img {
+                width: 40px;
+            }
+        }
+    }
+    .checkbox-wrapper {
+        @include flex(10px, center, center);
+        margin-top:40px;
+        p {
+            margin: 0;
+            font-size: 24px
+        }
+        .checkbox {
+            @include flex(0, center, center);
+                width: 40px;
+                height: 40px;
+                border: 1px solid $bright-back;
+                cursor: pointer;
+                span{
+                    font-size: 40px;
+                }
+        }
+    }
+    button {
+        width: 200px;
+        text-align: center;
+        font-size: 32px;
+        padding: 5px;
+        border-width: 0;
+        background-color: $main;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+}
