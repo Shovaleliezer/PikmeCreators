@@ -52,14 +52,6 @@ export function makeCommas(price) {
   return Math.floor((price)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
-export function formatDate(date) {
-  return date.substring(8, 10) + '/' + date.substring(5, 7) + '/' + date.substring(0, 4)
-}
-
-export function formatHour(date) {
-  return date.slice(date.indexOf('T')+1, 13) + ':' +date.slice(14, 16)
-}
-
 export function getDateName(date) {
   const monthNames = ["JAN", "FEB", "MAR", "ApR", "MAY", "JUN",
     "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
@@ -70,6 +62,12 @@ export function getDateName(date) {
 export function make2digits(num) {
   if (num < 10) return '0' + num.toString()
   return num
+}
+
+export function formatDateHour(date){
+  const d = new Date(date)
+  
+  return `${d.getFullYear()}-${make2digits(d.getMonth()+1)}-${make2digits(d.getDate())}  ${make2digits(d.getHours())}:${make2digits(d.getMinutes())}`
 }
 
 export function getSocialIcon(link){
