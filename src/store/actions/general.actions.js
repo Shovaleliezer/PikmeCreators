@@ -21,3 +21,9 @@ export function toggleMenu() {
         dispatch({ type: 'TOGGLE_MENU' })
     }
 }
+
+export function setPopupEvent(popupEvent) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_POPUP_EVENT', popupEvent })
+    }
+}

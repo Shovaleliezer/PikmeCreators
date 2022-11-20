@@ -13,7 +13,6 @@ export function Profile() {
 
     const [creator, setLocalCreator] = useState(null)
     const [img, setImg] = useState('valorant')
-    const [isLoader, setIsLoader] = useState(false)
 
     const years = getYears()
 

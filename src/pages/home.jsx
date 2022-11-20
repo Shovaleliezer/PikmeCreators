@@ -56,21 +56,24 @@ function getEvents() {
             game: 'poker',
             opponent: 'idan',
             date: '11/2/23',
-            status: 'waiting'
+            status: 'waiting',
+            description:'the biggest event so far!!!'
         },
         {
-            category: 'Esports',
+            category: 'gaming',
             game: 'valorant',
             opponent: 'idan',
             date: '11/5/23',
-            status: 'approved'
+            status: 'approved',
+            description:'the biggest event so far!!!'
         },
         {
             category: 'sports',
-            game: 'tennis',
+            game: 'table-tennis',
             opponent: 'nave',
             date: '11/12/23',
-            status: 'waiting'
+            status: 'waiting',
+            description:'the biggest event so far!!!'
         },
     ]
 }

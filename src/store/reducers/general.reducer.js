@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     menu: '',
     menuSide:'right',
     popup: '',
+    popupEvent: '',
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {
@@ -38,6 +39,8 @@ export function generalReducer(state = INITIAL_STATE, action) {
         case 'TOGGLE_MENU':
             if (state.menu === '') return { ...state, menu: 'normal' }
             else return { ...state, menu: '' }  
+        case 'SET_POPUP_EVENT':
+            return { ...state, popupEvent: action.popupEvent }   
         default:
             return state;
     }

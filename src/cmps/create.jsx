@@ -66,19 +66,17 @@ export function Create() {
                     </select>
                 </div>
             </div>
-            <div className='h3-wrapper'>
+            <div className='h3-wrapper date'>
                 <h3>Date</h3>
                 <div className='select-wrapper'>
                     <input type="datetime-local" ref={dateRef} required></input>
                 </div>
             </div>
-            <div className='h3-wrapper'>
-                <h3>Description</h3>
-                <div className='select-wrapper'>
-                    <input type="text" placeholder="insert description" required ref={descRef} />
-                </div>
-            </div>
         </div>
+        <div className='area-wrapper'>
+                <h3>Description</h3>
+                    <textarea placeholder="insert description" required ref={descRef} />
+            </div>
         <div className='checkbox-wrapper'>
             <div className='checkbox' onClick={() => setIsShare(!isShare)}>
                 {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
