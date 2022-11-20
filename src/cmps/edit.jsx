@@ -13,7 +13,6 @@ export function Edit() {
         description: popupEvent.description,
         shareWithCommunity: popupEvent.shareWithCommunity
     })
-    console.log(event)
     const [img, setImg] = useState({ category: event.category, game: event.game })
     const [category, setCategory] = useState(event.category)
 
@@ -29,6 +28,7 @@ export function Edit() {
 
     const editEvent = async (e) => {
         e.preventDefault()
+        console.log(event)
     }
 
     const handleChange = (ev) => {
@@ -71,7 +71,7 @@ export function Edit() {
             <div className='h3-wrapper date'>
                 <h3>Date</h3>
                 <div className='select-wrapper'>
-                    <input type="datetime-local" name='date' required onChange={handleChange} />
+                    <input type="datetime-local" name='date' required onChange={handleChange} value={event.date.slice(0,16)}/>
                 </div>
             </div>
         </div>

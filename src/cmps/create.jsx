@@ -1,9 +1,11 @@
 import { useState, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { setPopup } from '../store/actions/general.actions'
+import { eventService } from '../services/event.service'
 
 export function Create() {
     const dispatch = useDispatch()
+    const user = useSelector((state) => state.user)
     const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
     const [category, setCategory] = useState('gaming')
     const [isShare, setIsShare] = useState(false)
@@ -29,9 +31,10 @@ export function Create() {
             game: gameRef.current.value,
             date: dateRef.current.value,
             description: descRef.current.value,
-            shareWithCommunity: isShare
+            shareWithCommunity: isShare,
+            team1: user.creator.nickName
         }
-        console.log(newEvent)
+        eventService.addEvent(newEvent,user.creator.walletAddress)
     }
 
     return <form className='create' onSubmit={addEvent}>

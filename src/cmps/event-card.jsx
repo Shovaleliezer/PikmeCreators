@@ -1,5 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { setPopup,setPopupEvent} from '../store/actions/general.actions'
+import {formatDateHour} from '../services/utils'
+
 export function EventCard({ev}) {
     const dispatch = useDispatch()
     return (
@@ -21,9 +23,9 @@ export function EventCard({ev}) {
                     <div className="details">
                         <p>{ev.category}</p>
                         <p>{ev.game}</p>
-                        <p>{ev.opponent}</p>
-                        <p>{ev.date}</p>
-                        <p style={{color:ev.status==='approved'? '#04C300' : '#F37F13'}}>{ev.status}</p>
+                        <p style={{color:ev.opponent ? '#E63D4A' : '#F37F13'}} >{ev.opponent? ev.opponent : 'pending...'}</p>
+                        <p>{formatDateHour(ev.date)}</p>
+                        <p style={{color:ev.status==='approved'? '#04C300' : '#F37F13'}}>{ev.status==='approved'? 'approved' : 'pending...'}</p>
                     </div>
                 </div>
         </div>

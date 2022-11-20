@@ -29,7 +29,9 @@ export function Home() {
 
     const handleCreatorAddress = async (address) => {
         const loadedCreator = await userService.addCreator(address, null)
-        if (loadedCreator) setCreator({...loadedCreator,creatorEvents:getEvents()})
+        if (loadedCreator) {
+            setCreator(loadedCreator)
+        }
     }
 
     if (!ethereum) return <ExtensionConnect />
@@ -39,41 +41,16 @@ export function Home() {
     return (<section className="creator-home">
         <section className="home">
             <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
-            {creator.creatorEvents.length>0 ? <div className="events-container">
-                {creator.creatorEvents.map((ev,idx) => <EventCard ev={ev} key={idx}/>)}</div> 
+            {Object.keys(creator.creatorEvents).length>0 ? <div className="events-container">
+            {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id} ev={creator.creatorEvents[ev]}/>)}
+            
+                </div> 
+
+
             : <div className="no-events">
                 <h1>You don't have any events yet, you can create one right <span onClick={()=>{dispatch(setPopup('create'))}} className="clickable main-color">here</span>.</h1>
                 <img src={require('../style/imgs/no-events.png')}/>
                 </div>}
         </section>
     </section>)
-}
-
-function getEvents() {
-    return [
-        {
-            category: 'sports',
-            game: 'poker',
-            opponent: 'idan',
-            date: '11/2/23',
-            status: 'waiting',
-            description:'the biggest event so far!!!'
-        },
-        {
-            category: 'gaming',
-            game: 'valorant',
-            opponent: 'idan',
-            date: '11/5/23',
-            status: 'approved',
-            description:'the biggest event so far!!!'
-        },
-        {
-            category: 'sports',
-            game: 'table-tennis',
-            opponent: 'nave',
-            date: '11/12/23',
-            status: 'waiting',
-            description:'the biggest event so far!!!'
-        },
-    ]
 }
