@@ -1,10 +1,12 @@
-
+import { useDispatch } from 'react-redux'
+import { setPopup } from '../store/actions/general.actions'
 export function EventCard({ev}) {
+    const dispatch = useDispatch()
     return (
         <div className='event-card'>
             <div className="event-upper">
                 <div><img src={require('../style/imgs/edit-icon.png')}/><p>Edit your Stream info</p></div>
-                <p className='main-color clickable'>Edit</p>
+                <p onClick={()=>{dispatch(setPopup('edit'))}} className='main-color clickable'>Edit</p>
             </div>
             <div className="event-inner">
                     <img src={require('../style/imgs/valorant-purchase.png')} />

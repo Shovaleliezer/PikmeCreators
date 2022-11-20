@@ -4,6 +4,7 @@ import { isMobile } from "react-device-detect"
 import { setIsConnected } from '../store/reducers/userReducer'
 import { WalletConnect } from '../cmps/wallet-connect'
 import { Create } from "./create"
+import { Edit } from "./edit"
 import { ExtensionConnect } from '../cmps/extention-connect'
 
 export function Popup({ mode }) {
@@ -37,6 +38,8 @@ export function Popup({ mode }) {
             </div>}
 
             {popup ==='create' && <Create/>}
+
+            {popup === 'edit' && <Edit/>}
 
         </section>
     </>

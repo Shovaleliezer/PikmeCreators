@@ -50,7 +50,6 @@ export function Home() {
 }
 
 function getEvents() {
-    return []
     return [
         {
             category: 'sports',
