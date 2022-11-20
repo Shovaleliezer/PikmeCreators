@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { eventService } from "../services/event.service"
 import { formatDateHour } from "../services/utils"
@@ -6,6 +7,7 @@ import { formatDateHour } from "../services/utils"
 export function Confirm() {
     const { id } = useParams()
     const [event, setEvent] = useState(null)
+    const user = useSelector((state) => state.user)
 
     useEffect(() => {
         loadEvent()
@@ -15,6 +17,16 @@ export function Confirm() {
         const loadedEvent = await eventService.getById(id)
         setEvent(loadedEvent)
     }
+
+    const confirm = async () => {
+        if (user && user.creator) {
+            const ev = await eventService.confirm(user.creator,id)
+            console.log(ev)
+
+        }
+        else console.log('no user')
+    }
+
     if (!event) return <div>oops! it seems there is no event on the link you recieved... </div>
     return (
         <div className='confirm'>
@@ -45,7 +57,7 @@ export function Confirm() {
             </div>
             <div className="buttons">
                 <div className="reject">Reject</div>
-                <div className="accept">Accept!</div>
+                <div className="accept" onClick={confirm}>Accept!</div>
             </div>
         </div>
     )
