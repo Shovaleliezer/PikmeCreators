@@ -96,3 +96,29 @@
         }
     }
 }
+
+@media (max-width: $mobile) {
+    .home{
+        .home-banner{
+            height: 120px;
+            h1{
+                font-size: 32px;
+            }
+        }
+        .events-container {
+            width: 100%;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+        }
+        .event-card{
+            .event-inner {
+                @include flex(15px, flex-start, flex-start);
+                font-size: 16px;
+                padding: 8px;
+    
+                
+                }
+            }
+        }
+    }
+
