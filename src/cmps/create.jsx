@@ -32,9 +32,10 @@ export function Create() {
             date: dateRef.current.value,
             description: descRef.current.value,
             shareWithCommunity: isShare,
-            team1: user.creator.nickName
+            team1: user.creator
         }
-        eventService.addEvent(newEvent,user.creator.walletAddress)
+        const {_id} = await eventService.addEvent(newEvent,user.creator.walletAddress)
+        dispatch(setPopup(_id))
     }
 
     return <form className='create' onSubmit={addEvent}>

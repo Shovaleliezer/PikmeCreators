@@ -12,7 +12,6 @@ export function Popup({ mode }) {
     const { popup } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
     const { ethereum } = window
-    let isNarrow = window.innerWidth < 700 ? true : false
 
     if (ethereum) {
         window.ethereum.on('accountsChanged', async (accounts) => {
@@ -37,9 +36,16 @@ export function Popup({ mode }) {
                 <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div>
             </div>}
 
-            {popup ==='create' && <Create/>}
+            {popup === 'create' && <Create />}
 
-            {popup === 'edit' && <Edit/>}
+            {popup === 'edit' && <Edit />}
+
+            {popup.slice(0, 1) === '6' && <div className="event-link">
+                <p>Event created successfully!</p>
+                <p>To get it confirmed, please send your opponent the link below:</p>
+                <h3>{'http://localhost:3000/#/confirm/' + popup}</h3>
+                <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div>
+            </div>}
 
         </section>
     </>

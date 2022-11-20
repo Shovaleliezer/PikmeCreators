@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setPopup } from '../store/actions/general.actions'
 
 export function Edit() {
@@ -40,14 +40,14 @@ export function Edit() {
         <div className='create-upper'>
             <img src={require('../style/imgs/create-stream.png')} />
             <h1>Create New Stream</h1>
-            <img src={require('../style/imgs/close-icon.png')} onClick={()=>{dispatch(setPopup(''))}}/>
+            <img src={require('../style/imgs/close-icon.png')} onClick={() => { dispatch(setPopup('')) }} />
         </div>
         <div className='all-select-wrapper'>
             <div className='h3-wrapper'>
                 <h3>Category</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/${img.category}.png`)} />
-                    <select onChange={(e)=>{handleImg(e);handleChange(e)}} name='category' value={event.category}>
+                    <select onChange={(e) => { handleImg(e); handleChange(e) }} name='category' value={event.category}>
                         <option value="gaming">Gaming</option>
                         <option value="sports">Sports</option>
                     </select>
@@ -57,7 +57,7 @@ export function Edit() {
                 <h3>Game</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/${img.game}.png`)} />
-                    <select onChange={(e)=>{handleImg(e);handleChange(e)}} name='game' required value={event.game}>
+                    <select onChange={(e) => { handleImg(e); handleChange(e) }} name='game' required value={event.game}>
                         {category === 'gaming' ? <>
                             <option value="valorant">Valorant</option>
                             <option value="fifa">Fifa</option></> :
@@ -71,14 +71,14 @@ export function Edit() {
             <div className='h3-wrapper date'>
                 <h3>Date</h3>
                 <div className='select-wrapper'>
-                    <input type="datetime-local" name='date' required onChange={handleChange} value={event.date.slice(0,16)}/>
+                    <input type="datetime-local" name='date' required onChange={handleChange} value={event.date.slice(0, 16)} />
                 </div>
             </div>
         </div>
         <div className='area-wrapper'>
-                <h3>Description</h3>
-                    <textarea placeholder="insert description" name='description' required  onChange={handleChange} value={event.description}/>
-            </div>
+            <h3>Description</h3>
+            <textarea placeholder="insert description" name='description' required onChange={handleChange} value={event.description} />
+        </div>
         <div className='center'>
             <button>Create!</button>
         </div>

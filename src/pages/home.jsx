@@ -41,15 +41,12 @@ export function Home() {
     return (<section className="creator-home">
         <section className="home">
             <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
-            {Object.keys(creator.creatorEvents).length>0 ? <div className="events-container">
-            {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id} ev={creator.creatorEvents[ev]}/>)}
-            
-                </div> 
-
-
-            : <div className="no-events">
-                <h1>You don't have any events yet, you can create one right <span onClick={()=>{dispatch(setPopup('create'))}} className="clickable main-color">here</span>.</h1>
-                <img src={require('../style/imgs/no-events.png')}/>
+            {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
+                {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id} ev={creator.creatorEvents[ev]} />)}
+            </div>
+                : <div className="no-events">
+                    <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>
+                    <img src={require('../style/imgs/no-events.png')} />
                 </div>}
         </section>
     </section>)
