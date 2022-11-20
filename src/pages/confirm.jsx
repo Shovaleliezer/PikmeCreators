@@ -33,7 +33,7 @@ export function Confirm() {
                     </div>
                 </div>
             </div>
-            <div className='area-wrapper'>
+            <div className='desc-wrapper'>
                 <h3>Description</h3>
                 <div>{event.description}</div>
             </div>
@@ -42,6 +42,10 @@ export function Confirm() {
                     {event.shareWithCommunity && <span className="main-color noselect material-symbols-outlined">done</span>}
                 </div>
                 <p>Share with community</p>
+            </div>
+            <div className="buttons">
+                <div className="reject">Reject</div>
+                <div className="accept">Accept!</div>
             </div>
         </div>
     )

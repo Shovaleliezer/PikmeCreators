@@ -1,6 +1,10 @@
 .confirm {
     color: white;
-    @include flex(0, center, center, column);
+    @include flex(0, flex-start, center, column);
+    min-height: calc(100vh - 315px);
+    width: fit-content;
+    margin: auto;
+    padding-top: 50px;
 
     .boxes-wrapper {
         @include flex(20px, center, center)
@@ -31,6 +35,79 @@
 
             img {
                 width: 40px;
+            }
+        }
+    }
+
+    .desc-wrapper {
+        width: 100%;
+        h3 {
+            margin-bottom: 10px;
+            color: $main;
+        }
+        div{
+            width: 100%;
+            border: 2px solid $bright-back;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 24px;
+            min-height: 60px;
+            
+        }
+    }
+    .checkbox-wrapper {
+        @include flex(10px, flex-start, center);
+        margin-top:40px;
+        align-self: flex-start;
+        margin-bottom: 60px;
+        p {
+            margin: 0;
+            font-size: 24px
+        }
+        .checkbox {
+            @include flex(0, center, center);
+                width: 40px;
+                height: 40px;
+                border: 1px solid $bright-back;
+                span{
+                    font-size: 40px;
+                }
+        }
+    }
+    .buttons{
+        @include flex(0, center, center);
+        .accept,.reject{
+            width: 210px;
+            text-align: center;
+            color :white;
+            font-size: 24px;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .accept{
+            background-color: $main;
+            border-radius: 10px;
+        }
+    }
+}
+
+@media (max-width: $mobile){
+    .confirm{
+        padding-top: 10px;
+        width: 100%;
+        .boxes-wrapper{
+            flex-direction: column;
+            
+        }
+        .desc-wrapper{
+            width: 300px;
+        }
+        .checkbox-wrapper{
+            align-self: center;
+        }
+        .buttons{
+            .accept,.reject{
+                width: 150px;
             }
         }
     }
