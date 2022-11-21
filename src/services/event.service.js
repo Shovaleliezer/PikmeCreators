@@ -19,6 +19,7 @@ async function getById(eventId) {
 
 async function confirm(creator,id) {
     const event = await httpService.put('handle-event/accept-event/' + id, {team2:creator})
+    console.log(event)
     const newCreator = await httpService.post('handle-creator/update-creator-events/' + creator.walletAddress, {event})
     if(event && newCreator) return event
 }

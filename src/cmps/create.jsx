@@ -26,6 +26,7 @@ export function Create() {
 
     const addEvent = async (e) => {
         e.preventDefault()
+        console.log(user)
         const newEvent = {
             category: categoryRef.current.value,
             game: gameRef.current.value,

@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector,useDispatch } from "react-redux"
+import { useNavigate } from "react-router"
 import { useParams } from "react-router"
 import { eventService } from "../services/event.service"
 import { formatDateHour } from "../services/utils"
+import { setPopup } from "../store/actions/general.actions"
 
 export function Confirm() {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { id } = useParams()
     const [event, setEvent] = useState(null)
     const user = useSelector((state) => state.user)
@@ -21,9 +25,9 @@ export function Confirm() {
     const confirm = async () => {
         if (user && user.creator) {
             const ev = await eventService.confirm(user.creator,id)
-            console.log(ev)
+            navigate('/')
         }
-        else console.log('no user')
+        else setPopup('connect')
     }
 
     if (!event) return <div>oops! it seems there is no event on the link you recieved... </div>

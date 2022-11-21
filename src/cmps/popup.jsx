@@ -11,7 +11,6 @@ import { EmailShareButton, WhatsappShareButton, TelegramShareButton, FacebookMes
 export function Popup({ mode }) {
     const dispatch = useDispatch()
     const { popup } = useSelector((storeState) => storeState.generalModule)
-    const user = useSelector((state) => state.user)
     const { ethereum } = window
 
     if (ethereum) {
@@ -33,13 +32,9 @@ export function Popup({ mode }) {
             {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
         <section className={`popup ${mode.type}`}>
+
             {popup === 'connect' && <div>{ethereum ? <WalletConnect from='popup' /> :
                 <div className="extension-wrapper"><ExtensionConnect mode={mode} /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}
-
-            {popup === 'connected' && <div className="wellcome">
-                <h1>welcome back {user.nickName}</h1>
-                <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div>
-            </div>}
 
             {popup === 'create' && <Create />}
 

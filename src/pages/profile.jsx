@@ -26,7 +26,7 @@ export function Profile() {
     }, [])
 
     const save = async () => {
-        const updatedCreator = await userService.editCreator(user.address,creator)
+        const updatedCreator = await userService.editCreator(user.address, creator)
         if (updatedCreator) {
             dispatch(setCreator(updatedCreator))
             navigate('/')
@@ -34,13 +34,14 @@ export function Profile() {
     }
 
     const loadCreator = async () => {
-        const loadedCreator = await userService.addCreator(user.address, null)
-        if(!loadedCreator) {
-            navigate('/')
-            return
+        try {
+            const loadedCreator = await userService.addCreator(user.address, null)
+            setLocalCreator({ ...loadedCreator, experience: new Date(loadedCreator.experience).getFullYear() })
+            setImg(loadedCreator.proficiencyGame)
         }
-        setLocalCreator({ ...loadedCreator, experience: new Date(loadedCreator.experience).getFullYear() })
-        setImg(loadedCreator.proficiencyGame)
+        catch {
+            navigate('/')
+        }
     }
 
     const copy = () => {
@@ -62,7 +63,7 @@ export function Profile() {
         setLocalCreator({ ...creator, image: uploadedImg.secure_url })
     }
 
-    if (!creator) return <></>
+    if (!creator) return <h1>sfsdfsd</h1>
 
     const { nickName, walletAddress, image, proficiencyGame, region, topAchievement, status, experience, socialLink } = creator
     return <section className="profile">
