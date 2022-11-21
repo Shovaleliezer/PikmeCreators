@@ -25,9 +25,10 @@ export function Confirm() {
     const confirm = async () => {
         if (user && user.creator) {
             const ev = await eventService.confirm(user.creator,id)
-            navigate('/')
+            if(ev) navigate('/')
+            else console.log('error1')
         }
-        else setPopup('connect')
+        navigate('/')
     }
 
     if (!event) return <div>oops! it seems there is no event on the link you recieved... </div>

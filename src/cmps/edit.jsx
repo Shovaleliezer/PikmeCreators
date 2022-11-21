@@ -28,7 +28,6 @@ export function Edit() {
 
     const editEvent = async (e) => {
         e.preventDefault()
-        console.log(event)
     }
 
     const handleChange = (ev) => {

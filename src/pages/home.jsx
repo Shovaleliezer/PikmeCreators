@@ -5,12 +5,13 @@ import { WalletConnect } from "../cmps/wallet-connect"
 import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
 import { setIsConnected } from "../store/reducers/userReducer"
+import { setCreator } from "../store/reducers/userReducer"
 import { setPopup } from "../store/actions/general.actions"
 import { ExtensionConnect } from "../cmps/extention-connect"
 
 export function Home() {
     const dispatch = useDispatch()
-    const [creator, setCreator] = useState(false)
+    const [creator, setLocalCreator] = useState(false)
     const { ethereum } = window
     const isConnected = useSelector((state) => state.user.isConnected)
     const { address } = useSelector((state) => state.user)
@@ -30,7 +31,9 @@ export function Home() {
     const handleCreatorAddress = async (address) => {
         const loadedCreator = await userService.addCreator(address, null)
         if (loadedCreator) {
-            setCreator(loadedCreator)
+            setLocalCreator(loadedCreator)
+            console.log('home',loadedCreator)
+            dispatch(setCreator(loadedCreator))
         }
     }
 

@@ -28,7 +28,6 @@ export function WalletConnect({ from,handleCreatorAddress }) {
                 dispatch(setNickName(res.nickName))
                 dispatch(setIsConnected(true))
                 dispatch(setImage(res.image))
-                dispatch(setPopup('connected'))
                 if(handleCreatorAddress) handleCreatorAddress(res.walletAddress)
             }
             else {
