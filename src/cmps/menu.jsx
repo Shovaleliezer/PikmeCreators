@@ -28,7 +28,6 @@ export function Menu(props) {
     const logOut = () => {
         try {
             dispatch(resetState())
-            dispatch(setCreator(false))
             dispatch(setIsConnected(false))
         }
         catch {

@@ -53,6 +53,7 @@ export const userSlice = createSlice({
       state.userBalance = ""
       state.about = ""
       state.history = []
+      state.creator = false
     },
   },
 })
