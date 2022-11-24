@@ -2,9 +2,8 @@ import { useRef } from "react"
 import { NavLink } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
-import { resetState, setIsConnected,setCreator } from "../store/reducers/userReducer"
+import { resetState, setIsConnected } from "../store/reducers/userReducer"
 import { setMenu } from "../store/actions/general.actions"
-import { isMobile } from "react-device-detect"
 
 export function Menu(props) {
     const dispatch = useDispatch()
@@ -15,6 +14,7 @@ export function Menu(props) {
     const { menu } = useSelector((storeState) => storeState.generalModule)
     const { menuSide } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
+    const isMobile = window.innerWidth < 700
 
     const sendFeedback = async (ev) => {
         ev.preventDefault()
