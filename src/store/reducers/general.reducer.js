@@ -3,9 +3,10 @@ const INITIAL_STATE = {
         type: 'dark',
     },
     menu: '',
-    menuSide:'right',
+    menuSide: 'right',
     popup: '',
     popupEvent: '',
+    upperPopup: '',
     streamInfo: {}
 }
 
@@ -41,9 +42,11 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, popupBought: action.popupBought }
         case 'TOGGLE_MENU':
             if (state.menu === '') return { ...state, menu: 'normal' }
-            else return { ...state, menu: '' }  
+            else return { ...state, menu: '' }
         case 'SET_POPUP_EVENT':
-            return { ...state, popupEvent: action.popupEvent }   
+            return { ...state, popupEvent: action.popupEvent }
+        case 'SET_UPPER_POPUP':
+            return { ...state, upperPopup: action.upperPopup }
         default:
             return state;
     }

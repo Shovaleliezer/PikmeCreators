@@ -14,6 +14,7 @@ import { Header } from './cmps/header'
 import { Footer } from './cmps/footer'
 import { Menu } from "../src/cmps/menu"
 import { Popup } from "../src/cmps/popup"
+import { UpperPopup } from "../src/cmps/upper-popup"
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
       </div>
       <Menu mode={mode} />
       <Popup mode={mode} />
+      <UpperPopup />
     </Router>
   )
 }

@@ -1,37 +1,43 @@
 import { useDispatch } from 'react-redux'
-import { setPopup,setPopupEvent, setStreamInfo} from '../store/actions/general.actions'
-import {formatDateHour} from '../services/utils'
+import { setPopup, setPopupEvent, setStreamInfo,setUpperPopup } from '../store/actions/general.actions'
+import { formatDateHour } from '../services/utils'
 import { NavLink } from "react-router-dom"
-export function EventCard({ev,getOpponent}) {
+export function EventCard({ ev, getOpponent }) {
+
     const dispatch = useDispatch()
 
-    return (    
+    const copy = () => {
+        navigator.clipboard.writeText('http://localhost:3000/#/confirm/' + ev._id)
+        dispatch(setUpperPopup('copied'))
+    }
+
+    return (
         <div className='event-card'>
             <div className="event-upper">
-                <div><img src={require('../style/imgs/edit-icon.png')}/><p>Edit your Stream info</p></div>
-                {ev.approved ? <NavLink to="/stream-control" onClick={()=>dispatch(setStreamInfo(ev))} className='main-color clickable'>Manage</NavLink>  : 
-                <p onClick={()=>{dispatch(setPopupEvent(ev));dispatch(setPopup('edit'))}} className='main-color clickable'>Edit</p> }
-                
-                
+                <div><img src={require('../style/imgs/edit-icon.png')} /><p>Edit your Stream info</p></div>
+                {ev.approved ? <NavLink to="/stream-control" onClick={() => dispatch(setStreamInfo(ev))} className='main-color clickable'>Manage</NavLink> :
+                    <div>
+                        <p onClick={() => { dispatch(setPopupEvent(ev)); dispatch(setPopup('edit')) }} className='main-color clickable'>Edit</p>
+                        <p className='main-color clickable' onClick={copy}>Share</p>
+                    </div>}
             </div>
             <div className="event-inner">
-                    <img src={require(`../style/imgs/event-card/${ev.game}.png`)}/>
-                    <div className="headers">
-                        <p>Category: </p>
-                        <p>Game:  </p>
-
-                        <p>Opponent: </p>
-                        <p>Date:</p>
-                        <p>Status:</p>
-                    </div>
-                    <div className="details">
-                        <p>{ev.category}</p>
-                        <p>{ev.game}</p>
-                        <p style={{color:ev.approved ? '#E63D4A' : '#F37F13'}} >{ev.team2.nickName? getOpponent(ev) : 'pending...'}</p>
-                        <p>{formatDateHour(ev.date)}</p>
-                        <p style={{color:ev.approved ? '#04C300' : '#F37F13'}}>{ev.approved ? 'approved' : 'pending...'}</p>
-                    </div>
+                <img src={require(`../style/imgs/event-card/${ev.game}.png`)} />
+                <div className="headers">
+                    <p>Category: </p>
+                    <p>Game: </p>
+                    <p>Opponent: </p>
+                    <p>Date:</p>
+                    <p>Status:</p>
                 </div>
+                <div className="details">
+                    <p>{ev.category}</p>
+                    <p>{ev.game}</p>
+                    <p style={{ color: ev.approved ? '#E63D4A' : '#F37F13' }} >{ev.team2.nickName ? getOpponent(ev) : 'pending...'}</p>
+                    <p>{formatDateHour(ev.date)}</p>
+                    <p style={{ color: ev.approved ? '#04C300' : '#F37F13' }}>{ev.approved ? 'approved' : 'pending...'}</p>
+                </div>
+            </div>
         </div>
     )
 }

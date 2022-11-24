@@ -32,3 +32,9 @@ export function setPopupEvent(popupEvent) {
         dispatch({ type: 'SET_POPUP_EVENT', popupEvent })
     }
 }
+
+export function setUpperPopup(upperPopup) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_UPPER_POPUP', upperPopup })
+    }
+}
