@@ -8,7 +8,7 @@ export function Create() {
     const user = useSelector((state) => state.user)
     const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
     const [category, setCategory] = useState('gaming')
-    const [isShare, setIsShare] = useState(false)
+    const [isShare, setIsShare] = useState(true)
     const categoryRef = useRef()
     const gameRef = useRef()
     const dateRef = useRef()
