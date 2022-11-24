@@ -43,7 +43,7 @@
             input {
                 width: 240px;
                 color: white;
-                background-color: $back-dark;
+                background-color: $mid-back;
                 font-size: 24px;
                 padding: 10px 20px;
                 border-width: 0;
@@ -74,7 +74,7 @@
         align-self: center;
         width: 100%;
         .date-input{
-            width: 500px !important;
+            width: fit-content !important;
             
         }
     }
