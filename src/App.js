@@ -24,7 +24,7 @@ function App() {
 
   const connectWallet = async (account) => {
     try {
-      const res = await userService.handleAccount(account)
+      const res = await userService.addCreator(account)
       if (res) {
         dispatch(setAbout(res.about))
         dispatch(setAddress(res.walletAddress))
