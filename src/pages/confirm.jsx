@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react"
-import { useSelector,useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import { useParams } from "react-router"
 import { eventService } from "../services/event.service"
 import { formatDateHour } from "../services/utils"
-import { setPopup } from "../store/actions/general.actions"
+import { setUpperPopup } from "../store/actions/general.actions"
 
 export function Confirm() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { id } = useParams()
     const [event, setEvent] = useState(null)
+    const [isSame, setIsSame] = useState(false)
     const user = useSelector((state) => state.user)
 
     useEffect(() => {
@@ -18,17 +19,28 @@ export function Confirm() {
     }, [])
 
     const loadEvent = async () => {
-        const loadedEvent = await eventService.getById(id)
-        setEvent(loadedEvent)
+        try {
+            const loadedEvent = await eventService.getById(id)
+            if (loadedEvent.team1._id === user.creator._id) setIsSame(true)
+            setEvent(loadedEvent)
+        }
+        catch {
+            navigate('/')
+        }
     }
 
     const confirm = async () => {
         if (user && user.creator) {
-            const ev = await eventService.confirm(user.creator,id)
-            if(ev) navigate('/')
+            const ev = await eventService.confirm(user.creator, id)
+            if (ev) navigate('/')
             else console.log('error1')
         }
         navigate('/')
+    }
+
+    const copy = () => {
+        navigator.clipboard.writeText('http://localhost:3000/#/confirm/' + event._id)
+        dispatch(setUpperPopup('copied'))
     }
 
     if (!event) return <div>oops! it seems there is no event on the link you recieved... </div>
@@ -59,10 +71,15 @@ export function Confirm() {
                 </div>
                 <p>Share with community</p>
             </div>
-            <div className="buttons">
-                <div className="reject">Reject</div>
-                <div className="accept" onClick={confirm}>Accept!</div>
-            </div>
+            {isSame ? <div className="same">
+                <p>You cannot accept an event created by yourself, please send this link to your opponent instead:</p>
+                <div className="copy"><span>{'http://localhost:3000/#/confirm/' + event._id.slice(0, 4) + '...'}</span>
+                    <img onClick={copy} src={require('../style/imgs/register/address.png')} /></div>
+            </div> :
+                <div className="buttons">
+                    <div className="reject">Reject</div>
+                    <div className="accept" onClick={confirm}>Accept!</div>
+                </div>}
         </div>
     )
 }
