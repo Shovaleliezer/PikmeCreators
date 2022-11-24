@@ -32,7 +32,6 @@ export function Home() {
         const loadedCreator = await userService.addCreator(address, null)
         if (loadedCreator) {
             setLocalCreator(loadedCreator)
-            console.log('home',loadedCreator)
             dispatch(setCreator(loadedCreator))
         }
     }
@@ -45,7 +44,7 @@ export function Home() {
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
     if (!creator) return <Register />
-
+    
     return (<section className="creator-home">
         <section className="home">
             <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>

@@ -157,12 +157,22 @@ export function Register() {
                         <div className='select-wrapper'>
                             <img src={require('../style/imgs/register/achievement.png')} />
                             <select ref={topAchivementRef}>
-                                <option value="top10">Top 10</option>
-                                <option value="top 100">Top 100</option>
-                                <option value="top 500">Top 500</option>
-                                <option value="1st">1st place</option>
-                                <option value="2nd">2nd place</option>
-                                <option value="3rd">3rd place</option>
+                                <option value="1st">1st in the world</option>
+                                <option value="2nd">2nd in the world</option>
+                                <option value="3rd">3rd in the world</option>
+                                <option value="top 10 world">Top 10 world</option>
+                                <option value="top 100 world">Top 100 world</option>
+                                <option value="1st region">1st in region</option>
+                                <option value="top 10 region">Top 10 region</option>
+                                <option value="top 100 region">Top 100 region</option>
+                                <option value="1st country">1st in country</option>
+                                <option value="top 10 country">Top 10 country</option>
+                                <option value="top 100 country">Top 100 country</option>
+                                <option value="top 500">Top 500 </option>
+                                <option value="local champion">Local champion</option>
+                                <option value="highest rank">Highest rank</option>
+                                <option value="skilled player">Skilled player</option>
+                                <option value="coach">Coach</option>
                             </select>
                         </div>
                     </div>
@@ -191,7 +201,7 @@ export function Register() {
                         </select>
                     </div>
                 </div>
-                <input type="text" placeholder="link to social page" ref={socialRef} />
+                <input type="text" placeholder="link to social page" ref={socialRef} required/>
                 <button>Create <span className="material-symbols-outlined">arrow_forward</span></button>
             </form>
         </>}

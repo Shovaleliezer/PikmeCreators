@@ -44,7 +44,6 @@ export const userSlice = createSlice({
     },
     setCreator: (state, action) => {
       state.creator = action.payload
-      console.log('reducer',action.payload)
     },
     resetState: (state, action) => {
       state.address = ""

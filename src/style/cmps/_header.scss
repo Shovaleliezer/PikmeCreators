@@ -29,6 +29,10 @@
         @include flex(30px, space-between, center);
         flex: 2;
 
+        a{
+            padding-top: 4px;
+        }
+
         .bar-logo {
             height: 35px;
             object-fit: contain;

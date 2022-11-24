@@ -38,7 +38,7 @@ export function Edit() {
     return <form className='create' onSubmit={editEvent}>
         <div className='create-upper'>
             <img src={require('../style/imgs/create-stream.png')} />
-            <h1>Create New Stream</h1>
+            <h1>Edit your stream</h1>
             <img src={require('../style/imgs/close-icon.png')} onClick={() => { dispatch(setPopup('')) }} />
         </div>
         <div className='all-select-wrapper'>
