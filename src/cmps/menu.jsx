@@ -2,7 +2,7 @@ import { useRef } from "react"
 import { NavLink } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
-import { resetState, setIsConnected } from "../store/reducers/userReducer"
+import { resetState } from "../store/reducers/userReducer"
 import { setMenu } from "../store/actions/general.actions"
 
 export function Menu(props) {
@@ -28,6 +28,7 @@ export function Menu(props) {
     const logOut = () => {
         try {
             dispatch(resetState())
+
             
         }
         catch {
@@ -43,7 +44,7 @@ export function Menu(props) {
             {menu === 'normal' && <>
                 <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                 <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
-                {user.isConnected ? <div onClick={() => { logOut(); dispatch(setMenu('')) }} className="hover-main"><span className="material-symbols-outlined">logout</span> <div>Log out</div></div> :
+                {user.isConnected ? <div onClick={() => { logOut(); dispatch(setMenu('')) }} className="hover-main"><NavLink to='/' className="main-color"><span className="material-symbols-outlined">logout</span> <div>Log out</div></NavLink></div> :
                     <div className="hover-main" onClick={() => { dispatch(setMenu('')) }}><NavLink className="main-color" to='/profile'><span className="material-symbols-outlined">login</span><div>Login</div></NavLink></div>}
                 {isMobile && <div onClick={() => dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>}
             </>}

@@ -45,7 +45,6 @@ function Creator() {
     let channel = ""
     let type = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
-  //create div element and add it to the DOM
  let viewers =  0;
  const client = AgoraRTC.createClient({ mode: "live", codec: "vp8" });
 
