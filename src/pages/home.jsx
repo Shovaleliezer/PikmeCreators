@@ -13,12 +13,15 @@ export function Home() {
     const dispatch = useDispatch()
     const [creator, setLocalCreator] = useState(false)
     const { ethereum } = window
-    const isConnected = useSelector((state) => state.user.isConnected)
-    const { address } = useSelector((state) => state.user)
+
+    const { address, isConnected } = useSelector((state) => state.user)
 
     useEffect(() => {
-        if (address) handleCreatorAddress(address)
-    }, [])
+        if (address){
+            console.log(address)
+            handleCreatorAddress(address)
+        } 
+    }, [address])
 
     if (ethereum) {
         window.ethereum.on('accountsChanged', async (accounts) => {

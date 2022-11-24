@@ -15,6 +15,8 @@ export function WalletConnect({ from,handleCreatorAddress }) {
             }
         })
     }
+    // function that called after 2 seconds
+  
 
     const connectWallet = async () => {
         try {
@@ -24,6 +26,7 @@ export function WalletConnect({ from,handleCreatorAddress }) {
             const res = await userService.handleAccount(accounts[0])
             console.log("test " , res)
             if (res) {
+            
                 dispatch(setAbout(res.about))
                 dispatch(setAddress(res.walletAddress))
                 dispatch(setNickName(res.nickName))
@@ -46,7 +49,7 @@ export function WalletConnect({ from,handleCreatorAddress }) {
             <h1>Connect your wallet</h1>
             <p>If you do not have any wallet, you can create one right <a href="https://metamask.io/" target="_blank">here</a>.</p>
             <section>
-                <div onClick={connectWallet}><img src={require('../style/imgs/metamask-logo.png')} /><p>Metamask</p></div>
+                <div onClick={()=>connectWallet()}><img src={require('../style/imgs/metamask-logo.png')} /><p>Metamask</p></div>
                 <div><img src={require('../style/imgs/walletconnect-logo.png')} /><p>WalletConnect</p></div>
                 <div><img src={require('../style/imgs/binance-logo.png')} /><p>Binance</p></div>
                 <div><p>Your wallet not here? go to <span onClick={() => { dispatch(setMenu('help')); dispatch(setPopup('')) }}>Help</span>.</p></div>
