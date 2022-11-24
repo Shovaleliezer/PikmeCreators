@@ -108,7 +108,6 @@ function Creator() {
   
     let streamGaming = async () => {
     
-        console.log("streaming ", type);
       if( options.type === "sports"){
         // create video track
         channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack();

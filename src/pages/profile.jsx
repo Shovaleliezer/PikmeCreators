@@ -13,6 +13,7 @@ export function Profile() {
 
     const [creator, setLocalCreator] = useState(null)
     const [img, setImg] = useState('valorant')
+    const [isChanged, setIsChanged] = useState(false)
 
     const years = getYears()
 
@@ -56,14 +57,16 @@ export function Profile() {
     const handleChange = (e) => {
         const { name, value } = e.target
         setLocalCreator({ ...creator, [name]: value })
+        setIsChanged(true)
     }
 
     const handleChangeImage = async (e) => {
         const uploadedImg = await uploadService.uploadImg(e.target.files[0])
         setLocalCreator({ ...creator, image: uploadedImg.secure_url })
+        setIsChanged(true)
     }
 
-    if (!creator) return <h1>sfsdfsd</h1>
+    if (!creator) return <h1>loading...</h1>
 
     const { nickName, walletAddress, image, proficiencyGame, region, topAchievement, status, experience, socialLink } = creator
     return <section className="profile">
@@ -112,12 +115,22 @@ export function Profile() {
                 <div className='img-wrapper second'>
                     <img src={require('../style/imgs/register/achievement.png')} />
                     <select name="topAchievement" value={topAchievement} onChange={handleChange}>
-                        <option value="top10">Top 10</option>
-                        <option value="top 100">Top 100</option>
-                        <option value="top 500">Top 500</option>
-                        <option value="1st">1st place</option>
-                        <option value="2nd">2nd place</option>
-                        <option value="3rd">3rd place</option>
+                        <option value="1st">1st in the world</option>
+                        <option value="2nd">2nd in the world</option>
+                        <option value="3rd">3rd in the world</option>
+                        <option value="top 10 world">Top 10 world</option>
+                        <option value="top 100 world">Top 100 world</option>
+                        <option value="1st region">1st in region</option>
+                        <option value="top 10 region">Top 10 region</option>
+                        <option value="top 100 region">Top 100 region</option>
+                        <option value="1st country">1st in country</option>
+                        <option value="top 10 country">Top 10 country</option>
+                        <option value="top 100 country">Top 100 country</option>
+                        <option value="top 500">Top 500 </option>
+                        <option value="local champion">Local champion</option>
+                        <option value="highest rank">Highest rank</option>
+                        <option value="skilled player">Skilled player</option>
+                        <option value="coach">Coach</option>
                     </select>
                 </div>
             </div>
@@ -144,6 +157,12 @@ export function Profile() {
                 <input className="second" name='socialLink' type="text" placeholder="social link" value={socialLink} onChange={handleChange} />
             </div>
         </div>
-        <div onClick={save} className="save-wrapper"><button className="save">Save <span className="material-symbols-outlined">arrow_forward</span></button></div>
+        <div onClick={save} className="save-wrapper">
+            <button className="back clickable">back</button>
+            <button className={isChanged ? "save back-main clickable" : "save"}>Save</button>
+            <span class="material-symbols-outlined">
+
+</span>
+            </div>
     </section>
 }
