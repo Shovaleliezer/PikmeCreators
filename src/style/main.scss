@@ -9,6 +9,7 @@
 @import "/src/style/pages/profile.scss";
 @import "/src/style/pages/home.scss";
 @import "/src/style/pages/confirm.scss";
+@import "/src/style/pages/stream.scss";
 
 //components
 @import "/src/style/cmps/register";
@@ -20,6 +21,7 @@
 @import "src/style/cmps/chat-box";
 @import "src/style/cmps/loader";
 @import "src/style/cmps/create";
+@import "src/style/cmps/stream-chat";
 
 * {
     box-sizing: border-box;

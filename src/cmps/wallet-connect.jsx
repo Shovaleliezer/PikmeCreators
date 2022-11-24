@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setMenu, setPopup } from "../store/actions/general.actions"
-import { setIsConnected, setNickName, setAbout, setAddress, setImage } from '../store/reducers/userReducer'
+import { setIsConnected, setNickName, setAbout, setAddress, setImage, resetState } from '../store/reducers/userReducer'
 import { userService } from '../services/userService'
 
 export function WalletConnect({ from,handleCreatorAddress }) {
@@ -32,9 +32,11 @@ export function WalletConnect({ from,handleCreatorAddress }) {
             }
             else {
                 dispatch(setIsConnected(false))
+                dispatch(resetState())
             }
         } catch (error) {
             dispatch(setIsConnected(false))
+            dispatch(resetState())
         }
     }
 
