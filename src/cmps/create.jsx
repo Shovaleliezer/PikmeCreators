@@ -74,7 +74,7 @@ export function Create() {
             <div className='h3-wrapper date'>
                 <h3>Date</h3>
                 <div className='select-wrapper'>
-                    <input type="datetime-local" ref={dateRef} required></input>
+                    <input type="datetime-local" className='date-input' ref={dateRef} required></input>
                 </div>
             </div>
         </div>
