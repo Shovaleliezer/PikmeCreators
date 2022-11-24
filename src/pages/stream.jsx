@@ -5,7 +5,8 @@ import {useRef} from "react"
 import AgoraRTC from "agora-rtc-sdk-ng"
  // import user selector from redux
 import { useSelector } from "react-redux"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import StreamChat from '../cmps/stream-chat.jsx'
 
 
 let options =
@@ -38,6 +39,7 @@ let channelParameters =
 
 
 function Creator() {
+  const [currentEvent, setCurrentEvent] = useState([])
     const {streamInfo} = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
     console.log('creator ',streamInfo)
@@ -69,6 +71,7 @@ function Creator() {
   const joinRoom = async () => {
     try {
       //client l
+      let uid = String(Math.floor(Math.random() * 10000))
       if (Object.keys(streamInfo).length !== 0){
         if (streamInfo.category==='sports'){
           channel = String(streamInfo._id)
@@ -89,11 +92,12 @@ function Creator() {
         console.log("gaming channel", channel)
         }
      
-        let token = await userService.getStreamTokenClient({ channel:channel, uid:options.uid, role:options.role })
+        let token = await userService.getStreamTokenClient({ channel:channel, uid:uid, role:options.role })
         console.log('token',token)
         options.type = streamInfo.category
-        const uid = await client.join(APP_ID, channel,token.rtcToken,  options.uid);
+        uid = await client.join(APP_ID, channel,token.rtcToken,  uid);
         await client.setClientRole(options.role);
+        setCurrentEvent(streamInfo)
         console.log("join success ", channel);
       } 
       else{
@@ -135,7 +139,8 @@ function Creator() {
   return (
     <div   className="stream-container">
              
-                
+             <button onClick={streamGaming}>stream</button>
+            <button onClick={() => initStopOne(client)}>stop</button>
              
             <div className="stream">
 
@@ -143,9 +148,9 @@ function Creator() {
                 </div>
                
            </div>
-           <button onClick={streamGaming}>stream</button>
-            <button onClick={() => initStopOne(client)}>stop</button>
-            
+           <StreamChat eventName={currentEvent.category=="sports"?`${currentEvent._id}`:`${currentEvent.chosen}-${currentEvent._id}`}/>
+          
+
         </div>
 
 );

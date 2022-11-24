@@ -22,6 +22,7 @@ export function WalletConnect({ from,handleCreatorAddress }) {
                 method: 'eth_requestAccounts',
             })
             const res = await userService.handleAccount(accounts[0])
+            console.log("test " , res)
             if (res) {
                 dispatch(setAbout(res.about))
                 dispatch(setAddress(res.walletAddress))
