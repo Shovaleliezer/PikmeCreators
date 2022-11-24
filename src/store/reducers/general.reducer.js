@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     menuSide:'right',
     popup: '',
     popupEvent: '',
+    streamInfo: {}
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {
@@ -30,6 +31,8 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, menu: action.menu }
         case 'SET_MENU_SIDE':
             return { ...state, menuSide: action.side }
+        case 'SET_STREAM':
+            return { ...state, streamInfo: action.event }
         case 'SET_POPUP':
             return { ...state, popup: action.popup }
         case 'SET_POPUP_INFO':

@@ -15,7 +15,12 @@ export function setPopup(popup) {
         dispatch({ type: 'SET_POPUP', popup })
     }
 }
-
+export function setStreamInfo(event) {
+    console.log('event1', event);
+    return (dispatch) => {
+        dispatch({ type: 'SET_STREAM', event })
+    }
+}
 export function toggleMenu() {
     return (dispatch) => {
         dispatch({ type: 'TOGGLE_MENU' })
