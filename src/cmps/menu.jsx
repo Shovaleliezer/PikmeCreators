@@ -29,6 +29,7 @@ export function Menu(props) {
         try {
             dispatch(resetState())
             dispatch(setIsConnected(false))
+            window.location='/'
         }
         catch {
             console.log('could not log out')

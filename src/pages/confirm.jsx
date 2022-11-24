@@ -77,7 +77,7 @@ export function Confirm() {
                     <img onClick={copy} src={require('../style/imgs/register/address.png')} /></div>
             </div> :
                 <div className="buttons">
-                    <div className="reject">Reject</div>
+                    <div className="reject" onClick={()=>{navigate('/')}}>Reject</div>
                     <div className="accept" onClick={confirm}>Accept!</div>
                 </div>}
         </div>
