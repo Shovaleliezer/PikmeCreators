@@ -55,7 +55,6 @@ const StreamChat = ({eventName}) => {
     
     // load username from redux state
     const user = useSelector((state) => state.user)
-    console.log(user)
     let nickName = user.nickName;
 
     if (!nickName) nickName = "Guest" + Math.floor(Math.random() * 10000);

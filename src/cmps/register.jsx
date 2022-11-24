@@ -46,7 +46,6 @@ export function Register() {
     }, [creatorDetails.experience])
 
     const addCreator = async () => {
-        console.log(creatorDetails)
         const newCreator = await userService.addCreator(address, creatorDetails)
         if (newCreator) {
             dispatch(setCreator(newCreator))

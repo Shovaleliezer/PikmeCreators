@@ -18,7 +18,6 @@ export function Home() {
 
     useEffect(() => {
         if (address){
-            console.log(address)
             handleCreatorAddress(address)
         } 
     }, [address])
