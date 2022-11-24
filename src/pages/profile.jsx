@@ -27,11 +27,13 @@ export function Profile() {
     }, [])
 
     const save = async () => {
-        const updatedCreator = await userService.editCreator(user.address, creator)
-        if (updatedCreator) {
-            dispatch(setCreator(updatedCreator))
-            navigate('/')
+        if (isChanged) {
+            const updatedCreator = await userService.editCreator(user.address, creator)
+            if (updatedCreator) {
+                dispatch(setCreator(updatedCreator))
+            }
         }
+        navigate('/')
     }
 
     const loadCreator = async () => {
@@ -157,12 +159,9 @@ export function Profile() {
                 <input className="second" name='socialLink' type="text" placeholder="social link" value={socialLink} onChange={handleChange} />
             </div>
         </div>
-        <div onClick={save} className="save-wrapper">
-            <button className="back clickable">back</button>
-            <button className={isChanged ? "save back-main clickable" : "save"}>Save</button>
-            <span class="material-symbols-outlined">
-
-</span>
-            </div>
+        <div className="save-wrapper">
+            <button onClick={()=>navigate('/')} className="back clickable">Back</button>
+            <button onClick={save} className="save clickable">Save</button>
+        </div>
     </section>
 }

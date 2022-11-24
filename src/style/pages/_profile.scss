@@ -104,19 +104,22 @@
             font-size: 32px;
             padding: 5px;
             border-radius: 10px;
-            color: white;
             background-color: $back-dark;
+            color: white;
         }
 
         .save {
-            border: 2px solid $bright-back;
+            border: 2px solid $main;
+            background-color: $main;
         }
 
         .back {
             border: 2px solid $main;
+            color:$main;
         }
         .back:hover{
             background-color: $main;
+            color: white;
         }
     }
 }
