@@ -40,21 +40,41 @@ let channelParameters =
 
 function Creator() {
   const [currentEvent, setCurrentEvent] = useState([])
-    const {streamInfo} = useSelector((storeState) => storeState.generalModule)
-    const user = useSelector((state) => state.user)
-    let channel = ""
-    let type = ""
+  const {streamInfo} = useSelector((storeState) => storeState.generalModule)
+  const user = useSelector((state) => state.user)
+  let channel = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
- let viewers =  0;
- const client = AgoraRTC.createClient({ mode: "live", codec: "vp8" });
+  const [client, setClient] = useState(null)
+
+  useEffect(() => {
+
+    return () => {
+      initStopOne(client)
+    }
+}, [])
+  
+useEffect( () => {
+  console.log('streamInfo', client)
+  joinRoom();
+ 
+}, [client])
+
+  if(!client){
+    setClient(AgoraRTC.createClient({ mode: "live", codec: "vp8" }))
+  }
+
 
  function initStopOne(client) {
+    if (channelParameters.localAudioTrack) {
+      client.unpublish(); 
+      channelParameters.localVideoTrack.stop();
+      channelParameters.localVideoTrack.close();
+      channelParameters.localAudioTrack.stop();  
+      channelParameters.localAudioTrack.close(); 
+      channelParameters.localAudioTrack = null;
+      channelParameters.localVideoTrack = null;
+    }
 
-    client.unpublish(); 
-    channelParameters.localVideoTrack.stop();
-    channelParameters.localVideoTrack.close();
-    channelParameters.localAudioTrack.stop();  
-    channelParameters.localAudioTrack.close(); 
     client.remoteUsers.forEach(user => {
         if (user.hasVideo) {
             console.log("user has video , ", user);
@@ -63,6 +83,7 @@ function Creator() {
     });
     client.removeAllListeners(); 
     client.leave();
+    window.location = '/';
 }
 
  
@@ -90,13 +111,16 @@ function Creator() {
         console.log("gaming channel", channel)
         }
      
-        let token = await userService.getStreamTokenClient({ channel:channel, uid:uid, role:options.role })
+        let token = await userService.getStreamTokenClient({ channel:channel, uid:uid, role:  options.role })
         console.log('token',token)
         options.type = streamInfo.category
         uid = await client.join(APP_ID, channel,token.rtcToken,  uid);
+        // set client role
         await client.setClientRole(options.role);
+        console.log("test ", client, " ", options.role)
         setCurrentEvent(streamInfo)
         console.log("join success ", channel);
+        streamGaming(client);
       } 
       else{
         console.log("no stream info")
@@ -108,37 +132,79 @@ function Creator() {
 
     
   
-    let streamGaming = async () => {
-    
-      if( options.type === "sports"){
+    let streamGaming = async ( client, live=false) => {
+      console.log("here sports")
+      if( options.type === "sports" && channelParameters.localVideoTrack === null){
         // create video track
-        channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+        try{
+          console.log("streaming sports")
+          channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
+          console.log("video track created12313123")
+        }catch(e){
+          console.log("create video track failed", e);
+        }
+        try{
+         
+          channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+          console.log("aaaa track created12313123")
+          channelParameters.localVideoTrack.play("agora_local");
+        }
+        catch(e){
+          console.log("create audio track failed", e);
+        }
       }
-      else if (options.type === "gaming"){
-        channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
+   
+      else if (options.type === "gaming"  && channelParameters.localVideoTrack === null){
+        try{
+          channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
+          channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+          channelParameters.localVideoTrack.play("agora_local");
+        }
+        catch(e){
+          console.log("create video track failed", e);
+        }
       }
       
    
-      channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
       
-      await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
-   
-      channelParameters.localVideoTrack.play("agora_local");
+      if ( channelParameters.localVideoTrack && channelParameters.localAudioTrack && live) {
+        console.log("publishing" , client)
+        await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+        
+      }
+      else {
+        if(channelParameters.localVideoTrack && channelParameters.localAudioTrack){
+          console.log("track detected")
+        }
+        else{
+          console.log("no video track")
+        }
+        
+      }  
+  }
+
+      let stopStream = async (client) => {
+        if (channelParameters.localAudioTrack) {
+          client.unpublish(); 
+       
+        }
       
       }
       
 
     
 
-
-
+      
+     
  
-  joinRoom();
+ 
+  
   return (
     <div   className="stream-container">
              
-             <button onClick={streamGaming}>stream</button>
-            <button onClick={() => initStopOne(client)}>stop</button>
+             <button onClick={() =>streamGaming( client, true)}>stream</button>
+             <button onClick={() => stopStream(client)}>stop</button>
+            <button onClick={() => initStopOne(client)}>leave</button>
              
             <div className="stream">
 
