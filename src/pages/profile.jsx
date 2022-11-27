@@ -68,7 +68,7 @@ export function Profile() {
         setIsChanged(true)
     }
 
-    if (!creator) return <h1>loading...</h1>
+    if (!creator) return <div className="profile"><div className="loader"></div></div>
 
     const { nickName, walletAddress, image, proficiencyGame, region, topAchievement, status, experience, socialLink } = creator
     return <section className="profile">
