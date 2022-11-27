@@ -23,7 +23,7 @@ export function WalletConnect({ from,handleCreatorAddress }) {
             const accounts = await ethereum.request({
                 method: 'eth_requestAccounts',
             })
-            const res = await userService.handleAccount(accounts[0])
+            const res = await userService.addCreator(accounts[0])
             if (res) {
             
                 dispatch(setAbout(res.about))
