@@ -133,20 +133,22 @@ useEffect( () => {
     
   
     let streamGaming = async ( client, live=false) => {
+
       console.log("here sports")
       if( options.type === "sports" && channelParameters.localVideoTrack === null){
         // create video track
         try{
-          console.log("streaming sports")
-          channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
-          console.log("video track created12313123")
+          [channelParameters.localVideoTrack, channelParameters.localAudioTrack] = await AgoraRTC.createScreenVideoTrack({withAudio:"enable"});
+           
         }catch(e){
           console.log("create video track failed", e);
         }
         try{
          
+          // create camera track
+          channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
+          // create audio track
           channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-          console.log("aaaa track created12313123")
           channelParameters.localVideoTrack.play("agora_local");
         }
         catch(e){
@@ -157,7 +159,9 @@ useEffect( () => {
       else if (options.type === "gaming"  && channelParameters.localVideoTrack === null){
         try{
           channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
-          channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+          
+ 
+          channelParameters.localAudioTrack =  await AgoraRTC.createMicrophoneAudioTrack();
           channelParameters.localVideoTrack.play("agora_local");
         }
         catch(e){
