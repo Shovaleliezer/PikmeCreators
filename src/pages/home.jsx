@@ -11,15 +11,15 @@ import { ExtensionConnect } from "../cmps/extention-connect"
 
 export function Home() {
     const dispatch = useDispatch()
-    const [creator, setLocalCreator] = useState(false)
+    const [creator, setLocalCreator] = useState('loading')
     const { ethereum } = window
 
     const { address, isConnected } = useSelector((state) => state.user)
 
     useEffect(() => {
-        if (address){
+        if (address) {
             handleCreatorAddress(address)
-        } 
+        }
     }, [address])
 
     if (ethereum) {
@@ -36,18 +36,20 @@ export function Home() {
             setLocalCreator(loadedCreator)
             dispatch(setCreator(loadedCreator))
         }
+        else setLocalCreator(false)
     }
 
     const getOpponent = (event) => {
-        if(event.team1.nickName === creator.nickName) return event.team2.nickName
+        if (event.team1.nickName === creator.nickName) return event.team2.nickName
         return event.team1.nickName
     }
 
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
+    if (creator === 'loading') return <div className="home"><div className="loader"></div></div>
     if (!creator) return <Register />
-    
-    return (<section className="creator-home">
+
+    return (
         <section className="home">
             <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
             {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
@@ -57,6 +59,5 @@ export function Home() {
                     <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>
                     <img src={require('../style/imgs/no-events.png')} />
                 </div>}
-        </section>
-    </section>)
+        </section>)
 }
