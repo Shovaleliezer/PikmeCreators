@@ -4,14 +4,14 @@ import { userService } from "../services/userService"
 import { WalletConnect } from "../cmps/wallet-connect"
 import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
-import { setIsConnected } from "../store/reducers/userReducer"
+import { setAddress, setIsConnected } from "../store/reducers/userReducer"
 import { setCreator } from "../store/reducers/userReducer"
 import { setPopup } from "../store/actions/general.actions"
 import { ExtensionConnect } from "../cmps/extention-connect"
 
 export function Home() {
     const dispatch = useDispatch()
-    const [creator, setLocalCreator] = useState('loading')
+    const [creator, setLocalCreator] = useState(null)
     const { ethereum } = window
 
     const { address, isConnected } = useSelector((state) => state.user)
@@ -35,6 +35,8 @@ export function Home() {
         if (loadedCreator) {
             setLocalCreator(loadedCreator)
             dispatch(setCreator(loadedCreator))
+            dispatch(setIsConnected(true))
+            dispatch(setAddress(loadedCreator.walletAddress))
         }
         else setLocalCreator(false)
     }
@@ -46,7 +48,7 @@ export function Home() {
 
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
-    if (creator === 'loading') return <div className="home"><div className="loader"></div></div>
+    // if (creator === 'loading') return <div className="home"><div className="loader"></div></div>
     if (!creator) return <Register />
 
     return (

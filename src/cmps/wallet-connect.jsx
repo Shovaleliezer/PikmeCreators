@@ -23,21 +23,17 @@ export function WalletConnect({ from,handleCreatorAddress }) {
             const accounts = await ethereum.request({
                 method: 'eth_requestAccounts',
             })
-            const res = await userService.addCreator(accounts[0])
-            if (res) {
+            const res = await userService.checkIsCreator(accounts[0])
+            if (res){
+                handleCreatorAddress(accounts[0])
+            } 
             
-                dispatch(setAbout(res.about))
-                dispatch(setAddress(res.walletAddress))
-                dispatch(setNickName(res.nickName))
-                dispatch(setIsConnected(true))
-                dispatch(setImage(res.image))
-                if(handleCreatorAddress) handleCreatorAddress(res.walletAddress)
-            }
             else {
-                dispatch(setIsConnected(false))
-                dispatch(resetState())
+                dispatch(setIsConnected(true))
+                dispatch(setAddress(accounts[0]))
             }
-        } catch (error) {
+        } 
+        catch (error) {
             dispatch(setIsConnected(false))
             dispatch(resetState())
         }
