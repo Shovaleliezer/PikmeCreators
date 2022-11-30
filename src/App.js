@@ -1,7 +1,7 @@
 import './style/main.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { HashRouter as Router, Route, Routes } from 'react-router-dom'
-import { setIsConnected, setNickName, setImage, setEvents, setStats, setAbout, setAddress, resetState } from './store/reducers/userReducer'
+import { HashRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { setIsConnected, setCreator, setImage, setEvents, setStats, setAbout, setAddress, resetState } from './store/reducers/userReducer'
 import { userService } from './services/userService'
 import { useEffect } from "react"
 //pages
@@ -22,41 +22,27 @@ function App() {
   const ethereum = window.ethereum
   const dispatch = useDispatch()
 
-  const connectWallet = async (account) => {
-    try {
-      const res = await userService.addCreator(account)
-      if (res) {
-        dispatch(setAbout(res.about))
-        dispatch(setAddress(res.walletAddress))
-        dispatch(setNickName(res.nickName))
-        dispatch(setIsConnected(true))
-        dispatch(setImage(res.image))
-
-      }
-      else {
-        dispatch(setIsConnected(false))
-      }
-    } catch (error) {
-      dispatch(setIsConnected(false))
-    }
-  }
-
   useEffect(() => {
     if (ethereum) {
       ethereum.on('accountsChanged', async (accounts) => {
         if (accounts[0]) {
-          await connectWallet(accounts[0])
-          window.location = '/';
+          const res = await userService.checkIsCreator(accounts[0])
+          if (res) {
+            const loadedCreator = await userService.addCreator(accounts[0], null)
+            if (loadedCreator) dispatch(setCreator(loadedCreator))
+            Navigate('/')
+          }
+          dispatch(setAddress(accounts[0]))
+          dispatch(setIsConnected(true))
         }
-        else {
+        else{
+          dispatch(setAddress(''))
           dispatch(setIsConnected(false))
-          dispatch(resetState())
-          // swtich to landing page route
-          window.location = '/';
         }
       })
     }
   }, [])
+
 
   document.body.classList = [`back-${mode.type}`]
   return (
