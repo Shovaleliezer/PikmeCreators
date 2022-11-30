@@ -1,7 +1,7 @@
 import './style/main.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { HashRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
-import { setIsConnected, setCreator, setAddress } from './store/reducers/userReducer'
+import { setIsConnected, setCreator, setAddress,resetState } from './store/reducers/userReducer'
 import { userService } from './services/userService'
 import { useEffect } from "react"
 //pages
@@ -36,8 +36,7 @@ function App() {
           dispatch(setIsConnected(true))
         }
         else{
-          dispatch(setAddress(''))
-          dispatch(setIsConnected(false))
+          dispatch(resetState())
         }
       })
     }

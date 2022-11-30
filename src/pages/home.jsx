@@ -13,7 +13,6 @@ export function Home() {
     const dispatch = useDispatch()
     const [creator, setLocalCreator] = useState(null)
     const { ethereum } = window
-
     const { address, isConnected } = useSelector((state) => state.user)
 
     useEffect(() => {
@@ -31,14 +30,24 @@ export function Home() {
     }
 
     const handleCreatorAddress = async (address) => {
-        const loadedCreator = await userService.addCreator(address, null)
-        if (loadedCreator) {
-            setLocalCreator(loadedCreator)
-            dispatch(setCreator(loadedCreator))
-            dispatch(setIsConnected(true))
-            dispatch(setAddress(loadedCreator.walletAddress))
+        const isCreator = await userService.checkIsCreator(address)
+        if (isCreator) {
+            try {
+                const loadedCreator = await userService.addCreator(address, null)
+                setLocalCreator(loadedCreator)
+                dispatch(setCreator(loadedCreator))
+                dispatch(setIsConnected(true))
+                dispatch(setAddress(loadedCreator.walletAddress))
+            }
+
+            catch {
+                setLocalCreator(false)
+                console.log('could not load creator')
+            }
         }
-        else setLocalCreator(false)
+        else {
+            setLocalCreator(false)
+        }
     }
 
     const getOpponent = (event) => {

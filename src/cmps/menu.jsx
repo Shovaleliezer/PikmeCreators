@@ -28,8 +28,6 @@ export function Menu(props) {
     const logOut = () => {
         try {
             dispatch(resetState())
-
-            
         }
         catch {
             console.log('could not log out')

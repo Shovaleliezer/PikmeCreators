@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { toggleMenu, setMenuSide, setPopup } from "../store/actions/general.actions"
@@ -6,6 +7,7 @@ export function Header(props) {
     const dispatch = useDispatch()
 
     const user = useSelector((state) => state.user)
+    const {creator} = useSelector((state) => state.user)
 
     let isMobile = window.innerWidth < 930 ? true : false
 
@@ -36,7 +38,7 @@ export function Header(props) {
             {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
                 <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
                 <NavLink to='/'><img src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
-                <NavLink to='/profile'><img className='user-img circle' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink>
+                <NavLink to='/profile'><img className='user-img circle' src={(user.creator && user.creator.image) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
             </nav>}
         </>
     )
