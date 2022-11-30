@@ -33,7 +33,6 @@ export function Confirm() {
         if (user && user.creator) {
             const ev = await eventService.confirm(user.creator, id)
             if (ev) navigate('/')
-            else console.log('error1')
         }
         navigate('/')
     }

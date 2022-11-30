@@ -28,7 +28,7 @@ export function Register() {
     const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
     const [category, setCategory] = useState('gaming')
     const [isLoader, setIsLoader] = useState(false)
-    const [file,setFile] = useState(null)
+    const [file, setFile] = useState(null)
 
     const years = getYears()
     const nameRef = useRef()
@@ -46,10 +46,16 @@ export function Register() {
     }, [creatorDetails.experience])
 
     const addCreator = async () => {
-        const newCreator = await userService.addCreator(address, creatorDetails)
-        if (newCreator) {
+        try {
+            const newCreator = await userService.addCreator(address, creatorDetails)
+            console.log(newCreator)
             dispatch(setCreator(newCreator))
             navigate('/profile')
+        }
+
+        catch (err) {
+            console.log(err)
+            navigate('/')
         }
     }
 
@@ -80,15 +86,15 @@ export function Register() {
 
     const handleImg = (e) => {
         const { name, value } = e.target
-        if(name === 'category'){
-            if(value === 'gaming') setImg({ category: 'gaming', game: 'valorant' })
+        if (name === 'category') {
+            if (value === 'gaming') setImg({ category: 'gaming', game: 'valorant' })
             else setImg({ category: 'sports', game: 'table-tennis' })
             setCategory(value)
-        } 
+        }
         else setImg({ ...img, [name]: value })
     }
 
-    const handleFile = (e)=>{
+    const handleFile = (e) => {
         setFile(e.target.files[0])
     }
 
@@ -100,7 +106,7 @@ export function Register() {
                 <input type="text" placeholder="Enter your nickname" required maxLength={15} ref={nameRef} />
                 <h3>Image</h3>
                 <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{file && file.name}</div></label>
-                <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile}/>
+                <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile} />
                 {isLoader && <div className="loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
                 <button>Continue <span className="material-symbols-outlined">arrow_forward</span></button>
             </form></>}
@@ -200,7 +206,7 @@ export function Register() {
                         </select>
                     </div>
                 </div>
-                <input type="text" placeholder="link to social page" ref={socialRef} required/>
+                <input type="text" placeholder="link to social page" ref={socialRef} required />
                 <button>Create <span className="material-symbols-outlined">arrow_forward</span></button>
             </form>
         </>}

@@ -54,7 +54,6 @@ function Creator() {
 }, [])
   
 useEffect( () => {
-  console.log('streamInfo', client)
   joinRoom();
  
 }, [client])
