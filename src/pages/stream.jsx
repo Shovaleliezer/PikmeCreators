@@ -40,6 +40,7 @@ let channelParameters =
 
 function Creator() {
   const [currentEvent, setCurrentEvent] = useState([])
+  const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const {streamInfo} = useSelector((storeState) => storeState.generalModule)
   const user = useSelector((state) => state.user)
   let channel = ""
@@ -127,25 +128,42 @@ useEffect( () => {
     } catch (e) {
         console.log("join failed", e);
     }
-};
+
+    // detect if user published
+    client.on("user-published", async (user, mediaType) => {
+      setAlreadyStreamed(true)
+      console.log("user-published", user, mediaType);
+    });
+    // detect if user unpublish
+    client.on("user-unpublished", async (user, mediaType) => {
+      setAlreadyStreamed(false)
+      console.log("user-unpublished", user, mediaType);
+    });
+}
 
     
   
     let streamGaming = async ( client, live=false) => {
+
       console.log("here sports")
       if( options.type === "sports" && channelParameters.localVideoTrack === null){
         // create video track
         try{
-          console.log("streaming sports")
-          channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
-          console.log("video track created12313123")
+          //create camera video track 
+          channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+          
+           
         }catch(e){
           console.log("create video track failed", e);
         }
         try{
+          if (!channelParameters.localVideoTrack){
+            // create camera track
+            channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
+          }
          
+          // create audio track
           channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-          console.log("aaaa track created12313123")
           channelParameters.localVideoTrack.play("agora_local");
         }
         catch(e){
@@ -156,7 +174,9 @@ useEffect( () => {
       else if (options.type === "gaming"  && channelParameters.localVideoTrack === null){
         try{
           channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
-          channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+          
+ 
+          channelParameters.localAudioTrack =  await AgoraRTC.createMicrophoneAudioTrack();
           channelParameters.localVideoTrack.play("agora_local");
         }
         catch(e){
@@ -168,7 +188,13 @@ useEffect( () => {
       
       if ( channelParameters.localVideoTrack && channelParameters.localAudioTrack && live) {
         console.log("publishing" , client)
-        await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+        if(alreadyStreamed && options.type === "sports"){
+          console.log("stream already started by your opponent")
+        }
+        else{
+          await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+        }
+       
         
       }
       else {
