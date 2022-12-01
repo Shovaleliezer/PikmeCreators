@@ -8,8 +8,8 @@ export const eventService = {
 
 async function addEvent(details, address) {
     const event = await httpService.post('handle-event/create-event', details)
-    const newCreator = await httpService.post('handle-creator/update-creator-events/' + address, {event})
-    if(event && newCreator) return event
+  
+    if(event) return event
 }
 
 async function getById(eventId) {
