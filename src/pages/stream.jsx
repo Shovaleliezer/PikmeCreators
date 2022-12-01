@@ -91,25 +91,12 @@ useEffect( () => {
     try {
       //client l
       let uid = String(Math.floor(Math.random() * 10000))
-      if (Object.keys(streamInfo).length !== 0){
-        if (streamInfo.category==='sports'){
+     
+        
           channel = String(streamInfo._id)
           console.log("sports channel", channel)
-        }
-        else{
-          if  (user){
-            if (user.address === streamInfo.team1.walletAddress){
-                channel = "teamOne" + streamInfo._id
-            }
-            else if (user.address === streamInfo.team2.walletAddress){
-                channel = "teamTwo" + streamInfo._id
-            }
-            else {
-                console.log("not a player")
-            }
-        }
-        console.log("gaming channel", channel)
-        }
+        
+     
      
         let token = await userService.getStreamTokenClient({ channel:channel, uid:uid, role:  options.role })
         console.log('token',token)
@@ -122,10 +109,8 @@ useEffect( () => {
         console.log("join success ", channel);
         streamGaming(client);
       } 
-      else{
-        console.log("no stream info")
-      }
-    } catch (e) {
+      
+     catch (e) {
         console.log("join failed", e);
     }
 
@@ -237,7 +222,7 @@ useEffect( () => {
                 </div>
                
            </div>
-           <StreamChat eventName={currentEvent.category=="sports"?`${currentEvent._id}`:`${currentEvent.chosen}-${currentEvent._id}`}/>
+           <StreamChat eventName={currentEvent.category=="sports"?`${currentEvent._id}`:`${currentEvent._id}`}/>
           
 
         </div>
