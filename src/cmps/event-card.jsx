@@ -33,7 +33,7 @@ export function EventCard({ ev, getOpponent }) {
                 <div className="details">
                     <p>{ev.category}</p>
                     <p>{ev.game}</p>
-                    <p style={{ color: ev.approved ? '#E63D4A' : '#F37F13' }} >{ev.team2.nickName ? getOpponent(ev) : 'pending...'}</p>
+       
                     <p>{formatDateHour(ev.date)}</p>
                     <p style={{ color: ev.approved ? '#04C300' : '#F37F13' }}>{ev.approved ? 'approved' : 'pending...'}</p>
                 </div>

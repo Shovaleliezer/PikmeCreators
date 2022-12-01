@@ -50,11 +50,7 @@ export function Home() {
         }
     }
 
-    const getOpponent = (event) => {
-        if (event.team1.nickName === creator.nickName) return event.team2.nickName
-        return event.team1.nickName
-    }
-
+  
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
     // if (creator === 'loading') return <div className="home"><div className="loader"></div></div>
@@ -64,7 +60,7 @@ export function Home() {
         <section className="home">
             <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
             {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
-                {Object.keys(creator.creatorEvents).map(ev => <EventCard getOpponent={getOpponent} key={creator.creatorEvents[ev]._id} ev={creator.creatorEvents[ev]} />)}
+                {Object.keys(creator.creatorEvents).map(ev => <EventCard  key={creator.creatorEvents[ev]._id} ev={creator.creatorEvents[ev]} />)}
             </div>
                 : <div className="no-events">
                     <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>

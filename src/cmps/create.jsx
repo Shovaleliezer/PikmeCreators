@@ -33,7 +33,7 @@ export function Create() {
             date: dateRef.current.value,
             description: descRef.current.value,
             shareWithCommunity: isShare,
-            team1: user.creator
+            player: user.creator
         }
         const {_id} = await eventService.addEvent(newEvent,user.creator.walletAddress)
         dispatch(setPopup(_id))

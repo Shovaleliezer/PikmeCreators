@@ -21,10 +21,15 @@ export function Confirm() {
     const loadEvent = async () => {
         try {
             const loadedEvent = await eventService.getById(id)
-            if (loadedEvent.team1._id === user.creator._id) setIsSame(true)
+            console.log(loadedEvent)
+            // check if user.creator._id is one of the players
+            const isPlayer = loadedEvent.players.find(player => player.walletAddress === user.creator.walletAddress)
+            
+            if (isPlayer) setIsSame(true)
             setEvent(loadedEvent)
         }
         catch {
+            console.log('could not load event')
             navigate('/')
         }
     }

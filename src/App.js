@@ -30,13 +30,16 @@ function App() {
           if (res) {
             const loadedCreator = await userService.addCreator(accounts[0], null)
             if (loadedCreator) dispatch(setCreator(loadedCreator))
-            Navigate('/')
+            window.location = '#/'
           }
+          dispatch(resetState())
           dispatch(setAddress(accounts[0]))
           dispatch(setIsConnected(true))
+          window.location = '#/'
         }
         else{
           dispatch(resetState())
+          window.location = '#/'
         }
       })
     }
