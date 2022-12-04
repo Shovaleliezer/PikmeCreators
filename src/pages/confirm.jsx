@@ -21,15 +21,12 @@ export function Confirm() {
     const loadEvent = async () => {
         try {
             const loadedEvent = await eventService.getById(id)
-            console.log(loadedEvent)
-            // check if user.creator._id is one of the players
             const isPlayer = loadedEvent.players.find(player => player.walletAddress === user.creator.walletAddress)
             
             if (isPlayer) setIsSame(true)
             setEvent(loadedEvent)
         }
         catch {
-            console.log('could not load event')
             navigate('/')
         }
     }
@@ -64,10 +61,6 @@ export function Confirm() {
                         <p>{formatDateHour(event.date)}</p>
                     </div>
                 </div>
-            </div>
-            <div className='desc-wrapper'>
-                <h3>Description</h3>
-                <div>{event.description}</div>
             </div>
             <div className='checkbox-wrapper'>
                 <div className='checkbox'>

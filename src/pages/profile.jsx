@@ -87,7 +87,7 @@ export function Profile() {
                 <input id='img' className="non-appear" type="file" accept="image/*" onChange={handleChangeImage} />
             </div>
             <div className='h3-wrapper'>
-                <h3>Game</h3>
+                <h3>Main game</h3>
                 <div className='img-wrapper second'>
                     <img src={require(`../style/imgs/register/${img}.png`)} />
                     <select value={proficiencyGame} onChange={handleImg} name='proficiencyGame'>

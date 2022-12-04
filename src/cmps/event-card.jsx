@@ -5,7 +5,6 @@ import { eventService } from '../services/event.service'
 export function EventCard({ ev,creator }) {
 
     const dispatch = useDispatch()
-    console.log(ev)
 
     const copy = () => {
         navigator.clipboard.writeText('http://localhost:3000/#/confirm/' + ev._id)
@@ -27,6 +26,7 @@ export function EventCard({ ev,creator }) {
             <div className="event-upper">
                 <h3>Event Info</h3>
                 <div>
+                    {/* change to stronger condition ! */}
                     {(!ev.approved && ev.players[0].walletAddress===creator.walletAddress) && <>
                         <p onClick={openEdit}>Edit</p>
                         <p onClick={copy}>Share</p>
