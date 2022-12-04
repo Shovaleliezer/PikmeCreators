@@ -46,6 +46,11 @@
                 width: 100%;
             }
 
+            .social{
+                font-size: 32px;
+                padding: 10px 20px;
+            }
+
             .img-wrapper {
                 @include flex(0, center, center);
                 padding: 0 10px;

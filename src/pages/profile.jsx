@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 import { userService } from "../services/userService"
 import { uploadService } from "../services/upload.service"
 import { setCreator } from "../store/reducers/userReducer"
+import { setUpperPopup } from "../store/actions/general.actions"
 import { getYears } from "../services/utils"
 
 export function Profile() {
@@ -48,7 +49,8 @@ export function Profile() {
     }
 
     const copy = () => {
-        navigator.clipboard.writeText(user.address)
+        navigator.clipboard.writeText(user.creator.walletAddress)
+        dispatch(setUpperPopup('copied-address'))
     }
 
     const handleImg = (e) => {
@@ -156,7 +158,7 @@ export function Profile() {
             </div>
             <div className="h3-wrapper">
                 <h3>Social link</h3>
-                <input className="second" name='socialLink' type="text" placeholder="social link" value={socialLink} onChange={handleChange} />
+                <input className="second social" name='socialLink' type="text" placeholder="social link" value={socialLink} onChange={handleChange} />
             </div>
         </div>
         <div className="save-wrapper">
