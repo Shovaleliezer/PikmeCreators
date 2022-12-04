@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { setPopup, setPopupEvent, setStreamInfo, setUpperPopup } from '../store/actions/general.actions'
 import { formatDateHour } from '../services/utils'
 import { eventService } from '../services/event.service'
-export function EventCard({ ev }) {
+export function EventCard({ ev,creator }) {
 
     const dispatch = useDispatch()
     console.log(ev)
@@ -27,10 +27,14 @@ export function EventCard({ ev }) {
             <div className="event-upper">
                 <h3>Event Info</h3>
                 <div>
-                    {!ev.approved && <>
+                    {(!ev.approved && ev.players[0].walletAddress===creator.walletAddress) && <>
                         <p onClick={openEdit}>Edit</p>
                         <p onClick={copy}>Share</p>
                         <p onClick={deleteEvent}>Delete</p>
+                    </>}
+                    {(ev.approved && ev.players[0].walletAddress===creator.walletAddress) && <>
+                        <p onClick={copy}>Share</p>
+                        <p>Manage</p>
                     </>}
                 </div>
 
