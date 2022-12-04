@@ -11,7 +11,7 @@ import { ExtensionConnect } from "../cmps/extention-connect"
 
 export function Home() {
     const dispatch = useDispatch()
-    const [creator, setLocalCreator] = useState(null)
+    const [creator, setLocalCreator] = useState('loading')
     const { ethereum } = window
     const { address, isConnected } = useSelector((state) => state.user)
 
@@ -53,12 +53,12 @@ export function Home() {
   
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
-    // if (creator === 'loading') return <div className="home"><div className="loader"></div></div>
+    if (creator === 'loading') return <div className="home"><div className="loader"></div></div>
     if (!creator) return <Register />
 
     return (
         <section className="home">
-            <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
+            <div className="home-banner"><h1>Hello {creator.nickName}</h1></div>
             {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
                 {Object.keys(creator.creatorEvents).map(ev => <EventCard  key={creator.creatorEvents[ev]._id} ev={creator.creatorEvents[ev]} />)}
             </div>

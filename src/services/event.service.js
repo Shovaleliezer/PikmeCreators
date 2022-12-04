@@ -2,6 +2,7 @@ import { httpService } from './http.service.js'
 
 export const eventService = {
     addEvent,
+    deleteEvent,
     getById,
     confirm
 }
@@ -10,6 +11,11 @@ async function addEvent(details, address) {
     const event = await httpService.post('handle-event/create-event', details)
   
     if(event) return event
+}
+
+async function deleteEvent(id) {
+    const confirm = await httpService.post('handle-event/delete-unapproved-event/'+id)
+    return confirm
 }
 
 async function getById(eventId) {

@@ -18,69 +18,7 @@
         grid-template-columns: repeat(auto-fill, minmax(470px, 1fr));
         gap: 40px;
     }
-    .event-card{
-        background-color: $mid-back;
-        border : 3px solid $bright-back; 
-        border-radius: 10px; 
-        .event-upper{
-            padding: 8px;
-            background-color: #090C1F;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            @include flex(0,space-between,center);
-            p{
-                margin: 0;
-            }
-            div{
-                @include flex(10px,center,center);
-                img{
-                    width: 25px;
-                    aspect-ratio: 1/1;
-                }
-            }
-        }
-        .event-inner {
-            @include flex(25px, flex-start, flex-start);
-            font-size: 20px;
-            padding: 20px;
-
-            img {
-                width: 150px;
-                height: 250px;
-                object-fit: cover;
-            }
-
-            .headers {
-                height: 250px;
-                @include flex(10px, space-between, flex-start, column);
-
-                p {
-                    margin: 0;
-                    font-weight: 600;
-                    color: white;
-                    width: max-content;
-                }
-            }
-
-            .details {
-                height: 250px;
-                @include flex(10px, space-between, flex-start, column);
-
-                p {
-                    margin: 0;
-                    font-weight: 300;
-                    color: rgba(255, 255, 255, 0.8);
-                }
-
-                img {
-                    width: 25px;
-                    height: 25px;
-                    cursor: pointer;
-                }
-
-            }
-        }
-    }
+    
     .no-events{
         margin: auto;
         margin-top: 50px;

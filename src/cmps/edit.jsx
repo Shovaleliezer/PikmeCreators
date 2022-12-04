@@ -10,7 +10,7 @@ export function Edit() {
         game: popupEvent.game,
         opponent: popupEvent.opponent,
         date: popupEvent.date,
-        description: popupEvent.description,
+        // description: popupEvent.description,
         shareWithCommunity: popupEvent.shareWithCommunity
     })
     const [img, setImg] = useState({ category: event.category, game: event.game })
@@ -74,12 +74,12 @@ export function Edit() {
                 </div>
             </div>
         </div>
-        <div className='area-wrapper'>
+        {/* <div className='area-wrapper'>
             <h3>Description</h3>
             <textarea placeholder="insert description" name='description' required onChange={handleChange} value={event.description} />
-        </div>
+        </div> */}
         <div className='center'>
-            <button>Create!</button>
+            <button>edit</button>
         </div>
     </form>
 }
