@@ -1,12 +1,15 @@
 import { useState, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { setPopup } from '../store/actions/general.actions'
+import { eventService } from '../services/event.service'
 
 export function Create() {
     const dispatch = useDispatch()
+    const user = useSelector((state) => state.user)
+    console.log(user)
     const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
     const [category, setCategory] = useState('gaming')
-    const [isShare, setIsShare] = useState(false)
+    const [isShare, setIsShare] = useState(true)
     const categoryRef = useRef()
     const gameRef = useRef()
     const dateRef = useRef()
@@ -31,7 +34,8 @@ export function Create() {
             // description: descRef.current.value,
             shareWithCommunity: isShare
         }
-        console.log(newEvent)
+        const {_id} = await eventService.addEvent(newEvent,user.creator.walletAddress)
+        dispatch(setPopup(_id))
     }
 
     return <form className='create' onSubmit={addEvent}>
@@ -66,7 +70,7 @@ export function Create() {
                     </select>
                 </div>
             </div>
-            <div className='h3-wrapper'>
+            <div className='h3-wrapper date'>
                 <h3>Date</h3>
                 <div className='select-wrapper'>
                     <input type="datetime-local" ref={dateRef} required></input>

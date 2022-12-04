@@ -1,25 +1,29 @@
 .create {
     background-color: $mid-back;
     border-radius: 10px;
-    .create-upper{
+    padding: 20px;
+
+    .create-upper {
         background-color: #090C1F;
-        padding: 10px 20px;
-        @include flex(0,space-between,center);
+        @include flex(0, space-between, center);
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
-        h1{
+
+        h1 {
             margin: 0;
             font-size: 24px;
             font-weight: 600;
         }
-        img{
+
+        img {
             width: 30px;
             cursor: pointer;
         }
     }
+
     .all-select-wrapper {
         width: 100%;
-        @include flex(40px, center, center);
+        @include flex(20px, space-between, center);
         flex-wrap: wrap;
     }
 
@@ -39,15 +43,17 @@
             input {
                 width: 240px;
                 color: white;
-                background-color: $back-dark;
+                background-color: $mid-back;
                 font-size: 24px;
                 padding: 10px 20px;
                 border-width: 0;
                 border-radius: 10px;
             }
+
             input {
                 width: 280px;
             }
+
             ::-webkit-calendar-picker-indicator {
                 filter: invert(1);
                 cursor: pointer;
@@ -63,6 +69,41 @@
             }
         }
     }
+
+    .date {
+        align-self: center;
+        width: 100%;
+        .date-input{
+            width: fit-content !important;
+            
+        }
+    }
+
+    .area-wrapper {
+        width: 100%;
+        margin: auto;
+
+        h3 {
+            margin-bottom: 10px;
+            color: $main;
+        }
+
+        textarea {
+            width: 100% !important;
+            border: 2px solid $bright-back;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            background-color: $back-dark;
+            font-size: 24px;
+            resize: none;
+        }
+
+        textarea:focus {
+            outline: 0px;
+        }
+    }
+
     .checkbox-wrapper {
         @include flex(10px, center, center);
         padding-top: 50px;
@@ -70,17 +111,20 @@
             margin: 0;
             font-size: 24px
         }
+
         .checkbox {
             @include flex(0, center, center);
-                width: 40px;
-                height: 40px;
-                border: 1px solid $bright-back;
-                cursor: pointer;
-                span{
-                    font-size: 40px;
-                }
+            width: 40px;
+            height: 40px;
+            border: 1px solid $bright-back;
+            cursor: pointer;
+
+            span {
+                font-size: 40px;
+            }
         }
     }
+
     button {
         width: 200px;
         text-align: center;
@@ -97,9 +141,9 @@
 }
 
 @media (max-width: $mobile) {
-    .create{
-        .all-select-wrapper{
-            gap: 0 ;
+    .create {
+        .all-select-wrapper {
+            @include flex(0, center, center);
         }
     }
 }

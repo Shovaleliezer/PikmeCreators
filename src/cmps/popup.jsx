@@ -6,13 +6,12 @@ import { WalletConnect } from '../cmps/wallet-connect'
 import { Create } from "./create"
 // import { Edit } from "./edit"
 import { ExtensionConnect } from '../cmps/extention-connect'
+import { EmailShareButton, WhatsappShareButton, TelegramShareButton, FacebookMessengerShareButton } from "react-share";
 
 export function Popup({ mode }) {
     const dispatch = useDispatch()
     const { popup } = useSelector((storeState) => storeState.generalModule)
-    const user = useSelector((state) => state.user)
     const { ethereum } = window
-    let isNarrow = window.innerWidth < 700 ? true : false
 
     if (ethereum) {
         window.ethereum.on('accountsChanged', async (accounts) => {
@@ -22,6 +21,10 @@ export function Popup({ mode }) {
         })
     }
 
+    const copy = () => {
+        navigator.clipboard.writeText('http://localhost:3000/#/confirm/' + popup)
+    }
+
     if (!popup) return <></>
 
     return (<>
@@ -29,17 +32,27 @@ export function Popup({ mode }) {
             {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
         <section className={`popup ${mode.type}`}>
+
             {popup === 'connect' && <div>{ethereum ? <WalletConnect from='popup' /> :
                 <div className="extension-wrapper"><ExtensionConnect mode={mode} /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}
 
-            {/* {popup === 'connected' && <div className="wellcome">
-                <h1>welcome back {user.nickName}</h1>
+            {popup === 'create' && <Create />}
+
+            {popup.slice(0, 1) === '6' && <div className="event-link">
+                <p>Event created successfully!</p>
+                <p>To get it confirmed, please send your opponent the link below:</p>
+                <div className="share-wrapper">
+                    <div className="copy"><span>{'http://localhost:3000/#/confirm/' + popup.slice(0, 4) + '...'}</span>
+                        <img onClick={copy} src={require('../style/imgs/register/address.png')} title='Link copied!'/></div>
+                    <div className="buttons">
+                        <EmailShareButton className="share-button email" url={'http://localhost:3000/#/confirm/' + popup} />
+                        <WhatsappShareButton className="share-button whatsapp" url={'http://localhost:3000/#/confirm/' + popup} />
+                        <FacebookMessengerShareButton className="share-button facebook" url={'http://localhost:3000/#/confirm/' + popup} />
+                        <TelegramShareButton className="share-button telegram" url={'http://localhost:3000/#/confirm/' + popup} />
+                    </div>
+                </div>
                 <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div>
-            </div>} */}
-
-            {popup ==='create' && <Create/>}
-
-            {/* {popup === 'edit' && <Edit/>} */}
+            </div>}
 
         </section>
     </>

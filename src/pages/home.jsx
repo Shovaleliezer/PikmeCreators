@@ -4,20 +4,22 @@ import { userService } from "../services/userService"
 import { WalletConnect } from "../cmps/wallet-connect"
 import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
-import { setIsConnected } from "../store/reducers/userReducer"
+import { setAddress, setIsConnected } from "../store/reducers/userReducer"
+import { setCreator } from "../store/reducers/userReducer"
 import { setPopup } from "../store/actions/general.actions"
 import { ExtensionConnect } from "../cmps/extention-connect"
 
 export function Home() {
     const dispatch = useDispatch()
-    const [creator, setCreator] = useState(false)
+    const [creator, setLocalCreator] = useState(null)
     const { ethereum } = window
-    const isConnected = useSelector((state) => state.user.isConnected)
-    const { address } = useSelector((state) => state.user)
+    const { address, isConnected } = useSelector((state) => state.user)
 
     useEffect(() => {
-        if (address) handleCreatorAddress(address)
-    }, [])
+        if (address) {
+            handleCreatorAddress(address)
+        }
+    }, [address])
 
     if (ethereum) {
         window.ethereum.on('accountsChanged', async (accounts) => {
@@ -28,49 +30,41 @@ export function Home() {
     }
 
     const handleCreatorAddress = async (address) => {
-        const loadedCreator = await userService.addCreator(address, null)
-        if (loadedCreator) setCreator({...loadedCreator,creatorEvents:getEvents()})
+        const isCreator = await userService.checkIsCreator(address)
+        if (isCreator) {
+            try {
+                const loadedCreator = await userService.addCreator(address, null)
+                setLocalCreator(loadedCreator)
+                dispatch(setCreator(loadedCreator))
+                dispatch(setIsConnected(true))
+                dispatch(setAddress(loadedCreator.walletAddress))
+            }
+
+            catch {
+                setLocalCreator(false)
+                console.log('could not load creator')
+            }
+        }
+        else {
+            setLocalCreator(false)
+        }
     }
 
+  
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
+    // if (creator === 'loading') return <div className="home"><div className="loader"></div></div>
     if (!creator) return <Register />
 
-    return (<section className="creator-home">
+    return (
         <section className="home">
             <div className="home-banner"><h1>Welcome back, {creator.nickName}</h1></div>
-            {creator.creatorEvents.length>0 ? <div className="events-container">
-                {creator.creatorEvents.map((ev,idx) => <EventCard ev={ev} key={idx}/>)}</div> 
-            : <div className="no-events">
-                <h1>You don't have any events yet, you can create one right <span onClick={()=>{dispatch(setPopup('create'))}} className="clickable main-color">here</span>.</h1>
-                <img src={require('../style/imgs/no-events.png')}/>
+            {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
+                {Object.keys(creator.creatorEvents).map(ev => <EventCard  key={creator.creatorEvents[ev]._id} ev={creator.creatorEvents[ev]} />)}
+            </div>
+                : <div className="no-events">
+                    <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>
+                    <img src={require('../style/imgs/no-events.png')} />
                 </div>}
-        </section>
-    </section>)
-}
-
-function getEvents() {
-    return [
-        {
-            category: 'sports',
-            game: 'poker',
-            opponent: 'idan',
-            date: '11/2/23',
-            status: 'waiting'
-        },
-        {
-            category: 'Esports',
-            game: 'valorant',
-            opponent: 'idan',
-            date: '11/5/23',
-            status: 'approved'
-        },
-        {
-            category: 'sports',
-            game: 'tennis',
-            opponent: 'nave',
-            date: '11/12/23',
-            status: 'waiting'
-        },
-    ]
+        </section>)
 }

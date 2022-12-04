@@ -2,9 +2,8 @@ import { useRef } from "react"
 import { NavLink } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
-import { resetState, setIsConnected } from "../store/reducers/userReducer"
+import { resetState } from "../store/reducers/userReducer"
 import { setMenu } from "../store/actions/general.actions"
-import { isMobile } from "react-device-detect"
 
 export function Menu(props) {
     const dispatch = useDispatch()
@@ -13,8 +12,9 @@ export function Menu(props) {
     const nameRef = useRef()
     const mailRef = useRef()
     const { menu } = useSelector((storeState) => storeState.generalModule)
-    const {menuSide} = useSelector((storeState) => storeState.generalModule)
+    const { menuSide } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
+    const isMobile = window.innerWidth < 700
 
     const sendFeedback = async (ev) => {
         ev.preventDefault()
@@ -28,7 +28,6 @@ export function Menu(props) {
     const logOut = () => {
         try {
             dispatch(resetState())
-            dispatch(setIsConnected(false))
         }
         catch {
             console.log('could not log out')
@@ -41,15 +40,14 @@ export function Menu(props) {
         <section className={`menu ${props.mode.type + ' ' + menuSide} noselect`}>
 
             {menu === 'normal' && <>
-            <div className="hover-main" onClick={() => { dispatch(setMenu('')) }}><NavLink className={props.mode.type} to='/profile'><span className="material-symbols-outlined">history</span> <div>History</div></NavLink></div>
                 <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                 <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
-                {user.isConnected ? <div onClick={() => { logOut(); dispatch(setMenu('')) }} className="hover-main"><span className="material-symbols-outlined">logout</span> <div>Log out</div></div> :
+                {user.isConnected ? <div onClick={() => { logOut(); dispatch(setMenu('')) }} className="hover-main"><NavLink to='/' className="main-color"><span className="material-symbols-outlined">logout</span> <div>Log out</div></NavLink></div> :
                     <div className="hover-main" onClick={() => { dispatch(setMenu('')) }}><NavLink className="main-color" to='/profile'><span className="material-symbols-outlined">login</span><div>Login</div></NavLink></div>}
                 {isMobile && <div onClick={() => dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>}
             </>}
             {menu === 'help' && <>
-            <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
+                <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
                 <div className={`center-start ${props.mode.type}`}>
                     <p className="help-p">Help</p>
                     <div className={`help-opt border-${props.mode.type} hover-main`}><p>how to recieve reminders?</p><span className="material-symbols-outlined">chevron_right</span></div>
@@ -60,7 +58,7 @@ export function Menu(props) {
                 </div>
             </>}
             {menu === 'feedback' && <>
-            <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
+                <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
                 <form className="center-start" onSubmit={sendFeedback}>
                     <p>Feedback</p>
                     <textarea name={'message'} rows="5" cols="25" className={props.mode.type} ref={textRef} autoFocus required placeholder="Please tell us how can we improve our product..."></textarea>
@@ -72,9 +70,9 @@ export function Menu(props) {
                 </form>
             </>}
             {menu === 'sent' && <>
-            <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
+                <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
                 <p>We got you, our support team are doing their best to improve.</p>
-            </>}   
+            </>}
         </section>
     </>)
 }

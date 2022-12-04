@@ -1,16 +1,20 @@
-import { useState, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { setPopup } from '../store/actions/general.actions'
 
 export function Edit() {
     const dispatch = useDispatch()
-    const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
-    const [category, setCategory] = useState('gaming')
-    const [isShare, setIsShare] = useState(false)
-    const categoryRef = useRef()
-    const gameRef = useRef()
-    const dateRef = useRef()
-    const descRef = useRef()
+    const popupEvent = useSelector((state) => state.generalModule.popupEvent)
+    const [event, setEvent] = useState({
+        category: popupEvent.category,
+        game: popupEvent.game,
+        opponent: popupEvent.opponent,
+        date: popupEvent.date,
+        description: popupEvent.description,
+        shareWithCommunity: popupEvent.shareWithCommunity
+    })
+    const [img, setImg] = useState({ category: event.category, game: event.game })
+    const [category, setCategory] = useState(event.category)
 
     const handleImg = (e) => {
         const { name, value } = e.target
@@ -22,30 +26,27 @@ export function Edit() {
         else setImg({ ...img, [name]: value })
     }
 
-    const addEvent = async (e) => {
+    const editEvent = async (e) => {
         e.preventDefault()
-        const newEvent = {
-            category: categoryRef.current.value,
-            game: gameRef.current.value,
-            date: dateRef.current.value,
-            description: descRef.current.value,
-            shareWithCommunity: isShare
-        }
-        console.log(newEvent)
     }
 
-    return <form className='create' onSubmit={addEvent}>
+    const handleChange = (ev) => {
+        const { name, value } = ev.target;
+        setEvent({ ...event, [name]: value });
+    }
+
+    return <form className='create' onSubmit={editEvent}>
         <div className='create-upper'>
             <img src={require('../style/imgs/create-stream.png')} />
-            <h1>Create New Stream</h1>
-            <img src={require('../style/imgs/close-icon.png')} onClick={()=>{dispatch(setPopup(''))}}/>
+            <h1>Edit your stream</h1>
+            <img src={require('../style/imgs/close-icon.png')} onClick={() => { dispatch(setPopup('')) }} />
         </div>
         <div className='all-select-wrapper'>
             <div className='h3-wrapper'>
                 <h3>Category</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/${img.category}.png`)} />
-                    <select ref={categoryRef} onChange={handleImg} name='category'>
+                    <select onChange={(e) => { handleImg(e); handleChange(e) }} name='category' value={event.category}>
                         <option value="gaming">Gaming</option>
                         <option value="sports">Sports</option>
                     </select>
@@ -55,7 +56,7 @@ export function Edit() {
                 <h3>Game</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/${img.game}.png`)} />
-                    <select ref={gameRef} onChange={handleImg} name='game' required>
+                    <select onChange={(e) => { handleImg(e); handleChange(e) }} name='game' required value={event.game}>
                         {category === 'gaming' ? <>
                             <option value="valorant">Valorant</option>
                             <option value="fifa">Fifa</option></> :
@@ -66,24 +67,16 @@ export function Edit() {
                     </select>
                 </div>
             </div>
-            <div className='h3-wrapper'>
+            <div className='h3-wrapper date'>
                 <h3>Date</h3>
                 <div className='select-wrapper'>
-                    <input type="datetime-local" ref={dateRef} required></input>
-                </div>
-            </div>
-            <div className='h3-wrapper'>
-                <h3>Description</h3>
-                <div className='select-wrapper'>
-                    <input type="text" placeholder="insert description" required ref={descRef} />
+                    <input type="datetime-local" name='date' required onChange={handleChange} value={event.date.slice(0, 16)} />
                 </div>
             </div>
         </div>
-        <div className='checkbox-wrapper'>
-            <div className='checkbox' onClick={() => setIsShare(!isShare)}>
-                {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
-            </div>
-            <p>Share with community</p>
+        <div className='area-wrapper'>
+            <h3>Description</h3>
+            <textarea placeholder="insert description" name='description' required onChange={handleChange} value={event.description} />
         </div>
         <div className='center'>
             <button>Create!</button>

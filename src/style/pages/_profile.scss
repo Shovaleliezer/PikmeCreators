@@ -94,20 +94,32 @@
 
     .save-wrapper {
         margin-top: 80px;
-        display: flex;
-        justify-content: center;
+        @include flex(20px, center, center);
         width: 100%;
 
-        .save {
+        .save,
+        .back {
             width: 300px;
             text-align: center;
             font-size: 32px;
             padding: 5px;
-            border-width: 0;
+            border-radius: 10px;
+            background-color: $back-dark;
+            color: white;
+        }
+
+        .save {
+            border: 2px solid $main;
+            background-color: $main;
+        }
+
+        .back {
+            border: 2px solid $main;
+            color:$main;
+        }
+        .back:hover{
             background-color: $main;
             color: white;
-            border-radius: 10px;
-            cursor: pointer;
         }
     }
 }

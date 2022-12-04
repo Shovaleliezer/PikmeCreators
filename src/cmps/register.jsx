@@ -28,7 +28,7 @@ export function Register() {
     const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
     const [category, setCategory] = useState('gaming')
     const [isLoader, setIsLoader] = useState(false)
-    const [file,setFile] = useState(null)
+    const [file, setFile] = useState(null)
 
     const years = getYears()
     const nameRef = useRef()
@@ -46,10 +46,16 @@ export function Register() {
     }, [creatorDetails.experience])
 
     const addCreator = async () => {
-        const newCreator = await userService.addCreator(address, creatorDetails)
-        if (newCreator) {
+        try {
+            const newCreator = await userService.addCreator(address, creatorDetails)
+            console.log(newCreator)
             dispatch(setCreator(newCreator))
             navigate('/profile')
+        }
+
+        catch (err) {
+            console.log(err)
+            navigate('/')
         }
     }
 
@@ -80,15 +86,15 @@ export function Register() {
 
     const handleImg = (e) => {
         const { name, value } = e.target
-        if(name === 'category'){
-            if(value === 'gaming') setImg({ category: 'gaming', game: 'valorant' })
+        if (name === 'category') {
+            if (value === 'gaming') setImg({ category: 'gaming', game: 'valorant' })
             else setImg({ category: 'sports', game: 'table-tennis' })
             setCategory(value)
-        } 
+        }
         else setImg({ ...img, [name]: value })
     }
 
-    const handleFile = (e)=>{
+    const handleFile = (e) => {
         setFile(e.target.files[0])
     }
 
@@ -100,7 +106,7 @@ export function Register() {
                 <input type="text" placeholder="Enter your nickname" required maxLength={15} ref={nameRef} />
                 <h3>Image</h3>
                 <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{file && file.name}</div></label>
-                <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile}/>
+                <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile} />
                 {isLoader && <div className="loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
                 <button>Continue <span className="material-symbols-outlined">arrow_forward</span></button>
             </form></>}
@@ -156,12 +162,22 @@ export function Register() {
                         <div className='select-wrapper'>
                             <img src={require('../style/imgs/register/achievement.png')} />
                             <select ref={topAchivementRef}>
-                                <option value="top10">Top 10</option>
-                                <option value="top 100">Top 100</option>
-                                <option value="top 500">Top 500</option>
-                                <option value="1st">1st place</option>
-                                <option value="2nd">2nd place</option>
-                                <option value="3rd">3rd place</option>
+                                <option value="1st">1st in the world</option>
+                                <option value="2nd">2nd in the world</option>
+                                <option value="3rd">3rd in the world</option>
+                                <option value="top 10 world">Top 10 world</option>
+                                <option value="top 100 world">Top 100 world</option>
+                                <option value="1st region">1st in region</option>
+                                <option value="top 10 region">Top 10 region</option>
+                                <option value="top 100 region">Top 100 region</option>
+                                <option value="1st country">1st in country</option>
+                                <option value="top 10 country">Top 10 country</option>
+                                <option value="top 100 country">Top 100 country</option>
+                                <option value="top 500">Top 500 </option>
+                                <option value="local champion">Local champion</option>
+                                <option value="highest rank">Highest rank</option>
+                                <option value="skilled player">Skilled player</option>
+                                <option value="coach">Coach</option>
                             </select>
                         </div>
                     </div>
@@ -190,7 +206,7 @@ export function Register() {
                         </select>
                     </div>
                 </div>
-                <input type="text" placeholder="link to social page" ref={socialRef} />
+                <input type="text" placeholder="link to social page" ref={socialRef} required />
                 <button>Create <span className="material-symbols-outlined">arrow_forward</span></button>
             </form>
         </>}

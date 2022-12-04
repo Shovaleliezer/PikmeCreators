@@ -1,0 +1,207 @@
+
+// stream chat style
+
+// Path: src\style\cmps\_stream-chat.scss
+
+.chat-box {
+    display: flex;
+    flex:4;
+    flex-direction: column;
+    overflow-y: scroll;
+    
+        // create border left with shadow border
+        border-left: 1px solid;
+        //make shadow on the left border
+        box-shadow: 0px 0px 10px 0px #000000;
+        position: static;
+    .chat-header {
+        display: flex;
+        flex: 4;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        //make button border width 1px
+        border-bottom: 1px solid #f2f2f2;
+
+        h1{
+            font-size: 20px;
+            margin: 0;
+            margin-left: 10px;
+            color: #ffff;
+        }
+    }
+  
+}
+.body-text{
+    //make the div scrollable
+    overflow: scroll;
+
+    display: flex;
+    flex-direction: column;
+    flex: 32;
+    background-color: $back-dark;
+ 
+}
+// make the scroll bar transperent
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
+
+.chat-box-input
+{
+    display: flex;
+    flex:6;
+    align-items: center;
+    justify-content: center;
+    
+    // text input spread across the bottom of the chat box
+    input{
+        width: 95%;
+        height: 37%;
+        border: none;
+        background-color: $bright-back;
+        padding-left: 20px;
+        font-size: 12px;
+        color: #ffff;
+        border-radius: 10px;
+        
+    }
+    
+    //input placeholder color
+    ::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 14px;
+    }
+    // on focus change the border color
+    input:focus{
+        outline: none;
+        border: 1px solid $main;
+    }
+    // on hover change the color of the input
+    input:hover{
+        border : 1px solid $main;
+    }
+
+}
+// classname message-div is circle that display image
+.message-div{
+    text-overflow: "ellipsis";
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 10px;
+    span {
+        margin: 0;
+        margin-left: 0px;
+        color: #ffff;
+        font-size: 16px;
+    }
+    
+}
+
+.nickName{
+    
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.message-body{
+    color: rgba(255, 255, 255, 0.85);
+    margin-left: 5px;
+    font-size: 16px;
+    margin-right: 5px;
+    
+}
+
+.avatar{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+// detect if mobile
+
+
+@media only screen and (max-width: 1750px) {
+
+    .chat-box {
+        display: flex;
+        flex:6;
+        
+  
+}
+}
+
+@media only screen and (max-width: 1300px) {
+
+    .chat-box {
+        display: flex;
+        flex:10;
+        
+  
+}
+}
+
+
+// when mobile stream container is vertical
+@media only screen and (max-width: 900px) {
+
+    .chat-box {
+        display: flex;
+        flex:6;
+        
+    }
+    .body-text{
+        max-height: 400px;
+    }
+
+    .chat-box-input
+{
+    display: flex;
+    flex:10;
+    align-items: center;
+    justify-content: center;
+    
+    // text input spread across the bottom of the chat box
+    input{
+        width: 95%;
+        height: 37%;
+        border: none;
+        background-color: $bright-back;
+        padding-left: 20px;
+        font-size: 12px;
+        color: #ffff;
+        border-radius: 10px;
+        
+    }
+}
+}
+
+// media query for mobile 500 px
+@media only screen and (max-width: 390px) {
+
+
+    .body-text{
+        max-height: 300px;
+    }
+
+
+}

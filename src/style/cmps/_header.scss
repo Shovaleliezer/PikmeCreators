@@ -8,7 +8,7 @@
     @include flex(40px, space-between, center);
     font-size: 24px;
     z-index: 100;
-    padding: 8px 3vw;
+    padding: 8px 1vw;
     box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25);
 
     .logo {
@@ -29,6 +29,10 @@
         @include flex(30px, space-between, center);
         flex: 2;
 
+        a{
+            padding-top: 4px;
+        }
+
         .bar-logo {
             height: 35px;
             object-fit: contain;
@@ -39,8 +43,8 @@
             width: 34px;
             aspect-ratio: 1/1;
             border-radius: 50%;
-            margin-top: 4px;
             object-fit: cover;
+            cursor: pointer;
         }
 
         .header-user-img:hover {
