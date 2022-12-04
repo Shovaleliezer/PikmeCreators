@@ -28,7 +28,7 @@ export function Create() {
             category: categoryRef.current.value,
             game: gameRef.current.value,
             date: dateRef.current.value,
-            description: descRef.current.value,
+            // description: descRef.current.value,
             shareWithCommunity: isShare
         }
         console.log(newEvent)
@@ -72,18 +72,18 @@ export function Create() {
                     <input type="datetime-local" ref={dateRef} required></input>
                 </div>
             </div>
-            <div className='h3-wrapper'>
+            {/* <div className='h3-wrapper'>
                 <h3>Description</h3>
                 <div className='select-wrapper'>
                     <input type="text" placeholder="insert description" required ref={descRef} />
                 </div>
-            </div>
-        </div>
+            </div> */}
         <div className='checkbox-wrapper'>
             <div className='checkbox' onClick={() => setIsShare(!isShare)}>
                 {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
             </div>
             <p>Share with community</p>
+        </div>
         </div>
         <div className='center'>
             <button>Create!</button>

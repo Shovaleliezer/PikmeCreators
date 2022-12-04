@@ -6,6 +6,7 @@ export function Header(props) {
     const dispatch = useDispatch()
 
     const user = useSelector((state) => state.user)
+    console.log(user.creator.image)
 
     let isMobile = window.innerWidth < 930 ? true : false
 
@@ -15,7 +16,7 @@ export function Header(props) {
                 <div className="options-bar" style={{ flex: '0' }}>
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
                     <NavLink to='/profile'>
-                        {(user && user.image) ? <img className='header-user-img' src={user.image} /> :
+                        {(user && user.creator) ? <img className='header-user-img' src={user.creator.image} /> :
                             <svg width="30" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="clickable hover-main-svg">
                                 <g clipPath="url(#clip0_424_10288)">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M27.9136 14.5457C27.9136 16.4745 27.1474 18.3244 25.7835 19.6883C24.4196 21.0522 22.5697 21.8184 20.6409 21.8184C18.712 21.8184 16.8622 21.0522 15.4983 19.6883C14.1344 18.3244 13.3681 16.4745 13.3681 14.5457C13.3681 12.6168 14.1344 10.767 15.4983 9.40308C16.8622 8.03918 18.712 7.27295 20.6409 7.27295C22.5697 7.27295 24.4196 8.03918 25.7835 9.40308C27.1474 10.767 27.9136 12.6168 27.9136 14.5457ZM24.2772 14.5457C24.2772 15.5101 23.8941 16.435 23.2122 17.117C22.5302 17.7989 21.6053 18.182 20.6409 18.182C19.6764 18.182 18.7515 17.7989 18.0696 17.117C17.3876 16.435 17.0045 15.5101 17.0045 14.5457C17.0045 13.5813 17.3876 12.6563 18.0696 11.9744C18.7515 11.2924 19.6764 10.9093 20.6409 10.9093C21.6053 10.9093 22.5302 11.2924 23.2122 11.9744C23.8941 12.6563 24.2772 13.5813 24.2772 14.5457Z" fill="white" fillOpacity="0.9" />
@@ -36,7 +37,7 @@ export function Header(props) {
             {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
                 <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
                 <NavLink to='/'><img src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
-                <NavLink to='/profile'><img className='user-img circle' src={(user && user.image) ? user.image : require('../style/imgs/user-icon.png')} /></NavLink>
+                <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
             </nav>}
         </>
     )

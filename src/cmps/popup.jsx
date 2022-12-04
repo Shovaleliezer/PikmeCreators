@@ -4,7 +4,7 @@ import { isMobile } from "react-device-detect"
 import { setIsConnected } from '../store/reducers/userReducer'
 import { WalletConnect } from '../cmps/wallet-connect'
 import { Create } from "./create"
-import { Edit } from "./edit"
+// import { Edit } from "./edit"
 import { ExtensionConnect } from '../cmps/extention-connect'
 
 export function Popup({ mode }) {
@@ -32,14 +32,14 @@ export function Popup({ mode }) {
             {popup === 'connect' && <div>{ethereum ? <WalletConnect from='popup' /> :
                 <div className="extension-wrapper"><ExtensionConnect mode={mode} /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}
 
-            {popup === 'connected' && <div className="wellcome">
+            {/* {popup === 'connected' && <div className="wellcome">
                 <h1>welcome back {user.nickName}</h1>
                 <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div>
-            </div>}
+            </div>} */}
 
             {popup ==='create' && <Create/>}
 
-            {popup === 'edit' && <Edit/>}
+            {/* {popup === 'edit' && <Edit/>} */}
 
         </section>
     </>
