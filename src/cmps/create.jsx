@@ -32,7 +32,8 @@ export function Create() {
             game: gameRef.current.value,
             date: dateRef.current.value,
             // description: descRef.current.value,
-            shareWithCommunity: isShare
+            shareWithCommunity: isShare,
+            player: user.creator
         }
         const {_id} = await eventService.addEvent(newEvent,user.creator.walletAddress)
         dispatch(setPopup(_id))
