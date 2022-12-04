@@ -6,7 +6,6 @@ import { eventService } from '../services/event.service'
 export function Create() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
-    console.log(user)
     const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
     const [category, setCategory] = useState('gaming')
     const [isShare, setIsShare] = useState(true)

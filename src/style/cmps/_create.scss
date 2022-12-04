@@ -106,7 +106,7 @@
 
     .checkbox-wrapper {
         @include flex(10px, center, center);
-        padding-top: 50px;
+        margin-top: 10px;
         p {
             margin: 0;
             font-size: 24px
