@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopup } from '../store/actions/general.actions'
+import {eventService} from '../services/event.service'
 
 export function Edit() {
     const dispatch = useDispatch()
@@ -8,10 +9,7 @@ export function Edit() {
     const [event, setEvent] = useState({
         category: popupEvent.category,
         game: popupEvent.game,
-        opponent: popupEvent.opponent,
         date: popupEvent.date,
-        // description: popupEvent.description,
-        shareWithCommunity: popupEvent.shareWithCommunity
     })
     const [img, setImg] = useState({ category: event.category, game: event.game })
     const [category, setCategory] = useState(event.category)
@@ -28,7 +26,16 @@ export function Edit() {
 
     const editEvent = async (e) => {
         e.preventDefault()
-        // actually edit
+        try{
+            const newEv = await eventService.editEvent(popupEvent._id, event)
+            if(newEv){
+                dispatch(setPopup(''))
+                window.location.reload()
+            } 
+        }
+        catch{
+            console.log('error')
+        }
     }
 
     const handleChange = (ev) => {
@@ -47,9 +54,9 @@ export function Edit() {
                 <h3>Category</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/${img.category}.png`)} />
-                    <select onChange={(e) => { handleImg(e); handleChange(e) }} name='category' value={event.category}>
-                        <option value="gaming">Gaming</option>
+                    <select disabled={true} onChange={(e) => { handleImg(e); handleChange(e) }} name='category' value={event.category}>
                         <option value="sports">Sports</option>
+                        <option value="gaming">Gaming</option>
                     </select>
                 </div>
             </div>
@@ -80,7 +87,7 @@ export function Edit() {
             <textarea placeholder="insert description" name='description' required onChange={handleChange} value={event.description} />
         </div> */}
         <div className='center'>
-            <button>edit</button>
+            <button>Confirm</button>
         </div>
     </form>
 }

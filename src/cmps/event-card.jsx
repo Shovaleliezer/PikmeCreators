@@ -6,8 +6,9 @@ export function EventCard({ ev,creator }) {
 
     const dispatch = useDispatch()
 
-    const copy = () => {
-        navigator.clipboard.writeText('http://localhost:3000/#/confirm/' + ev._id)
+    const copy = (to) => {
+        if(to==='clients') navigator.clipboard.writeText('http://localhost:3000/#/' + ev._id)
+        else navigator.clipboard.writeText('http://localhost:3000/#/confirm/' + ev._id)
         dispatch(setUpperPopup('copied'))
     }
 
@@ -33,7 +34,7 @@ export function EventCard({ ev,creator }) {
                         <p onClick={deleteEvent}>Delete</p>
                     </>}
                     {(ev.approved && ev.players[0].walletAddress===creator.walletAddress) && <>
-                        <p onClick={copy}>Share</p>
+                        <p onClick={()=>{copy('clients')}}>Share</p>
                         <p>Manage</p>
                     </>}
                 </div>

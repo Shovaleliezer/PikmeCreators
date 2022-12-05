@@ -6,13 +6,13 @@ import { eventService } from '../services/event.service'
 export function Create() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
-    const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
-    const [category, setCategory] = useState('gaming')
+    const [img, setImg] = useState({ category: 'sports', game: 'table-tennis' })
+    const [category, setCategory] = useState('sports')
     const [isShare, setIsShare] = useState(true)
     const categoryRef = useRef()
     const gameRef = useRef()
     const dateRef = useRef()
-    const descRef = useRef()
+    // const descRef = useRef()
 
     const handleImg = (e) => {
         const { name, value } = e.target
@@ -49,9 +49,9 @@ export function Create() {
                 <h3>Category</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/${img.category}.png`)} />
-                    <select ref={categoryRef} onChange={handleImg} name='category'>
-                        <option value="gaming">Gaming</option>
+                    <select disabled={true} ref={categoryRef} onChange={handleImg} name='category'>
                         <option value="sports">Sports</option>
+                        <option value="gaming">Gaming</option>
                     </select>
                 </div>
             </div>
