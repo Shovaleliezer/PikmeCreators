@@ -64,18 +64,18 @@ export function make2digits(num) {
   return num
 }
 
-export function formatDateHour(date){
+export function formatDateHour(date) {
   const d = new Date(date)
-  
-  return `${d.getFullYear()}-${make2digits(d.getMonth()+1)}-${make2digits(d.getDate())}  ${make2digits(d.getHours())}:${make2digits(d.getMinutes())}`
+
+  return `${d.getFullYear()}-${make2digits(d.getMonth() + 1)}-${make2digits(d.getDate())}  ${make2digits(d.getHours())}:${make2digits(d.getMinutes())}`
 }
 
-export function getSocialIcon(link){
-  if(!link) return 'instagram'
+export function getSocialIcon(link) {
+  if (!link) return 'instagram'
   if (link.includes('twitter')) return 'twitter'
-  if(link.includes('tiktok')) return 'tiktok'
+  if (link.includes('tiktok')) return 'tiktok'
   if (link.includes('youtube')) return 'youtube'
-  return 'instagram' 
+  return 'instagram'
 }
 
 export function putKandM(num) {
@@ -85,12 +85,17 @@ export function putKandM(num) {
   return (num / 1000000).toFixed(2) + 'M'
 }
 
-export function getYears(){
+export function getYears() {
   const years = []
-  for(let i = Number(new Date().getFullYear()); i > 1999; i--){
+  for (let i = Number(new Date().getFullYear()); i > 1999; i--) {
     years.push(i)
   }
   return years
+}
+
+export function getRoute() {
+  if (process.env.NODE_ENV === 'production') return 'https://www.sportify.co.il' //change when in production
+  return 'http://localhost:3000/#/'
 }
 
   // localStorage.setItem(key, JSON.stringify(value))

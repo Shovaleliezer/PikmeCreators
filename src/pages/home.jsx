@@ -14,7 +14,7 @@ export function Home() {
     const [creator, setLocalCreator] = useState('loading')
     const { ethereum } = window
     const { address, isConnected } = useSelector((state) => state.user)
-
+    
     useEffect(() => {
         if (address) {
             handleCreatorAddress(address)

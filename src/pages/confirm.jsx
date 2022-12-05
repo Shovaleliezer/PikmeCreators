@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import { useParams } from "react-router"
 import { eventService } from "../services/event.service"
-import { formatDateHour } from "../services/utils"
+import { formatDateHour,getRoute } from "../services/utils"
 import { setUpperPopup } from "../store/actions/general.actions"
 
 export function Confirm() {
@@ -22,7 +22,6 @@ export function Confirm() {
         try {
             const loadedEvent = await eventService.getById(id)
             const isPlayer = loadedEvent.players.find(player => player.walletAddress === user.creator.walletAddress)
-            
             if (isPlayer) setIsSame(true)
             setEvent(loadedEvent)
         }
@@ -40,7 +39,7 @@ export function Confirm() {
     }
 
     const copy = () => {
-        navigator.clipboard.writeText('http://localhost:3000/#/confirm/' + event._id)
+        navigator.clipboard.writeText(getRoute() + 'confirm/' + event._id)
         dispatch(setUpperPopup('copied'))
     }
 
@@ -70,11 +69,11 @@ export function Confirm() {
             </div>
             {isSame ? <div className="same">
                 <p>You cannot accept an event created by yourself, please send this link to your opponent instead:</p>
-                <div className="copy"><span>{'http://localhost:3000/#/confirm/' + event._id.slice(0, 4) + '...'}</span>
+                <div className="copy"><span>{getRoute() + 'confirm/' + event._id.slice(0, 4) + '...'}</span>
                     <img onClick={copy} src={require('../style/imgs/register/address.png')} /></div>
             </div> :
                 <div className="buttons">
-                    <div className="reject" onClick={()=>{navigate('/')}}>Reject</div>
+                    <div className="reject" onClick={() => { navigate('/') }}>Reject</div>
                     <div className="accept" onClick={confirm}>Accept!</div>
                 </div>}
         </div>

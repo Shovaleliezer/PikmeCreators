@@ -1,14 +1,14 @@
 import { useDispatch } from 'react-redux'
 import { setPopup, setPopupEvent, setStreamInfo, setUpperPopup } from '../store/actions/general.actions'
-import { formatDateHour } from '../services/utils'
+import { formatDateHour,getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
 export function EventCard({ ev,creator }) {
 
     const dispatch = useDispatch()
 
     const copy = (to) => {
-        if(to==='clients') navigator.clipboard.writeText('http://localhost:3000/#/' + ev._id)
-        else navigator.clipboard.writeText('http://localhost:3000/#/confirm/' + ev._id)
+        if(to==='clients') navigator.clipboard.writeText(getRoute() + ev._id)
+        else navigator.clipboard.writeText(getRoute() + 'confirm/' + ev._id)
         dispatch(setUpperPopup('copied'))
     }
 
