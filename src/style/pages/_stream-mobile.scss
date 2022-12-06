@@ -1,0 +1,53 @@
+.stream-mobile {
+    height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    .stream-video-mobile {
+        flex: 1;
+    }
+    .chat-bar-mobile {
+        height: 45px;
+        color: white;
+        background-color: $back-dark;
+        @include flex(0, space-between, center);
+        font-size: 16px;
+    }
+    .stream-bar-mobile{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 5px 15px;
+        @include flex(0, space-between, center);
+    }
+    .lower {
+        bottom: 45px;
+        img{
+            width: 40px;
+            aspect-ratio: 1/1;
+        }
+    }
+    .upper {
+        top: 0;
+        color: white;
+        .detail-holder{
+            @include flex(22px, center, center);
+            div{
+                @include flex(5px, center, center);
+                img{
+                    width: 22px;
+                    aspect-ratio: 1/1;
+                }
+                p{
+                    margin:0;
+                    font-size: 18px;
+                }
+            }
+        }
+        span{
+            font-size: 30px;
+            color: rgba($color: #ffffff, $alpha: 0.7);
+        }
+    }
+}

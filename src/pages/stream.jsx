@@ -6,7 +6,8 @@ import AgoraRTC from "agora-rtc-sdk-ng"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react";
 import StreamChat from '../cmps/stream-chat.jsx'
-import {makeCommas} from '../services/utils'
+import { makeCommas } from '../services/utils'
+import { NavLink } from 'react-router-dom'
 
 let options =
 {
@@ -44,6 +45,8 @@ function Creator() {
   let channel = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
   const [client, setClient] = useState(null)
+  const [modal, setModal] = useState(false)
+  const isMobile = window.innerWidth < 1100
 
   useEffect(() => {
     return () => {
@@ -187,25 +190,26 @@ function Creator() {
 
   }
 
-  const getWidth =(money)=>{
+  const getWidth = (money) => {
     let width = 162
     const str = money.toString()
-    for(let i = 0; i<str.length; i++){
+    for (let i = 0; i < str.length; i++) {
       width += 11.5
     }
     return width
   }
 
-  if (currentEvent.length===0) return <div className="stream-container" />
+  if (currentEvent.length === 0) return <div className="stream-container" />
   let prizePool = 0
-    for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
-        prizePool += value
-    }
-    prizePool = prizePool * 5
-    const width = getWidth(prizePool)
+  for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
+    prizePool += value
+  }
+  prizePool = prizePool * 5
+  const width = getWidth(prizePool)
+  let Modal = modal === 'start' ? 'Start' : 'End'
 
-  return (
-    <div className="stream-container">
+  return (<>
+    {!isMobile && <div className="stream-container">
       <div className="settings">
         <div className="settings-upper">
           <span className="material-symbols-outlined">settings</span>
@@ -214,18 +218,16 @@ function Creator() {
         </div>
       </div>
       <div className="stream">
-        <div id="agora_local" className="stream-video" >
-
-        </div>
+        <div id="agora_local" className="stream-video" />
         <div className="stream-control">
-          <div className="options" style={{width}}>
+          <div className="options" style={{ width }}>
             <img src={require('../style/imgs/stream/mute.png')} />
             <img src={require('../style/imgs/stream/home.png')} />
           </div>
           <div className="start">
             {1 === 1 ? <>
-              <div className="begin" onClick={() => streamGaming(client, true)}>Go Live </div>
-              <div className="end" onClick={() => initStopOne(client)}>End Event</div>
+              <div className="begin" onClick={() => setModal('start')}>Go Live </div>
+              <div className="end" onClick={() => setModal('end')}>End Event</div>
             </> :
               <div className="begin" onClick={() => stopStream(client)}>Stop Live</div>}
           </div>
@@ -242,11 +244,57 @@ function Creator() {
         </div>
       </div>
       <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} />
-    </div>
+    </div>}
+  
+    {isMobile && <section className="stream-mobile">
+      <div id="agora_local" className="stream-video-mobile" />
+      <div className="chat-bar-mobile">
+        <span class="material-symbols-outlined">expand_less</span>
+        <p>Stream chat</p>
+        <span class="material-symbols-outlined hidden">expand_less</span>
+      </div>
+      <div className="stream-bar-mobile lower">
+        <NavLink to='/'><img src={require('../style/imgs/stream/home.png')} /></NavLink>
+        {1===1 ? <>
+        <img onClick={()=>setModal('start')} src={require('../style/imgs/stream/start.png')} />
+        <img onClick={()=>setModal('end')} src={require('../style/imgs/stream/end-mobile.png')} />
+        </> : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
+        <img src={require('../style/imgs/stream/mute.png')} />
+      </div>
+      <div className="stream-bar-mobile upper">
+        <div className="detail-holder">
+          <div>
+            <img src={require('../style/imgs/stream/viewers.png')} />
+            <p>5,721</p>
+          </div>
+          <div>
+            <img src={require('../style/imgs/stream/coins.png')} />
+            <p>{makeCommas(prizePool)}$</p>
+          </div>
+        </div>
+        <span className="material-symbols-outlined">settings</span>
+      </div>
+    </section>}
 
-  )
+    {modal && <>
+        <div className="screen blur" onClick={() => setModal(false)} />
+        <div className="confirm-exit">
+          <img src={require(`../style/imgs/stream/${modal}.png`)} />
+          <h1>{Modal} Live Stream?</h1>
+          <p>This Action cannot be undone. Are you sure you want to {modal} the stream?</p>
+          <div>
+            <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
+            <div onClick={() => {
+              if (modal === 'end') initStopOne(client)
+              else {
+                streamGaming(client, true)
+                setModal(false)
+              }
+            }}>{Modal}</div>
+          </div>
+        </div>
+      </>}
+  </>)
 }
-
-
 
 export default Creator;

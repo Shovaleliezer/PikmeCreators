@@ -1,10 +1,11 @@
-import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink } from "react-router-dom"
+import { NavLink,useLocation } from "react-router-dom"
 import { toggleMenu, setMenuSide, setPopup } from "../store/actions/general.actions"
 
 export function Header(props) {
     const dispatch = useDispatch()
+    const location = useLocation()
+    console.log(location.pathname)
 
     const user = useSelector((state) => state.user)
 
@@ -35,7 +36,7 @@ export function Header(props) {
                 <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
                 <div style={{visibility: (user.creator) ? 'visible' : 'hidden'}} onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
             </div>
-            {isMobile && <nav className={`footer-mobile ${props.mode.type}`}>
+            {(isMobile && !location.pathname.includes('stream-control')) && <nav className={`footer-mobile ${props.mode.type}`}>
                 <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
                 <NavLink to='/'><img src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
                 <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
