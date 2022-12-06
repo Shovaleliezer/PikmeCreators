@@ -1,13 +1,8 @@
-// stream container
-
-// // // flex div that contains stream and chat box
 .stream-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     overflow: hidden;
     background-color: $back-dark;
-    // height full screen minus header
     margin-top: 50px;
     height: calc(100vh - 50px);
 }
@@ -16,88 +11,135 @@
     display: flex;
     flex: 18;
     flex-direction: column;
+
     .stream-video {
-        display: flex;
+        @include flex(0, center, center);
         flex: 18;
-    }
-    .stream-info {
-        display: flex;
-        flex: 4;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        box-shadow: 0px -4px 0px 0px #000000;
-        .streamer-image {
-            width: 90px;
-            height: 90px;
-            border-radius: 150px;
+        background-size: cover;
 
-            margin-left: 20px;
+        .timer {
+            @include flex(0, center, center);
+            font-size: 80px;
+            margin: 0;
+            padding: 0;
+            color: white;
+            margin-top: 20px;
+            background-color: #3b3b3b2d;
         }
-        .about-streamer {
-            height: 50%;
-            margin-left: 20px;
+    }
+}
 
-            p {
-                margin: 8px;
-                color: white;
-            }
-            .h4 {
-                margin: 8px;
-                color: rgba(255, 255, 255, 0.5);
+.stream-control {
+    flex: 1.5;
+    @include flex(0, space-between, flex-start);
+    box-shadow: 0px -4px 0px 0px #000000;
+    padding-top: 20px;
+    .options{
+        @include flex(10px, center, center);
+        img{
+            width:30px;
+            aspect-ratio: 1/1;
+        }
+    }
+    .start{
+        @include flex(10px, center, center);
+        div{
+            color:white;
+            font-size: 20px;
+            border-radius: 10px;
+            padding: 5px 30px;
+            cursor: pointer;
+        }
+        .begin{
+            background-color: $main; 
+        }
+        .end{
+            background-color: #F31313;
+        }
+        .pause{
+            background-color: $bright-back;
+        }
+    }
+    .details{
+        @include flex(40px, center, center);
+        color: white;
+        font-size: 20px;
+        height: min-content;
+        img{
+            width:30px;
+            aspect-ratio: 1/1;
+        }
+        div{
+            @include flex(4px, center, center);
+            p{
+                margin: 0;
             }
         }
     }
 }
-.events-bar {
-    display: flex;
-    flex: 2;
-    flex-direction: column;
-    // create border left with shadow border
-    border-left: 1px solid;
-    align-items: center;
-    //make shadow on the left border
+.settings {
+    flex:3;
     box-shadow: 0px 0px 10px 0px #000000;
-    position: static;
-    // make pointer
-    overflow-y: scroll;
-    cursor: pointer;
+    color:white;
+    .settings-upper{
+        width: 100%;
+        @include flex(5px,space-between,center);
+        font-size: 24px;
+        span{
+            font-size: 30px;
+        }
+    }
 }
-.events-bar-child {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    width: 100%;
 
-    .event-bar-text {
-        display: flex;
+@media only screen and (max-width: 900px) {
+    .stream-container {
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-left: 10px;
-    }
-    P {
-        color: #ffff;
-        font-size: 17px;
-        margin: 5px;
-        margin-left: 15px;
-        margin-bottom: 10px;
+        height: calc(100vh - 110px);
+        flex-basis: auto;
+        flex: 0;
+
+        .settings {
+            box-shadow: unset;
+            padding: 10px;
+            padding-bottom: 0;
+            overflow-x: scroll;
+            @include flex(10px, flex-start, center);
+            white-space: nowrap;
+        }
+
+        .stream {
+            flex: 2;
+            .stream-video {
+                @include flex(10px, center, center);
+                background-size: cover;
+                flex: 1;
+
+                .timer-wrapper {
+                    .timer {
+                        font-size: 50px;
+                        margin-top: 20px;
+                    }
+
+                    .live-in {
+                        width: 90vw;
+                    }
+                }
+            }
+            .stream-control {
+                flex: 0;
+                padding: 10px;
+                
+            }
+        }
     }
 }
 
-.team-icon {
-    width: 65px;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-// make the scroll bar transperent
+
+
 ::-webkit-scrollbar {
     width: 0px;
-    background: transparent; /* make scrollbar transparent */
+    background: transparent;
+    /* make scrollbar transparent */
 }
 
 /* Track */
@@ -121,51 +163,4 @@ video::-webkit-media-controls-volume-slider {
 
 video::-webkit-media-controls-mute-button {
     display: none;
-}
-
-// when mobile stream container is vertical
-@media only screen and (max-width: 1700px) {
-    .events-bar-child {
-        flex-direction: column;
-    }
-}
-@media only screen and (max-width: 900px) {
-    .stream-container {
-        flex-direction: column;
-        height: calc(100vh - 110px);
-        flex-basis: auto;
-    }
-    .stream {
-        flex: 2;
-    }
-    .chat-box {
-        display: flex;
-
-        flex-direction: column;
-        // create border left with shadow border
-        border-left: 1px solid;
-        //make shadow on the left border
-
-        position: static;
-    }
-}
-@media only screen and (max-width: 600px) {
-    .stream-container {
-        flex-direction: column;
-        height: calc(100vh - 110px);
-        flex-basis: auto;
-    }
-    .stream {
-        flex: 1;
-    }
-    .chat-box {
-        display: flex;
-
-        flex-direction: column;
-        // create border left with shadow border
-        border-left: 1px solid;
-        //make shadow on the left border
-
-        position: static;
-    }
 }

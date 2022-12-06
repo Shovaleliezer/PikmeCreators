@@ -62,43 +62,33 @@
   ::-webkit-scrollbar-thumb:hover {
     background: transparent;
   }
-
-.chat-box-input
-{
+  .chat-box-input {
     display: flex;
-    flex:6;
+    flex: 6;
     align-items: center;
     justify-content: center;
-    
-    // text input spread across the bottom of the chat box
-    input{
+
+    input {
         width: 95%;
-        height: 37%;
+        height: 40px;
         border: none;
         background-color: $bright-back;
         padding-left: 20px;
-        font-size: 12px;
         color: #ffff;
         border-radius: 10px;
-        
-    }
-    
-    //input placeholder color
-    ::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 14px;
-    }
-    // on focus change the border color
-    input:focus{
-        outline: none;
-        border: 1px solid $main;
-    }
-    // on hover change the color of the input
-    input:hover{
-        border : 1px solid $main;
+        font-size: 16px;
     }
 
+    input:focus{
+        outline: 1px solid $main;
+    }
+
+    ::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 16px;
+    }
 }
+
 // classname message-div is circle that display image
 .message-div{
     text-overflow: "ellipsis";

@@ -34,8 +34,7 @@ let channelParameters =
   localVideoTrack: null,
   localCamera: null,
   // A variable to hold a remote audio track.
-
-};
+}
 
 
 function Creator() {
@@ -189,18 +188,49 @@ function Creator() {
 
   }
 
+  if (currentEvent.length===0) return <div className="stream-container" />
+  let prizePool = 0
+    for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
+        prizePool += value
+    }
+    prizePool = prizePool * 5
+
   return (
     <div className="stream-container">
-
-      <button onClick={() => streamGaming(client, true)}>stream</button>
-      <button onClick={() => stopStream(client)}>stop</button>
-      <button onClick={() => initStopOne(client)}>leave</button>
-
-      <div className="stream">
-
-        <div id="agora_local" className="stream-video" >
+      <div className="settings">
+        <div className="settings-upper">
+          <span className="material-symbols-outlined">settings</span>
+          <p>Settings</p>
+          <span className="material-symbols-outlined hidden">settings</span>
         </div>
+      </div>
+      <div className="stream">
+        <div id="agora_local" className="stream-video" >
 
+        </div>
+        <div className="stream-control">
+          <div className="options">
+            <img src={require('../style/imgs/stream/mute.png')} />
+            <img src={require('../style/imgs/stream/home.png')} />
+          </div>
+          <div className="start">
+            {1 === 1 ? <>
+              <div className="begin" onClick={() => streamGaming(client, true)}>Go Live </div>
+              <div className="end" onClick={() => initStopOne(client)}>End Event</div>
+            </> :
+              <div className="begin" onClick={() => stopStream(client)}>Stop Live</div>}
+          </div>
+          <div className="details">
+            <div>
+              <img src={require('../style/imgs/stream/coins.png')} />
+              <p>{prizePool}$</p>
+            </div>
+            <div>
+              <img src={require('../style/imgs/stream/viewers.png')} />
+              <p>viewers</p>
+            </div>
+          </div>
+        </div>
       </div>
       <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} />
     </div>
