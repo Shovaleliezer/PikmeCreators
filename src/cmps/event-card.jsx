@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
-import { setPopup, setPopupEvent, setStreamInfo, setUpperPopup } from '../store/actions/general.actions'
+import { NavLink } from 'react-router-dom'
+import { setPopup, setPopupEvent, setUpperPopup } from '../store/actions/general.actions'
 import { formatDateHour,getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
 export function EventCard({ ev,creator }) {
@@ -31,11 +32,11 @@ export function EventCard({ ev,creator }) {
                     {(!ev.approved && ev.players[0].walletAddress===creator.walletAddress) && <>
                         <p onClick={openEdit}>Edit</p>
                         <p onClick={copy}>Share</p>
+                        <p><NavLink to='/stream-control'>Manage</NavLink></p>
                         <p onClick={deleteEvent}>Delete</p>
                     </>}
                     {(ev.approved && ev.players[0].walletAddress===creator.walletAddress) && <>
                         <p onClick={()=>{copy('clients')}}>Share</p>
-                        <p>Manage</p>
                     </>}
                 </div>
 
