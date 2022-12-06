@@ -187,12 +187,22 @@ function Creator() {
 
   }
 
+  const getWidth =(money)=>{
+    let width = 162
+    const str = money.toString()
+    for(let i = 0; i<str.length; i++){
+      width += 11.5
+    }
+    return width
+  }
+
   if (currentEvent.length===0) return <div className="stream-container" />
   let prizePool = 0
     for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
         prizePool += value
     }
     prizePool = prizePool * 5
+    const width = getWidth(prizePool)
 
   return (
     <div className="stream-container">
@@ -208,12 +218,12 @@ function Creator() {
 
         </div>
         <div className="stream-control">
-          <div className="options">
+          <div className="options" style={{width}}>
             <img src={require('../style/imgs/stream/mute.png')} />
             <img src={require('../style/imgs/stream/home.png')} />
           </div>
           <div className="start">
-            {2 === 1 ? <>
+            {1 === 1 ? <>
               <div className="begin" onClick={() => streamGaming(client, true)}>Go Live </div>
               <div className="end" onClick={() => initStopOne(client)}>End Event</div>
             </> :
@@ -222,12 +232,11 @@ function Creator() {
           <div className="details">
             <div>
               <img src={require('../style/imgs/stream/coins.png')} />
-              {/* <p>{makeCommas(prizePool)}$</p> */}
-              <p>32,783$</p>
+              <p>{makeCommas(prizePool)}$</p>
             </div>
             <div>
               <img src={require('../style/imgs/stream/viewers.png')} />
-              <p>5,621</p>
+              <p>5,721</p>
             </div>
           </div>
         </div>
