@@ -1,13 +1,12 @@
 
 import "../style/main.scss";
 import { userService } from '../services/userService'
-import { useRef } from "react"
 import AgoraRTC from "agora-rtc-sdk-ng"
 // import user selector from redux
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react";
 import StreamChat from '../cmps/stream-chat.jsx'
-
+import {makeCommas} from '../services/utils'
 
 let options =
 {
@@ -214,7 +213,7 @@ function Creator() {
             <img src={require('../style/imgs/stream/home.png')} />
           </div>
           <div className="start">
-            {1 === 1 ? <>
+            {2 === 1 ? <>
               <div className="begin" onClick={() => streamGaming(client, true)}>Go Live </div>
               <div className="end" onClick={() => initStopOne(client)}>End Event</div>
             </> :
@@ -223,11 +222,12 @@ function Creator() {
           <div className="details">
             <div>
               <img src={require('../style/imgs/stream/coins.png')} />
-              <p>{prizePool}$</p>
+              {/* <p>{makeCommas(prizePool)}$</p> */}
+              <p>32,783$</p>
             </div>
             <div>
               <img src={require('../style/imgs/stream/viewers.png')} />
-              <p>viewers</p>
+              <p>5,621</p>
             </div>
           </div>
         </div>
