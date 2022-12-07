@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import StreamChat from '../cmps/stream-chat.jsx'
 import { makeCommas } from '../services/utils'
 import { NavLink } from 'react-router-dom'
+import { Alert } from "bootstrap";
 
 let options =
 {
@@ -40,6 +41,7 @@ let channelParameters =
 function Creator() {
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
+  const [status, setStatus] = useState("not-live")
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
   let channel = ""
@@ -170,6 +172,7 @@ function Creator() {
       }
       else {
         await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+        setStatus("live")
       }
 
 
@@ -187,6 +190,7 @@ function Creator() {
   let stopStream = async (client) => {
     if (channelParameters.localAudioTrack) {
       client.unpublish();
+      setStatus("not-live")
 
     }
 
@@ -253,8 +257,8 @@ function Creator() {
       <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} />
       <div className="lower">
         <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
-        {1 === 1 ? <img onClick={() => setModal('start')} src={require('../style/imgs/stream/start.png')} />
-          : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
+        {status!="live" ? <img onClick={() => {alreadyStreamed? console.log("cant stream"): setModal('start')}} src={require('../style/imgs/stream/start.png')} />
+          : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
         <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
       </div>
       <div className="upper">
@@ -281,7 +285,10 @@ function Creator() {
         <div>
           <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
           <div onClick={() => {
-            if (modal === 'end') initStopOne(client)
+            if (modal === 'end') {
+              stopStream(client)
+              setModal(false)
+            }
             else {
               streamGaming(client, true)
               setModal(false)
