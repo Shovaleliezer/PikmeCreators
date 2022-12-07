@@ -18,8 +18,7 @@ const StreamChat = ({ eventName, mobile }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
     useEffect(() => {
-        const clients = io.sockets.adapter.rooms.get('')
-        console.log(clients)
+
         return () => {
             // stop listen to message
             socket.off("message");
