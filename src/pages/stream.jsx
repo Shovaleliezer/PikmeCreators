@@ -41,6 +41,7 @@ function Creator() {
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
+  const { viewers } = useSelector((storeState) => storeState.generalModule)
   let channel = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
   const [client, setClient] = useState(null)
@@ -239,7 +240,7 @@ function Creator() {
             </div>
             <div>
               <img src={require('../style/imgs/stream/viewers.png')} />
-              <p>5,721</p>
+              <p>{viewers-1}</p>
             </div>
           </div>
         </div>
@@ -260,7 +261,7 @@ function Creator() {
         <div className="detail-holder">
           <div>
             <img src={require('../style/imgs/stream/viewers.png')} />
-            <p>5,721</p>
+            <p>{viewers-1}</p>
           </div>
           <div>
             <img src={require('../style/imgs/stream/coins.png')} />
