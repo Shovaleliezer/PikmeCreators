@@ -248,6 +248,7 @@ function Creator() {
   
     {isMobile && <section className="stream-mobile">
       <div id="agora_local" className="stream-video-mobile" />
+      <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true}/>
       <div className="lower">
         <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
         {1===1 ? <>
@@ -256,8 +257,6 @@ function Creator() {
         </> : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
         <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
       </div>
-      <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true}/>
-      
       <div className="upper">
         <div className="detail-holder">
           <div>
