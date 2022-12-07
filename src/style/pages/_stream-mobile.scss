@@ -9,7 +9,7 @@
 
     .lower {
         @include flex(0, space-around, center);
-        padding: 10px 15px;
+        padding: 10px 0;
         padding-bottom: 5px;
         img{
             width: 34px;
