@@ -8,7 +8,7 @@
     }
 
     .lower {
-        @include flex(0, space-between, center);
+        @include flex(0, space-around, center);
         padding: 10px 15px;
         padding-bottom: 5px;
         img{
