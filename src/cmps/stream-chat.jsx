@@ -17,11 +17,20 @@ const joinRoom = (username, roomName) => {
 const StreamChat = ({ eventName, mobile }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
+    const user = useSelector((state) => state.user)
+    let nickName = (user.creator && user.creator.nickName) ? user.creator.nickName : 'bug';
+    var clients = socket.sockets.clients()
+    
+    const getViewers = async()=>{
+        // const sockets = await io.fetchSockets()
+        // console.log(sockets)
+    }
+    
     useEffect(() => {
+        // getViewers()
         return () => {
             // stop listen to message
             socket.off("message");
-
         }
     }, [socket])
 
@@ -34,9 +43,6 @@ const StreamChat = ({ eventName, mobile }) => {
 
     }
 
-    const user = useSelector((state) => state.user)
-    let nickName = (user.creator && user.creator.nickName) ? user.creator.nickName : 'bug';
-
     if (!nickName) nickName = "Guest" + Math.floor(Math.random() * 10000);
     colorize(nickName)
 
@@ -46,17 +52,12 @@ const StreamChat = ({ eventName, mobile }) => {
         }
     }, [socket])
 
-    // on enter key down send the message
     const onEnter = (ev) => {
         if (ev.key === "Enter") {
             sendMessage();
         }
     };
-    // function that gets message input and adds it to the chat div
-    const addMessage = (message) => {
-        // get the body-text div
-
-    }
+    
     joinRoom(nickName, eventName);
     socket.on('message', (message) => {
         if (message.newRoom) {
@@ -65,27 +66,18 @@ const StreamChat = ({ eventName, mobile }) => {
         else {
             setMessages([...messages, message])
         }
-
-
     }
     )
 
-
-    // get the message and emit it to the server
     const sendMessage = () => {
-        //get the value from the dom input
         const message = document.getElementById('input').value;
         if (message !== "") {
             if (socket) {
                 socket.emit('chat', { "nickName": nickName, "message": message, "color": randomColor });
             }
-
-            //clear the input
-            document.getElementById('input').value = '';
-            //focus the input
-            document.getElementById('input').focus();
-            //scroll down to the bottom of the chat
-            document.getElementById('body-text').scrollTop = document.getElementById('body-text').scrollHeight;
+            document.getElementById('input').value = ''
+            document.getElementById('input').focus()
+            document.getElementById('body-text').scrollTop = document.getElementById('body-text').scrollHeight
         }
     }
 
@@ -94,13 +86,13 @@ const StreamChat = ({ eventName, mobile }) => {
             <div className="chat-bar-mobile" >
                 <span className="material-symbols-outlined">settings</span>
                 <p>Stream chat</p>
-                <span onClick={()=>setShowChat(true)} class="material-symbols-outlined">expand_less</span>
+                <span onClick={() => setShowChat(true)} class="material-symbols-outlined">expand_less</span>
             </div> :
             <div className="chat-box">
                 <div className="chat-header">
-                {mobile && <span className="material-symbols-outlined">settings</span>}
+                    {mobile && <span className="material-symbols-outlined">settings</span>}
                     <h1>Stream Chat</h1>
-                {mobile && <span onClick={()=>setShowChat(false)} class="material-symbols-outlined">expand_more</span>}
+                    {mobile && <span onClick={() => setShowChat(false)} class="material-symbols-outlined">expand_more</span>}
                 </div>
 
                 <div id="body-text" className="body-text">

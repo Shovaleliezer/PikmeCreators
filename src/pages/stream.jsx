@@ -41,7 +41,6 @@ function Creator() {
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
-  const user = useSelector((state) => state.user)
   let channel = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
   const [client, setClient] = useState(null)
