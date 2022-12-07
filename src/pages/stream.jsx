@@ -295,9 +295,3 @@ function Creator() {
 }
 
 export default Creator;
-
-{/* <div className="chat-bar-mobile">
-        <span class="material-symbols-outlined">expand_less</span>
-        <p>Stream chat</p>
-        <span class="material-symbols-outlined hidden">expand_less</span>
-      </div> */}
