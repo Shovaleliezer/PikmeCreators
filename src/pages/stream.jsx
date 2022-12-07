@@ -49,10 +49,13 @@ function Creator() {
   const isMobile = window.innerWidth < 1100
 
   useEffect(() => {
+    document.documentElement.style.setProperty('--visibility', 'hidden')
     return () => {
+      document.documentElement.style.setProperty('--visibility', 'visible')
       initStopOne(client)
     }
   }, [])
+
 
   useEffect(() => {
     joinRoom();
@@ -245,15 +248,15 @@ function Creator() {
       </div>
       <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} />
     </div>}
-  
+
     {isMobile && <section className="stream-mobile">
       <div id="agora_local" className="stream-video-mobile" />
-      <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true}/>
+      <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} />
       <div className="lower">
         <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
-        {1===1 ? <>
-        <img onClick={()=>setModal('start')} src={require('../style/imgs/stream/start.png')} />
-        <img onClick={()=>setModal('end')} src={require('../style/imgs/stream/end-mobile.png')} />
+        {1 === 1 ? <>
+          <img onClick={() => setModal('start')} src={require('../style/imgs/stream/start.png')} />
+          <img onClick={() => setModal('end')} src={require('../style/imgs/stream/end-mobile.png')} />
         </> : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
         <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
       </div>
@@ -273,23 +276,23 @@ function Creator() {
     </section>}
 
     {modal && <>
-        <div className="screen blur" onClick={() => setModal(false)} />
-        <div className="confirm-exit">
-          <img src={require(`../style/imgs/stream/${modal}.png`)} />
-          <h1>{Modal} Live Stream?</h1>
-          <p>This Action cannot be undone. Are you sure you want to {modal} the stream?</p>
-          <div>
-            <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
-            <div onClick={() => {
-              if (modal === 'end') initStopOne(client)
-              else {
-                streamGaming(client, true)
-                setModal(false)
-              }
-            }}>{Modal}</div>
-          </div>
+      <div className="screen blur" onClick={() => setModal(false)} />
+      <div className="confirm-exit">
+        <img src={require(`../style/imgs/stream/${modal}.png`)} />
+        <h1>{Modal} Live Stream?</h1>
+        <p>This Action cannot be undone. Are you sure you want to {modal} the stream?</p>
+        <div>
+          <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
+          <div onClick={() => {
+            if (modal === 'end') initStopOne(client)
+            else {
+              streamGaming(client, true)
+              setModal(false)
+            }
+          }}>{Modal}</div>
         </div>
-      </>}
+      </div>
+    </>}
   </>)
 }
 
