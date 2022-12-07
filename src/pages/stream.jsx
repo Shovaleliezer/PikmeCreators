@@ -248,13 +248,7 @@ function Creator() {
   
     {isMobile && <section className="stream-mobile">
       <div id="agora_local" className="stream-video-mobile" />
-      <div className="chat-bar-mobile">
-        <span class="material-symbols-outlined">expand_less</span>
-        <p>Stream chat</p>
-        <span class="material-symbols-outlined hidden">expand_less</span>
-      </div>
-      {/* <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} /> */}
-      <div className="stream-bar-mobile lower">
+      <div className="lower">
         <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
         {1===1 ? <>
         <img onClick={()=>setModal('start')} src={require('../style/imgs/stream/start.png')} />
@@ -262,7 +256,9 @@ function Creator() {
         </> : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
         <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
       </div>
-      <div className="stream-bar-mobile upper">
+      <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true}/>
+      
+      <div className="upper">
         <div className="detail-holder">
           <div>
             <img src={require('../style/imgs/stream/viewers.png')} />
@@ -299,3 +295,9 @@ function Creator() {
 }
 
 export default Creator;
+
+{/* <div className="chat-bar-mobile">
+        <span class="material-symbols-outlined">expand_less</span>
+        <p>Stream chat</p>
+        <span class="material-symbols-outlined hidden">expand_less</span>
+      </div> */}
