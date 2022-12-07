@@ -180,7 +180,6 @@ function Creator() {
       else {
         console.log("no video track")
       }
-
     }
   }
 

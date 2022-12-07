@@ -5,10 +5,7 @@ import { toggleMenu, setMenuSide, setPopup } from "../store/actions/general.acti
 export function Header(props) {
     const dispatch = useDispatch()
     const location = useLocation()
-    console.log(location.pathname)
-
     const user = useSelector((state) => state.user)
-
     let isMobile = window.innerWidth < 930 ? true : false
 
     return (

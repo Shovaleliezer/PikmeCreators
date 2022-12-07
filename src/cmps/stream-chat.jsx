@@ -17,17 +17,9 @@ const joinRoom = (username, roomName) => {
 const StreamChat = ({ eventName, mobile }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
-    const user = useSelector((state) => state.user)
-    let nickName = (user.creator && user.creator.nickName) ? user.creator.nickName : 'bug';
-    var clients = socket.sockets.clients()
-    
-    const getViewers = async()=>{
-        // const sockets = await io.fetchSockets()
-        // console.log(sockets)
-    }
-    
     useEffect(() => {
-        // getViewers()
+        const clients = io.sockets.adapter.rooms.get('')
+        console.log(clients)
         return () => {
             // stop listen to message
             socket.off("message");
@@ -42,6 +34,9 @@ const StreamChat = ({ eventName, mobile }) => {
         }
 
     }
+
+    const user = useSelector((state) => state.user)
+    let nickName = (user.creator && user.creator.nickName) ? user.creator.nickName : 'bug';
 
     if (!nickName) nickName = "Guest" + Math.floor(Math.random() * 10000);
     colorize(nickName)
