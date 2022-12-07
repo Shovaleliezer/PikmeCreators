@@ -9,13 +9,14 @@
 
     .lower {
         @include flex(0, space-between, center);
-        padding: 5px 15px;
+        padding: 10px 15px;
+        padding-bottom: 5px;
         img{
-            width: 30px;
+            width: 34px;
             aspect-ratio: 1/1;
         }
         .smaller{
-            width: 26px;
+            width: 30px;
         }
     }
     .upper {
@@ -41,9 +42,13 @@
                 }
             }
         }
-        span{
-            font-size: 30px;
-            color: rgba($color: #ffffff, $alpha: 0.7);
+        .end-event-mobile{
+            height: 28px;
+            color: white;
+            background-color: #F31313;
+            border-radius: 10px;
+            padding: 0 14px;
+            @include flex(0, center, center);
         }
     }
 }

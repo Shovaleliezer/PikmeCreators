@@ -252,10 +252,8 @@ function Creator() {
       <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} />
       <div className="lower">
         <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
-        {1 === 1 ? <>
-          <img onClick={() => setModal('start')} src={require('../style/imgs/stream/start.png')} />
-          <img onClick={() => setModal('end')} src={require('../style/imgs/stream/end-mobile.png')} />
-        </> : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
+        {1 === 1 ? <img onClick={() => setModal('start')} src={require('../style/imgs/stream/start.png')} />
+          : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
         <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
       </div>
       <div className="upper">
@@ -269,7 +267,7 @@ function Creator() {
             <p>{makeCommas(prizePool)}$</p>
           </div>
         </div>
-        <span className="material-symbols-outlined">settings</span>
+        <div className="end-event-mobile">End Event</div>
       </div>
     </section>}
 
@@ -293,5 +291,5 @@ function Creator() {
     </>}
   </>)
 }
-
+{/* <img onClick={() => setModal('end')} src={require('../style/imgs/stream/end-mobile.png')} /> */}
 export default Creator;
