@@ -4,7 +4,7 @@
     flex-direction: column;
     position: relative;
     .stream-video-mobile {
-        flex: 1;
+        flex: 10;
     }
     .chat-bar-mobile {
         height: 45px;
@@ -26,6 +26,9 @@
         img{
             width: 40px;
             aspect-ratio: 1/1;
+        }
+        .smaller{
+            width: 33px;
         }
     }
     .upper {

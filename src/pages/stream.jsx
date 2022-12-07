@@ -253,13 +253,14 @@ function Creator() {
         <p>Stream chat</p>
         <span class="material-symbols-outlined hidden">expand_less</span>
       </div>
+      {/* <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} /> */}
       <div className="stream-bar-mobile lower">
-        <NavLink to='/'><img src={require('../style/imgs/stream/home.png')} /></NavLink>
+        <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
         {1===1 ? <>
         <img onClick={()=>setModal('start')} src={require('../style/imgs/stream/start.png')} />
         <img onClick={()=>setModal('end')} src={require('../style/imgs/stream/end-mobile.png')} />
         </> : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
-        <img src={require('../style/imgs/stream/mute.png')} />
+        <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
       </div>
       <div className="stream-bar-mobile upper">
         <div className="detail-holder">
