@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import StreamChat from '../cmps/stream-chat.jsx'
 import { makeCommas } from '../services/utils'
 import { NavLink } from 'react-router-dom'
+import { eventService } from "../services/event.service";
 
 let options =
 {
@@ -190,6 +191,14 @@ function Creator() {
     }
 
   }
+  const endEvent = async () => {
+    try{
+      await eventService.endEvent(currentEvent._id)
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
 
   const getWidth = (money) => {
     let width = 162
@@ -280,7 +289,10 @@ function Creator() {
         <div>
           <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
           <div onClick={() => {
-            if (modal === 'end') initStopOne(client)
+            if (modal === 'end'){
+              initStopOne(client)
+              endEvent()
+            } 
             else {
               streamGaming(client, true)
               setModal(false)

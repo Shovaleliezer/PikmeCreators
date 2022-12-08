@@ -1,14 +1,15 @@
 import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { setPopup, setPopupEvent, setUpperPopup,setStreamInfo } from '../store/actions/general.actions'
-import { formatDateHour,getRoute } from '../services/utils'
+import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
+import { formatDateHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
-export function EventCard({ ev,creator }) {
+export function EventCard({ ev, creator }) {
+    console.log('eee', ev)
 
     const dispatch = useDispatch()
 
     const copy = (to) => {
-        if(to==='clients') navigator.clipboard.writeText(getRoute() + ev._id)
+        if (to === 'clients') navigator.clipboard.writeText(getRoute() + ev._id)
         else navigator.clipboard.writeText(getRoute() + 'confirm/' + ev._id)
         dispatch(setUpperPopup('copied'))
     }
@@ -29,15 +30,18 @@ export function EventCard({ ev,creator }) {
                 <h3>Event Info</h3>
                 <div>
                     {/* change to stronger condition ! */}
-                    {(!ev.approved && ev.players[0].walletAddress===creator.walletAddress) && <>
-                        <p onClick={openEdit}>Edit</p>
-                        <p onClick={copy}>Share</p>
-                        <p onClick={()=>dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
-                        <p onClick={deleteEvent}>Delete</p>
+                    {!ev.over && <>
+                        {(!ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
+                            <p onClick={openEdit}>Edit</p>
+                            <p onClick={copy}>Share</p>
+                            <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                            <p onClick={deleteEvent}>Delete</p>
+                        </>}
+                        {(ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
+                            <p onClick={() => { copy('clients') }}>Share</p>
+                        </>}
                     </>}
-                    {(ev.approved && ev.players[0].walletAddress===creator.walletAddress) && <>
-                        <p onClick={()=>{copy('clients')}}>Share</p>
-                    </>}
+                    {ev.over && <p onClick={deleteEvent}>Delete</p>}
                 </div>
 
             </div>
@@ -55,7 +59,8 @@ export function EventCard({ ev,creator }) {
                     <p>{ev.game}</p>
                     <p>{ev.players.length}</p>
                     <p>{formatDateHour(ev.date)}</p>
-                    <p style={{ color: ev.approved ? '#04C300' : '#F37F13' }}>{ev.approved ? 'approved' : 'waiting'}</p>
+                    {!ev.over && <p style={{ color: ev.approved ? '#04C300' : '#F37F13' }}>{ev.approved ? 'Approved' : 'Waiting'}</p>}
+                    {ev.over && <p style={{ color: '#F31313' }}>Over</p>}
                 </div>
             </div>
         </div>

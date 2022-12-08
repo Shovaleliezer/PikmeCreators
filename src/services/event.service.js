@@ -4,6 +4,7 @@ export const eventService = {
     addEvent,
     deleteEvent,
     editEvent,
+    endEvent,
     getById,
     confirm
 }
@@ -16,6 +17,11 @@ async function addEvent(details) {
 
 async function deleteEvent(id) {
     const confirm = await httpService.post('handle-event/delete-unapproved-event/'+id)
+    return confirm
+}
+
+async function endEvent(id){
+    const confirm = await httpService.post('handle-event/end-event/'+id)
     return confirm
 }
 
