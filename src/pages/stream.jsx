@@ -228,14 +228,14 @@ function Creator() {
         <div className="stream-control">
           <div className="options" style={{ width }}>
             <img src={require('../style/imgs/stream/mute.png')} />
-            <img src={require('../style/imgs/stream/home.png')} />
+            <img onClick={()=>{(status=="live")? setModal('exit'): initStopOne(client)}} src={require('../style/imgs/stream/home.png')} />
           </div>
           <div className="start">
-            {1 === 1 ? <>
-              <div className="begin" onClick={() => setModal('start')}>Go Live </div>
+          {status!="live" ?  <>
+              <div className="begin"onClick={() => {alreadyStreamed? console.log("cant stream"): setModal('start')}}>Go Live </div>
               <div className="end" onClick={() => setModal('end')}>End Event</div>
             </> :
-              <div className="begin" onClick={() => stopStream(client)}>Stop Live</div>}
+              <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
           </div>
           <div className="details">
             <div>
@@ -279,7 +279,7 @@ function Creator() {
     {modal && <>
       <div className="screen blur" onClick={() => setModal(false)} />
       <div className="confirm-exit">
-        <img src={require(`../style/imgs/stream/${modal}.png`)} />
+        <img src={require(`../style/imgs/stream/${modal=="exit"?"end":modal}.png`)} />
         <h1>{Modal} Live Stream?</h1>
         <p>This Action cannot be undone. Are you sure you want to {modal} the stream?</p>
         <div>
@@ -288,6 +288,10 @@ function Creator() {
             if (modal === 'end') {
               stopStream(client)
               setModal(false)
+            }
+            else if(modal=="exit"){
+              initStopOne(client)
+          
             }
             else {
               streamGaming(client, true)
