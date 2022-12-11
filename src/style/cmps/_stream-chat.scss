@@ -132,6 +132,9 @@
             width: 95%;
             height: 35px;
         }
+        input:focus{
+            outline: 0px solid $main;
+        }
     }
 
     .chat-bar-mobile {
