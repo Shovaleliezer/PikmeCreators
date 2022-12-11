@@ -5,14 +5,15 @@
 
     .left-wrapper {
         @include flex(0, center, center, column);
-        flex:1;
+        flex: 1;
         height: 100%;
-        .stream-video-mobile{
+
+        .stream-video-mobile {
             width: 100%;
             height: 300px;
             flex: 1;
         }
-    
+
         .lower {
             @include flex(0, space-around, center);
             width: 100%;
@@ -35,7 +36,8 @@
             padding: 5px 15px;
             @include flex(0, space-between, center);
             color: white;
-            img{
+
+            img {
                 width: 28px;
                 aspect-ratio: 1/1;
             }
@@ -66,6 +68,35 @@
                 padding: 0 14px;
                 @include flex(0, center, center);
             }
+        }
+    }
+}
+.rotate-phone {
+    display: none;
+}
+
+@media (max-width: 550px) {
+    .stream-mobile {
+        display: none;
+    }
+
+    .rotate-phone {
+        display: unset;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+
+        img {
+            width: 250px;
+            aspect-ratio: 1/1;
+        }
+
+        h1 {
+            color: white;
+            font-size: 30px;
+            text-align: center;
         }
     }
 }

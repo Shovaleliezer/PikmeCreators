@@ -40,6 +40,7 @@ let channelParameters =
 
 
 function Creator() {
+  const navigate = useNavigate()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const [status, setStatus] = useState("not-live")
@@ -50,7 +51,7 @@ function Creator() {
   const [client, setClient] = useState(null)
   const [modal, setModal] = useState(false)
   const isMobile = window.innerWidth < 1100
-  const navigate = useNavigate()
+
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
     return () => {
@@ -215,6 +216,7 @@ function Creator() {
   }
 
   if (currentEvent.length === 0) return <div className="stream-container" />
+
   let prizePool = 0
   for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
     prizePool += value
@@ -224,6 +226,10 @@ function Creator() {
   let Modal = modal === 'start' ? 'Start' : 'End'
 
   return (<>
+    <div className="rotate-phone">
+      <img src={require('../style/imgs/stream/rotate.png')}/>
+      <h1>To get the full streaming experience,please rotate your phone</h1>
+    </div>
     {!isMobile && <div className="stream-container">
       <div className="settings">
         <div className="settings-upper">
@@ -264,7 +270,7 @@ function Creator() {
     {isMobile && <section className="stream-mobile">
       <section className="left-wrapper">
         <div className="upper">
-        <div onClick={() => setModal('end-event')} className="end-event-mobile">End Event</div>
+          <div onClick={() => setModal('end-event')} className="end-event-mobile">End Event</div>
           <div className="detail-holder">
             <div>
               <img src={require('../style/imgs/stream/viewers.png')} />
@@ -275,7 +281,7 @@ function Creator() {
               <p>{makeCommas(prizePool)}$</p>
             </div>
           </div>
-        <img src={require('../style/imgs/stream/full-screen.png')}/>  
+          <img src={require('../style/imgs/stream/full-screen.png')} />
         </div>
 
         <div id="agora_local" className="stream-video-mobile" />
@@ -284,7 +290,7 @@ function Creator() {
           {status != "live" ? <img onClick={() => { alreadyStreamed ? console.log("cant stream") : setModal('start') }} src={require('../style/imgs/stream/start.png')} />
             : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
           <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
-          <img className="smaller" src={require('../style/imgs/stream/settings.png')}/>
+          <img className="smaller" src={require('../style/imgs/stream/settings.png')} />
         </div>
       </section>
       <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} />
@@ -323,6 +329,6 @@ function Creator() {
       </div>
     </>}
   </>)
+
 }
-{/* <img onClick={() => setModal('end')} src={require('../style/imgs/stream/end-mobile.png')} /> */ }
 export default Creator;
