@@ -4,6 +4,7 @@ import { userService } from "../services/userService"
 import { WalletConnect } from "../cmps/wallet-connect"
 import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
+import { Error } from './error'
 import { setAddress, setIsConnected } from "../store/reducers/userReducer"
 import { setCreator } from "../store/reducers/userReducer"
 import { setPopup } from "../store/actions/general.actions"
@@ -14,7 +15,7 @@ export function Home() {
     const [creator, setLocalCreator] = useState('loading')
     const { ethereum } = window
     const { address, isConnected } = useSelector((state) => state.user)
-    
+
     useEffect(() => {
         if (address) {
             handleCreatorAddress(address)
@@ -49,23 +50,29 @@ export function Home() {
             setLocalCreator(false)
         }
     }
-  
+
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
     if (creator === 'loading') return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
-    <div></div><div></div><div></div><div></div></div></div></div>
+        <div></div><div></div><div></div><div></div></div></div></div>
     if (!creator) return <Register />
 
-    return (
-        <section className="home">
-            <div className="home-banner"><h1>Hello {creator.nickName}</h1></div>
-            {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
-                {Object.keys(creator.creatorEvents).map(ev => <EventCard  key={creator.creatorEvents[ev]._id} 
-                ev={creator.creatorEvents[ev]} creator={creator}/>)}
-            </div>
-                : <div className="no-events">
-                    <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>
-                    <img src={require('../style/imgs/no-events.png')} />
-                </div>}
-        </section>)
+    try {
+        return (
+            <section className="home">
+                <div className="home-banner"><h1>Hello {creator.nickName}</h1></div>
+                {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
+                    {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id}
+                        ev={creator.creatorEvents[ev]} creator={creator} />)}
+                </div>
+                    : <div className="no-events">
+                        <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>
+                        <img src={require('../style/imgs/no-events.png')} />
+                    </div>}
+            </section>)
+    }
+    catch{
+        return <Error />
+    }
+
 }
