@@ -2,7 +2,7 @@ const INITIAL_STATE = {
     mode: {
         type: 'dark',
     },
-    viewers:0,
+    viewers: 0,
     menu: '',
     menuSide: 'right',
     popup: '',
@@ -50,6 +50,19 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, popupEvent: action.popupEvent }
         case 'SET_UPPER_POPUP':
             return { ...state, upperPopup: action.upperPopup }
+        case 'RESET_GENERAL_STATE':
+            return {
+                mode: {
+                    type: 'dark',
+                },
+                viewers: 0,
+                menu: '',
+                menuSide: 'right',
+                popup: '',
+                popupEvent: '',
+                upperPopup: '',
+                streamInfo: {}
+            }
         default:
             return state;
     }

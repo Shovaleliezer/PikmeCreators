@@ -1,0 +1,17 @@
+.error{
+    height: calc(100vh - 60px);
+    @include flex(20px, center, center,column);
+    img{
+        width: 300px;
+    }
+    .h1{
+        color: white;
+        font-size: 30px;
+        margin: 0;
+    }
+    .p{
+        color:rgba(255,255,255,0.7);
+        font-size: 20px;
+        margin: 0;
+    }
+}

@@ -44,3 +44,9 @@ export function setUpperPopup(upperPopup) {
         dispatch({ type: 'SET_UPPER_POPUP', upperPopup })
     }
 }
+
+export function resetGeneralState() {
+    return (dispatch) => {
+        dispatch({ type: 'RESET_GENERAL_STATE' })
+    }
+}

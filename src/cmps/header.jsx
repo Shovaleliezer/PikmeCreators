@@ -13,7 +13,6 @@ export function Header(props) {
             <div className="header">
                 <div className="options-bar" style={{ flex: '0' }}>
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
-                    
                     <NavLink to='/profile'>
                         {(user.creator) ? <img className='header-user-img' src={user.creator.image} /> :
                             <svg width="30" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="clickable hover-main-svg">
