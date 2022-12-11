@@ -60,6 +60,7 @@ export function Home() {
     try {
         return (
             <section className="home">
+                {creator.lCompare.applyoo}
                 <div className="home-banner"><h1>Hello {creator.nickName}</h1></div>
                 {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
                     {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id}

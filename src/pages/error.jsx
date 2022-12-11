@@ -11,15 +11,16 @@ export function Error() {
    const resetWebsite = () => {
         dispatch(resetState())
         dispatch(resetGeneralState())
+        localStorage.removeItem('persist:root')
         navigate('/')
         window.location.reload()
    }
     return (
         <div className='error'>
             <img src={require('../style/imgs/error.png')}/>
-            <h1>sdfsdfsdffsgghkjhjmhgfgh</h1>
-            <p>sdfsdfsdfsdffsdf</p>
-            <div>contact</div>
+            <h1>Website is unavailable!</h1>
+            <p>Unfortunately the website is down at the moment. Try reloading the page,</p>
+            <p>if the page is still unavailable contact our support team <span>here</span>.</p>
             <div onClick={resetWebsite}>Reload page</div>
         </div>
     )
