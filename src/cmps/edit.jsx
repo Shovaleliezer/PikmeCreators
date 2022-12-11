@@ -11,6 +11,7 @@ export function Edit() {
         game: popupEvent.game,
         date: popupEvent.date,
     })
+    const [sent,setSent] = useState(false)
     const [img, setImg] = useState({ category: event.category, game: event.game })
     const [category, setCategory] = useState(event.category)
 
@@ -27,6 +28,7 @@ export function Edit() {
     const editEvent = async (e) => {
         e.preventDefault()
         try{
+            setSent(true)
             const newEv = await eventService.editEvent(popupEvent._id, event)
             if(newEv){
                 dispatch(setPopup(''))
@@ -42,6 +44,9 @@ export function Edit() {
         const { name, value } = ev.target;
         setEvent({ ...event, [name]: value });
     }
+
+    if(sent) return <div class="loader"><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div></div>
 
     return <form className='create' onSubmit={editEvent}>
         <div className='create-upper'>

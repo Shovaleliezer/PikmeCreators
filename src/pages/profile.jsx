@@ -15,6 +15,7 @@ export function Profile() {
     const [creator, setLocalCreator] = useState('loading')
     const [img, setImg] = useState('valorant')
     const [isChanged, setIsChanged] = useState(false)
+    const [sent,setSent] = useState(false)
 
     const years = getYears()
 
@@ -29,6 +30,7 @@ export function Profile() {
 
     const save = async () => {
         if (isChanged) {
+            setSent(true)
             const updatedCreator = await userService.editCreator(user.address, creator)
             if (updatedCreator) {
                 dispatch(setCreator(updatedCreator))
@@ -70,7 +72,7 @@ export function Profile() {
         setIsChanged(true)
     }
 
-    if (creator === 'loading') return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
+    if (creator === 'loading' || sent) return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div></div></div></div>
     if(!creator) return <></>
 
