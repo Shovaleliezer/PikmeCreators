@@ -9,6 +9,7 @@ export function Create() {
     const [img, setImg] = useState({ category: 'sports', game: 'table-tennis' })
     const [category, setCategory] = useState('sports')
     const [isShare, setIsShare] = useState(true)
+    const [sent,setSent] = useState(false)
     const categoryRef = useRef()
     const gameRef = useRef()
     const dateRef = useRef()
@@ -26,6 +27,7 @@ export function Create() {
 
     const addEvent = async (e) => {
         e.preventDefault()
+        setSent(true)
         const newEvent = {
             category: categoryRef.current.value,
             game: gameRef.current.value,
@@ -37,6 +39,8 @@ export function Create() {
         const {_id} = await eventService.addEvent(newEvent,user.creator.walletAddress)
         dispatch(setPopup(_id))
     }
+    if(sent) return <div class="loader"><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div></div>
 
     return <form className='create' onSubmit={addEvent}>
         <div className='create-upper'>

@@ -61,7 +61,7 @@ function Creator() {
   }, [])
   const endEvent = async () => {
     try {
-      const loadedEvent = await eventService.endEvent(currentEvent._id)
+      await eventService.endEvent(currentEvent._id)
       navigate('/')
     }
     catch {
@@ -215,7 +215,8 @@ function Creator() {
     return width
   }
 
-  if (currentEvent.length === 0) return <div className="stream-container" />
+  if (currentEvent.length === 0) return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
+  <div></div><div></div><div></div><div></div></div></div></div>
 
   let prizePool = 0
   for (const [key, value] of Object.entries(currentEvent.playersTickets)) {

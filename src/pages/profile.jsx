@@ -12,7 +12,7 @@ export function Profile() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
 
-    const [creator, setLocalCreator] = useState(null)
+    const [creator, setLocalCreator] = useState('loading')
     const [img, setImg] = useState('valorant')
     const [isChanged, setIsChanged] = useState(false)
 
@@ -70,7 +70,9 @@ export function Profile() {
         setIsChanged(true)
     }
 
-    if (!creator) return <div className="profile"><div className="loader"></div></div>
+    if (creator === 'loading') return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div></div></div></div>
+    if(!creator) return <></>
 
     const { nickName, walletAddress, image, proficiencyGame, region, topAchievement, status, experience, socialLink } = creator
     return <section className="profile">
