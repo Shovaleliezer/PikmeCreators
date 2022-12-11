@@ -82,14 +82,12 @@ const StreamChat = ({ eventName, mobile }) => {
         {(mobile && !showChat) ?
             <div className="chat-bar-mobile" >
                 <span className="material-symbols-outlined">settings</span>
-                <p>Stream chat</p>
+                <p>Live chat</p>
                 <span onClick={() => setShowChat(true)} class="material-symbols-outlined">expand_less</span>
             </div> :
             <div className="chat-box">
                 <div className="chat-header">
-                    {mobile && <span className="material-symbols-outlined">settings</span>}
-                    <h1>Stream Chat</h1>
-                    {mobile && <span onClick={() => setShowChat(false)} class="material-symbols-outlined">expand_more</span>}
+                    <h1>Live chat</h1>
                 </div>
 
                 <div id="body-text" className="body-text">
