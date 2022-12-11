@@ -64,7 +64,8 @@ export function Home() {
                 {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
                     {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id}
                         ev={creator.creatorEvents[ev]} creator={creator} />)}
-                </div>
+                        {creator.sdfsdfsf.sdfsdf}
+                </div> 
                     : <div className="no-events">
                         <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>
                         <img src={require('../style/imgs/no-events.png')} />
