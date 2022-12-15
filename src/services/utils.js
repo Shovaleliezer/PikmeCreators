@@ -95,7 +95,7 @@ export function getYears() {
 
 export function getRoute() {
   if (process.env.NODE_ENV === 'production') return 'https://pikmeserver.herokuapp.com/' //change when in production
-  return 'http://localhost:3000/#/'
+  return 'https://pikmeserver.herokuapp.com/'
 }
 
   // localStorage.setItem(key, JSON.stringify(value))
