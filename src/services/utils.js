@@ -94,7 +94,7 @@ export function getYears() {
 }
 
 export function getRoute() {
-  if (process.env.NODE_ENV === 'production') return 'https://www.sportify.co.il' //change when in production
+  if (process.env.NODE_ENV === 'production') return 'https://pikmeserver.herokuapp.com/' //change when in production
   return 'http://localhost:3000/#/'
 }
 
