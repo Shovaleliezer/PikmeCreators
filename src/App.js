@@ -20,7 +20,7 @@ import { UpperPopup } from "../src/cmps/upper-popup"
 function App() {
 
 
-  document.body.classList = [`back-${mode.type}`]
+  
   return (
    <div>
     <h1>hello</h1>
