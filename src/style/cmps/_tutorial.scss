@@ -1,0 +1,274 @@
+.buddy-wrapper {
+    z-index: 1001;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @include flex(0, center, center, column);
+
+    img {
+        width: 243px;
+    }
+}
+
+.tutorial-center {
+    color: white;
+    padding: 40px;
+    background-color: $tutorial-back;
+    border-radius: 15px;
+    border: 2px solid $bright-back;
+    @include flex(0, center, center, column);
+
+    h1 {
+        font-size: 32px;
+        text-align: center;
+        font-weight: 200;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 24px;
+        opacity: 0.7;
+        text-align: center;
+        margin: 0;
+        margin-bottom: 5px;
+        max-width: 600px;
+    }
+
+    .action {
+        @include flex(0, center, center);
+        background-color: $main;
+        font-size: 32px;
+        border-radius: 10px;
+        padding: 10px 25px;
+        cursor: pointer;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    .progress-circles {
+        width: 100%;
+        @include flex(30px, center, center);
+
+        div {
+            width: 30px;
+            height: 30px;
+            background-color: #131c38;
+            border-radius: 50%;
+        }
+    }
+}
+
+.tutorial-specific {
+    z-index: 1001;
+    position: fixed;
+    top: 340px;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    height: 224px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 20px;
+
+    .specific-inner {
+        width: 100%;
+        @include flex(12px, center, center, column);
+
+        h1,
+        p {
+            font-weight: 200;
+            margin: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        p {
+            font-size: 24px;
+            opacity: 0.7;
+        }
+    }
+
+    .continue-wrapper {
+        width: 100%;
+        @include flex(0, space-between, center);
+        position: absolute;
+
+        h5 {
+            font-size: 24px;
+            color: $main;
+            text-decoration: underline;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        p {
+            font-size: 24px;
+            margin: 0;
+        }
+
+    }
+}
+
+.t-up {
+    background-image: url("../imgs/tutorial/popup-up.png");
+}
+
+.t-down,
+.t-down-right {
+    width: 590px;
+
+    .continue-wrapper {
+        bottom: 30px;
+        padding-right: 40px;
+    }
+}
+
+.t-down {
+    background-image: url("../imgs/tutorial/popup-down.png");
+}
+
+.t-down-right {
+    background-image: url("../imgs/tutorial/popup-down-right.png");
+}
+
+.t-left{
+    width: 690px;
+    background-image: url("../imgs/tutorial/popup-left.png");
+    p{
+        padding-left: 15px;
+    }
+    .continue-wrapper {
+        bottom: 25px;
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+.t-right {
+    width: 690px;
+    background-image: url("../imgs/tutorial/popup-right.png");
+    p{
+        padding-right: 15px;
+    }
+    .continue-wrapper {
+        bottom: 25px;
+        padding-right: 80px;
+    }
+
+}
+
+.t-info {
+    background-image: url("../imgs/tutorial/popup-info.png");
+    width: 590px;
+
+    .continue-wrapper {
+        bottom: 30px;
+        padding-right: 40px;
+    }
+}
+
+@media (max-width: $mobile) {
+    .buddy-wrapper {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 95vw;
+
+        img {
+            width: 170px;
+        }
+    }
+
+    .tutorial-center {
+        color: white;
+        padding: 20px 10px;
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 5px;
+            max-width: unset;
+        }
+
+        .action {
+            padding: 8px 15px;
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .progress-circles {
+            @include flex(20px, center, center);
+
+            div {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+
+    .tutorial-specific {
+        width: 95vw;
+        height: 160px;
+        padding: 10px;
+
+        .specific-inner {
+            h1 {
+                font-size: 22px;
+            }
+
+            p {
+                font-size: 18px;
+            }
+        }
+
+        .continue-wrapper {
+
+            h5 {
+                font-size: 18px;
+            }
+
+            p {
+                font-size: 18px;
+                margin: 0;
+            }
+        }
+    }
+
+    .t-down,
+    .t-info,
+    .t-down-right {
+        bottom: 35px;
+        padding-right: 30px;
+    }
+
+    .t-up {
+        padding-top: 30px;
+
+        .continue-wrapper {
+            bottom: 15px;
+            padding-right: 20px;
+        }
+    }
+}
+
+.screen-tutorial {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+    background-color: black;
+    z-index: 1000;
+    opacity: 0.8;
+}

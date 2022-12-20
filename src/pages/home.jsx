@@ -52,7 +52,7 @@ export function Home() {
     }
 
     if (!ethereum) return <ExtensionConnect />
-    if (!isConnected) return <WalletConnect from='profile' handleCreatorAddress={handleCreatorAddress} />
+    if (!isConnected) return <WalletConnect from='home' handleCreatorAddress={handleCreatorAddress} />
     if (creator === 'loading') return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>
     if (!creator) return <Register />
