@@ -73,7 +73,7 @@ export function Profile() {
         setIsChanged(true)
     }
 
-    if (creator === 'loading' || sent) return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
+    if (creator === 'loading' || sent) return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>
     if (!creator) return <></>
 

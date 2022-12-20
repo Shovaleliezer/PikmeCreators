@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setMenu, setPopup } from "../store/actions/general.actions"
 import { setIsConnected, setAddress, resetState } from '../store/reducers/userReducer'
+import { connectComplete } from '../store/actions/tutorial.actions'
 import { userService } from '../services/userService'
 
 export function WalletConnect({ from,handleCreatorAddress }) {
     const dispatch = useDispatch()
     const { mode } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
+    const {connectDone} = useSelector((state) => state.tutorialModule)
 
     if (ethereum) {
         window.ethereum.on('accountsChanged', async (accounts) => {
@@ -15,9 +17,7 @@ export function WalletConnect({ from,handleCreatorAddress }) {
             }
         })
     }
-    // function that called after 2 seconds
   
-
     const connectWallet = async () => {
         try {
             const accounts = await ethereum.request({
@@ -25,6 +25,7 @@ export function WalletConnect({ from,handleCreatorAddress }) {
             })
             const res = await userService.checkIsCreator(accounts[0])
             if (res){
+                if(!connectDone) dispatch(connectComplete())
                 handleCreatorAddress(accounts[0])
             } 
             
@@ -39,8 +40,9 @@ export function WalletConnect({ from,handleCreatorAddress }) {
         }
     }
 
-    return (
-        <div className={`wallet-connect ${mode.type}`} style={{ marginBottom: from === 'popup' ? '0' : '25vh' }}>
+    return (<>
+    {!connectDone && <div className="screen-tutorial"/>}
+    <div className={`wallet-connect ${mode.type}`} style={{ marginBottom: from === 'popup' ? '0' : '25vh', zIndex:connectDone? '0' : '1001'}}>
             <h1>Connect your wallet</h1>
             <p>If you do not have any wallet, you can create one right <a href="https://metamask.io/" target="_blank">here</a>.</p>
             <section>
@@ -49,6 +51,6 @@ export function WalletConnect({ from,handleCreatorAddress }) {
                 <div><img src={require('../style/imgs/binance-logo.png')} /><p>Binance</p></div>
                 <div><p>Your wallet not here? go to <span onClick={() => { dispatch(setMenu('help')); dispatch(setPopup('')) }}>Help</span>.</p></div>
             </section>
-        </div>
-    )
+        </div>    
+    </>)
 }
