@@ -1,7 +1,7 @@
 
-export function connectComplete(){
+export function setConnectPhase(phase){
     return (dispatch) => {
-        dispatch({ type: 'CONNECT_DONE' })
+        dispatch({ type: 'SET_CONNECT_PHASE',phase })
     }
 }
 

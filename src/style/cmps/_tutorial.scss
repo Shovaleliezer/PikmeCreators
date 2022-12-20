@@ -1,5 +1,5 @@
 .buddy-wrapper {
-    z-index: 1001;
+    z-index: 1002;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -9,6 +9,10 @@
     img {
         width: 243px;
     }
+}
+.buddy-connect{
+    transform: translate(-50%,-50%);
+    top:30vh;
 }
 
 .tutorial-center {
@@ -182,6 +186,11 @@
         img {
             width: 170px;
         }
+    }
+
+    .buddy-connect{
+        transform: translate(-50%,-50%);
+        top:200px;
     }
 
     .tutorial-center {
