@@ -11,7 +11,7 @@ export function WalletConnect({ from, handleCreatorAddress }) {
     const { ethereum } = window
     const { connectPhase } = useSelector((state) => state.tutorialModule)
 
-    if(connectPhase !== 1) dispatch(setConnectPhase(1))
+    if (connectPhase === 0) dispatch(setConnectPhase(1))
 
     if (ethereum) {
         window.ethereum.on('accountsChanged', async (accounts) => {
@@ -28,7 +28,7 @@ export function WalletConnect({ from, handleCreatorAddress }) {
             })
             const res = await userService.checkIsCreator(accounts[0])
             if (res) {
-                if (!connectPhase) dispatch(setConnectPhase(3))
+                if (connectPhase === 2) dispatch(setConnectPhase(3))
                 handleCreatorAddress(accounts[0])
             }
 
