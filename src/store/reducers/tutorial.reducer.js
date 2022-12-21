@@ -2,7 +2,7 @@ const INITIAL_STATE = {
     connectPhase: 0,
     registerPhase: 0,
     homePhase: 0,
-
+    createPhase: 0,
 }
 
 export function tutorialReducer(state = INITIAL_STATE, action) {
@@ -13,6 +13,8 @@ export function tutorialReducer(state = INITIAL_STATE, action) {
             return { ...state, homePhase: action.phase }
         case 'SET_REGISTER_PHASE':
             return { ...state, registerPhase: action.phase }
+        case 'SET_CREATE_PHASE':
+            return { ...state, createPhase: action.phase }
         default:
             return state
     }

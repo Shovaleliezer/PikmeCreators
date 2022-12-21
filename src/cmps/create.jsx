@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setPopup } from '../store/actions/general.actions'
+import {setCreatePhase} from '../store/actions/tutorial.actions'
 import { eventService } from '../services/event.service'
 
 export function Create() {
@@ -9,11 +10,14 @@ export function Create() {
     const [img, setImg] = useState({ category: 'sports', game: 'table-tennis' })
     const [category, setCategory] = useState('sports')
     const [isShare, setIsShare] = useState(true)
-    const [sent,setSent] = useState(false)
+    const [sent, setSent] = useState(false)
     const categoryRef = useRef()
     const gameRef = useRef()
     const dateRef = useRef()
     // const descRef = useRef()
+
+    const { createPhase } = useSelector((state) => state.tutorialModule)
+    if(createPhase === 0) dispatch(setCreatePhase(1))
 
     const handleImg = (e) => {
         const { name, value } = e.target
@@ -36,17 +40,17 @@ export function Create() {
             shareWithCommunity: isShare,
             player: user.creator
         }
-        const {_id} = await eventService.addEvent(newEvent,user.creator.walletAddress)
+        const { _id } = await eventService.addEvent(newEvent, user.creator.walletAddress)
         dispatch(setPopup(_id))
     }
-    if(sent) return <div class="loader"><div></div><div></div><div></div><div></div>
-    <div></div><div></div><div></div><div></div></div>
+    if (sent) return <div class="loader"><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div></div>
 
     return <form className='create' onSubmit={addEvent}>
-        <div className='create-upper'>
+        <div className='create-upper' onClick={()=>dispatch(setCreatePhase(1))}>
             <img src={require('../style/imgs/create-stream.png')} />
             <h1>Create New Stream</h1>
-            <img src={require('../style/imgs/close-icon.png')} onClick={()=>{dispatch(setPopup(''))}}/>
+            <img src={require('../style/imgs/close-icon.png')} onClick={() => { dispatch(setPopup('')) }} />
         </div>
         <div className='all-select-wrapper'>
             <div className='h3-wrapper'>
@@ -86,12 +90,12 @@ export function Create() {
                     <input type="text" placeholder="insert description" required ref={descRef} />
                 </div>
             </div> */}
-        <div className='checkbox-wrapper'>
-            <div className='checkbox' onClick={() => setIsShare(!isShare)}>
-                {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
+            <div className='checkbox-wrapper' style={{zIndex: createPhase === 1 ? '1001' : '0'}}>
+                <div className='checkbox' onClick={() => setIsShare(!isShare)}>
+                    {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
+                </div>
+                <p>Share with community</p>
             </div>
-            <p>Share with community</p>
-        </div>
         </div>
         <div className='center'>
             <button>Create!</button>

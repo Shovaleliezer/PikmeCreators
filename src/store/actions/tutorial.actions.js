@@ -17,3 +17,9 @@ export function setHomePhase(phase){
     }
 }
 
+export function setCreatePhase(phase){
+    return (dispatch) => {
+        dispatch({ type: 'SET_CREATE_PHASE' ,phase})
+    }
+}
+

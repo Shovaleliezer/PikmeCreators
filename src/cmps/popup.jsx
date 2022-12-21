@@ -13,6 +13,7 @@ export function Popup({ mode }) {
     const dispatch = useDispatch()
     const { popup } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
+    const { createPhase } = useSelector((state) => state.tutorialModule)
 
     if (ethereum) {
         window.ethereum.on('accountsChanged', async (accounts) => {
@@ -32,7 +33,7 @@ export function Popup({ mode }) {
         <div className="screen blur" onClick={() => { dispatch(setPopup('')) }}>
             {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
-        <section className={`popup ${mode.type}`}>
+        <section className={`popup ${mode.type}`} style={{zIndex:createPhase === 1 ? '1001' : '100'}}>
 
             {popup === 'connect' && <div>{ethereum ? <WalletConnect from='popup' /> :
                 <div className="extension-wrapper"><ExtensionConnect mode={mode} /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}

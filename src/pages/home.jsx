@@ -59,7 +59,7 @@ export function Home() {
         <div></div><div></div><div></div><div></div></div></div></div>
     if (!creator) return <Register />
 
-    if (Object.keys(creator.creatorEvents).length > 0 && homePhase === 0) dispatch(setHomePhase(1))
+    if (creator.creatorEvents && Object.keys(creator.creatorEvents).length > 0 && homePhase === 0) dispatch(setHomePhase(1))
 
     try {
         return (
