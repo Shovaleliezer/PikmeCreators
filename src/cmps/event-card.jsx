@@ -39,6 +39,7 @@ export function EventCard({ ev,creator }) {
                         <p onClick={()=>{copy('clients')}}>Share</p>
                         {(ev.players[0].walletAddress===creator.walletAddress) && <p onClick={()=>dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>}
                     </>}
+                    {ev.over && <p onClick={deleteEvent}>Delete</p>}
                 </div>
 
             </div>

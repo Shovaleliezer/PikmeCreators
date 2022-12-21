@@ -9,12 +9,14 @@ import { setAddress, setIsConnected } from "../store/reducers/userReducer"
 import { setCreator } from "../store/reducers/userReducer"
 import { setPopup } from "../store/actions/general.actions"
 import { ExtensionConnect } from "../cmps/extention-connect"
+import { setHomePhase } from "../store/actions/tutorial.actions"
 
 export function Home() {
     const dispatch = useDispatch()
     const [creator, setLocalCreator] = useState('loading')
     const { ethereum } = window
     const { address, isConnected } = useSelector((state) => state.user)
+    const { homePhase } = useSelector((state) => state.tutorialModule)
 
     useEffect(() => {
         if (address) {
@@ -57,6 +59,8 @@ export function Home() {
         <div></div><div></div><div></div><div></div></div></div></div>
     if (!creator) return <Register />
 
+    if (Object.keys(creator.creatorEvents).length > 0 && homePhase === 0) dispatch(setHomePhase(1))
+
     try {
         return (
             <section className="home">
@@ -64,14 +68,14 @@ export function Home() {
                 {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
                     {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id}
                         ev={creator.creatorEvents[ev]} creator={creator} />)}
-                </div> 
+                </div>
                     : <div className="no-events">
                         <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>
                         <img src={require('../style/imgs/no-events.png')} />
                     </div>}
             </section>)
     }
-    catch{
+    catch {
         return <Error />
     }
 

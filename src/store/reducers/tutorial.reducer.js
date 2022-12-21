@@ -10,7 +10,7 @@ export function tutorialReducer(state = INITIAL_STATE, action) {
         case 'SET_CONNECT_PHASE':
             return { ...state, connectPhase: action.phase }
         case 'SET_HOME_PHASE':
-            return { ...state, home: action.phase }
+            return { ...state, homePhase: action.phase }
         case 'SET_REGISTER_PHASE':
             return { ...state, registerPhase: action.phase }
         default:

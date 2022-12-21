@@ -18,6 +18,7 @@ import { UpperPopup } from "../src/cmps/upper-popup"
 
 //tutorials
 import { TutorialRegister } from './cmps/tutorial-register'
+import { TutorialHome } from './cmps/tutorial-home'
 
 
 function App() {
@@ -67,6 +68,8 @@ function App() {
       <Menu mode={mode} />
       <Popup mode={mode} />
       <UpperPopup />
+
+      <TutorialHome />
       <TutorialRegister />
     </Router>
   )
