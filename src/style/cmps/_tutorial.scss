@@ -120,6 +120,12 @@
 
 .t-up {
     background-image: url("../imgs/tutorial/popup-up.png");
+    width: 640px;
+    height: 244px;
+    padding-top: 40px;
+    .continue-wrapper {
+        bottom: 30px;
+    }
 }
 
 .t-down,

@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink,useLocation } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { toggleMenu, setMenuSide, setPopup } from "../store/actions/general.actions"
 
 export function Header(props) {
     const dispatch = useDispatch()
     const location = useLocation()
     const user = useSelector((state) => state.user)
+    const { registerPhase } = useSelector((state) => state.tutorialModule)
     let isMobile = window.innerWidth < 930 ? true : false
 
     return (
         <>
-            <div className="header">
+            <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
                 <div className="options-bar" style={{ flex: '0' }}>
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
                     <NavLink to='/profile'>
@@ -30,7 +31,8 @@ export function Header(props) {
                     </NavLink>
                 </div>
                 <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
-                <div style={{visibility: (user.creator) ? 'visible' : 'hidden'}} onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
+                <div style={{ visibility: (user.creator) ? 'visible' : 'hidden'}}
+                    onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
             </div>
             {(isMobile && !location.pathname.includes('stream-control')) && <nav className={`footer-mobile ${props.mode.type}`}>
                 <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>

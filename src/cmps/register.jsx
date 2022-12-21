@@ -5,6 +5,7 @@ import { uploadService } from '../services/upload.service.js'
 import { RegisterProgress } from './register-progress.jsx'
 import { getYears } from '../services/utils.js'
 import { setCreator } from '../store/reducers/userReducer.js'
+import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
 import { userService } from '../services/userService.js'
 
 export function Register() {
@@ -51,6 +52,7 @@ export function Register() {
             setSent(true)
             const newCreator = await userService.addCreator(address, creatorDetails)
             dispatch(setCreator(newCreator))
+            dispatch(setRegisterPhase(1))
             navigate('/profile')
         }
 

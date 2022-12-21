@@ -1,6 +1,6 @@
 import './style/main.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { HashRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import { setIsConnected, setCreator, setAddress,resetState } from './store/reducers/userReducer'
 import { userService } from './services/userService'
 import { useEffect } from "react"
@@ -15,6 +15,9 @@ import { Footer } from './cmps/footer'
 import { Menu } from "../src/cmps/menu"
 import { Popup } from "../src/cmps/popup"
 import { UpperPopup } from "../src/cmps/upper-popup"
+
+//tutorials
+import { TutorialRegister } from './cmps/tutorial-register'
 
 
 function App() {
@@ -64,6 +67,7 @@ function App() {
       <Menu mode={mode} />
       <Popup mode={mode} />
       <UpperPopup />
+      <TutorialRegister />
     </Router>
   )
 }
