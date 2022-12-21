@@ -3,6 +3,7 @@ const INITIAL_STATE = {
     registerPhase: 0,
     homePhase: 0,
     createPhase: 0,
+    streamPhase: 0,
 }
 
 export function tutorialReducer(state = INITIAL_STATE, action) {
@@ -15,6 +16,8 @@ export function tutorialReducer(state = INITIAL_STATE, action) {
             return { ...state, registerPhase: action.phase }
         case 'SET_CREATE_PHASE':
             return { ...state, createPhase: action.phase }
+        case 'SET_STREAM_PHASE':
+            return { ...state, streamPhase: action.phase }
         default:
             return state
     }

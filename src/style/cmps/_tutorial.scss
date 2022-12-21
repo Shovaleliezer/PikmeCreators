@@ -10,9 +10,10 @@
         width: 243px;
     }
 }
-.buddy-connect{
-    transform: translate(-50%,-50%);
-    top:30vh;
+
+.buddy-connect {
+    transform: translate(-50%, -50%);
+    top: 30vh;
 }
 
 .tutorial-center {
@@ -123,6 +124,7 @@
     width: 640px;
     height: 244px;
     padding-top: 40px;
+
     .continue-wrapper {
         bottom: 30px;
     }
@@ -146,12 +148,14 @@
     background-image: url("../imgs/tutorial/popup-down-right.png");
 }
 
-.t-left{
+.t-left {
     width: 690px;
     background-image: url("../imgs/tutorial/popup-left.png");
-    p{
+
+    p {
         padding-left: 15px;
     }
+
     .continue-wrapper {
         bottom: 25px;
         padding-right: 40px;
@@ -162,9 +166,11 @@
 .t-right {
     width: 690px;
     background-image: url("../imgs/tutorial/popup-right.png");
-    p{
+
+    p {
         padding-right: 15px;
     }
+
     .continue-wrapper {
         bottom: 25px;
         padding-right: 80px;
@@ -182,6 +188,177 @@
     }
 }
 
+@media only screen and (max-width: 1100px) and (min-width: 550px) {
+    .buddy-wrapper {
+        z-index: 1002;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        @include flex(0, center, center, column);
+        width: 95vw;
+
+        img {
+            width: 140px;
+        }
+
+        .tutorial-center {
+            h1 {
+                font-size: 20px;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 16px;
+                margin-bottom: 5px;
+                max-width: 90%;
+            }
+
+            .action {
+
+                font-size: 20px;
+
+                padding: 5px 12px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .progress-circles {
+                div {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+        }
+
+        .buddy-connect {
+            transform: translate(-50%, -50%);
+            top: 200px;
+        }
+
+        .tutorial-center {
+            color: white;
+            padding: 20px 10px;
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            p {
+                font-size: 16px;
+                margin-bottom: 5px;
+                max-width: unset;
+            }
+
+            .action {
+                padding: 8px 15px;
+                font-size: 24px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .progress-circles {
+                @include flex(20px, center, center);
+
+                div {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+
+    .tutorial-specific-stream {
+        z-index: 1001;
+        position: fixed;
+        top: 340px;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        height: 224px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: white;
+        padding: 20px;
+    
+        .specific-inner {
+            width: 100%;
+            @include flex(12px, center, center, column);
+    
+            h1,
+            p {
+                font-weight: 200;
+                margin: 0;
+                text-align: center;
+            }
+    
+            h1 {
+                font-size: 20px;
+            }
+    
+            p {
+                font-size: 20px;
+                opacity: 0.7;
+            }
+        }
+        .continue-wrapper {
+            width: 100%;
+            @include flex(0, space-between, center);
+            position: absolute;
+    
+            h5 {
+                font-size: 20px;
+                color: $main;
+                text-decoration: underline;
+                cursor: pointer;
+                margin: 0;
+            }
+    
+            p {
+                font-size: 20px;
+                margin: 0;
+            }
+    
+        }
+    }
+
+    .t-right-stream {
+        padding-top: 10px;
+        background-size: cover;
+        background-image: url("../imgs/tutorial/popup-right.png");
+        width: 430px ;
+        height: 140px ;
+
+        p {
+            padding-right: 15px;
+        }
+
+        .continue-wrapper {
+            bottom: 15px;
+            padding-right: 80px;
+        }
+    }
+
+    .t-down-stream {
+        width: 440px ;
+        height: 168px ;
+        padding-top: 10px;
+        background-size: cover;
+        background-image: url("../imgs/tutorial/popup-down.png");
+
+        p {
+            padding-right: 15px;
+        }
+
+        .continue-wrapper {
+            bottom: 30px;
+            padding-right: 50px;
+        }
+    }
+
+}
+
 @media (max-width: $mobile) {
     .buddy-wrapper {
         top: 50%;
@@ -194,9 +371,9 @@
         }
     }
 
-    .buddy-connect{
-        transform: translate(-50%,-50%);
-        top:200px;
+    .buddy-connect {
+        transform: translate(-50%, -50%);
+        top: 200px;
     }
 
     .tutorial-center {

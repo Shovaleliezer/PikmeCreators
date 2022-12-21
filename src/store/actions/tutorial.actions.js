@@ -23,3 +23,9 @@ export function setCreatePhase(phase){
     }
 }
 
+export function setStreamPhase(phase){
+    return (dispatch) => {
+        dispatch({ type: 'SET_STREAM_PHASE' ,phase})
+    }
+}
+

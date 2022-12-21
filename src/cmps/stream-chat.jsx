@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { io } from "socket.io-client";
 import { setViewers } from '../store/actions/general.actions'
 const socket = io.connect('https://pikmeserver.herokuapp.com')
-let inRoom = false;
+let inRoom = false
 const colors = [
     "blue", "cyan", "magenta", "lime", "maroon", "navy", "olive", "teal", "violet", "silver", "gold", "indigo", "coral", "crimson", "fuchsia", "khaki", "lavender", "plum", "turquoise", "wheat", "beige", "azure", "aliceblue", "antiquewhite", "aquamarine", "bisque", "blanchedalmond", "blueviolet", "burlywood", "cadetblue", "chartreuse", "chocolate", "cornflowerblue", "cornsilk", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "gainsboro", "ghostwhite", "gold", "goldenrod", "greenyellow", "honeydew", "hotpink", "indianred", "ivory", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "limegreen", "linen", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "oldlace", "ol"];
 const joinRoom = (username, roomName) => {
@@ -14,7 +14,7 @@ const joinRoom = (username, roomName) => {
 }
 
 
-const StreamChat = ({ eventName, mobile }) => {
+const StreamChat = ({ eventName, mobile, zIndex }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
     // dispatch
@@ -53,7 +53,7 @@ const StreamChat = ({ eventName, mobile }) => {
             sendMessage();
         }
     };
-    
+
     joinRoom(nickName, eventName);
     socket.on('message', (message) => {
         dispatch(setViewers(message.viewers))
@@ -80,12 +80,12 @@ const StreamChat = ({ eventName, mobile }) => {
 
     return (<>
         {(mobile && !showChat) ?
-            <div className="chat-bar-mobile" >
+            <div className="chat-bar-mobile" style={{ zIndex }}>
                 <span className="material-symbols-outlined">settings</span>
                 <p>Live chat</p>
                 <span onClick={() => setShowChat(true)} class="material-symbols-outlined">expand_less</span>
             </div> :
-            <div className="chat-box">
+            <div className="chat-box" style={{ zIndex }}>
                 <div className="chat-header">
                     <h1>Live chat</h1>
                 </div>
@@ -99,9 +99,7 @@ const StreamChat = ({ eventName, mobile }) => {
                                     <span style={{ marginLeft: "1px" }} >:</span>
                                     <span style={{ marginLeft: "5px", fontWeight: "lighter" }} >{message.message}</span>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            </div>)})} 
                 </div>
 
                 <div className="chat-box-input">

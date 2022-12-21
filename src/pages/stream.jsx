@@ -3,9 +3,10 @@ import "../style/main.scss";
 import { userService } from '../services/userService'
 import AgoraRTC from "agora-rtc-sdk-ng"
 // import user selector from redux
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router"
+import { setStreamPhase } from "../store/actions/tutorial.actions";
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
 import { makeCommas } from '../services/utils'
@@ -41,6 +42,7 @@ let channelParameters =
 
 
 function Creator() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
@@ -51,7 +53,10 @@ function Creator() {
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
   const [client, setClient] = useState(null)
   const [modal, setModal] = useState(false)
+  const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
   const isMobile = window.innerWidth < 1100
+
+  if (streamPhase === 0) dispatch(setStreamPhase(1))
 
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
@@ -68,6 +73,7 @@ function Creator() {
     catch {
       console.log('something went wrong')
     }
+    return () => dispatch(setStreamPhase(0))
   }
 
   useEffect(() => {
@@ -243,7 +249,7 @@ function Creator() {
         </div>
         <div className="stream">
           <div id="agora_local" className="stream-video"></div>
-          <div className="stream-control">
+          <div className="stream-control"  style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
             <div className="options" style={{ width }}>
               <img src={require('../style/imgs/stream/mute.png')} />
               <img onClick={() => { (status == "live") ? setModal('exit') : initStopOne(client) }} src={require('../style/imgs/stream/home.png')} />
@@ -267,7 +273,7 @@ function Creator() {
             </div>
           </div>
         </div>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} />
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} />
       </div>}
 
       {isMobile && <section className="stream-mobile">
@@ -288,7 +294,7 @@ function Creator() {
           </div>
 
           <div id="agora_local" className="stream-video-mobile" />
-          <div className="lower">
+          <div className="lower" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
             <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
             {status != "live" ? <img onClick={() => { alreadyStreamed ? console.log("cant stream") : setModal('start') }} src={require('../style/imgs/stream/start.png')} />
               : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
@@ -296,7 +302,7 @@ function Creator() {
             <img className="smaller" src={require('../style/imgs/stream/settings.png')} />
           </div>
         </section>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} />
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} />
       </section>
       }
 
@@ -316,7 +322,6 @@ function Creator() {
               }
               else if (modal == "exit") {
                 initStopOne(client)
-
               }
               else if (modal == "end-event") {
 
