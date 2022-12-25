@@ -78,6 +78,7 @@ function App() {
       <TutorialRegister />
       <TutorialCreate />
       <TutorialStream />
+      
     </Router>
   )
 }
