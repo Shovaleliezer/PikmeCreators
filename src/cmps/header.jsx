@@ -32,7 +32,7 @@ export function Header(props) {
                 </div>
                 <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
                 <div className="options-bar" style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}>
-                <NavLink to='/'><div  className="join">Join</div></NavLink>
+                <NavLink to='/join'><div  className="join-button">Join</div></NavLink>
                 <div onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
                 </div>
                     
