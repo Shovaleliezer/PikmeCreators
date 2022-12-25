@@ -11,7 +11,7 @@ export function Header(props) {
 
     return (
         <>
-            <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
+            {!isMobile && <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
                 <div className="options-bar" style={{ flex: '0' }}>
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
                     <NavLink to='/profile'>
@@ -31,14 +31,21 @@ export function Header(props) {
                     </NavLink>
                 </div>
                 <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
-                <div style={{ visibility: (user.creator) ? 'visible' : 'hidden'}}
+                <div style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}
                     onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
-            </div>
-            {(isMobile && !location.pathname.includes('stream-control')) && <nav className={`footer-mobile ${props.mode.type}`}>
-                <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
-                <NavLink to='/'><img src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
-                <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
-            </nav>}
+            </div>}
+            {(isMobile && !location.pathname.includes('stream-control')) && <>
+                <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
+                    <span className="material-symbols-outlined menu-icon hidden">menu</span>
+                    <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
+                    <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
+                </div>
+                <nav className={`footer-mobile ${props.mode.type}`}>
+                    <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
+                    <NavLink to='/'><img src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
+                    <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
+                </nav>
+            </>}
         </>
     )
 }
