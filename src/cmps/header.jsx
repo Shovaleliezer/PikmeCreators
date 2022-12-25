@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink, useLocation } from "react-router-dom"
 import { toggleMenu, setMenuSide, setPopup } from "../store/actions/general.actions"
@@ -6,6 +7,7 @@ export function Header(props) {
     const dispatch = useDispatch()
     const location = useLocation()
     const user = useSelector((state) => state.user)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
     const { registerPhase } = useSelector((state) => state.tutorialModule)
     let isMobile = window.innerWidth < 930 ? true : false
 
@@ -44,9 +46,13 @@ export function Header(props) {
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
                 </div>
                 <nav className={`footer-mobile ${props.mode.type}`}>
-                    <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
-                    <NavLink to='/'><img src={require(`../style/imgs/stream-icon-${props.mode.type}.png`)} /></NavLink>
                     <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
+                    <img src={require('../style/imgs/create.png')} onClick={()=>setIsMenuOpen(!isMenuOpen)}/>
+                    <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
+                    {isMenuOpen && <div className="create-menu">
+                        <div onClick={() => {dispatch(setPopup('create'));setIsMenuOpen(false)}}>Create new event</div>
+                        <NavLink to='/join'><div>Join event</div></NavLink>
+                    </div>}
                 </nav>
             </>}
         </>

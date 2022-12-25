@@ -9,7 +9,7 @@ import { setAddress, setIsConnected } from "../store/reducers/userReducer"
 import { setCreator } from "../store/reducers/userReducer"
 import { setPopup } from "../store/actions/general.actions"
 import { ExtensionConnect } from "../cmps/extention-connect"
-import { setHomePhase,setStreamPhase } from "../store/actions/tutorial.actions"
+import { setHomePhase } from "../store/actions/tutorial.actions"
 
 export function Home() {
     const dispatch = useDispatch()
@@ -19,7 +19,6 @@ export function Home() {
     const { homePhase } = useSelector((state) => state.tutorialModule)
 
     useEffect(() => {
-        dispatch(setStreamPhase(0))
         if (address) {
             handleCreatorAddress(address)
         }

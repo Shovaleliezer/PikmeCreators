@@ -235,10 +235,6 @@ function Creator() {
 
   try {
     return (<>
-      <div className="rotate-phone">
-        <img src={require('../style/imgs/stream/rotate.png')} />
-        <h1>To get the full streaming experience,please rotate your phone</h1>
-      </div>
       {!isMobile && <div className="stream-container">
         <div className="settings">
           <div className="settings-upper">
@@ -249,7 +245,7 @@ function Creator() {
         </div>
         <div className="stream">
           <div id="agora_local" className="stream-video"></div>
-          <div className="stream-control"  style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
+          <div className="stream-control" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
             <div className="options" style={{ width }}>
               <img src={require('../style/imgs/stream/mute.png')} />
               <img onClick={() => { (status == "live") ? setModal('exit') : initStopOne(client) }} src={require('../style/imgs/stream/home.png')} />
@@ -343,3 +339,8 @@ function Creator() {
   }
 }
 export default Creator;
+
+{/* <div className="rotate-phone">
+        <img src={require('../style/imgs/stream/rotate.png')} />
+        <h1>To get the full streaming experience,please rotate your phone</h1>
+      </div> */}
