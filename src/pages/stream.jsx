@@ -28,7 +28,7 @@ let options =
   // Set the user role
   role: 'host',
   type: "sports"
-};
+}
 
 let channelParameters =
 {
@@ -60,9 +60,17 @@ function Creator() {
 
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
+    if (window.innerWidth < 550) {
+      const main = document.querySelector('.main-layout')
+      main.classList.add("main-stream")
+    }
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
       initStopOne(client)
+      if (window.innerWidth < 550) {
+        const main = document.querySelector('.main-layout')
+        main.classList.remove("main-stream")
+      }
     }
   }, [])
   const endEvent = async () => {
@@ -272,7 +280,7 @@ function Creator() {
         <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} />
       </div>}
 
-      {isMobile && <section className="stream-mobile">
+      {isMobile && <section className="stream-mobile" >
         <section className="left-wrapper">
           <div className="upper">
             <div onClick={() => setModal('end-event')} className="end-event-mobile">End Event</div>
@@ -301,7 +309,6 @@ function Creator() {
         <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} />
       </section>
       }
-
 
       {modal && <>
         <div className="screen blur" onClick={() => setModal(false)} />
@@ -339,8 +346,3 @@ function Creator() {
   }
 }
 export default Creator;
-
-{/* <div className="rotate-phone">
-        <img src={require('../style/imgs/stream/rotate.png')} />
-        <h1>To get the full streaming experience,please rotate your phone</h1>
-      </div> */}

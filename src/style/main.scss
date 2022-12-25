@@ -40,9 +40,14 @@ body {
     margin: 0;
 }
 
+.app{
+    min-height: 100vh;
+    @include flex(0,space-between,center,column)
+}
+
 .main-layout {
-    max-width: 98vw;
     margin: auto;
     margin-top: 60px;
-    // margin-bottom: 60px;
+    margin-bottom: 60px;
+    width: 100vw;
 }

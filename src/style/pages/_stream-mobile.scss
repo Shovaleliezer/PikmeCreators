@@ -71,32 +71,25 @@
         }
     }
 }
-.rotate-phone {
-    display: none;
-}
 
 @media (max-width: 550px) {
     .stream-mobile {
-        display: none;
-    }
-
-    .rotate-phone {
-        display: unset;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
-
-        img {
-            width: 250px;
-            aspect-ratio: 1/1;
+        height: 98vw;
+        width:max-content;
+        margin: 0;
+        transform: rotate(90deg) translate(25%,0);
+        .left-wrapper{
+            width:66vh;
+        }
+        .chat-box{
+            width:32vh
         }
 
-        h1 {
-            color: white;
-            font-size: 30px;
-            text-align: center;
-        }
-    }
+    } 
+}
+
+.main-stream{
+    margin: 0 !important;
+    height: 100vh;
+    @include flex(0, center, flex-start);
 }

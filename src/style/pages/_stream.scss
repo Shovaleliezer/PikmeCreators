@@ -3,7 +3,6 @@
     flex-direction: row;
     overflow: hidden;
     background-color: $back-dark;
-    margin-top: 50px;
     height: calc(100vh - 50px);
 }
 
@@ -36,7 +35,7 @@
     box-shadow: 0px -4px 6px -4px #000000;
     z-index: 1;
     .options{
-        @include flex(40px, flex-start, center);
+        @include flex(40px, center, center);
         img{
             width:30px;
             aspect-ratio: 1/1;
