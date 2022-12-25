@@ -14,7 +14,6 @@ export function Create() {
     const categoryRef = useRef()
     const gameRef = useRef()
     const dateRef = useRef()
-    // const descRef = useRef()
 
     const { createPhase } = useSelector((state) => state.tutorialModule)
     if(createPhase === 0) dispatch(setCreatePhase(1))
@@ -36,7 +35,6 @@ export function Create() {
             category: categoryRef.current.value,
             game: gameRef.current.value,
             date: dateRef.current.value,
-            // description: descRef.current.value,
             shareWithCommunity: isShare,
             player: user.creator
         }
@@ -47,7 +45,7 @@ export function Create() {
         <div></div><div></div><div></div><div></div></div>
 
     return <form className='create' onSubmit={addEvent}>
-        <div className='create-upper' onClick={()=>dispatch(setCreatePhase(1))}>
+        <div className='create-upper'>
             <img src={require('../style/imgs/create-stream.png')} />
             <h1>Create New Stream</h1>
             <img src={require('../style/imgs/close-icon.png')} onClick={() => { dispatch(setPopup('')) }} />

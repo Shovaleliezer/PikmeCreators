@@ -31,7 +31,7 @@ export function EventCard({ ev, creator }) {
                     {(!ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
                         <p onClick={openEdit}>Edit</p>
                         <p onClick={copy}>Share</p>
-                        <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                        {/* <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p> */}
                         <p onClick={deleteEvent}>Delete</p>
                     </>}
                     {(ev.approved && !ev.over) && <>
