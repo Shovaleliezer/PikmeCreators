@@ -12,7 +12,7 @@ export function Header(props) {
     return (
         <>
             {!isMobile && <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
-                <div className="options-bar" style={{ flex: '0' }}>
+                <div className="options-bar">
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
                     <NavLink to='/profile'>
                         {(user.creator) ? <img className='header-user-img' src={user.creator.image} /> :
@@ -31,8 +31,11 @@ export function Header(props) {
                     </NavLink>
                 </div>
                 <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
-                <div style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}
-                    onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
+                <div className="options-bar" style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}>
+                <NavLink to='/'><div  className="join">Join</div></NavLink>
+                <div onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
+                </div>
+                    
             </div>}
             {(isMobile && !location.pathname.includes('stream-control')) && <>
                 <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>

@@ -16,21 +16,32 @@
         object-fit: contain;
     }
 
-    .create {
-        background-color: $main;
+    .create,
+    .join {
         font-size: 18px;
-        padding: 4px 14px;
-        border-radius: 6px;
+        padding: 6px;
+        width: 150px;
+        border-radius: 8px;
         color: white;
         cursor: pointer;
         position: relative;
+        border: 2px solid $main;
+        text-align: center;
+    }
+
+    .create {
+        background-color: $main;
+    }
+
+    a{
+        text-decoration: none;
     }
 
     .options-bar {
-        @include flex(30px, space-between, center);
-        flex: 2;
+        @include flex(30px, flex-start, center);
+        width: 330px;
 
-        a{
+        a {
             padding-top: 4px;
         }
 
@@ -52,6 +63,7 @@
             outline: 2px solid $main;
         }
     }
+
     .menu-icon {
         font-size: 40px;
     }
@@ -83,7 +95,8 @@
     .header {
         @include flex(6px, space-between, center);
     }
-    .options-bar{
-        gap:10px !important;
+
+    .options-bar {
+        gap: 10px !important;
     }
 }
