@@ -25,6 +25,7 @@
         width: 100%;
         @include flex(20px, space-between, center);
         flex-wrap: wrap;
+        position: relative;
     }
 
     .h3-wrapper {
@@ -107,6 +108,7 @@
     .checkbox-wrapper {
         @include flex(10px, center, center);
         margin-top: 10px;
+        z-index: 1001;
         p {
             margin: 0;
             font-size: 24px
@@ -118,6 +120,8 @@
             height: 40px;
             border: 1px solid $bright-back;
             cursor: pointer;
+            position: relative;
+            z-index: 1001;
 
             span {
                 font-size: 40px;
