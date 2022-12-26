@@ -4,7 +4,6 @@ import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/
 import { formatDateHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
 export function EventCard({ ev, creator }) {
-    console.log('eee', ev)
 
     const dispatch = useDispatch()
 
@@ -29,18 +28,17 @@ export function EventCard({ ev, creator }) {
             <div className="event-upper">
                 <h3>Event Info</h3>
                 <div>
-                    {/* change to stronger condition ! */}
-                    {((!ev.approved && !ev.over )&& ev.players[0].walletAddress===creator.walletAddress) && <>
+                    {(!ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
                         <p onClick={openEdit}>Edit</p>
                         <p onClick={copy}>Share</p>
-                        <p onClick={()=>dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                        {/* <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p> */}
                         <p onClick={deleteEvent}>Delete</p>
                     </>}
-                    {(ev.approved && !ev.over ) && <>
-                        <p onClick={()=>{copy('clients')}}>Share</p>
-                        {(ev.players[0].walletAddress===creator.walletAddress) && <p onClick={()=>dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>}
+                    {(ev.approved && !ev.over) && <>
+                        <p onClick={() => { copy('clients') }}>Share</p>
+                        {(ev.players[0].walletAddress === creator.walletAddress) && <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>}
                     </>}
-                    {ev.over && <p onClick={deleteEvent}>Delete</p>}
+                    {/* {ev.over && <p onClick={deleteEvent}>Delete</p>} */}
                 </div>
 
             </div>
@@ -58,7 +56,7 @@ export function EventCard({ ev, creator }) {
                     <p>{ev.game}</p>
                     <p>{ev.players.length}</p>
                     <p>{formatDateHour(ev.date)}</p>
-                    <p style={{ color: (ev.over? 'red': (ev.approved ? '#04C300' : '#F37F13'))}}>{(ev.over? 'Over': (ev.approved ? 'approved' : 'waiting'))}</p>
+                    <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13')) }}>{(ev.over ? 'Over' : (ev.approved ? 'approved' : 'waiting'))}</p>
                 </div>
             </div>
         </div>

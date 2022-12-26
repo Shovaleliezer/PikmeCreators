@@ -11,6 +11,8 @@
 @import "/src/style/pages/confirm.scss";
 @import "/src/style/pages/stream.scss";
 @import "/src/style/pages/stream-mobile.scss";
+@import "/src/style/pages/error.scss";
+@import "/src/style/pages/join.scss";
 
 //components
 @import "/src/style/cmps/register";
@@ -25,20 +27,27 @@
 @import "src/style/cmps/stream-chat";
 @import "src/style/cmps/upper-popup";
 @import "src/style/cmps/event-card";
+@import "src/style/cmps/tutorial";
 
 * {
     box-sizing: border-box;
     font-family: roboto-normal;
     scroll-behavior: smooth;
+    position: relative;
 }
 
 body {
     margin: 0;
 }
 
+.app{
+    min-height: 100vh;
+    @include flex(0,space-between,center,column)
+}
+
 .main-layout {
-    max-width: 98vw;
     margin: auto;
     margin-top: 60px;
     margin-bottom: 60px;
+    width: 100vw;
 }

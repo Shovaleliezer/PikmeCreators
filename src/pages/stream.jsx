@@ -3,10 +3,12 @@ import "../style/main.scss";
 import { userService } from '../services/userService'
 import AgoraRTC from "agora-rtc-sdk-ng"
 // import user selector from redux
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router"
+import { setStreamPhase } from "../store/actions/tutorial.actions";
 import StreamChat from '../cmps/stream-chat.jsx'
+import { Error } from "./error";
 import { makeCommas } from '../services/utils'
 import { NavLink } from 'react-router-dom'
 import { Alert } from "bootstrap";
@@ -26,7 +28,7 @@ let options =
   // Set the user role
   role: 'host',
   type: "sports"
-};
+}
 
 let channelParameters =
 {
@@ -40,6 +42,8 @@ let channelParameters =
 
 
 function Creator() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const [status, setStatus] = useState("not-live")
@@ -49,24 +53,36 @@ function Creator() {
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
   const [client, setClient] = useState(null)
   const [modal, setModal] = useState(false)
+  const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
   const isMobile = window.innerWidth < 1100
-  const navigate = useNavigate()
+
+  if (streamPhase === 0) dispatch(setStreamPhase(1))
+
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
+    if (window.innerWidth < 550) {
+      const main = document.querySelector('.main-layout')
+      main.classList.add("main-stream")
+    }
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
       initStopOne(client)
+      if (window.innerWidth < 550) {
+        const main = document.querySelector('.main-layout')
+        main.classList.remove("main-stream")
+      }
     }
   }, [])
   const endEvent = async () => {
     try {
-        const loadedEvent = await eventService.endEvent(currentEvent._id)
-        navigate('/')
+      await eventService.endEvent(currentEvent._id)
+      navigate('/')
     }
     catch {
-        console.log('something went wrong')
+      console.log('something went wrong')
     }
-}
+    return () => dispatch(setStreamPhase(0))
+  }
 
   useEffect(() => {
     joinRoom();
@@ -216,7 +232,9 @@ function Creator() {
     return width
   }
 
-  if (currentEvent.length === 0) return <div className="stream-container" />
+  if (currentEvent.length === 0) return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div></div></div></div>
+
   let prizePool = 0
   for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
     prizePool += value
@@ -225,99 +243,108 @@ function Creator() {
   const width = getWidth(prizePool)
   let Modal = modal === 'start' ? 'Start' : 'End'
 
-  return (<>
-    {!isMobile && <div className="stream-container">
-      <div className="settings">
-        <div className="settings-upper">
-          <span className="material-symbols-outlined">settings</span>
-          <p>Settings</p>
-          <span className="material-symbols-outlined hidden">settings</span>
+  try {
+    return (<>
+      {!isMobile && <div className="stream-container">
+        <div className="settings">
+          <div className="settings-upper">
+            <span className="material-symbols-outlined">settings</span>
+            <p>Settings</p>
+            <span className="material-symbols-outlined hidden">settings</span>
+          </div>
         </div>
-      </div>
-      <div className="stream">
-        <div id="agora_local" className="stream-video" />
-        <div className="stream-control">
-          <div className="options" style={{ width }}>
-            <img src={require('../style/imgs/stream/mute.png')} />
-            <img onClick={()=>{(status=="live")? setModal('exit'): initStopOne(client)}} src={require('../style/imgs/stream/home.png')} />
-          </div>
-          <div className="start">
-          {status!="live" ?  <>
-              <div className="begin"onClick={() => {alreadyStreamed? console.log("cant stream"): setModal('start')}}>Go Live </div>
-              <div className="end" onClick={() => setModal('end-event')}>End Event</div>
-            </> :
-              <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
-          </div>
-          <div className="details">
-            <div>
-              <img src={require('../style/imgs/stream/coins.png')} />
-              <p>{makeCommas(prizePool)}$</p>
+        <div className="stream">
+          <div id="agora_local" className="stream-video"></div>
+          <div className="stream-control" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
+            <div className="options" style={{ width }}>
+              <img src={require('../style/imgs/stream/mute.png')} />
+              <img onClick={() => { (status == "live") ? setModal('exit') : initStopOne(client) }} src={require('../style/imgs/stream/home.png')} />
             </div>
-            <div>
-              <img src={require('../style/imgs/stream/viewers.png')} />
-              <p>{viewers-1}</p>
+            <div className="start">
+              {status != "live" ? <>
+                <div className="begin" onClick={() => { alreadyStreamed ? console.log("cant stream") : setModal('start') }}>Go Live </div>
+                <div className="end" onClick={() => setModal('end-event')}>End Event</div>
+              </> :
+                <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
+            </div>
+            <div className="details">
+              <div>
+                <img src={require('../style/imgs/stream/coins.png')} />
+                <p>{makeCommas(prizePool)}$</p>
+              </div>
+              <div>
+                <img src={require('../style/imgs/stream/viewers.png')} />
+                <p>{viewers - 1}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} />
-    </div>}
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} />
+      </div>}
 
-    {isMobile && <section className="stream-mobile">
-      <div id="agora_local" className="stream-video-mobile" />
-      <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} />
-      <div className="lower">
-        <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
-        {status!="live" ? <img onClick={() => {alreadyStreamed? console.log("cant stream"): setModal('start')}} src={require('../style/imgs/stream/start.png')} />
-          : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
-        <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
-      </div>
-      <div className="upper">
-        <div className="detail-holder">
-          <div>
-            <img src={require('../style/imgs/stream/viewers.png')} />
-            <p>{viewers-1}</p>
+      {isMobile && <section className="stream-mobile" >
+        <section className="left-wrapper">
+          <div className="upper">
+            <div onClick={() => setModal('end-event')} className="end-event-mobile">End Event</div>
+            <div className="detail-holder">
+              <div>
+                <img src={require('../style/imgs/stream/viewers.png')} />
+                <p>{viewers - 1}</p>
+              </div>
+              <div>
+                <img src={require('../style/imgs/stream/coins.png')} />
+                <p>{makeCommas(prizePool)}$</p>
+              </div>
+            </div>
+            <img src={require('../style/imgs/stream/full-screen.png')} />
           </div>
+
+          <div id="agora_local" className="stream-video-mobile" />
+          <div className="lower" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
+            <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
+            {status != "live" ? <img onClick={() => { alreadyStreamed ? console.log("cant stream") : setModal('start') }} src={require('../style/imgs/stream/start.png')} />
+              : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
+            <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
+            <img className="smaller" src={require('../style/imgs/stream/settings.png')} />
+          </div>
+        </section>
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} />
+      </section>
+      }
+
+      {modal && <>
+        <div className="screen blur" onClick={() => setModal(false)} />
+        <div className="confirm-exit">
+          <img src={require(`../style/imgs/stream/${(modal == "exit" || modal == "end-event") ? "end" : modal}.png`)} />
+          <h1>{Modal} {modal == "end-event" ? "Event?" : "Live Stream?"}</h1>
+          <p>This Action cannot be undone. Are you sure you want to {Modal} the {modal == "end-event" ? "Event?" : "Stream?"}</p>
           <div>
-            <img src={require('../style/imgs/stream/coins.png')} />
-            <p>{makeCommas(prizePool)}$</p>
+            <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
+            <div onClick={() => {
+              if (modal === 'end') {
+                stopStream(client)
+                setModal(false)
+              }
+              else if (modal == "exit") {
+                initStopOne(client)
+              }
+              else if (modal == "end-event") {
+
+                setModal(false)
+                endEvent()
+              }
+              else {
+                streamGaming(client, true)
+                setModal(false)
+              }
+            }}>{Modal}</div>
           </div>
         </div>
-        <div onClick={() => setModal('end-event')} className="end-event-mobile">End Event</div>
-      </div>
-    </section>}
-
-    {modal && <>
-      <div className="screen blur" onClick={() => setModal(false)} />
-      <div className="confirm-exit">
-        <img src={require(`../style/imgs/stream/${(modal=="exit"|| modal=="end-event")?"end":modal}.png`)} />
-        <h1>{Modal} {modal=="end-event"? "Event?" :"Live Stream?"}</h1>
-        <p>This Action cannot be undone. Are you sure you want to {Modal} the {modal=="end-event"? "Event?" :"Stream?"}</p>
-        <div>
-          <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
-          <div onClick={() => {
-            if (modal === 'end') {
-              stopStream(client)
-              setModal(false)
-            }
-            else if(modal=="exit"){
-              initStopOne(client)
-          
-            }
-            else if(modal=="end-event"){
-              
-              setModal(false)
-              endEvent()
-            }
-            else {
-              streamGaming(client, true)
-              setModal(false)
-            }
-          }}>{Modal}</div>
-        </div>
-      </div>
-    </>}
-  </>)
+      </>}
+    </>)
+  }
+  catch {
+    return <Error />
+  }
 }
-{/* <img onClick={() => setModal('end')} src={require('../style/imgs/stream/end-mobile.png')} /> */}
 export default Creator;

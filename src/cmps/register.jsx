@@ -5,6 +5,7 @@ import { uploadService } from '../services/upload.service.js'
 import { RegisterProgress } from './register-progress.jsx'
 import { getYears } from '../services/utils.js'
 import { setCreator } from '../store/reducers/userReducer.js'
+import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
 import { userService } from '../services/userService.js'
 
 export function Register() {
@@ -29,6 +30,7 @@ export function Register() {
     const [category, setCategory] = useState('gaming')
     const [isLoader, setIsLoader] = useState(false)
     const [file, setFile] = useState(null)
+    const [sent,setSent] = useState(false)
 
     const years = getYears()
     const nameRef = useRef()
@@ -47,9 +49,10 @@ export function Register() {
 
     const addCreator = async () => {
         try {
+            setSent(true)
             const newCreator = await userService.addCreator(address, creatorDetails)
-            console.log(newCreator)
             dispatch(setCreator(newCreator))
+            dispatch(setRegisterPhase(1))
             navigate('/profile')
         }
 
@@ -97,6 +100,9 @@ export function Register() {
     const handleFile = (e) => {
         setFile(e.target.files[0])
     }
+
+    if(sent) return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div></div></div></div>
 
     return <section className="register">
         {phase === 1 && <>

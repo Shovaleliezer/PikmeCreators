@@ -1,0 +1,52 @@
+.error{
+    height: calc(100vh - 140px);
+    @include flex(20px, center, center,column);
+    img{
+        width: 240px;
+    }
+    h1{
+        color: white;
+        font-size: 48px;
+        margin: 0;
+        text-align: center;
+    }
+    p{
+        color:rgba(255,255,255,0.7);
+        font-size: 20px;
+        margin: 0;
+        text-align: center;
+        span{
+            color: $main;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+    div{
+        @include flex(0, center, center);
+        font-size: 40px;
+        margin-top: 40px;
+        color: white;
+        background-color: $main;
+        padding: 5px 30px;
+        border-radius: 10px;
+        cursor: pointer;  
+    }
+}
+@media screen and (max-width: $mobile) {
+    .error{
+        img{
+            width: 150px;
+        }
+        h1{
+            font-size: 30px;
+        }
+        p{
+            font-size: 16px;
+        }
+        div{
+            font-size: 26px;
+            padding: 5px 20px;
+        }
+    }
+    
+}

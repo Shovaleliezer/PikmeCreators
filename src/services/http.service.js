@@ -1,8 +1,8 @@
 import Axios from 'axios'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/'
-    : '//localhost:3030/'
+    ? 'https://pikmeserver.herokuapp.com/'
+    : 'https://pikmeserver.herokuapp.com/'
 
 var axios = Axios.create({
     withCredentials: true

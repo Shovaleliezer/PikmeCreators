@@ -2,6 +2,8 @@
     background-color: $mid-back;
     border : 3px solid $bright-back; 
     border-radius: 10px; 
+    margin-bottom: 10px;
+    margin-top: 10px;
     .event-upper{
         padding: 14px;
         background-color: #090C1F;
@@ -34,6 +36,7 @@
             width: 150px;
             height: 250px;
             object-fit: cover;
+            border-radius: 12px;
         }
 
         .headers {
@@ -42,7 +45,7 @@
 
             p {
                 margin: 0;
-                font-weight: 600;
+                font-weight: 300;
                 color: white;
                 width: max-content;
             }

@@ -18,10 +18,8 @@ export function UpperPopup() {
 
     return (
         <section className='upper-popup'>
-
             {upperPopup === 'copied' && <p>Link Copied!</p>}
             {upperPopup === 'copied-address' && <p>Address Copied!</p>}
-
         </section>
     )
 }

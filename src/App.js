@@ -1,7 +1,7 @@
 import './style/main.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { HashRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
-import { setIsConnected, setCreator, setAddress,resetState } from './store/reducers/userReducer'
+import { HashRouter as Router, Route, Routes } from 'react-router-dom'
+import { setIsConnected, setCreator, setAddress, resetState } from './store/reducers/userReducer'
 import { userService } from './services/userService'
 import { useEffect } from "react"
 //pages
@@ -9,12 +9,19 @@ import { Home } from './pages/home'
 import { Confirm } from './pages/confirm'
 import { Profile } from './pages/profile'
 import Creator from './pages/stream'
+import { Join } from './pages/join'
 //cmps
 import { Header } from './cmps/header'
 import { Footer } from './cmps/footer'
 import { Menu } from "../src/cmps/menu"
 import { Popup } from "../src/cmps/popup"
 import { UpperPopup } from "../src/cmps/upper-popup"
+
+//tutorials
+import { TutorialRegister } from './cmps/tutorial-register'
+import { TutorialHome } from './cmps/tutorial-home'
+import { TutorialCreate } from './cmps/tutorial-create'
+import { TutorialStream } from './cmps/tutorial-stream'
 
 
 function App() {
@@ -37,7 +44,7 @@ function App() {
           dispatch(setIsConnected(true))
           window.location = '#/'
         }
-        else{
+        else {
           dispatch(resetState())
           window.location = '#/'
         }
@@ -57,6 +64,8 @@ function App() {
             <Route path='/confirm/:id' element={<Confirm />} />
             <Route path='/' element={<Home mode={mode} />} />
             <Route path='/stream-control' element={<Creator channel={channel} type={type} />} />
+            <Route path='/join' element={<Join />} />
+
           </Routes>
         </main>
         <Footer />
@@ -64,6 +73,12 @@ function App() {
       <Menu mode={mode} />
       <Popup mode={mode} />
       <UpperPopup />
+
+      <TutorialHome />
+      <TutorialRegister />
+      <TutorialCreate />
+      <TutorialStream />
+      
     </Router>
   )
 }

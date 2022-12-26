@@ -1,6 +1,7 @@
 import { combineReducers } from "redux"
 import  userReducer  from "./reducers/userReducer"
-import { generalReducer } from "./reducers/general.reducer";
+import { generalReducer } from "./reducers/general.reducer"
+import { tutorialReducer } from "./reducers/tutorial.reducer"
 import { configureStore } from '@reduxjs/toolkit'
 
 import {
@@ -18,6 +19,7 @@ import storage from 'redux-persist/lib/storage'
 const reducers = combineReducers({
     user: userReducer,
     generalModule: generalReducer,
+    tutorialModule: tutorialReducer
   })
 
 export const store = configureStore({
