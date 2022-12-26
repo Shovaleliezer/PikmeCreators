@@ -30,18 +30,6 @@ export function EventCard({ ev, creator }) {
                 <h3>Event Info</h3>
                 <div>
                     {/* change to stronger condition ! */}
-<<<<<<< HEAD
-                    {!ev.over && <>
-                        {(!ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
-                            <p onClick={openEdit}>Edit</p>
-                            <p onClick={copy}>Share</p>
-                            <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
-                            <p onClick={deleteEvent}>Delete</p>
-                        </>}
-                        {(ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
-                            <p onClick={() => { copy('clients') }}>Share</p>
-                        </>}
-=======
                     {((!ev.approved && !ev.over )&& ev.players[0].walletAddress===creator.walletAddress) && <>
                         <p onClick={openEdit}>Edit</p>
                         <p onClick={copy}>Share</p>
@@ -51,7 +39,6 @@ export function EventCard({ ev, creator }) {
                     {(ev.approved && !ev.over ) && <>
                         <p onClick={()=>{copy('clients')}}>Share</p>
                         {(ev.players[0].walletAddress===creator.walletAddress) && <p onClick={()=>dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>}
->>>>>>> 273ec36f7658ff50e5d9fe08c95b582b295ed3b5
                     </>}
                     {ev.over && <p onClick={deleteEvent}>Delete</p>}
                 </div>
@@ -71,12 +58,7 @@ export function EventCard({ ev, creator }) {
                     <p>{ev.game}</p>
                     <p>{ev.players.length}</p>
                     <p>{formatDateHour(ev.date)}</p>
-<<<<<<< HEAD
-                    {!ev.over && <p style={{ color: ev.approved ? '#04C300' : '#F37F13' }}>{ev.approved ? 'Approved' : 'Waiting'}</p>}
-                    {ev.over && <p style={{ color: '#F31313' }}>Over</p>}
-=======
                     <p style={{ color: (ev.over? 'red': (ev.approved ? '#04C300' : '#F37F13'))}}>{(ev.over? 'Over': (ev.approved ? 'approved' : 'waiting'))}</p>
->>>>>>> 273ec36f7658ff50e5d9fe08c95b582b295ed3b5
                 </div>
             </div>
         </div>
