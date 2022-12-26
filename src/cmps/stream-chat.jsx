@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux'
 import { io } from "socket.io-client";
-
+import { setViewers } from '../store/actions/general.actions'
 const socket = io.connect('http://localhost:3030')
 let inRoom = false;
 const colors = [
@@ -17,6 +17,8 @@ const joinRoom = (username, roomName) => {
 const StreamChat = ({ eventName, mobile }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
+    // dispatch
+    const dispatch = useDispatch()
     useEffect(() => {
 
         return () => {
@@ -54,6 +56,7 @@ const StreamChat = ({ eventName, mobile }) => {
     
     joinRoom(nickName, eventName);
     socket.on('message', (message) => {
+        dispatch(setViewers(message.viewers))
         if (message.newRoom) {
             setMessages([message])
         }

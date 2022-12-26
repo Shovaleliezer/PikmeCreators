@@ -10,6 +10,12 @@ export function setMenuSide(side) {
         dispatch({ type: 'SET_MENU_SIDE', side })
     }
 }
+
+export function setViewers(viewers) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_VIEWERS', viewers })
+    }
+}
 export function setPopup(popup) {
     return (dispatch) => {
         dispatch({ type: 'SET_POPUP', popup })

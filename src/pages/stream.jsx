@@ -5,11 +5,12 @@ import AgoraRTC from "agora-rtc-sdk-ng"
 // import user selector from redux
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { makeCommas } from '../services/utils'
 import { NavLink } from 'react-router-dom'
-import { eventService } from "../services/event.service";
-
+import { Alert } from "bootstrap";
+import { eventService } from "../services/event.service"
 let options =
 {
   // Pass your App ID here.
@@ -41,13 +42,15 @@ let channelParameters =
 function Creator() {
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
+  const [status, setStatus] = useState("not-live")
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
+  const { viewers } = useSelector((storeState) => storeState.generalModule)
   let channel = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
   const [client, setClient] = useState(null)
   const [modal, setModal] = useState(false)
   const isMobile = window.innerWidth < 1100
-
+  const navigate = useNavigate()
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
     return () => {
@@ -55,7 +58,15 @@ function Creator() {
       initStopOne(client)
     }
   }, [])
-
+  const endEvent = async () => {
+    try {
+        const loadedEvent = await eventService.endEvent(currentEvent._id)
+        navigate('/')
+    }
+    catch {
+        console.log('something went wrong')
+    }
+}
 
   useEffect(() => {
     joinRoom();
@@ -170,6 +181,7 @@ function Creator() {
       }
       else {
         await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+        setStatus("live")
       }
 
 
@@ -187,18 +199,13 @@ function Creator() {
   let stopStream = async (client) => {
     if (channelParameters.localAudioTrack) {
       client.unpublish();
+      setStatus("not-live")
 
     }
 
   }
-  const endEvent = async () => {
-    try{
-      await eventService.endEvent(currentEvent._id)
-    }
-    catch(err){
-      console.log(err)
-    }
-  }
+  
+  
 
   const getWidth = (money) => {
     let width = 162
@@ -232,14 +239,14 @@ function Creator() {
         <div className="stream-control">
           <div className="options" style={{ width }}>
             <img src={require('../style/imgs/stream/mute.png')} />
-            <img src={require('../style/imgs/stream/home.png')} />
+            <img onClick={()=>{(status=="live")? setModal('exit'): initStopOne(client)}} src={require('../style/imgs/stream/home.png')} />
           </div>
           <div className="start">
-            {1 === 1 ? <>
-              <div className="begin" onClick={() => setModal('start')}>Go Live </div>
-              <div className="end" onClick={() => setModal('end')}>End Event</div>
+          {status!="live" ?  <>
+              <div className="begin"onClick={() => {alreadyStreamed? console.log("cant stream"): setModal('start')}}>Go Live </div>
+              <div className="end" onClick={() => setModal('end-event')}>End Event</div>
             </> :
-              <div className="begin" onClick={() => stopStream(client)}>Stop Live</div>}
+              <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
           </div>
           <div className="details">
             <div>
@@ -248,7 +255,7 @@ function Creator() {
             </div>
             <div>
               <img src={require('../style/imgs/stream/viewers.png')} />
-              <p>5,721</p>
+              <p>{viewers-1}</p>
             </div>
           </div>
         </div>
@@ -261,38 +268,47 @@ function Creator() {
       <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} />
       <div className="lower">
         <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
-        {1 === 1 ? <img onClick={() => setModal('start')} src={require('../style/imgs/stream/start.png')} />
-          : <img onClick={() => stopStream(client)} src={require('../style/imgs/stream/pause.png')} />}
+        {status!="live" ? <img onClick={() => {alreadyStreamed? console.log("cant stream"): setModal('start')}} src={require('../style/imgs/stream/start.png')} />
+          : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
         <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
       </div>
       <div className="upper">
         <div className="detail-holder">
           <div>
             <img src={require('../style/imgs/stream/viewers.png')} />
-            <p>5,721</p>
+            <p>{viewers-1}</p>
           </div>
           <div>
             <img src={require('../style/imgs/stream/coins.png')} />
             <p>{makeCommas(prizePool)}$</p>
           </div>
         </div>
-        <div className="end-event-mobile">End Event</div>
+        <div onClick={() => setModal('end-event')} className="end-event-mobile">End Event</div>
       </div>
     </section>}
 
     {modal && <>
       <div className="screen blur" onClick={() => setModal(false)} />
       <div className="confirm-exit">
-        <img src={require(`../style/imgs/stream/${modal}.png`)} />
-        <h1>{Modal} Live Stream?</h1>
-        <p>This Action cannot be undone. Are you sure you want to {modal} the stream?</p>
+        <img src={require(`../style/imgs/stream/${(modal=="exit"|| modal=="end-event")?"end":modal}.png`)} />
+        <h1>{Modal} {modal=="end-event"? "Event?" :"Live Stream?"}</h1>
+        <p>This Action cannot be undone. Are you sure you want to {Modal} the {modal=="end-event"? "Event?" :"Stream?"}</p>
         <div>
           <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
           <div onClick={() => {
-            if (modal === 'end'){
+            if (modal === 'end') {
+              stopStream(client)
+              setModal(false)
+            }
+            else if(modal=="exit"){
               initStopOne(client)
+          
+            }
+            else if(modal=="end-event"){
+              
+              setModal(false)
               endEvent()
-            } 
+            }
             else {
               streamGaming(client, true)
               setModal(false)

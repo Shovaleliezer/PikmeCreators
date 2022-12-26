@@ -2,6 +2,7 @@ const INITIAL_STATE = {
     mode: {
         type: 'dark',
     },
+    viewers:0,
     menu: '',
     menuSide: 'right',
     popup: '',
@@ -28,6 +29,8 @@ export function generalReducer(state = INITIAL_STATE, action) {
 
         case 'SET_FILTER':
             return { ...state, filter: action.filter }
+        case 'SET_VIEWERS':
+            return { ...state, viewers: action.viewers }
         case 'SET_MENU':
             return { ...state, menu: action.menu }
         case 'SET_MENU_SIDE':
