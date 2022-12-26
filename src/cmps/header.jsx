@@ -47,7 +47,7 @@ export function Header(props) {
                 </div>
                 <nav className={`footer-mobile ${props.mode.type}`}>
                     <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
-                    <img src={require('../style/imgs/create.png')} onClick={()=>setIsMenuOpen(!isMenuOpen)}/>
+                    {(user && user.isConnected) &&<img src={require('../style/imgs/create.png')} onClick={()=>setIsMenuOpen(!isMenuOpen)}/>}
                     <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
                     {isMenuOpen && <div className="create-menu">
                         <div onClick={() => {dispatch(setPopup('create'));setIsMenuOpen(false)}}>Create new event</div>
