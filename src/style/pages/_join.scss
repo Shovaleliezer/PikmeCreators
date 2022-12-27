@@ -2,6 +2,7 @@
     min-height: calc(100vh - 315px);
     color: white;
     @include flex(0, flex-start, center, column);
+    padding: 0 12px;
 
     h1,
     p {

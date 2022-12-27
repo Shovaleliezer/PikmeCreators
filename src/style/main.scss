@@ -35,6 +35,9 @@
     scroll-behavior: smooth;
     position: relative;
 }
+select{
+    -webkit-appearance: none;
+}
 
 body {
     margin: 0;
