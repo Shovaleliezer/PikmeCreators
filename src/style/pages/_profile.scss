@@ -131,3 +131,71 @@
         }
     }
 }
+
+@media (max-width: $mobile){
+    .profile {
+    
+        h1 {
+            font-size: 30px;
+            padding: 15px 0;
+        }
+    
+        .edit-container {
+            @include flex(20px, center, center);
+            .h3-wrapper {
+                width: 80%;
+                @include flex(6px, center, flex-start, column);
+    
+                h3 {
+                    font-size: 16px;
+                    font-weight: 200;
+                }
+    
+                .second {
+                    
+                    font-size: 18px;
+                    padding: 2px 8px;
+                    width: 100%;
+                }
+    
+                .social{
+                    font-size: 18px;
+                    padding:2px 8px;
+                }
+    
+                .img-wrapper {
+                    select {
+                        padding: 2px 8px;
+                        font-size: 18px;
+                    }
+                    
+                    img {
+                        width: 20px;
+                    }
+                }
+    
+                .address {
+                    img {
+                        width: 20px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    
+        .save-wrapper {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            @include flex(30px, space-between, center);
+            padding: 0 10%;
+            width: 100%;
+    
+            .save,
+            .back {
+                width: 50%;
+                font-size: 18px;
+                padding: 5px;
+            }
+        }
+    }
+}

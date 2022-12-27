@@ -82,6 +82,10 @@ export function Profile() {
         return <section className="profile">
             <h1>Profile</h1>
             <div className="edit-container">
+                <div className="main-img-wrapper">
+                    <label htmlFor='img'><img className="main-img" src={image} /></label>
+                    <input id='img' className="non-appear" type="file" accept="image/*" onChange={handleChangeImage} />
+                </div>
                 <div className="h3-wrapper">
                     <h3>Wallet address</h3>
                     <div className="second address"><span>{walletAddress.slice(0, 4) + '...' + walletAddress.slice(-4)}</span><img onClick={copy} src={require('../style/imgs/register/address.png')} /></div>
@@ -89,10 +93,6 @@ export function Profile() {
                 <div className="h3-wrapper">
                     <h3>Name</h3>
                     <input className="second" name='nickName' type="text" placeholder="edit nickname" maxLength={15} value={nickName} onChange={handleChange} />
-                </div>
-                <div className="main-img-wrapper">
-                    <label htmlFor='img'><img className="main-img" src={image} /></label>
-                    <input id='img' className="non-appear" type="file" accept="image/*" onChange={handleChangeImage} />
                 </div>
                 <div className='h3-wrapper'>
                     <h3>Main game</h3>
