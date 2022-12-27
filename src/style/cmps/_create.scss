@@ -144,10 +144,60 @@
     }
 }
 
-@media (max-width: $mobile) {
+
+@media (max-width: $mobile){
     .create {
+        h1 {
+            font-size: 30px;
+            padding: 15px 0;
+        }
+    
         .all-select-wrapper {
-            @include flex(0, center, center);
+            @include flex(10px, center, center);
+            width: 100%;
+            .h3-wrapper {
+                width: 80%;
+                @include flex(10px, center, flex-start, column);
+    
+                h3 {
+                    font-size: 16px;
+                    font-weight: 200;
+                    margin: 0;
+                }
+    
+                .select-wrapper {
+                    width: 100%;
+                    select,input {
+                        padding: 8px 8px;
+                        font-size: 18px;
+                    }
+                    
+                    img {
+                        width: 20px;
+                    }
+                }
+    
+                .address {
+                    img {
+                        width: 20px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        .checkbox-wrapper {
+            p {
+                margin: 0;
+                font-size: 18px
+            }
+    
+            .checkbox {
+                width: 25px;
+                height: 25px;    
+                span {
+                    font-size: 25px;
+                }
+            }
         }
     }
 }
