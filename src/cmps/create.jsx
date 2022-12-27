@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopup } from '../store/actions/general.actions'
-import {setCreatePhase} from '../store/actions/tutorial.actions'
+import { setCreatePhase } from '../store/actions/tutorial.actions'
 import { eventService } from '../services/event.service'
 
 export function Create() {
@@ -16,7 +16,7 @@ export function Create() {
     const dateRef = useRef()
 
     const { createPhase } = useSelector((state) => state.tutorialModule)
-    if(createPhase === 0) dispatch(setCreatePhase(1))
+    if (createPhase === 0) dispatch(setCreatePhase(1))
 
     const handleImg = (e) => {
         const { name, value } = e.target
@@ -48,7 +48,7 @@ export function Create() {
         <div className='create-upper'>
             <img src={require('../style/imgs/create-stream.png')} />
             <h1>Create New Stream</h1>
-            <img src={require('../style/imgs/close-icon.png')} onClick={() => { dispatch(setPopup('')) }} />
+            <img src={require('../style/imgs/close-icon.png')} onClick={() => { dispatch(setPopup(''));dispatch(setCreatePhase(0)) }} />
         </div>
         <div className='all-select-wrapper'>
             <div className='h3-wrapper'>
@@ -82,13 +82,7 @@ export function Create() {
                     <input type="datetime-local" ref={dateRef} required></input>
                 </div>
             </div>
-            {/* <div className='h3-wrapper'>
-                <h3>Description</h3>
-                <div className='select-wrapper'>
-                    <input type="text" placeholder="insert description" required ref={descRef} />
-                </div>
-            </div> */}
-            <div className='checkbox-wrapper' style={{zIndex: createPhase === 1 ? '1001' : '0'}}>
+            <div className='checkbox-wrapper' style={{ zIndex: createPhase === 1 ? '1001' : '0' }}>
                 <div className='checkbox' onClick={() => setIsShare(!isShare)}>
                     {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
                 </div>

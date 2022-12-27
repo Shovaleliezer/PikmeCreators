@@ -8,7 +8,7 @@ export function TutorialCreate() {
     if (createPhase !== 1) return <></>
 
     return (<>
-        <div className="screen-tutorial" />
+        <div className="screen-tutorial"/>
         <div className='tutorial-specific t-down' style={{top:'calc(50% + 80px)', left:'50%'}}>
             <div className="specific-inner">
                 <h1>Share with community</h1>

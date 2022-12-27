@@ -220,6 +220,8 @@ function Creator() {
     }
 
   }
+  
+  
 
   const getWidth = (money) => {
     let width = 162

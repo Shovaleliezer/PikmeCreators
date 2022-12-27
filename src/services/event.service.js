@@ -5,6 +5,7 @@ export const eventService = {
     deleteEvent,
     endEvent,
     editEvent,
+    endEvent,
     getById,
     confirm
 }
