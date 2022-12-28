@@ -1,17 +1,16 @@
 
-import "../style/main.scss";
+import "../style/main.scss"
 import { userService } from '../services/userService'
 import AgoraRTC from "agora-rtc-sdk-ng"
 // import user selector from redux
 import { useSelector, useDispatch } from "react-redux"
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
-import { setStreamPhase } from "../store/actions/tutorial.actions";
+import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
 import { makeCommas } from '../services/utils'
 import { NavLink } from 'react-router-dom'
-import { Alert } from "bootstrap";
 import { eventService } from "../services/event.service"
 let options =
 {
