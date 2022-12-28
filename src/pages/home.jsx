@@ -52,12 +52,12 @@ export function Home() {
             setLocalCreator(false)
         }
     }
-
+return <Register />
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='home' handleCreatorAddress={handleCreatorAddress} />
     if (creator === 'loading') return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>
-    if (!creator) return <Register />
+    if (!creator) 
 
     if (creator.creatorEvents && Object.keys(creator.creatorEvents).length > 0 && homePhase === 0) dispatch(setHomePhase(1))
 

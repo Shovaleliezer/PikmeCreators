@@ -164,8 +164,81 @@
 
 @media (max-width: $mobile) {
     .register {
+        h1 {
+            font-size: 24px;
+            margin-bottom: 0;
+        }
+
+        .phase1 {
+            width: 90%;
+            @include flex(10px, center, center, column);
+
+            h3 {
+                font-size: 18px;
+                align-self: flex-start;
+            }
+
+            input,
+            label {
+                font-size: 18px;
+                width: 100%;
+            }
+
+            .upload-img {
+                img {
+                    width: 30px;
+                }
+            }
+        }
+
+        .phase2 {
+            .all-select-wrapper {
+                width: 100%;
+                gap: 10px;
+            }
+
+            .h3-wrapper {
+                width: 90%;
+
+                h3 {
+                    font-size: 18px;
+                }
+
+                .select-wrapper {
+                    select {
+                        font-size: 18px;
+                    }
+
+                    img {
+                        width: 25px
+                    }
+                }
+            }
+            input{
+                font-size: 18px;
+                width: 90%;
+                margin-top: 10px;
+                padding: 10px 20px;
+            }
+
+        }
+
+        form {
+            button {
+                width: 180px;
+                font-size: 18px;
+                @include flex(0, center, center);
+
+                span {
+                    font-size: 18px;
+                }
+            }
+        }
+
         .progress {
             width: 100%;
+            margin-top: 30px;
+            @include flex(10px, center, center);
 
             .main-progress {
                 div {
@@ -193,7 +266,6 @@
                     font-size: 12px;
                 }
             }
-
         }
     }
 }
