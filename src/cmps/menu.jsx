@@ -48,13 +48,14 @@ export function Menu(props) {
             </>}
             {menu === 'help' && <>
                 <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
-                <div className={`center-start ${props.mode.type}`}>
+                <div className='center-start'>
                     <p className="help-p">Help</p>
-                    <div className={`help-opt border-${props.mode.type} hover-main`}><p>how to recieve reminders?</p><span className="material-symbols-outlined">chevron_right</span></div>
-                    <div className={`help-opt border-${props.mode.type} hover-main`}><p>how to recieve reminders?</p><span className="material-symbols-outlined">chevron_right</span></div>
-                    <div className={`help-opt border-${props.mode.type} hover-main`}><p>how to sdf dfsgdfg dfgd fgdg dgfdfg dfg rders?</p><span className="material-symbols-outlined">chevron_right</span></div>
-                    <div className={`help-opt border-${props.mode.type} hover-main`}><p>how to recieve reminders?</p><span className="material-symbols-outlined">chevron_right</span></div>
-                    <div className={`help-opt border-${props.mode.type} hover-main`}><p>how to recieve reminders?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/metamask-full-guide', '_blank').focus()}><p>how to install metamask?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/add-funds-to-metamask', '_blank').focus()}><p>how to add money to the meta mask?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`}><p>how to buy a ticket?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/i-bought-a-ticket-what-now', '_blank').focus()}><p>I bought a ticket what now?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/how-to-add-bnb-network-to-metamask', '_blank').focus()}><p>how to add my network to metamask?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/metamask-full-guide', '_blank').focus()}><p>general help in the platform.</p><span className="material-symbols-outlined">chevron_right</span></div>
                 </div>
             </>}
             {menu === 'feedback' && <>
