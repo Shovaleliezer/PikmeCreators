@@ -23,11 +23,15 @@
         width: 700px;
         font-size: 22px;
 
-        div {
-            @include flex(15px, flex-start, center);
+        .wallet {
+            @include flex(15px, space-between, center);
             padding: 15px 10px;
             border-bottom: 1px solid gray;
             cursor: pointer;
+            div{
+                border: unset;
+                @include flex(10px, center, center);
+            }
 
             &:last-child {
                 border-bottom: 0px;
@@ -44,6 +48,10 @@
                 width: 30px;
                 aspect-ratio: 1/1;
                 object-fit: cover;
+            }
+            h5{
+                font-weight: 200;
+                color: rgb(100, 100, 100);
             }
         }
     }
