@@ -83,7 +83,7 @@ const StreamChat = ({ eventName, mobile, zIndex }) => {
             <div className="chat-bar-mobile" style={{ zIndex }}>
                 <span className="material-symbols-outlined">settings</span>
                 <p>Live chat</p>
-                <span onClick={() => setShowChat(true)} class="material-symbols-outlined">expand_less</span>
+                <span onClick={() => setShowChat(true)} className="material-symbols-outlined">expand_less</span>
             </div> :
             <div className="chat-box" style={{ zIndex }}>
                 <div className="chat-header">
@@ -99,7 +99,8 @@ const StreamChat = ({ eventName, mobile, zIndex }) => {
                                     <span style={{ marginLeft: "1px" }} >:</span>
                                     <span style={{ marginLeft: "5px", fontWeight: "lighter" }} >{message.message}</span>
                                 </div>
-                            </div>)})} 
+                            </div>)
+                    })}
                 </div>
 
                 <div className="chat-box-input">

@@ -41,11 +41,11 @@ export function Edit() {
     }
 
     const handleChange = (ev) => {
-        const { name, value } = ev.target;
-        setEvent({ ...event, [name]: value });
+        const { name, value } = ev.target
+        setEvent({ ...event, [name]: value })
     }
 
-    if(sent) return <div class="loader"><div></div><div></div><div></div><div></div>
+    if(sent) return <div className="loader"><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div></div>
 
     return <form className='create' onSubmit={editEvent}>
@@ -87,10 +87,6 @@ export function Edit() {
                 </div>
             </div>
         </div>
-        {/* <div className='area-wrapper'>
-            <h3>Description</h3>
-            <textarea placeholder="insert description" name='description' required onChange={handleChange} value={event.description} />
-        </div> */}
         <div className='center'>
             <button>Confirm</button>
         </div>
