@@ -80,7 +80,7 @@ export function Profile() {
     const { nickName, walletAddress, image, proficiencyGame, region, topAchievement, status, experience, socialLink } = creator
     try {
         return <section className="profile">
-            <h1>Profile</h1>
+            <h1>Account information</h1>
             <div className="edit-container">
                 <div className="main-img-wrapper">
                     <label htmlFor='img'><img className="main-img" src={image} /></label>

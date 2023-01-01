@@ -44,6 +44,8 @@ export function Confirm() {
         dispatch(setUpperPopup('copied'))
     }
 
+    if(!user || !user.isConnected) navigate('/') 
+
     if (event === 'loading') return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>
 

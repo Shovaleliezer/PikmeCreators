@@ -46,7 +46,7 @@ export function WalletConnect({ from, handleCreatorAddress }) {
     return (<>
         {connectPhase < 3 && <div className="screen-tutorial" />}
         {connectPhase === 1 && <TutorialConnect />}
-        <div className={`wallet-connect ${mode.type}`} style={{ marginBottom: from === 'popup' ? '0' : '25vh', zIndex: connectPhase === 2 ? '1001' : '0' }}>
+        <div className={`wallet-connect ${mode.type}`} style={{ marginBottom: from === 'popup' ? '0' : '12vh', zIndex: connectPhase === 2 ? '1001' : '0' }}>
             <h1>Connect your wallet</h1>
             <p>If you do not have any wallet, you can create one right <a href="https://metamask.io/" target="_blank">here</a>.</p>
             <section>
