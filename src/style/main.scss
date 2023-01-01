@@ -36,7 +36,12 @@
     position: relative;
 }
 
-select,input{
+textarea {
+    resize: none;
+}
+
+select,
+input {
     -webkit-appearance: none;
 }
 
@@ -44,9 +49,9 @@ body {
     margin: 0;
 }
 
-.app{
+.app {
     min-height: 100vh;
-    @include flex(0,space-between,center,column)
+    @include flex(0, space-between, center, column)
 }
 
 .main-layout {

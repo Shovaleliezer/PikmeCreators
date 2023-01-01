@@ -35,6 +35,7 @@ export function Menu(props) {
     }
 
     if (menu === '') return <></>
+
     return (<>
         <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
         <section className={`menu ${props.mode.type + ' ' + menuSide} noselect`}>
@@ -47,7 +48,6 @@ export function Menu(props) {
                 {isMobile && <div onClick={() => dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>}
             </>}
             {menu === 'help' && <>
-                <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
                 <div className='center-start'>
                     <p className="help-p">Help</p>
                     <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/metamask-full-guide', '_blank').focus()}><p>how to install metamask?</p><span className="material-symbols-outlined">chevron_right</span></div>
@@ -57,9 +57,9 @@ export function Menu(props) {
                     <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/how-to-add-bnb-network-to-metamask', '_blank').focus()}><p>how to add my network to metamask?</p><span className="material-symbols-outlined">chevron_right</span></div>
                     <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/metamask-full-guide', '_blank').focus()}><p>general help in the platform.</p><span className="material-symbols-outlined">chevron_right</span></div>
                 </div>
+                <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
             </>}
             {menu === 'feedback' && <>
-                <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
                 <form className="center-start" onSubmit={sendFeedback}>
                     <p>Feedback</p>
                     <textarea name={'message'} rows="5" cols="25" className={props.mode.type} ref={textRef} autoFocus required placeholder="Please tell us how can we improve our product..."></textarea>
@@ -69,6 +69,7 @@ export function Menu(props) {
                         <label htmlFor="notify"> Allow support to contact back</label></div>
                     <button className={`${props.mode.type} border-${props.mode.type}`}>Send</button>
                 </form>
+                <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
             </>}
             {menu === 'sent' && <>
                 <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
