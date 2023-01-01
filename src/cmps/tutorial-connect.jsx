@@ -12,7 +12,7 @@ export function TutorialConnect() {
         <div className="buddy-wrapper buddy-connect">
             <img src={require('../style/imgs/tutorial/buddy-upper.png')} />
             <section className="tutorial-center">
-                    <h1>Welcome to PICKME Creators</h1>
+                    <h1>Welcome to PIKME Creators</h1>
                     <p>Before you can start creating or joining an existing event you first connect your crypto wallet.</p>
                     <div onClick={() => dispatch(setConnectPhase(2))} className="action">Lets Start!</div>
             </section>
