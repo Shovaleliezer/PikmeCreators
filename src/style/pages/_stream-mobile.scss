@@ -75,20 +75,31 @@
 @media (max-width: 550px) {
     .stream-mobile {
         height: 98vw;
-        width:max-content;
+        width: max-content;
         margin: 0;
-        transform: rotate(90deg) translate(25%,0);
-        .left-wrapper{
-            width:66vh;
-        }
-        .chat-box{
-            width:32vh
+        transform: rotate(90deg) translate(25%, 0);
+
+        .left-wrapper {
+            width: 66vh;
         }
 
-    } 
+        .chat-box {
+            width: 32vh
+        }
+
+    }
+
+    .confirm-exit {
+        height: 98vw;
+        width: 500px;
+        top:25vh;
+        left:-60px;
+        transform: rotate(90deg);
+    }
 }
 
-.main-stream{
+
+.main-stream {
     margin: 0 !important;
     height: 100vh;
     @include flex(0, center, flex-start);

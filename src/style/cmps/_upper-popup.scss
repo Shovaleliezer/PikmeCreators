@@ -1,4 +1,4 @@
-.upper-popup{
+.upper-popup, .stream-popup{
     position: fixed;
     left: 50%;
     transform: translate(-50%, 0);
@@ -10,7 +10,6 @@
     background: white;
     border-radius: 10px;
     color: $main;
-    text-align: center;
     background-color: $bright-back;
     padding: 10px;
     animation: slide-down 0.5s ease;
@@ -18,7 +17,26 @@
         font-size: 24px;
         margin: 0;
     }
+}
 
+.stream-popup{
+    position: absolute;
+    left: 50%;
+    z-index: 1000;
+    width: fit-content;
+    min-width: 300px;
+    text-align: center;
+    right:10px;
+    background: white;
+    border-radius: 10px;
+    color: $main;
+    background-color: $bright-back;
+    padding: 10px;
+    animation: slide-down 0.5s ease;
+    p{
+        font-size: 24px;
+        margin: 0;
+    }
 }
 
 //animate slide from top

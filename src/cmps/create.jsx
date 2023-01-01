@@ -46,7 +46,7 @@ export function Create() {
             dispatch(setPopup(_id))
         }
         catch {
-            dispatch(setUpperPopup('error'))
+            dispatch(setUpperPopup('errorCreate'))
             dispatch(setPopup(''))
         }
     }

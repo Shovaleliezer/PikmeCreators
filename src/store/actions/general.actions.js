@@ -50,3 +50,9 @@ export function resetGeneralState() {
         dispatch({ type: 'RESET_GENERAL_STATE' })
     }
 }
+
+export function setStreamPopup(streamPopup) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_STREAM_POPUP', streamPopup })
+    }
+}

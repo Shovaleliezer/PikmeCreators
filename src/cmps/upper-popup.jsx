@@ -22,7 +22,8 @@ export function UpperPopup() {
             {upperPopup === 'copied-address' && <p>Address Copied!</p>}
             {upperPopup === 'socialError' && <p>Link broken!</p>}
             {upperPopup === 'socialUnsupported' && <p>you may enter only tiktok,instagram,twitter or youtube links</p>}
-            {upperPopup === 'error' && <p>oops! something went wrong</p>}
+            {upperPopup === 'errorCreate' && <p>something went wrong... could not create event.</p>}
+            {upperPopup === 'notStarted' && <p>cannot start or end live stream now, wait for the correct time</p>}
         </section>
     )
 }

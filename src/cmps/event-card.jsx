@@ -34,11 +34,11 @@ export function EventCard({ ev, creator }) {
                         <p onClick={deleteEvent}>Delete</p>
                     </>}
                     {(ev.approved && !ev.over) && <>
-                        <p onClick={() => { copy('clients') }}>Share</p>
                         <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                        <p onClick={() => { copy('clients') }}>Share</p>
                     </>}
+                    <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p> 
                 </div>
-
             </div>
             <div className="event-inner">
                 <img src={require(`../style/imgs/event-card/${ev.game}.png`)} />
