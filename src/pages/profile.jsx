@@ -12,7 +12,6 @@ export function Profile() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
-
     const [creator, setLocalCreator] = useState('loading')
     const [img, setImg] = useState('valorant')
     const [isChanged, setIsChanged] = useState(false)
@@ -32,12 +31,30 @@ export function Profile() {
     const save = async () => {
         if (isChanged) {
             setSent(true)
-            const updatedCreator = await userService.editCreator(user.address, creator)
+            let link = creator.socialLink
+            if (link !== '') {
+                let url = ''
+                try {
+                    url = new URL(link)
+                    if (link.includes('instagram') || link.includes('twitter') || link.includes('tiktok') || link.includes('youtube')) link = url.href
+                    else {
+                        dispatch(setUpperPopup('socialUnsupported'))
+                        setSent(false)
+                        return
+                    }
+                } catch(err) {
+                    console.log(err)
+                    dispatch(setUpperPopup('socialError'))
+                    setSent(false)
+                    return
+                }
+            }
+            const updatedCreator = await userService.editCreator(user.address,{ ...creator,socialLink: link})
             if (updatedCreator) {
                 dispatch(setCreator(updatedCreator))
+                navigate('/')
             }
         }
-        navigate('/')
     }
 
     const loadCreator = async () => {
@@ -164,7 +181,7 @@ export function Profile() {
                 </div>
                 <div className="h3-wrapper">
                     <h3>Social link</h3>
-                    <input className="second social" name='socialLink' type="text" placeholder="social link" value={socialLink} onChange={handleChange} />
+                    <input className="second social" name='socialLink' type="text" placeholder="enter social link" value={socialLink} onChange={handleChange} />
                 </div>
             </div>
             <div className="save-wrapper">

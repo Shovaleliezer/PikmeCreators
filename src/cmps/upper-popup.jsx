@@ -20,6 +20,9 @@ export function UpperPopup() {
         <section className='upper-popup'>
             {upperPopup === 'copied' && <p>Link Copied!</p>}
             {upperPopup === 'copied-address' && <p>Address Copied!</p>}
+            {upperPopup === 'socialError' && <p>Link broken!</p>}
+            {upperPopup === 'socialUnsupported' && <p>you may enter only tiktok,instagram,twitter or youtube links</p>}
+            {upperPopup === 'error' && <p>oops! something went wrong</p>}
         </section>
     )
 }

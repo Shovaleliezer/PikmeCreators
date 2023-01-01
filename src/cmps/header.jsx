@@ -34,10 +34,10 @@ export function Header(props) {
                 </div>
                 <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
                 <div className="options-bar" style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}>
-                <NavLink to='/join'><div  className="join-button">Join</div></NavLink>
-                <div onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
+                    <NavLink to='/join'><div className="join-button">Join</div></NavLink>
+                    <div onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
                 </div>
-                    
+
             </div>}
             {(isMobile && !location.pathname.includes('stream-control')) && <>
                 <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
@@ -47,10 +47,10 @@ export function Header(props) {
                 </div>
                 <nav className={`footer-mobile ${props.mode.type}`}>
                     <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
-                    {(user && user.isConnected) &&<img src={require('../style/imgs/create.png')} onClick={()=>setIsMenuOpen(!isMenuOpen)}/>}
+                    {(user && user.creator) && <img src={require('../style/imgs/create.png')} onClick={() => setIsMenuOpen(!isMenuOpen)} />}
                     <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
                     {isMenuOpen && <div className="create-menu">
-                        <div onClick={() => {dispatch(setPopup('create'));setIsMenuOpen(false)}}>Create new event</div>
+                        <div onClick={() => { dispatch(setPopup('create')); setIsMenuOpen(false) }}>Create new event</div>
                         <NavLink to='/join'><div>Join event</div></NavLink>
                     </div>}
                 </nav>

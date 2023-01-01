@@ -18,7 +18,6 @@ export function make2digits(num) {
 
 export function formatDateHour(date) {
   const d = new Date(date)
-
   return `${d.getFullYear()}-${make2digits(d.getMonth() + 1)}-${make2digits(d.getDate())}  ${make2digits(d.getHours())}:${make2digits(d.getMinutes())}`
 }
 
@@ -46,6 +45,6 @@ export function getYears() {
 }
 
 export function getRoute() {
-  if (process.env.NODE_ENV === 'production') return 'https://pickmecreators.onrender.com/#/' //change when in production
+  if (process.env.NODE_ENV === 'production') return 'https://pickmetv.onrender.com/#/'
   return 'http://localhost:3000/#/'
 }

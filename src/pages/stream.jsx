@@ -231,7 +231,7 @@ function Creator() {
     return width
   }
 
-  if (currentEvent.length === 0) return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
+  if (currentEvent.length === 0) return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div></div></div></div>
 
   let prizePool = 0

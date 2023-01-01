@@ -5,6 +5,7 @@ import { uploadService } from '../services/upload.service.js'
 import { RegisterProgress } from './register-progress.jsx'
 import { getYears } from '../services/utils.js'
 import { setCreator } from '../store/reducers/userReducer.js'
+import { setUpperPopup } from '../store/actions/general.actions.js'
 import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
 import { userService } from '../services/userService.js'
 
@@ -30,7 +31,7 @@ export function Register() {
     const [category, setCategory] = useState('gaming')
     const [isLoader, setIsLoader] = useState(false)
     const [file, setFile] = useState(null)
-    const [sent,setSent] = useState(false)
+    const [sent, setSent] = useState(false)
 
     const years = getYears()
     const nameRef = useRef()
@@ -53,7 +54,7 @@ export function Register() {
             const newCreator = await userService.addCreator(address, creatorDetails)
             dispatch(setCreator(newCreator))
             dispatch(setRegisterPhase(1))
-            navigate('/profile')
+            window.location.reload()
         }
 
         catch (err) {
@@ -81,9 +82,26 @@ export function Register() {
 
     const completePhase3 = (e) => {
         e.preventDefault()
+        let link = socialRef.current.value
+        if (link !== '') {
+            let url = ''
+            try {
+                url = new URL(link)
+                if (link.includes('instagram') || link.includes('twitter') || link.includes('tiktok') || link.includes('youtube')) link = url.href
+                else {
+                    dispatch(setUpperPopup('socialUnsupported'))
+                    socialRef.current.value = ''
+                    return
+                }
+            } catch {
+                dispatch(setUpperPopup('socialError'))
+                socialRef.current.value = ''
+                return
+            }
+        }
         setCreatorDetails({
             ...creatorDetails, status: statusRef.current.value, experience: experienceRef.current.value,
-            socialLink: socialRef.current.value
+            socialLink: link
         })
     }
 
@@ -101,8 +119,8 @@ export function Register() {
         setFile(e.target.files[0])
     }
 
-    if(sent) return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
-    <div></div><div></div><div></div><div></div></div></div></div>
+    if (sent) return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div></div></div></div>
 
     return <section className="register">
         {phase === 1 && <>
@@ -212,7 +230,10 @@ export function Register() {
                         </select>
                     </div>
                 </div>
-                <input type="text" placeholder="link to social page" ref={socialRef} required />
+                <div className='h3-wrapper'>
+                    <h3>Link to social page</h3>
+                    <input type="text" placeholder="leave empty if you have none" ref={socialRef} style={{ marginTop: '0', width: '100%' }} />
+                </div>
                 <button>Create <span className="material-symbols-outlined">arrow_forward</span></button>
             </form>
         </>}

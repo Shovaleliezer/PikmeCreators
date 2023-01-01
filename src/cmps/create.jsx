@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPopup } from '../store/actions/general.actions'
+import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { setCreatePhase } from '../store/actions/tutorial.actions'
 import { eventService } from '../services/event.service'
 
@@ -31,17 +31,26 @@ export function Create() {
     const addEvent = async (e) => {
         e.preventDefault()
         setSent(true)
+        const date = new Date(dateRef.current.value)
+        const utcString = date.toUTCString()
         const newEvent = {
             category: categoryRef.current.value,
             game: gameRef.current.value,
-            date: dateRef.current.value,
+            date: utcString,
             shareWithCommunity: isShare,
             player: user.creator
         }
-        const { _id } = await eventService.addEvent(newEvent, user.creator.walletAddress)
-        dispatch(setPopup(_id))
+
+        try {
+            const { _id } = await eventService.addEvent(newEvent, user.creator.walletAddress)
+            dispatch(setPopup(_id))
+        }
+        catch {
+            dispatch(setUpperPopup('error'))
+            dispatch(setPopup(''))
+        }
     }
-    if (sent) return <div class="loader"><div></div><div></div><div></div><div></div>
+    if (sent) return <div className="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div>
 
     return <form className='create' onSubmit={addEvent}>

@@ -46,7 +46,7 @@ export function Confirm() {
 
     if(!user || !user.isConnected) navigate('/') 
 
-    if (event === 'loading') return <div className="home"><div className="home"><div class="loader"><div></div><div></div><div></div><div></div>
+    if (event === 'loading') return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>
 
     if (!event) return <div>oops! it seems there is no event on the link you recieved... </div>
