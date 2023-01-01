@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { setMenu, tutorialDone } from "../store/actions/general.actions"
+import { setMenu,setPopup } from "../store/actions/general.actions"
 import emailjs from 'emailjs-com'
 
 export function Footer() {
@@ -43,13 +43,13 @@ export function Footer() {
                     <section className="account">
                         <div className='my-account'>
                             <h3>my account</h3>
-                            <p onClick={() => { navigate('/profile') }}>my profile</p>
-                            <p onClick={() => { navigate('/profile') }}>stream history</p>
-                            <p onClick={() => { navigate('/profile') }}>upcoming events</p>
+                            <p onClick={() => { navigate('/profile') }}>my account</p>
+                            <p onClick={() => { navigate('/') }}>my events</p>
+                            <p onClick={() => dispatch(setPopup('create'))}>create event</p>
                         </div>
                         <div className='support'>
                             <h3>support</h3>
-                            <p>learn</p>
+                            <p onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/', '_blank').focus()}>learn</p>
                             <p onClick={() => dispatch(setMenu('help'))}>help</p>
                             <p onClick={() => dispatch(setMenu('feedback'))}>feedback</p>
                         </div>
@@ -59,8 +59,8 @@ export function Footer() {
                 <section className='footer-bottom'>
                     <p>®2022 Homeric entertainment</p>
                     <div>
-                        <p>privacy policy</p>
-                        <p>terms of service</p>
+                        <p onClick={()=>window.open('https://www.privacypolicyonline.com/live.php?token=J4MpfGXa6se1Ak9047TKVsyJzqtXRHjD', '_blank').focus()}>privacy policy</p>
+                        <p onClick={()=>window.open('https://www.privacypolicyonline.com/live.php?token=BSvr42ubTJcEKnEu7WdkM3qMJ7Dozlla', '_blank').focus()}>terms of service</p>
                     </div>
                 </section>
             </div>
