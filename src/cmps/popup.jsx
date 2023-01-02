@@ -26,7 +26,7 @@ export function Popup({ mode }) {
 
     useEffect(() => {
         if (popup) document.body.classList.add("no-scroll")
-        else document.body.classList.remove("main-stream")
+        else document.body.classList.remove("no-scroll")
         return () => document.body.classList.remove("no-scroll")
     }, [popup])
 
