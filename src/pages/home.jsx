@@ -11,7 +11,6 @@ import { setCreator } from "../store/reducers/userReducer"
 import { setCallbackLink, setPopup } from "../store/actions/general.actions"
 import { ExtensionConnect } from "../cmps/extention-connect"
 import { setHomePhase } from "../store/actions/tutorial.actions"
-import { Navigate } from "react-router"
 
 export function Home() {
     const dispatch = useDispatch()
@@ -34,7 +33,12 @@ export function Home() {
                 dispatch(setIsConnected(false))
             }
         })
-        if(window.ethereum.networkVersion === 56) console.log('gg') 
+        if (window.ethereum.networkVersion === '56') {
+            console.log('llllll')
+            // dispatch(setPopup('network'))
+        }
+
+
     }
 
     const handleCreatorAddress = async (address) => {
@@ -46,10 +50,10 @@ export function Home() {
                 dispatch(setCreator(loadedCreator))
                 dispatch(setIsConnected(true))
                 dispatch(setAddress(loadedCreator.walletAddress))
-                if(callbackLink){
+                if (callbackLink) {
                     navigate(callbackLink)
                     dispatch(setCallbackLink(''))
-                } 
+                }
             }
 
             catch {
