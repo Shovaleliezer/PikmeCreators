@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
@@ -6,6 +7,7 @@ import { eventService } from '../services/event.service'
 export function EventCard({ ev, creator }) {
 
     const dispatch = useDispatch()
+    const [isOpen, setIsOpen] = useState(false)
 
     const copy = (to) => {
         if (to === 'clients') navigator.clipboard.writeText(getRoute() + ev._id)
@@ -23,21 +25,21 @@ export function EventCard({ ev, creator }) {
         dispatch(setPopup('edit'))
     }
 
-    return (
+    return (<>
         <div className='event-card'>
             <div className="event-upper">
                 <h3>Event Info</h3>
                 <div>
                     {(!ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
                         <p onClick={openEdit}>Edit</p>
-                        <p onClick={()=>copy('creators')}>Share</p>
-                        <p onClick={deleteEvent}>Delete</p>
+                        <p onClick={() => copy('creators')}>Share</p>
+                        <p onClick={() => setIsOpen(true)}>Delete</p>
                     </>}
                     {(ev.approved && !ev.over) && <>
                         <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
                         <p onClick={() => { copy('clients') }}>Share</p>
                     </>}
-                    <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p> 
+                    <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
                 </div>
             </div>
             <div className="event-inner">
@@ -58,5 +60,15 @@ export function EventCard({ ev, creator }) {
                 </div>
             </div>
         </div>
-    )
+        {isOpen && <div className="simple-popup">
+            <img src={require('../style/imgs/error.png')}/>
+            <h1>Delete the event?</h1>
+            <p>This action cannot be undone. are you sure you want to delete the event?</p>
+            <div className='buttons-wrapper'>
+                <div className='bolder' onClick={()=>setIsOpen(false)}>Cancel</div>
+                <div className='lighter' onClick={deleteEvent}>Delete</div>
+            </div>
+
+        </div>}
+    </>)
 }

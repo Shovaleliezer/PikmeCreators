@@ -1,0 +1,57 @@
+.simple-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    padding: 10px;
+    background-color: $table-back;
+    border-radius: 10px;
+    z-index: 1000;
+    color: white;
+    border: 2px solid $bright-back;
+    @include flex(0,center,center,column);
+
+    img{
+        width: 75px;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
+    h1,
+    p {
+        margin: 0;
+        text-align: center;
+        font-weight: 200;
+    }
+    h1{
+        margin-bottom: 10px;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .buttons-wrapper {
+        width: 100%;
+        @include flex(0, space-around, center);
+        margin-top: 40px;
+
+        .bolder,
+        .lighter {
+            width: 160px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            padding: 5px 0;
+            cursor: pointer;
+            border:2px solid $main;
+            border-radius: 10px;
+        }
+
+        .bolder {
+            background-color: $main;
+            border-radius: 10px;
+        }
+    }
+}

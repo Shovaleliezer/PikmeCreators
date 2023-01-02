@@ -1,32 +1,38 @@
-.event-card{
+.event-card {
     background-color: $mid-back;
-    border : 3px solid $bright-back; 
-    border-radius: 10px; 
+    border: 3px solid $bright-back;
+    border-radius: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
-    .event-upper{
+
+    .event-upper {
         padding: 14px;
         background-color: #090C1F;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
-        @include flex(0,space-between,center);
-        h3{
+        @include flex(0, space-between, center);
+
+        h3 {
             margin: 0;
             font-size: 24px
         }
-        div{
-            @include flex(40px,center,center);
-            p{
+
+        div {
+            @include flex(40px, center, center);
+
+            p {
                 margin: 0;
                 font-size: 16px;
                 cursor: pointer;
             }
-            a{
+
+            a {
                 color: white;
                 text-decoration: none;
             }
         }
     }
+
     .event-inner {
         @include flex(25px, flex-start, flex-start);
         font-size: 20px;
