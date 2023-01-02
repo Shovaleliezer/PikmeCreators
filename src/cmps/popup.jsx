@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
@@ -22,6 +23,12 @@ export function Popup({ mode }) {
             }
         })
     }
+
+    useEffect(() => {
+        if (popup) document.body.classList.add("no-scroll")
+        else document.body.classList.remove("main-stream")
+        return () => document.body.classList.remove("no-scroll")
+    }, [popup])
 
     const copy = () => {
         navigator.clipboard.writeText(getRoute() + 'confirm/' + popup)

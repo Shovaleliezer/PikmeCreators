@@ -34,6 +34,10 @@
     align-items: center;
 }
 
+.no-scroll{
+    overflow-y: hidden;
+}
+
 .non-appear{
     display: none;
 }
