@@ -56,3 +56,9 @@ export function setStreamPopup(streamPopup) {
         dispatch({ type: 'SET_STREAM_POPUP', streamPopup })
     }
 }
+
+export function setCallbackLink(callbackLink) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_CALLBACK_LINK', callbackLink })
+    }
+}

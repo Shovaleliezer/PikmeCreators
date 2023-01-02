@@ -4,7 +4,7 @@ import { useNavigate } from "react-router"
 import { useParams } from "react-router"
 import { eventService } from "../services/event.service"
 import { formatDateHour, getRoute } from "../services/utils"
-import { setUpperPopup } from "../store/actions/general.actions"
+import { setUpperPopup, setCallbackLink } from "../store/actions/general.actions"
 import { Error } from "./error"
 
 export function Confirm() {
@@ -22,6 +22,11 @@ export function Confirm() {
     const loadEvent = async () => {
         try {
             const loadedEvent = await eventService.getById(id)
+            if(!user || !user.creator){
+                dispatch(setCallbackLink('confirm/' + loadedEvent._id))
+                navigate('/')
+                return
+            }
             const isPlayer = loadedEvent.players.find(player => player.walletAddress === user.creator.walletAddress)
             if (isPlayer) setIsSame(true)
             setEvent(loadedEvent)
@@ -43,8 +48,6 @@ export function Confirm() {
         navigator.clipboard.writeText(getRoute() + 'confirm/' + event._id)
         dispatch(setUpperPopup('copied'))
     }
-
-    if(!user || !user.isConnected) navigate('/') 
 
     if (event === 'loading') return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>

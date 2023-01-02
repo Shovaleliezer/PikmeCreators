@@ -5,7 +5,7 @@ import { uploadService } from '../services/upload.service.js'
 import { RegisterProgress } from './register-progress.jsx'
 import { getYears } from '../services/utils.js'
 import { setCreator } from '../store/reducers/userReducer.js'
-import { setUpperPopup } from '../store/actions/general.actions.js'
+import { setCallbackLink, setUpperPopup } from '../store/actions/general.actions.js'
 import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
 import { userService } from '../services/userService.js'
 
@@ -14,6 +14,7 @@ export function Register() {
     const dispatch = useDispatch()
 
     const { address } = useSelector((state) => state.user)
+    const { callbackLink } = useSelector((state) => state.generalModule)
 
     const [phase, setPhase] = useState(1)
     const [creatorDetails, setCreatorDetails] = useState({
@@ -53,8 +54,15 @@ export function Register() {
             setSent(true)
             const newCreator = await userService.addCreator(address, creatorDetails)
             dispatch(setCreator(newCreator))
-            dispatch(setRegisterPhase(1))
-            window.location.reload()
+            if (callbackLink) {
+                console.log('callback', callbackLink)
+                navigate(callbackLink)
+                dispatch(setCallbackLink(''))
+            }
+            else {
+                dispatch(setRegisterPhase(1))
+                window.location.reload()
+            }
         }
 
         catch (err) {

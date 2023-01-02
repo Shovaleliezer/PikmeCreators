@@ -30,6 +30,7 @@ export function Home() {
                 dispatch(setIsConnected(false))
             }
         })
+        if(window.ethereum.networkVersion === 56) console.log('gg') 
     }
 
     const handleCreatorAddress = async (address) => {
