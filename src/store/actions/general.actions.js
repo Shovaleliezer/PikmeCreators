@@ -22,7 +22,6 @@ export function setPopup(popup) {
     }
 }
 export function setStreamInfo(event) {
-    console.log('event1', event);
     return (dispatch) => {
         dispatch({ type: 'SET_STREAM', event })
     }

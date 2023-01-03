@@ -25,21 +25,10 @@ export function Home() {
         if (address) {
             handleCreatorAddress(address)
         }
-    }, [address])
-
-    if (ethereum) {
-        window.ethereum.on('accountsChanged', async (accounts) => {
-            if (!accounts[0]) {
-                dispatch(setIsConnected(false))
-            }
-        })
-        if (window.ethereum.networkVersion === '56') {
-            console.log('llllll')
-            // dispatch(setPopup('network'))
+        if (ethereum && ethereum.networkVersion !== '56') {
+            dispatch(setPopup('network'))
         }
-
-
-    }
+    }, [address])
 
     const handleCreatorAddress = async (address) => {
         const isCreator = await userService.checkIsCreator(address)

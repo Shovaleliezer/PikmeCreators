@@ -13,14 +13,6 @@ export function WalletConnect({ from, handleCreatorAddress }) {
 
     if (connectPhase === 0) dispatch(setConnectPhase(1))
 
-    if (ethereum) {
-        window.ethereum.on('accountsChanged', async (accounts) => {
-            if (!accounts[0]) {
-                dispatch(setIsConnected(false))
-            }
-        })
-    }
-
     const connectWallet = async () => {
         try {
             const accounts = await ethereum.request({

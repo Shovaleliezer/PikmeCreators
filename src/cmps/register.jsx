@@ -55,7 +55,6 @@ export function Register() {
             const newCreator = await userService.addCreator(address, creatorDetails)
             dispatch(setCreator(newCreator))
             if (callbackLink) {
-                console.log('callback', callbackLink)
                 navigate(callbackLink)
                 dispatch(setCallbackLink(''))
             }

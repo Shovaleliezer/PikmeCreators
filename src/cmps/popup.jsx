@@ -2,7 +2,6 @@ import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
-import { setIsConnected } from '../store/reducers/userReducer'
 import { WalletConnect } from '../cmps/wallet-connect'
 import { Create } from "./create"
 import { Edit } from "./edit"
@@ -15,14 +14,7 @@ export function Popup({ mode }) {
     const { popup } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
     const { createPhase } = useSelector((state) => state.tutorialModule)
-
-    if (ethereum) {
-        window.ethereum.on('accountsChanged', async (accounts) => {
-            if (!accounts[0]) {
-                dispatch(setIsConnected(false))
-            }
-        })
-    }
+    console.log(popup)
 
     useEffect(() => {
         if (popup) document.body.classList.add("no-scroll")
@@ -65,7 +57,7 @@ export function Popup({ mode }) {
                 <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>
             </div>}
 
-            {popup === 'network' && <h1>sdfgdfgdfggfd</h1>}
+            {popup === 'network' && <h1>dasdadasdasd</h1>}
 
         </section>
     </>
