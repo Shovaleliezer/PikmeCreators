@@ -43,7 +43,6 @@ export function Profile() {
                         return
                     }
                 } catch(err) {
-                    console.log(err)
                     dispatch(setUpperPopup('socialError'))
                     setSent(false)
                     return

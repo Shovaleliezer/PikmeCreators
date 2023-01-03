@@ -14,7 +14,6 @@ export function Popup({ mode }) {
     const { popup } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
     const { createPhase } = useSelector((state) => state.tutorialModule)
-    console.log(popup)
 
     useEffect(() => {
         if (popup) document.body.classList.add("no-scroll")

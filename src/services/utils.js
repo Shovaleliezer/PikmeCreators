@@ -45,6 +45,6 @@ export function getYears() {
 }
 
 export function getRoute() {
-  if (process.env.NODE_ENV === 'production') return 'https://pickmetv.onrender.com/#/'
+  if (process.env.NODE_ENV === 'production') return 'https://pickmecreators.onrender.com/#/'
   return 'http://localhost:3000/#/'
 }
