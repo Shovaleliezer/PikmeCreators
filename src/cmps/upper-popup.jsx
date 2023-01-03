@@ -14,7 +14,9 @@ export function UpperPopup() {
         setTimeout(() => { dispatch(setUpperPopup('')) }, 2000)
     }
 
-    if(!upperPopup) return <></>
+    const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-']
+    console.log('popup', upperPopup)
+    if (!upperPopup) return <></>
 
     return (
         <section className='upper-popup'>
@@ -23,7 +25,7 @@ export function UpperPopup() {
             {upperPopup === 'socialError' && <p>Link broken!</p>}
             {upperPopup === 'socialUnsupported' && <p>you may enter only tiktok,instagram,twitter or youtube links</p>}
             {upperPopup === 'errorCreate' && <p>something went wrong... could not create event.</p>}
-            {upperPopup === 'notStarted' && <p>cannot start or end live stream now, wait for the correct time</p>}
+            {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
         </section>
     )
 }

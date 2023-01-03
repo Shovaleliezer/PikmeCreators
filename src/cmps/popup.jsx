@@ -1,13 +1,13 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { setPopup } from "../store/actions/general.actions"
+import { setPopup,setUpperPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 import { WalletConnect } from '../cmps/wallet-connect'
 import { Create } from "./create"
 import { Edit } from "./edit"
 import { ExtensionConnect } from '../cmps/extention-connect'
 import { getRoute } from "../services/utils"
-import { EmailShareButton, WhatsappShareButton, TelegramShareButton, FacebookMessengerShareButton } from "react-share";
+import { EmailShareButton, WhatsappShareButton, TelegramShareButton, FacebookMessengerShareButton } from "react-share"
 
 export function Popup({ mode }) {
     const dispatch = useDispatch()
@@ -44,8 +44,8 @@ export function Popup({ mode }) {
                 <p>Event created successfully!</p>
                 <p>To get it confirmed, please send your opponent the link below:</p>
                 <div className="share-wrapper">
-                    <div className="copy"><span>{getRoute() + 'confirm/' + popup.slice(0, 4) + '...'}</span>
-                        <img onClick={copy} src={require('../style/imgs/register/address.png')} title='Link copied!' /></div>
+                    <div className="copy"><span>{getRoute() + 'confirm/' + popup}</span>
+                        <img onClick={()=>{copy();dispatch(setUpperPopup('copied'))}} src={require('../style/imgs/register/address.png')} /></div>
                     <div className="buttons">
                         <EmailShareButton className="share-button email" url={getRoute() + 'confirm/' + popup} />
                         <WhatsappShareButton className="share-button whatsapp" url={getRoute() + 'confirm/' + popup} />
@@ -56,7 +56,7 @@ export function Popup({ mode }) {
                 <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>
             </div>}
 
-            {popup === 'network' && <h1>dasdadasdasd</h1>}
+            {/* {popup === 'network' && <h1>dasdadasdasd</h1>} */}
 
         </section>
     </>

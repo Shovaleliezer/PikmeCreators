@@ -9,11 +9,11 @@ import { useNavigate } from "react-router"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
-import { makeCommas } from '../services/utils'
+import { makeCommas, getTimeUntil } from '../services/utils'
 import { NavLink } from 'react-router-dom'
 import { StreamPopup } from "../cmps/stream-popup"
 import { eventService } from "../services/event.service"
-import { setUpperPopup,setStreamPopup } from "../store/actions/general.actions"
+import { setUpperPopup, setStreamPopup } from "../store/actions/general.actions"
 let options =
 {
   // Pass your App ID here.
@@ -246,6 +246,7 @@ function Creator() {
   prizePool = prizePool * 5
   const width = getWidth(prizePool)
   let Modal = modal === 'start' ? 'Start' : 'End'
+  const timeUntilEvent = getTimeUntil(currentEvent.date)
 
   try {
     return (<>
@@ -266,8 +267,8 @@ function Creator() {
             </div>
             <div className="start">
               {status != "live" ? <>
-                <div className="begin" onClick={() => { hasStarted() ? setModal('start') : dispatch(setUpperPopup('notStarted')) }}>Go Live </div>
-                <div className="end" onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup('notStarted')) }}>End Event</div>
+                <div className="begin" onClick={() => { hasStarted() ? setModal('start') : dispatch(setUpperPopup(timeUntilEvent)) }}>Go Live </div>
+                <div className="end" onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }}>End Event</div>
               </> :
                 <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
             </div>
@@ -287,10 +288,10 @@ function Creator() {
       </div>}
 
       {isMobile && <section className="stream-mobile" >
-      <StreamPopup/>
+        <StreamPopup />
         <section className="left-wrapper">
           <div className="upper">
-            <div onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setStreamPopup('notStarted')) }} className="end-event-mobile">End Event</div>
+            <div onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setStreamPopup(timeUntilEvent)) }} className="end-event-mobile">End Event</div>
             <div className="detail-holder">
               <div>
                 <img src={require('../style/imgs/stream/viewers.png')} />
@@ -307,7 +308,7 @@ function Creator() {
           <div id="agora_local" className="stream-video-mobile" />
           <div className="lower" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
             <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
-            {status != "live" ? <img onClick={() => { hasStarted() ? setModal('start') : dispatch(setStreamPopup('notStarted')) }} src={require('../style/imgs/stream/start.png')} />
+            {status != "live" ? <img onClick={() => { hasStarted() ? setModal('start') : dispatch(setStreamPopup(timeUntilEvent)) }} src={require('../style/imgs/stream/start.png')} />
               : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
             <img className="smaller" src={require('../style/imgs/stream/mute.png')} />
             <img className="smaller" src={require('../style/imgs/stream/settings.png')} />

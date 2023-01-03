@@ -48,3 +48,15 @@ export function getRoute() {
   if (process.env.NODE_ENV === 'production') return 'https://pickmecreators.onrender.com/#/'
   return 'http://localhost:3000/#/'
 }
+
+export function getTimeUntil(date) {
+  const now = new Date()
+  const then = new Date(date)
+  const diff = then - now
+  const days = Math.floor(diff / 1000 / 60 / 60 / 24)
+  const hours = Math.floor(diff / 1000 / 60 / 60) % 24
+  const minutes = Math.floor(diff / 1000 / 60) % 60
+  if (days > 0) return `${days} Days`
+  else if (hours >= 1) return `${hours} Hours`
+  else return `${minutes} Minutes`
+}
