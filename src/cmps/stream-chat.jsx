@@ -12,15 +12,17 @@ const joinRoom = (username, roomName) => {
     }
 }
 
-const StreamChat = ({ eventName, mobile, zIndex }) => {
+const StreamChat = ({ eventName, mobile, zIndex, end }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
-    // dispatch
     const dispatch = useDispatch()
-    useEffect(() => {
 
+    useEffect(() => {
+        if(end) {
+            console.log('recieve end')
+            socket.emit('end-event')
+        }
         return () => {
-            // stop listen to message
             socket.off("message");
         }
     }, [socket])
@@ -31,7 +33,6 @@ const StreamChat = ({ eventName, mobile, zIndex }) => {
         for (let i = 0; i < 1; i++) {
             randomColor = colors[username.charCodeAt(i) % colors.length];
         }
-
     }
 
     const user = useSelector((state) => state.user)
@@ -50,7 +51,7 @@ const StreamChat = ({ eventName, mobile, zIndex }) => {
         if (ev.key === "Enter") {
             sendMessage();
         }
-    };
+    }
 
     joinRoom(nickName, eventName);
     socket.on('message', (message) => {
