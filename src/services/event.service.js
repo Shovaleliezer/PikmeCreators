@@ -20,6 +20,7 @@ async function deleteEvent(id) {
     const confirm = await httpService.post('handle-event/delete-unapproved-event/'+id)
     return confirm
 }
+
 async function endEvent(id) {
     const end = await httpService.post('handle-event/end-event/'+id)
     return end
