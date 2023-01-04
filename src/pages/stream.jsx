@@ -48,6 +48,7 @@ function Creator() {
   const navigate = useNavigate()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
+  const [isEnd,setIsEnd] = useState(false)
   const [status, setStatus] = useState("not-live")
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
@@ -77,9 +78,8 @@ function Creator() {
   }, [])
   const endEvent = async () => {
     try {
-      //await eventService.endEvent(currentEvent._id)
-      socket.emit('end-event')
-      //navigate('/')
+      await eventService.endEvent(currentEvent._id)
+      setIsEnd(true)
     }
     catch {
       console.log('something went wrong')
@@ -217,18 +217,14 @@ function Creator() {
 
   let stopStream = async (client) => {
     if (channelParameters.localAudioTrack) {
-      client.unpublish();
+      client.unpublish()
       setStatus("not-live")
-
     }
-
   }
 
   const hasStarted = () => {
     return (new Date(currentEvent.date).getTime() - Date.now() <= 0)
   }
-
-
 
   const getWidth = (money) => {
     let width = 162
@@ -287,7 +283,7 @@ function Creator() {
             </div>
           </div>
         </div>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} />
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd}/>
       </div>}
 
       {isMobile && <section className="stream-mobile" >
@@ -317,7 +313,7 @@ function Creator() {
             <img className="smaller" src={require('../style/imgs/stream/settings.png')} />
           </div>
         </section>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} />
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd}/>
       </section>
       }
 
