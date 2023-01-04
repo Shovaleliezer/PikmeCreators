@@ -8,7 +8,8 @@ export const userService = {
     checkIsCreator,
     addCreator,
     editCreator,
-    getStreamTokenClient
+    getStreamTokenClient,
+    deleteCreatorEvent
 }
 window.cs = userService
 
@@ -39,15 +40,20 @@ async function checkIsCreator(address) {
 }
 
 async function addCreator(address, creator) {
-    const newCreator = await httpService.post('handle-creator/add-creator/' + address,creator)
+    const newCreator = await httpService.post('handle-creator/add-creator/' + address, creator)
     return newCreator
 }
 
+async function deleteCreatorEvent(eventId, creatorAddress) {
+    const confirm = await httpService.post('handle-creator/remove-creator-events/' + creatorAddress, { eventId })
+    return confirm
+}
+
 async function editCreator(address, creator) {
-    const newCreator = await httpService.post('handle-creator/update-info/' + address,creator)
+    const newCreator = await httpService.post('handle-creator/update-info/' + address, creator)
     return newCreator
 }
-async function getStreamTokenClient({uid, role, channel}) {
+async function getStreamTokenClient({ uid, role, channel }) {
     const token = await httpService.get(`rtc/${channel}/${role}/uid/${uid}`)
     return token
 }   

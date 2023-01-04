@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
 import { formatDateHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
+import { userService } from '../services/userService'
 export function EventCard({ ev, creator }) {
 
     const dispatch = useDispatch()
@@ -15,9 +16,15 @@ export function EventCard({ ev, creator }) {
         dispatch(setUpperPopup('copied'))
     }
 
-    const deleteEvent = async () => {
-        const confirm = await eventService.deleteEvent(ev._id)
-        if (confirm) window.location.reload()
+    const deleteEvent = async (local) => {
+        try {
+            let confirm = local ? await userService.deleteCreatorEvent(ev._id, creator.walletAddress) : await eventService.deleteEvent(ev._id)
+            if (confirm) window.location.reload()
+        }
+        catch {
+            dispatch(setUpperPopup('errorDelete'))
+        }
+
     }
 
     const openEdit = () => {
@@ -39,7 +46,8 @@ export function EventCard({ ev, creator }) {
                         <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
                         <p onClick={() => { copy('clients') }}>Share</p>
                     </>}
-                    <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                    {ev.over && <p onClick={() => deleteEvent(true)}>Delete</p>}
+                    {/* <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p> */}
                 </div>
             </div>
             <div className="event-inner">
@@ -61,12 +69,12 @@ export function EventCard({ ev, creator }) {
             </div>
         </div>
         {isOpen && <div className="simple-popup">
-            <img src={require('../style/imgs/error.png')}/>
+            <img src={require('../style/imgs/error.png')} />
             <h1>Delete the event?</h1>
             <p>This action cannot be undone. are you sure you want to delete the event?</p>
             <div className='buttons-wrapper'>
-                <div className='bolder' onClick={()=>setIsOpen(false)}>Cancel</div>
-                <div className='lighter' onClick={deleteEvent}>Delete</div>
+                <div className='bolder' onClick={() => setIsOpen(false)}>Cancel</div>
+                <div className='lighter' onClick={() => deleteEvent(false)}>Delete</div>
             </div>
 
         </div>}
