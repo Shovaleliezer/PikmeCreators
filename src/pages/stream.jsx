@@ -14,6 +14,8 @@ import { NavLink } from 'react-router-dom'
 import { StreamPopup } from "../cmps/stream-popup"
 import { eventService } from "../services/event.service"
 import { setUpperPopup, setStreamPopup } from "../store/actions/general.actions"
+import { io } from "socket.io-client"
+const socket = io.connect('https://pikmeserver.herokuapp.com')
 let options =
 {
   // Pass your App ID here.
@@ -76,6 +78,7 @@ function Creator() {
   const endEvent = async () => {
     try {
       await eventService.endEvent(currentEvent._id)
+      socket.emit('end-event')
       navigate('/')
     }
     catch {
