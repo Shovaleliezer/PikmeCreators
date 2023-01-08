@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import { setIsConnected, setCreator, setAddress, resetState } from './store/reducers/userReducer'
 import { resetGeneralState } from './store/actions/general.actions'
+import { setStreamPhase } from './store/actions/tutorial.actions'
 import { userService } from './services/userService'
 import { useEffect } from "react"
 //pages
@@ -69,7 +70,7 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        <button className='reset' onClick={()=>{dispatch(resetGeneralState());dispatch(resetState());localStorage.clear()}}>RESET</button>
+        <button className='reset' onClick={()=>{dispatch(resetGeneralState());dispatch(resetState());dispatch(setStreamPhase(4))}}>RESET</button>
         <Footer />
       </div>
       <Menu mode={mode} />

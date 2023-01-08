@@ -152,9 +152,10 @@
                 font-size: 18px;
             } 
             .copy{
-                width: 100% !important;
+                width: 90% !important;
                 span{
                     font-size: 16px !important;
+                    word-break: break-all;
                 }
                 img{
                     width: 16px !important;
