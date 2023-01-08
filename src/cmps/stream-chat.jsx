@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { io } from "socket.io-client"
 import { setViewers } from '../store/actions/general.actions'
-const socket = io.connect('http://localhost:3030')
+const socket = io.connect('https://pikmeserver.herokuapp.com')
 const colors = [
     "blue", "cyan", "magenta", "lime", "maroon", "navy", "olive", "teal", "violet", "silver", "gold", "indigo", "coral", "crimson", "fuchsia", "khaki", "lavender", "plum", "turquoise", "wheat", "beige", "azure", "aliceblue", "antiquewhite", "aquamarine", "bisque", "blanchedalmond", "blueviolet", "burlywood", "cadetblue", "chartreuse", "chocolate", "cornflowerblue", "cornsilk", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "gainsboro", "ghostwhite", "gold", "goldenrod", "greenyellow", "honeydew", "hotpink", "indianred", "ivory", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "limegreen", "linen", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "oldlace", "ol"];
 const joinRoom = (username, roomName) => {
@@ -16,12 +16,13 @@ const StreamChat = ({ eventName, mobile, zIndex, end }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
     const dispatch = useDispatch()
-
+    console.log('bb end', end)
+    if(end) {
+        console.log('bb recieve end')
+        socket.emit('end-event')
+    }
     useEffect(() => {
-        if(end) {
-            console.log('recieve end')
-            socket.emit('end-event')
-        }
+ 
         return () => {
             socket.off("message");
         }

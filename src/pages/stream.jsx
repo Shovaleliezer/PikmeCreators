@@ -14,8 +14,7 @@ import { NavLink } from 'react-router-dom'
 import { StreamPopup } from "../cmps/stream-popup"
 import { eventService } from "../services/event.service"
 import { setUpperPopup, setStreamPopup } from "../store/actions/general.actions"
-import { io } from "socket.io-client"
-const socket = io.connect('http://localhost:3030');
+
 let options =
 {
   // Pass your App ID here.
@@ -219,6 +218,7 @@ function Creator() {
     if (channelParameters.localAudioTrack) {
       client.unpublish()
       setStatus("not-live")
+      setIsEnd(true)
     }
   }
 
