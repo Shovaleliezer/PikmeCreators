@@ -16,9 +16,9 @@ const StreamChat = ({ eventName, mobile, zIndex, end }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
     const dispatch = useDispatch()
-    console.log('bb end', end)
+   
     if(end) {
-        console.log('bb recieve end')
+      
         socket.emit('end-event')
     }
     useEffect(() => {
