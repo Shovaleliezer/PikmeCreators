@@ -25,9 +25,7 @@ export function Home() {
         if (address) {
             handleCreatorAddress(address)
         }
-        // if (ethereum && ethereum.networkVersion !== '56') {
-        //     dispatch(setPopup('network'))
-        // }
+        window.scrollTo(0, 0)
     }, [address])
 
     const handleCreatorAddress = async (address) => {
