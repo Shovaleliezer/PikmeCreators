@@ -40,12 +40,12 @@ export function Header(props) {
 
             </div>}
             {(isMobile && !location.pathname.includes('stream-control')) && <>
-                <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
+                <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '5' }}>
                     <span className="material-symbols-outlined menu-icon hidden">menu</span>
                     <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
                 </div>
-                <nav className={`footer-mobile ${props.mode.type}`}>
+                <nav className={`footer-mobile ${props.mode.type}`} style={{zIndex : registerPhase===2? '1001' : '1'}}>
                     <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
                     {(user && user.creator) && <img src={require('../style/imgs/create.png')} onClick={() => setIsMenuOpen(!isMenuOpen)} />}
                     <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>

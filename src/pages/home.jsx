@@ -52,6 +52,7 @@ export function Home() {
             setLocalCreator(false)
         }
     }
+    return <Register/>
 
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='home' handleCreatorAddress={handleCreatorAddress} />

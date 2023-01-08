@@ -131,7 +131,7 @@
 }
 
 .t-down,
-.t-down-right {
+.t-down-right,.t-down-mid {
     width: 590px;
 
     .continue-wrapper {
@@ -142,6 +142,10 @@
 
 .t-down {
     background-image: url("../imgs/tutorial/popup-down.png");
+}
+
+.t-down-mid{
+    background-image: url("../imgs/tutorial/popup-down-mid.png");
 }
 
 .t-down-right {
@@ -438,7 +442,8 @@
 
     .t-down,
     .t-info,
-    .t-down-right {
+    .t-down-right,
+    .t-down-mid {
         bottom: 35px;
         padding-right: 30px;
     }

@@ -6,7 +6,7 @@ export function TutorialRegister() {
     const { registerPhase } = useSelector((storeState) => storeState.tutorialModule)
 
     const getStyle = () => {
-        if (window.innerWidth < 700) return { top: '220px', left: '50%' }
+        if (window.innerWidth < 930) return { bottom: '-100px', left: '50%', top: 'unset' }
         else return { top: '320px', left: (window.innerWidth - 320) + 'px' }
     }
 
@@ -14,7 +14,7 @@ export function TutorialRegister() {
 
     if (registerPhase === 2) return <>
         <div className="screen-tutorial" />
-        <div className='tutorial-specific t-up' style={getStyle()}>
+        <div className={`tutorial-specific ${window.innerWidth < 930 ? 't-down-mid' : 't-up'}`} style={getStyle()}>
             <div className="specific-inner">
                 <h1>Create & Join</h1>
                 <p>Here you can create new event or join an existing one.</p>

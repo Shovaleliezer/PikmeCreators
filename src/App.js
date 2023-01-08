@@ -2,8 +2,6 @@ import './style/main.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import { setIsConnected, setCreator, setAddress, resetState } from './store/reducers/userReducer'
-import { resetGeneralState } from './store/actions/general.actions'
-import { setStreamPhase } from './store/actions/tutorial.actions'
 import { userService } from './services/userService'
 import { useEffect } from "react"
 //pages
@@ -24,6 +22,10 @@ import { TutorialRegister } from './cmps/tutorial-register'
 import { TutorialHome } from './cmps/tutorial-home'
 import { TutorialCreate } from './cmps/tutorial-create'
 import { TutorialStream } from './cmps/tutorial-stream'
+
+//debug
+import { resetGeneralState } from './store/actions/general.actions'
+import { setStreamPhase,setRegisterPhase} from './store/actions/tutorial.actions'
 
 
 function App() {
@@ -70,7 +72,8 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        <button className='reset' onClick={()=>{dispatch(resetGeneralState());dispatch(resetState());dispatch(setStreamPhase(4))}}>RESET</button>
+        {/* <button className='reset' onClick={()=>{dispatch(resetGeneralState());dispatch(resetState());dispatch(setStreamPhase(4))}}>RESET</button> */}
+        <button className='reset' onClick={()=>{dispatch(setRegisterPhase(1))}}>DEBUG</button>
         <Footer />
       </div>
       <Menu mode={mode} />
