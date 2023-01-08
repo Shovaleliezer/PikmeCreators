@@ -69,7 +69,7 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        <button className='reset' onClick={()=>dispatch(resetGeneralState())}>RESET</button>
+        <button className='reset' onClick={()=>{dispatch(resetGeneralState());dispatch(resetState());localStorage.clear()}}>RESET</button>
         <Footer />
       </div>
       <Menu mode={mode} />

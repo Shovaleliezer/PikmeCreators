@@ -13,7 +13,7 @@ export function Header(props) {
 
     return (
         <>
-            {!isMobile && <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
+            {!isMobile && <div className="header noselect" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
                 <div className="options-bar">
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
                     <NavLink to='/profile'>
