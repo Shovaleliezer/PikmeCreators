@@ -5,7 +5,6 @@ import AgoraRTC from "agora-rtc-sdk-ng"
 // import user selector from redux
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
@@ -46,7 +45,7 @@ function Creator() {
   const dispatch = useDispatch()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
-  const [isEnd,setIsEnd] = useState(false)
+  const [isEnd, setIsEnd] = useState(false)
   const [status, setStatus] = useState("not-live")
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
@@ -200,8 +199,6 @@ function Creator() {
         await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
         setStatus("live")
       }
-
-
     }
     else {
       if (channelParameters.localVideoTrack && channelParameters.localAudioTrack) {
@@ -217,7 +214,6 @@ function Creator() {
     if (channelParameters.localAudioTrack) {
       client.unpublish()
       setStatus("not-live")
-      
     }
   }
 
@@ -282,7 +278,7 @@ function Creator() {
             </div>
           </div>
         </div>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd}/>
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} />
       </div>}
 
       {isMobile && <section className="stream-mobile" >
@@ -312,7 +308,7 @@ function Creator() {
             <img className="smaller" src={require('../style/imgs/stream/settings.png')} />
           </div>
         </section>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd}/>
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} />
       </section>
       }
 
