@@ -14,8 +14,7 @@ import { NavLink } from 'react-router-dom'
 import { StreamPopup } from "../cmps/stream-popup"
 import { eventService } from "../services/event.service"
 import { setUpperPopup, setStreamPopup } from "../store/actions/general.actions"
-import { io } from "socket.io-client"
-const socket = io.connect('https://pikmeserver.herokuapp.com')
+
 let options =
 {
   // Pass your App ID here.
@@ -45,7 +44,6 @@ let channelParameters =
 
 function Creator() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const [isEnd,setIsEnd] = useState(false)
