@@ -26,6 +26,7 @@ export function Profile() {
         else {
             navigate('/')
         }
+        window.scrollTo(0, 0)
     }, [])
 
     const save = async () => {
