@@ -25,6 +25,7 @@ export function UpperPopup() {
             {upperPopup === 'socialUnsupported' && <p>you may enter only tiktok,instagram,twitter or youtube links</p>}
             {upperPopup === 'errorCreate' && <p>something went wrong... could not create event.</p>}
             {upperPopup === 'errorDelete' && <p>something went wrong... could not delete event.</p>}
+            {upperPopup==='choose' && <p>Please complete all the fields</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
         </section>
     )

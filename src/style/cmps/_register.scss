@@ -7,6 +7,10 @@
         font-size: 40px;
     }
 
+    .phase1{
+        width: min-content;
+    }
+
     form {
         @include flex(18px, flex-start, flex-start, column);
 
@@ -30,7 +34,9 @@
 
             .upload-img {
                 width: 100%;
+                overflow: hidden;
                 border: 2px solid $bright-back;
+                word-wrap: break-word;
                 @include flex(0, center, center);
                 border-radius: 10px;
                 cursor: pointer;

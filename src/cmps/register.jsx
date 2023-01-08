@@ -28,7 +28,7 @@ export function Register() {
         experience: '',
         socialLink: ''
     })
-    const [img, setImg] = useState({ category: 'gaming', game: 'valorant' })
+    const [img, setImg] = useState({ category: 'choose', game: 'choose' })
     const [category, setCategory] = useState('gaming')
     const [isLoader, setIsLoader] = useState(false)
     const [file, setFile] = useState(null)
@@ -80,6 +80,12 @@ export function Register() {
 
     const completePhase2 = (e) => {
         e.preventDefault()
+        const opt = [categoryRef.current.value, gameRef.current.value, regionRef.current.value, topAchivementRef.current.value]
+        if (opt.some(val => val === 'choose')) {
+            dispatch(setUpperPopup('choose'))
+            return
+        }
+
         setCreatorDetails({
             ...creatorDetails, category: categoryRef.current.value, proficiencyGame: gameRef.current.value,
             region: regionRef.current.value, topAchievement: topAchivementRef.current.value
@@ -106,6 +112,11 @@ export function Register() {
                 return
             }
         }
+        if(statusRef.current.value === 'choose' || experienceRef.current.value === 'choose') {
+            dispatch(setUpperPopup('choose'))
+            return
+        }
+
         setCreatorDetails({
             ...creatorDetails, status: statusRef.current.value, experience: experienceRef.current.value,
             socialLink: link
@@ -116,6 +127,7 @@ export function Register() {
         const { name, value } = e.target
         if (name === 'category') {
             if (value === 'gaming') setImg({ category: 'gaming', game: 'valorant' })
+            else if (value === 'choose') setImg({ category: 'choose', game: 'choose' })
             else setImg({ category: 'sports', game: 'table-tennis' })
             setCategory(value)
         }
@@ -149,37 +161,49 @@ export function Register() {
                         <h3>Category</h3>
                         <div className='select-wrapper'>
                             <img src={require(`../style/imgs/register/${img.category}.png`)} />
-                            <select ref={categoryRef} onClick={handleImg} name='category'>
+                            <select ref={categoryRef} onClick={handleImg} name='category' style={{ opacity: (!categoryRef.current || categoryRef.current.value === 'choose') ? 0.7 : 1 }}>
+                                <option value='choose'>Choose</option>
                                 <option value="gaming">Gaming</option>
                                 <option value="sports">Sports</option>
                             </select>
                         </div>
                     </div>
-                    {category === 'gaming' ? <div className='h3-wrapper'>
+                    {category === 'gaming' && <div className='h3-wrapper'>
                         <h3>Game</h3>
                         <div className='select-wrapper'>
                             <img src={require(`../style/imgs/register/${img.game}.png`)} />
-                            <select ref={gameRef} onClick={handleImg} name='game'>
+                            <select ref={gameRef} onClick={handleImg} name='game' style={{ opacity: (!gameRef.current || gameRef.current.value === 'choose') ? 0.7 : 1 }}>
+                                <option value="choose">Choose</option>
                                 <option value="valorant">Valorant</option>
                                 <option value="fifa">Fifa</option>
                             </select>
                         </div>
-                    </div> :
-                        <div className='h3-wrapper'>
-                            <h3>sport type</h3>
-                            <div className='select-wrapper'>
-                                <img src={require(`../style/imgs/register/${img.game}.png`)} />
-                                <select ref={gameRef} onClick={handleImg} name='game'>
-                                    <option value="table-tennis">Table tennis</option>
-                                    <option value="poker">Poker</option>
-                                </select>
-                            </div>
-                        </div>}
+                    </div>}
+                    {category === 'sports' && <div className='h3-wrapper'>
+                        <h3>sport type</h3>
+                        <div className='select-wrapper'>
+                            <img src={require(`../style/imgs/register/${img.game}.png`)} />
+                            <select ref={gameRef} onClick={handleImg} name='game' style={{ opacity: (!gameRef.current || gameRef.current.value === 'choose') ? 0.7 : 1 }}>
+                                <option value="table-tennis">Table tennis</option>
+                                <option value="poker">Poker</option>
+                            </select>
+                        </div>
+                    </div>}
+                    {category === 'choose' && <div className='h3-wrapper'>
+                        <h3>Game</h3>
+                        <div className='select-wrapper'>
+                            <img src={require(`../style/imgs/register/choose.png`)} />
+                            <select ref={gameRef} onClick={handleImg} name='game' style={{ opacity: (!gameRef.current || gameRef.current.value === 'choose') ? 0.7 : 1 }}>
+                                <option value="choose">Choose</option>
+                            </select>
+                        </div>
+                    </div>}
                     <div className='h3-wrapper'>
                         <h3>Region</h3>
                         <div className='select-wrapper'>
                             <img src={require('../style/imgs/register/region.png')} />
-                            <select ref={regionRef}>
+                            <select ref={regionRef} >
+                                <option value="choose">Choose</option>
                                 <option value="europe">Europe</option>
                                 <option value="asia">Asia</option>
                                 <option value="south america">South america</option>
@@ -193,22 +217,23 @@ export function Register() {
                         <div className='select-wrapper'>
                             <img src={require('../style/imgs/register/achievement.png')} />
                             <select ref={topAchivementRef}>
-                                <option value="1st">1st in the world</option>
-                                <option value="2nd">2nd in the world</option>
-                                <option value="3rd">3rd in the world</option>
-                                <option value="top 10 world">Top 10 world</option>
-                                <option value="top 100 world">Top 100 world</option>
+                                <option value="choose">Choose</option>
+                                <option value="skilled player">Skilled player</option>
+                                <option value="coach">Coach</option>
+                                <option value="top 500">Top 500 </option>
                                 <option value="1st region">1st in region</option>
                                 <option value="top 10 region">Top 10 region</option>
                                 <option value="top 100 region">Top 100 region</option>
                                 <option value="1st country">1st in country</option>
                                 <option value="top 10 country">Top 10 country</option>
                                 <option value="top 100 country">Top 100 country</option>
-                                <option value="top 500">Top 500 </option>
                                 <option value="local champion">Local champion</option>
                                 <option value="highest rank">Highest rank</option>
-                                <option value="skilled player">Skilled player</option>
-                                <option value="coach">Coach</option>
+                                <option value="top 10 world">Top 10 world</option>
+                                <option value="top 100 world">Top 100 world</option>
+                                <option value="1st">1st in the world</option>
+                                <option value="2nd">2nd in the world</option>
+                                <option value="3rd">3rd in the world</option>
                             </select>
                         </div>
                     </div>
@@ -223,6 +248,7 @@ export function Register() {
                     <h3>Status</h3>
                     <div className='select-wrapper'>
                         <select ref={statusRef}>
+                            <option value="choose">Choose</option>
                             <option value="gaming influencer">Gaming influencer</option>
                             <option value="streamer">Streamer</option>
                             <option value="pro player">Pro player</option>
@@ -233,6 +259,7 @@ export function Register() {
                     <h3>Experience from</h3>
                     <div className='select-wrapper'>
                         <select ref={experienceRef}>
+                            <option value="choose">Choose</option>
                             {years.map(year => <option key={year} value={year}>{year}</option>)}
                         </select>
                     </div>
