@@ -52,7 +52,7 @@ export function Home() {
             setLocalCreator(false)
         }
     }
-    return <Register />
+    // return <Register />
     if (!ethereum) return <ExtensionConnect />
     if (!isConnected) return <WalletConnect from='home' handleCreatorAddress={handleCreatorAddress} />
     if (creator === 'loading') return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
