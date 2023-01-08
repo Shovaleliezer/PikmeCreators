@@ -218,7 +218,7 @@ function Creator() {
     if (channelParameters.localAudioTrack) {
       client.unpublish()
       setStatus("not-live")
-      setIsEnd(true)
+      
     }
   }
 
