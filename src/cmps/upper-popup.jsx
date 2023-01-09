@@ -19,6 +19,8 @@ export function UpperPopup() {
 
     return (
         <section className='upper-popup'>
+            {upperPopup === 'errorServer' && <p>something went wrong... please try again later.</p>}
+            {upperPopup === 'errorCode' && <p>Code is incorrect, please enter a valid one.</p>}
             {upperPopup === 'copied' && <p>Link Copied!</p>}
             {upperPopup === 'copied-address' && <p>Address Copied!</p>}
             {upperPopup === 'socialError' && <p>Link broken!</p>}

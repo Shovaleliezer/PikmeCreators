@@ -9,7 +9,9 @@ export const userService = {
     addCreator,
     editCreator,
     getStreamTokenClient,
-    deleteCreatorEvent
+    deleteCreatorEvent,
+    validateOTP,
+    sendOTP,
 }
 window.cs = userService
 
@@ -53,7 +55,26 @@ async function editCreator(address, creator) {
     const newCreator = await httpService.post('handle-creator/update-info/' + address, creator)
     return newCreator
 }
+
 async function getStreamTokenClient({ uid, role, channel }) {
     const token = await httpService.get(`rtc/${channel}/${role}/uid/${uid}`)
     return token
-}   
+}
+
+async function sendOTP(phone) {
+    try {
+        await httpService.post('handle-creator/send-otp', { phone })
+    } catch (err) {
+        return err
+    }
+}
+
+async function validateOTP(phone,otp) {
+    try {
+        const creator = await httpService.post('handle-creator/get-creator/' + phone,{otp})
+        return creator
+    }
+    catch (err) {
+        return err
+    }
+}

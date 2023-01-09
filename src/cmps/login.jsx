@@ -1,8 +1,12 @@
 import { useState, useRef } from "react"
-import { Error } from "./error"
+import { useDispatch } from "react-redux"
+import { userService } from "../services/userService"
+import { setUpperPopup } from "../store/actions/general.actions"
+import { Error } from "../pages/error"
 import { countryList } from "../services/phone.service"
 
-export function Login() {
+export function Login(props) {
+    const dispatch = useDispatch()
     const [phone, setPhone] = useState(null)
     const [code, setCode] = useState({
         0: '',
@@ -15,11 +19,23 @@ export function Login() {
     const countryRef = useRef()
     const phoneRef = useRef()
 
-    const handlePhone = (ev) => {
+    const handlePhone = async (ev) => {
         ev.preventDefault()
-        const countryCode = countryRef.current.value
-        const phone = phoneRef.current.value
-        setPhone('+' + countryCode + '-' + phone)
+        const formatted = '+' + countryRef.current.value + '-' + phoneRef.current.value
+        try {
+            const confirm = await userService.sendOTP(formatted)
+            if (confirm) setPhone(formatted)
+        }
+        catch {
+            dispatch(setUpperPopup('errorServer'))
+        } 
+    }
+
+    const submitCode = async (ev) => {
+        ev.preventDefault()
+        const formatted = code[0] + code[1] + code[2] + code[3] + code[4] + code[5]
+        props.handleCreatorPhone(phone,formatted)
+       
     }
 
     const handleCode = (ev) => {
@@ -31,11 +47,7 @@ export function Login() {
         }
     }
 
-    const submitCode = (ev) => {
-        ev.preventDefault()
-    }
-
-    const arr = [0, 1, 2, 3, 4, 5]
+    const slots = [0, 1, 2, 3, 4, 5]
 
     try {
         return (
@@ -53,12 +65,12 @@ export function Login() {
                     <button>Continue</button>
                 </form>}
                 {phone && <>
-                    <h5 style={{marginBottom:'8px'}}>Enter the code you received to</h5>
-                    <p style={{opacity:'1'}}>{phone}</p>
+                    <h5 style={{ marginBottom: '8px' }}>Enter the code you received to</h5>
+                    <p style={{ opacity: '1' }}>{phone}</p>
                     <form className="code" onSubmit={submitCode}>
-                        {arr.map(num => <input key={num} id={num} type="number" name={num} className="digit" value={code[num]} onChange={handleCode} />)}
+                        {slots.map(num => <input key={num} id={num} type="number" name={num} className="digit" value={code[num]} onChange={handleCode} />)}
                     </form>
-                    <h4 onClick={() => {setPhone(null);setCode({0:'',1:'',2:'',3:'',4:'',5:''})}}><span className="material-symbols-outlined">chevron_left</span>Back</h4>
+                    <h4 onClick={() => { setPhone(null); setCode({ 0: '', 1: '', 2: '', 3: '', 4: '', 5: '' }) }}><span className="material-symbols-outlined">chevron_left</span>Back</h4>
                     <button onClick={submitCode}>Continue</button>
                 </>}
             </section>

@@ -11,7 +11,6 @@ import { Confirm } from './pages/confirm'
 import { Profile } from './pages/profile'
 import Creator from './pages/stream'
 import { Join } from './pages/join'
-import { Login } from './pages/login'
 
 //cmps
 import { Header } from './cmps/header'
@@ -72,7 +71,6 @@ function App() {
             <Route path='/confirm/:id' element={<Confirm />} />
             <Route path='/' element={<Home mode={mode} />} />
             <Route path='/stream-control' element={<Creator channel={channel} type={type} />} />
-            <Route path='/login' element={<Login/>} />
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
