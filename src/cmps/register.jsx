@@ -19,6 +19,7 @@ export function Register() {
     const [phase, setPhase] = useState(1)
     const [creatorDetails, setCreatorDetails] = useState({
         nickName: '',
+        walletAddress:'',
         image: '',
         category: '',
         proficiencyGame: '',
@@ -36,6 +37,7 @@ export function Register() {
 
     const years = getYears()
     const nameRef = useRef()
+    const addressRef = useRef()
     const imgRef = useRef()
     const categoryRef = useRef()
     const gameRef = useRef()
@@ -74,7 +76,7 @@ export function Register() {
         e.preventDefault()
         setIsLoader(true)
         const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
-        setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value })
+        setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value,walletAddress:addressRef.current.value })
         setPhase(2)
     }
 
@@ -143,10 +145,12 @@ export function Register() {
 
     return <section className="register">
         {phase === 1 && <>
-            <h1>Create a Nickname</h1>
+            <h1>personal info</h1>
             <form className='phase1' onSubmit={completePhase1}>
                 <h3>Nickname</h3>
                 <input type="text" placeholder="Enter your nickname" required maxLength={15} ref={nameRef} />
+                <h3>Wallet address</h3>
+                <input type="text" placeholder="crypto wallet address" required ref={addressRef} />
                 <h3>Image</h3>
                 <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{file && file.name}</div></label>
                 <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile} />

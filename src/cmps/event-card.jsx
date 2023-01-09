@@ -47,7 +47,7 @@ export function EventCard({ ev, creator }) {
                         <p onClick={() => { copy('clients') }}>Share</p>
                     </>}
                     {ev.over && <p onClick={() => deleteEvent(true)}>Delete</p>}
-                    {/* <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p> */}
+                    <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
                 </div>
             </div>
             <div className="event-inner">

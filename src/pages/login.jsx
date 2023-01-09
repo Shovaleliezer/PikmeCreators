@@ -33,7 +33,6 @@ export function Login() {
 
     const submitCode = (ev) => {
         ev.preventDefault()
-        console.log(code[0] + code[1] + code[2] + code[3] + code[4] + code[5])
     }
 
     const arr = [0, 1, 2, 3, 4, 5]

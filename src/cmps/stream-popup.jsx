@@ -10,8 +10,6 @@ export function StreamPopup() {
         if (streamPopup) reset()
     }, [streamPopup])
 
-    console.log('dfasdfsdf')
-
     const reset = () => {
         setTimeout(() => { dispatch(setStreamPopup('')) }, 4000)
     }

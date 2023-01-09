@@ -66,7 +66,7 @@ function Creator() {
     }
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
-      initStopOne(client)
+      initStopOne(client,'no-home')
       if (window.innerWidth < 550) {
         const main = document.querySelector('.main-layout')
         main.classList.remove("main-stream")
@@ -92,7 +92,7 @@ function Creator() {
     setClient(AgoraRTC.createClient({ mode: "live", codec: "vp8" }))
   }
 
-  function initStopOne(client) {
+  function initStopOne(client,path) {
     if (channelParameters.localAudioTrack) {
       client.unpublish();
       channelParameters.localVideoTrack.stop();
@@ -111,7 +111,7 @@ function Creator() {
     });
     client.removeAllListeners();
     client.leave();
-    window.location = '/';
+    if(!path)window.location = '/';
   }
 
   const joinRoom = async () => {
@@ -119,16 +119,12 @@ function Creator() {
       //client l
       let uid = String(Math.floor(Math.random() * 10000))
       channel = String(streamInfo._id)
-      console.log("sports channel", channel)
       let token = await userService.getStreamTokenClient({ channel: channel, uid: uid, role: options.role })
-      console.log('token', token)
       options.type = streamInfo.category
       uid = await client.join(APP_ID, channel, token.rtcToken, uid);
       // set client role
       await client.setClientRole(options.role);
-      console.log("test ", client, " ", options.role)
       setCurrentEvent(streamInfo)
-      console.log("join success ", channel);
       streamGaming(client);
     }
 
