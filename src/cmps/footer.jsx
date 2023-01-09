@@ -57,7 +57,7 @@ export function Footer() {
                 </section>
     
                 <section className='footer-bottom'>
-                    <p>®2022 Homeric entertainment</p>
+                <p onClick={()=>window.open('https://homericentertainment.com/', '_blank').focus()}>®2022 Homeric entertainment</p>
                     <div>
                         <p onClick={()=>window.open('https://www.privacypolicyonline.com/live.php?token=J4MpfGXa6se1Ak9047TKVsyJzqtXRHjD', '_blank').focus()}>privacy policy</p>
                         <p onClick={()=>window.open('https://www.privacypolicyonline.com/live.php?token=BSvr42ubTJcEKnEu7WdkM3qMJ7Dozlla', '_blank').focus()}>terms of service</p>
