@@ -45,7 +45,6 @@ export function Home() {
 
             catch {
                 setLocalCreator(false)
-                console.log('could not load creator')
             }
         }
         else {
