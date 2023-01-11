@@ -21,9 +21,9 @@ export function Login(props) {
 
     const handlePhone = async (ev) => {
         ev.preventDefault()
-        const formatted = '+' + countryRef.current.value + '-' + phoneRef.current.value
+        const formatted = countryRef.current.value + phoneRef.current.value
         try {
-            const confirm = await userService.sendOTP(formatted)
+            const confirm = await userService.sendOTP(Number(formatted))
             console.log('ddd',confirm)
             if (!confirm.message) setPhone(formatted)
         }
