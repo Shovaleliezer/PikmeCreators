@@ -5,7 +5,7 @@ const BASE_URL = process.env.NODE_ENV === 'production'
     : 'https://pikmeserver.herokuapp.com/'
 
 var axios = Axios.create({
-    withCredentials: true
+    withCredentials: false
 })
 
 export const httpService = {

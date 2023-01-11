@@ -16,7 +16,6 @@ export function Profile() {
     const [img, setImg] = useState('valorant')
     const [isChanged, setIsChanged] = useState(false)
     const [sent, setSent] = useState(false)
-
     const years = getYears()
 
     useEffect(() => {

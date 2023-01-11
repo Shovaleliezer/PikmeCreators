@@ -24,7 +24,8 @@ export function Login(props) {
         const formatted = '+' + countryRef.current.value + '-' + phoneRef.current.value
         try {
             const confirm = await userService.sendOTP(formatted)
-            if (confirm) setPhone(formatted)
+            console.log('ddd',confirm)
+            if (!confirm.message) setPhone(formatted)
         }
         catch {
             dispatch(setUpperPopup('errorServer'))
@@ -35,7 +36,6 @@ export function Login(props) {
         ev.preventDefault()
         const formatted = code[0] + code[1] + code[2] + code[3] + code[4] + code[5]
         props.handleCreatorPhone(phone,formatted)
-       
     }
 
     const handleCode = (ev) => {
