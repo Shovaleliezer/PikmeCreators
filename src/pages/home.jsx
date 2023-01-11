@@ -5,7 +5,7 @@ import { userService } from "../services/userService"
 import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
 import { Error } from './error'
-import { setAddress, setIsConnected, setPhone,setCreator } from "../store/reducers/userReducer"
+import { setAddress, setIsConnected, setPhone, setCreator } from "../store/reducers/userReducer"
 import { setCallbackLink, setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { setHomePhase } from "../store/actions/tutorial.actions"
 import { Login } from "../cmps/login"
@@ -14,24 +14,20 @@ export function Home() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [creator, setLocalCreator] = useState('loading')
-    const { address, isConnected } = useSelector((state) => state.user)
+    const { isConnected } = useSelector((state) => state.user)
     const { homePhase } = useSelector((state) => state.tutorialModule)
     const { callbackLink } = useSelector((state) => state.generalModule)
-    const {user} = useSelector((state) => state.user)
-    let phone = user? user.phone : null
+    const user = useSelector((state) => state.user)
 
-     useEffect(() => {
-        if (phone) loadCreator()
+    useEffect(() => {
+        loadCreator()
         window.scrollTo(0, 0)
-    }, [phone])
+    }, [])
 
-
-    const loadCreator = async()=>{
-        let creator = ''
-        if(address) creator = await userService.checkIsCreator(address)
-        if (creator) {
+    const loadCreator = async () => {
+        if (user.address) {
             try {
-                const loadedCreator = await userService.addCreator(address, null)
+                const loadedCreator = await userService.addCreator(user.address, null)
                 setLocalCreator(loadedCreator)
             }
 
@@ -39,6 +35,7 @@ export function Home() {
                 setLocalCreator(false)
             }
         }
+
         else {
             setLocalCreator(false)
         }
@@ -46,18 +43,21 @@ export function Home() {
 
     const handleCreatorPhone = async (phone, code) => {
         try {
-            const creator = await userService.validateOTP(phone, code)
-            if (creator === false) {
-                dispatch(setCreator(false))
+            const loadedCreator = await userService.validateOTP(phone, code)
+            if (loadedCreator === false) {
+                dispatch(setIsConnected(true))
+                dispatch(setPhone(phone))
+                setLocalCreator(false)
             }
-            else if (typeof creator === 'string') {
+            else if (typeof loadedCreator === 'string') {
                 dispatch(setUpperPopup('errorCode'))
             }
-            else if (typeof creator === 'object') {
-                dispatch(setCreator(creator))
+            else if (typeof loadedCreator === 'object' && loadedCreator.nickName) {
                 dispatch(setIsConnected(true))
-                dispatch(setAddress(creator.walletAddress))
+                dispatch(setCreator(loadedCreator))
+                dispatch(setAddress(loadedCreator.walletAddress))
                 dispatch(setPhone(phone))
+                setLocalCreator(loadedCreator)
                 if (callbackLink) {
                     navigate(callbackLink)
                     dispatch(setCallbackLink(''))
@@ -69,7 +69,8 @@ export function Home() {
         }
     }
 
-    if(!isConnected) return <Login handleCreatorPhone={handleCreatorPhone}/>
+
+    if (!isConnected) return <Login handleCreatorPhone={handleCreatorPhone} />
     if (creator === 'loading') return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>
     if (!creator) return <Register />
@@ -133,3 +134,4 @@ export function Home() {
 
     // if (!ethereum) return <ExtensionConnect />
     // if (!isConnected) return <WalletConnect from='home' handleCreatorAddress={handleCreatorAddress} />
+

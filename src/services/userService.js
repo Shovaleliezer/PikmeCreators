@@ -51,8 +51,8 @@ async function deleteCreatorEvent(eventId, creatorAddress) {
     return confirm
 }
 
-async function editCreator(address, creator) {
-    const newCreator = await httpService.post('handle-creator/update-info/' + address, creator)
+async function editCreator(phone, creator) {
+    const newCreator = await httpService.post('handle-creator/update-info/' + phone, creator)
     return newCreator
 }
 
@@ -63,15 +63,16 @@ async function getStreamTokenClient({ uid, role, channel }) {
 
 async function sendOTP(phone) {
     try {
-        await httpService.post('handle-creator/send-otp', { phone })
+        const confirm = await httpService.post('handle-creator/send-otp', { phone })
+        return confirm
     } catch (err) {
         return err
     }
 }
 
-async function validateOTP(phone,otp) {
+async function validateOTP(phone, otp) {
     try {
-        const creator = await httpService.post('handle-creator/get-creator/' + phone,{otp})
+        const creator = await httpService.post('handle-creator/get-creator/' + phone, { otp })
         return creator
     }
     catch (err) {

@@ -24,8 +24,7 @@ export function Login(props) {
         const formatted = countryRef.current.value + phoneRef.current.value
         try {
             const confirm = await userService.sendOTP(Number(formatted))
-            console.log(confirm)
-            if (confirm) setPhone(formatted)
+            if (confirm.response) setPhone(formatted)
             else dispatch(setUpperPopup('invalidPhone'))
         }
         catch {
@@ -69,7 +68,7 @@ export function Login(props) {
                     <h5 style={{ marginBottom: '8px' }}>Enter the code you received to</h5>
                     <p style={{ opacity: '1' }}>{phone}</p>
                     <form className="code" onSubmit={submitCode}>
-                        {slots.map(num => <input key={num} id={num} type="number" name={num} className="digit" value={code[num]} onChange={handleCode} />)}
+                        {slots.map(num => <input key={num}  autoFocus={num===0? true : false} id={num} type="number" name={num} className="digit" value={code[num]} onChange={handleCode} />)}
                     </form>
                     <h4 onClick={() => { setPhone(null); setCode({ 0: '', 1: '', 2: '', 3: '', 4: '', 5: '' }) }}><span className="material-symbols-outlined">chevron_left</span>Back</h4>
                     <button onClick={submitCode}>Continue</button>

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { uploadService } from '../services/upload.service.js'
 import { RegisterProgress } from './register-progress.jsx'
 import { getYears } from '../services/utils.js'
-import { setCreator } from '../store/reducers/userReducer.js'
+import { setCreator,setAddress,setIsConnected,setPhone } from '../store/reducers/userReducer.js'
 import { setCallbackLink, setUpperPopup } from '../store/actions/general.actions.js'
 import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
 import { userService } from '../services/userService.js'
@@ -13,13 +13,13 @@ export function Register() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { address } = useSelector((state) => state.user)
+    const { phone } = useSelector((state) => state.user)
     const { callbackLink } = useSelector((state) => state.generalModule)
 
     const [phase, setPhase] = useState(1)
     const [creatorDetails, setCreatorDetails] = useState({
         nickName: '',
-        walletAddress:'',
+        walletAddress: '',
         image: '',
         category: '',
         proficiencyGame: '',
@@ -54,8 +54,13 @@ export function Register() {
     const addCreator = async () => {
         try {
             setSent(true)
-            const newCreator = await userService.addCreator(address, creatorDetails)
+            const newCreator = await userService.editCreator(phone, creatorDetails)
             dispatch(setCreator(newCreator))
+            dispatch(setIsConnected(true))
+            dispatch(setCreator(newCreator))
+            dispatch(setAddress(newCreator.walletAddress))
+            dispatch(setPhone(newCreator.phone))
+
             if (callbackLink) {
                 navigate(callbackLink)
                 dispatch(setCallbackLink(''))
@@ -76,7 +81,7 @@ export function Register() {
         e.preventDefault()
         setIsLoader(true)
         const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
-        setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value,walletAddress:addressRef.current.value })
+        setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value, walletAddress: addressRef.current.value })
         setPhase(2)
     }
 
@@ -114,7 +119,7 @@ export function Register() {
                 return
             }
         }
-        if(statusRef.current.value === 'choose' || experienceRef.current.value === 'choose') {
+        if (statusRef.current.value === 'choose' || experienceRef.current.value === 'choose') {
             dispatch(setUpperPopup('choose'))
             return
         }
