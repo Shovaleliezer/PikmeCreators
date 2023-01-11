@@ -28,11 +28,11 @@ import { TutorialStream } from './cmps/tutorial-stream'
 //debug
 import { resetGeneralState } from './store/actions/general.actions'
 import { setStreamPhase,setRegisterPhase} from './store/actions/tutorial.actions'
+// const ethereum = window.ethereum
 
 
 function App() {
   const { mode, channel, type } = useSelector((storeState) => storeState.generalModule)
-  const ethereum = window.ethereum
   const dispatch = useDispatch()
 
   document.body.classList = [`back-${mode.type}`]
@@ -41,7 +41,6 @@ function App() {
       <div className="app">
         <Header mode={mode} />
         <main className='main-layout'>
-          
           <Routes>
             <Route path='/profile' element={<Profile />} />
             <Route path='/confirm/:id' element={<Confirm />} />
@@ -50,8 +49,7 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        {/* <button className='reset' onClick={()=>{dispatch(resetGeneralState());dispatch(resetState());dispatch(setStreamPhase(4))}}>RESET</button> */}
-        <button className='reset' onClick={()=>{dispatch(setRegisterPhase(1))}}>DEBUG</button>
+        {/* <button className='reset' onClick={()=>{dispatch(setRegisterPhase(1))}}>DEBUG</button> */}
         <Footer />
       </div>
       <Menu mode={mode} />

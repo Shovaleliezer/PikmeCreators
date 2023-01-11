@@ -56,8 +56,6 @@ export function Popup({ mode }) {
                 <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>
             </div>}
 
-            {/* {popup === 'network' && <h1>dasdadasdasd</h1>} */}
-
         </section>
     </>
     )
