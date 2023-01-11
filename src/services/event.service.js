@@ -25,6 +25,7 @@ async function endEvent(id) {
     const end = await httpService.post('handle-event/end-event/'+id)
     return end
 }
+
 async function editEvent(id,event) {
     const newEv = await httpService.post('handle-event/edit-event/' +  id, event)
     return newEv
