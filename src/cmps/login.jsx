@@ -24,7 +24,6 @@ export function Login(props) {
         const formatted = '+' + countryRef.current.value + '-' + phoneRef.current.value
         try {
             const confirm = await userService.sendOTP(formatted)
-            console.log('ddd',confirm)
             if (!confirm.message) setPhone(formatted)
         }
         catch {
