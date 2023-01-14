@@ -51,7 +51,7 @@ export function Header(props) {
                     <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
                     {isMenuOpen && <div className="create-menu">
                         <div onClick={() => { dispatch(setPopup('create')); setIsMenuOpen(false) }}>Create new event</div>
-                        <NavLink to='/join'><div>Join event</div></NavLink>
+                        <NavLink to='/join' onClick={()=>setIsMenuOpen(false)}><div>Join event</div></NavLink>
                     </div>}
                 </nav>
             </>}

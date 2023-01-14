@@ -79,7 +79,7 @@ export function Confirm() {
                     <p>Share with community</p>
                 </div>
                 {isSame ? <div className="same">
-                    <p>You cannot accept an event created by yourself, please send this link to your opponent instead:</p>
+                    <p>You already take part in this event, please send this link to your opponents instead:</p>
                     <div className="copy"><span>{getRoute() + 'confirm/' + event._id.slice(0, 4) + '...'}</span>
                         <img onClick={copy} src={require('../style/imgs/register/address.png')} /></div>
                 </div> :

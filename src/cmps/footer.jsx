@@ -22,7 +22,7 @@ export function Footer() {
     
                     <section className="email">
                         <h3>don't miss the show</h3>
-                        <p>Join our mailing list to get reminders for your events, and nortificitions for new Events that you like.</p>
+                        <p>Join our mailing list to get reminders for your events, and notificitions for new Events that you like.</p>
                         <form onSubmit={onRegisterEmail}>
                             <input name={'user_email'} type='email' placeholder='Enter your email' />
                             <button>Sign Up</button>
