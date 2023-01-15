@@ -61,6 +61,7 @@ function Creator() {
 
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
+    document.body.style.overflow = "hidden"
     if (window.innerWidth < 550) {
       const main = document.querySelector('.main-layout')
       main.classList.add("main-stream")
@@ -68,6 +69,7 @@ function Creator() {
     else if(document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
+      document.body.style.overflow = "auto"
       initStopOne(client,'no-home')
       if (window.innerWidth < 550) {
         const main = document.querySelector('.main-layout')
