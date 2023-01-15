@@ -80,6 +80,12 @@ export function Register() {
     const completePhase1 = async (e) => {
         e.preventDefault()
         setIsLoader(true)
+        const eth = new RegExp(/^0x[a-fA-F0-9]{40}$/)
+        if (!eth.test(addressRef.current.value)) {
+            dispatch(setUpperPopup('invalidAddress'))
+            setIsLoader(false)
+            return
+        }
         const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
         setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value, walletAddress: addressRef.current.value })
         setPhase(2)
@@ -155,7 +161,7 @@ export function Register() {
                 <h3>Nickname</h3>
                 <input type="text" placeholder="Enter your nickname" required maxLength={15} ref={nameRef} />
                 <h3>Wallet address</h3>
-                <input type="text" placeholder="crypto wallet address" required ref={addressRef} />
+                <input type="text" placeholder="Ethereum wallet address" required ref={addressRef} />
                 <h3>Image</h3>
                 <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{file && file.name}</div></label>
                 <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile} />
