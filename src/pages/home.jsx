@@ -19,13 +19,6 @@ export function Home() {
     const { callbackLink } = useSelector((state) => state.generalModule)
     const user = useSelector((state) => state.user)
 
-    if (!window.OTPCredential) {
-        console.log('Feature Not Available');
-      }
-      else{
-        console.log('Feature Available');
-      }
-
     useEffect(() => {
         loadCreator()
         window.scrollTo(0, 0)

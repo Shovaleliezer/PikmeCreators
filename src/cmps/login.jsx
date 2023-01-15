@@ -19,6 +19,23 @@ export function Login(props) {
     const countryRef = useRef()
     const phoneRef = useRef()
 
+    if (window.OTPCredential) { 
+        console.log('feature!')
+        window.addEventListener('DOMContentLoaded', e => {
+          const ac = new AbortController()
+          navigator.credentials.get({
+            otp: { transport:['sms'] },
+            signal: ac.signal
+          }).then(otp => {
+            alert(otp.code)
+          }).catch(err => {
+            console.log(err)
+          });
+        })
+      } else {
+        alert('WebOTP not supported!.')
+      }
+
     useEffect(() => {
         if (Object.values(code).every(val => val !== '')) submitCode(false)
     }, [code])
