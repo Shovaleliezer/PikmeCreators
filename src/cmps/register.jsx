@@ -162,7 +162,7 @@ export function Register() {
                 <input type="text" placeholder="Enter your nickname" required maxLength={15} ref={nameRef} />
                 <h3>Wallet address</h3>
                 <input type="text" placeholder="Ethereum wallet address" required ref={addressRef} />
-                <h3>Image</h3>
+                <h3>Profile Image</h3>
                 <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{file && file.name}</div></label>
                 <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile} />
                 {isLoader && <div className="loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
