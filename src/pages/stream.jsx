@@ -57,7 +57,7 @@ function Creator() {
   const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
   const isMobile = window.innerWidth < 1100
 
-  if (streamPhase === 0) dispatch(setStreamPhase(1))
+  // if (streamPhase === 0) dispatch(sletStreamPhase(1))
 
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
