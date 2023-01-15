@@ -46,7 +46,7 @@ export function TutorialStream() {
     if (streamPhase === 0 || streamPhase > 3) return <></>
 
     if (streamPhase > 1) return <>
-        <div className="screen-tutorial" style={{zIndex:'1'}}/>
+        <div className="screen-tutorial"/>
         <div className={`${isDesktop ? 'tutorial-specific' : 'tutorial-specific-stream'} ${getClass()}`} style={{ top: y, left: x }}>
             <div className="specific-inner">
                 {streamPhase === 2 && <>
@@ -66,7 +66,7 @@ export function TutorialStream() {
     </>
 
     return (<>
-        <div className="screen-tutorial" />
+        <div className="screen-tutorial"/>
         <div className={`buddy-wrapper ${isNarrow ? 'buddy-rotate' : ''}`}>
             <img src={require('../style/imgs/tutorial/buddy-upper.png')} />
             <section className='tutorial-center'>
