@@ -1,9 +1,6 @@
 import './style/main.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
-import { setIsConnected, setCreator, setAddress, resetState } from './store/reducers/userReducer'
-import { userService } from './services/userService'
-import { useEffect } from "react"
 
 //pages
 import { Home } from './pages/home'
@@ -28,7 +25,7 @@ import { TutorialStream } from './cmps/tutorial-stream'
 //debug
 import { resetGeneralState } from './store/actions/general.actions'
 import { setStreamPhase,setRegisterPhase} from './store/actions/tutorial.actions'
-// const ethereum = window.ethereum
+
 
 
 function App() {
@@ -49,7 +46,7 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        <button className='reset' onClick={()=>{dispatch(setStreamPhase(5))}}>DEBUG</button>
+        <button className='reset' onClick={()=>{dispatch(setStreamPhase(0))}}>DEBUG</button>
         <Footer />
       </div>
       <Menu mode={mode} />
@@ -66,7 +63,10 @@ function App() {
 }
 
 export default App;
-
+// import { setIsConnected, setCreator, setAddress, resetState } from './store/reducers/userReducer'
+// import { userService } from './services/userService'
+// import { useEffect } from "react"
+// const ethereum = window.ethereum
 // useEffect(() => {
   //   if (ethereum) {
   //     ethereum.on('accountsChanged', async (accounts) => {

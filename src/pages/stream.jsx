@@ -57,7 +57,7 @@ function Creator() {
   const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
   const isMobile = window.innerWidth < 1100
 
-  // if (streamPhase === 0) dispatch(sletStreamPhase(1))
+  if (streamPhase === 0) dispatch(setStreamPhase(1))
 
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
@@ -65,7 +65,7 @@ function Creator() {
       const main = document.querySelector('.main-layout')
       main.classList.add("main-stream")
     }
-    else document.querySelector('.header').classList.add("non-appear")
+    else if(document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
       initStopOne(client,'no-home')
