@@ -44,7 +44,7 @@ export function TutorialStream() {
     }
 
     if (streamPhase === 0 || streamPhase > 3) return <></>
-
+    
     if (streamPhase > 1) return <>
         <div className="screen-tutorial"/>
         <div className={`${isDesktop ? 'tutorial-specific' : 'tutorial-specific-stream'} ${getClass()}`} style={{ top: y, left: x }}>

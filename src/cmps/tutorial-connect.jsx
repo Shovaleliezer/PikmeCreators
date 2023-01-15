@@ -5,8 +5,7 @@ export function TutorialConnect() {
     const dispatch = useDispatch()
     const {connectPhase} = useSelector(state => state.tutorialModule)
 
-    if(connectPhase !== 1) return <></>
-
+    if(connectPhase !== 1)return <></>
     return (<>
         <div className="screen-tutorial" />
         <div className="buddy-wrapper buddy-connect">
