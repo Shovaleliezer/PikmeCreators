@@ -19,6 +19,7 @@ export function StreamPopup() {
     return (
         <section className='stream-popup'>
             {numbers.some(num => num === streamPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {streamPopup}</p>}
+            <p>{streamPopup}</p>
         </section>
     )
 }
