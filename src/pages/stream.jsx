@@ -65,7 +65,6 @@ function Creator() {
     if (window.innerWidth < 550) {
       const main = document.querySelector('.main-layout')
       main.classList.add("main-stream")
-      document.body.addEventListener('touchstart', function(e){ e.preventDefault()})
     }
     else if(document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
     return () => {
@@ -73,7 +72,6 @@ function Creator() {
       document.body.style.overflow = "auto"
       initStopOne(client,'no-home')
       if (window.innerWidth < 550) {
-        document.body.removeEventListener('touchstart', function(e){ e.preventDefault()})
         const main = document.querySelector('.main-layout')
         main.classList.remove("main-stream")
       }
