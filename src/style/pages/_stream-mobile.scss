@@ -76,9 +76,8 @@
     .stream-mobile {
         height: 98vw;
         width: 80vh !important;
-        // width: max-content;
         margin: 0;
-        transform: rotate(90deg) translate(26%, 0);
+        transform: rotate(90deg);
 
         .left-wrapper {
             width: 66vh;
@@ -103,5 +102,5 @@
 .main-stream {
     margin: 0 !important;
     height: 100vh;
-    @include flex(0, center, flex-start);
+    @include flex(0, center, center);
 }
