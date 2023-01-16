@@ -81,7 +81,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end }) => {
     return (<>
         {(mobile && !showChat) ?
             <div className="chat-bar-mobile" style={{ zIndex }}>
-                <span className="material-symbols-outlined">settings</span>
+                <span className="material-symbols-outlined" >settings</span>
                 <p>Live chat</p>
                 <span onClick={() => setShowChat(true)} className="material-symbols-outlined">expand_less</span>
             </div> :
@@ -90,7 +90,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end }) => {
                     <h1>Live chat</h1>
                 </div>
 
-                <div id="body-text" className="body-text">
+                <div id="body-text" className="body-text" >
                     {messages.map((message, index) => {
                         return (
                             <div key={index} className="message-div">

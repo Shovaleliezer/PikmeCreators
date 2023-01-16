@@ -6,6 +6,7 @@ import AgoraRTC from "agora-rtc-sdk-ng"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
+import { setHeader } from "../store/actions/general.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
 import { makeCommas, getTimeUntil } from '../services/utils'
@@ -60,19 +61,28 @@ function Creator() {
 
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
+    document.body.style.overflow = "hidden"
     if (window.innerWidth < 550) {
       const main = document.querySelector('.main-layout')
       main.classList.add("main-stream")
     }
+    else if(document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
+      document.body.style.overflow = "auto"
       initStopOne(client,'no-home')
       if (window.innerWidth < 550) {
         const main = document.querySelector('.main-layout')
         main.classList.remove("main-stream")
       }
+      document.querySelector('.header').classList.remove("non-appear")
     }
   }, [])
+
+  useEffect(() => {
+    joinRoom();
+  }, [client])
+
   const endEvent = async () => {
     try {
       await eventService.endEvent(currentEvent._id)
@@ -83,10 +93,6 @@ function Creator() {
     }
     return () => dispatch(setStreamPhase(0))
   }
-
-  useEffect(() => {
-    joinRoom();
-  }, [client])
 
   if (!client) {
     setClient(AgoraRTC.createClient({ mode: "live", codec: "vp8" }))

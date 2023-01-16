@@ -5,7 +5,7 @@ export function makeCommas(price) {
 }
 
 export function getDateName(date) {
-  const monthNames = ["JAN", "FEB", "MAR", "ApR", "MAY", "JUN",
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
     "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
   return (monthNames[+date.slice(5, 7) - 1] + ' ' + date.slice(8, 10))

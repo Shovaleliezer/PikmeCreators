@@ -5,7 +5,7 @@
     width: fit-content;
     margin: auto;
 
-    p{
+    p {
         color: white;
     }
 
@@ -44,7 +44,8 @@
         color: $main;
         display: flex;
         cursor: pointer;
-        span{
+
+        span {
             color: white;
         }
     }
@@ -168,6 +169,16 @@
             width: 160px;
             font-size: 24px;
             margin-top: 40px;
+        }
+
+        .code {
+
+            .digit {
+                width: 50px;
+                text-align: center;
+                font-size: 20px;
+                padding: 0;
+            }
         }
     }
 }

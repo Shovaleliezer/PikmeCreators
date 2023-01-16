@@ -75,9 +75,9 @@
 @media (max-width: 550px) {
     .stream-mobile {
         height: 98vw;
-        width: max-content;
+        width: 80vh !important;
         margin: 0;
-        transform: rotate(90deg) translate(25%, 0);
+        transform: rotate(90deg);
 
         .left-wrapper {
             width: 66vh;
@@ -102,5 +102,5 @@
 .main-stream {
     margin: 0 !important;
     height: 100vh;
-    @include flex(0, center, flex-start);
+    @include flex(0, center, center);
 }

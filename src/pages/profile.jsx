@@ -42,13 +42,13 @@ export function Profile() {
                         setSent(false)
                         return
                     }
-                } catch(err) {
+                } catch (err) {
                     dispatch(setUpperPopup('socialError'))
                     setSent(false)
                     return
                 }
             }
-            const updatedCreator = await userService.editCreator(user.address,{ ...creator,socialLink: link})
+            const updatedCreator = await userService.editCreator(user.phone, { ...creator, socialLink: link })
             if (updatedCreator) {
                 dispatch(setCreator(updatedCreator))
                 navigate('/')
@@ -59,7 +59,7 @@ export function Profile() {
     const loadCreator = async () => {
         try {
             const loadedCreator = await userService.addCreator(user.address, null)
-            setLocalCreator({ ...loadedCreator, experience: new Date(loadedCreator.experience).getFullYear() })
+            setLocalCreator(loadedCreator)
             setImg(loadedCreator.proficiencyGame)
         }
         catch {

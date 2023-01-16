@@ -2,10 +2,11 @@
     display: flex;
     width: 370px;
     flex-direction: column;
+    position: relative;
     overflow-y: scroll;
     border-left: 1px solid;
     box-shadow: 0px 0px 10px 0px #000000;
-    position: static;
+    opacity: 1.7;
     
     .chat-header {
         flex: 4;

@@ -7,6 +7,7 @@ export function TutorialStream() {
 
     const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
     const isDesktop = window.innerWidth > 1100
+    const isNarrow = window.innerWidth < 550
 
     const [x, setX] = useState(isDesktop ? '55%' : (window.innerWidth - 400) + 'px')
     const [y, setY] = useState(isDesktop ? '30%' : '350px')
@@ -28,7 +29,11 @@ export function TutorialStream() {
     }
 
     const getClass = () => {
-        if (isDesktop) {
+        if(isNarrow){
+            if (streamPhase === 2) return 't-right t-right-mobile right-rotate'
+            else return 't-down t-down-mobile right-rotate'
+        }
+        else if (isDesktop) {
             if (streamPhase === 2) return 't-right'
             else return 't-down'
         }
@@ -39,9 +44,9 @@ export function TutorialStream() {
     }
 
     if (streamPhase === 0 || streamPhase > 3) return <></>
-
+    
     if (streamPhase > 1) return <>
-        <div className="screen-tutorial" />
+        <div className="screen-tutorial"/>
         <div className={`${isDesktop ? 'tutorial-specific' : 'tutorial-specific-stream'} ${getClass()}`} style={{ top: y, left: x }}>
             <div className="specific-inner">
                 {streamPhase === 2 && <>
@@ -61,8 +66,8 @@ export function TutorialStream() {
     </>
 
     return (<>
-        <div className="screen-tutorial" />
-        <div className="buddy-wrapper">
+        <div className="screen-tutorial"/>
+        <div className={`buddy-wrapper ${isNarrow ? 'buddy-rotate' : ''}`}>
             <img src={require('../style/imgs/tutorial/buddy-upper.png')} />
             <section className='tutorial-center'>
                 <h1>Manage your stream</h1>

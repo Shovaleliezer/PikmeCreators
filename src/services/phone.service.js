@@ -1,4 +1,5 @@
 export const countryList = [
+    { "country": "Israel", "code": "972", "iso": "IL" },
     { "country": "Afghanistan", "code": "93", "iso": "AF" },
     { "country": "Albania", "code": "355", "iso": "AL" },
     { "country": "Algeria", "code": "213", "iso": "DZ" },
@@ -98,7 +99,6 @@ export const countryList = [
     { "country": "Iraq", "code": "964", "iso": "IQ" },
     { "country": "Ireland", "code": "353", "iso": "IE" },
     { "country": "Isle of Man", "code": "44-1624", "iso": "IM" },
-    { "country": "Israel", "code": "972", "iso": "IL" },
     { "country": "Italy", "code": "39", "iso": "IT" },
     { "country": "Ivory Coast", "code": "225", "iso": "CI" },
     { "country": "Jamaica", "code": "1-876", "iso": "JM" },

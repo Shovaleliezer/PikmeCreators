@@ -11,7 +11,7 @@ export function UpperPopup() {
     }, [upperPopup])
 
     const reset = () => {
-        setTimeout(() => { dispatch(setUpperPopup('')) }, 2000)
+        setTimeout(() => { dispatch(setUpperPopup('')) }, 3000)
     }
 
     const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-']
@@ -28,6 +28,8 @@ export function UpperPopup() {
             {upperPopup === 'errorCreate' && <p>something went wrong... could not create event.</p>}
             {upperPopup === 'errorDelete' && <p>something went wrong... could not delete event.</p>}
             {upperPopup==='choose' && <p>Please complete all the fields</p>}
+            {upperPopup==='invalidPhone' && <p>invalid phone number, make sure </p>}
+            {upperPopup==='invalidAddress' && <p>invalid address, make sure you use a valid ethereum wallet.</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
         </section>
     )
