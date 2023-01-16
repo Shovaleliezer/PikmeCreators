@@ -2,6 +2,7 @@
     --video-height:300px;
     --video-width:300px;
     --video-rotate:-90deg;
+    --video-scale:1;
 }
 
 .stream-mobile {
@@ -88,7 +89,7 @@
             @include flex(0, center, center);
         }
         .stream-video-mobile > *{
-                transform: rotate(var(--video-rotate));
+                transform: rotate(var(--video-rotate)) scale(var(--video-scale));
                 width: var(--video-height) !important;
                 height: var(--video-width) !important;
             }
