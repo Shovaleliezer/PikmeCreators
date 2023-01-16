@@ -61,11 +61,9 @@ function Creator() {
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
     document.body.style.overflow = "hidden"
-    if (window.innerWidth < 550) {
-      const main = document.querySelector('.main-layout')
-      main.classList.add("main-stream")
-    }
+    if (window.innerWidth < 550) document.querySelector('.main-layout').classList.add("main-stream")
     else if (document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
+
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
       document.body.style.overflow = "auto"
@@ -79,15 +77,25 @@ function Creator() {
   }, [])
 
   useEffect(() => {
-    joinRoom();
+    joinRoom()
   }, [client])
+
+  useEffect(() => {
+    const agora = document.getElementById('agora_local')
+    if (agora) {
+      const width = agora.offsetWidth
+      const height = agora.offsetHeight
+      document.documentElement.style.setProperty('--video-height', height + 'px')
+      document.documentElement.style.setProperty('--video-width', width + 'px')
+    }
+  }, [currentEvent])
 
   const switchCamera = async () => {
     const cameras = await AgoraRTC.getCameras()
     channelParameters.localVideoTrack.stop();
-    const obj = await AgoraRTC.createCameraVideoTrack()
-    obj.setDevice(cameras[cameraIdx].deviceId)
-    channelParameters.localVideoTrack = obj
+    const config = await AgoraRTC.createCameraVideoTrack()
+    config.setDevice(cameras[cameraIdx].deviceId)
+    channelParameters.localVideoTrack = config
     channelParameters.localVideoTrack.play("agora_local")
     setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
@@ -162,9 +170,7 @@ function Creator() {
   let streamGaming = async (client, live = false) => {
     console.log("here sports")
     if (options.type === "sports" && channelParameters.localVideoTrack === null) {
-      // create video track
       try {
-        //create camera video track 
         channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
 
 
@@ -292,7 +298,7 @@ function Creator() {
         <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} />
       </div>}
 
-      {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : '' }}>
+      {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : '' }} >
         <StreamPopup />
         <section className="left-wrapper">
           <div className="upper">
