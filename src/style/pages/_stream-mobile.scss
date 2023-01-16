@@ -1,6 +1,7 @@
 :root{
     --video-height:300px;
     --video-width:300px;
+    --video-rotate:-90deg;
 }
 
 .stream-mobile {
@@ -87,7 +88,7 @@
             @include flex(0, center, center);
         }
         .stream-video-mobile > *{
-                transform: rotate(-90deg);
+                transform: rotate(var(--video-rotate));
                 width: var(--video-height) !important;
                 height: var(--video-width) !important;
             }

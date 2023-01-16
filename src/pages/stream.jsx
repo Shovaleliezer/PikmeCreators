@@ -98,6 +98,8 @@ function Creator() {
     config.setDevice(cameras[cameraIdx].deviceId)
     channelParameters.localVideoTrack = config
     channelParameters.localVideoTrack.play("agora_local")
+    if(cameras[cameraIdx].label.toLowerCase().includes('back')) document.documentElement.style.setProperty('--video-rotate', '90deg')
+    else document.documentElement.style.setProperty('--video-rotate', '-90deg')
     setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
 
