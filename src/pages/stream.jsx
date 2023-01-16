@@ -66,16 +66,16 @@ function Creator() {
       const main = document.querySelector('.main-layout')
       main.classList.add("main-stream")
     }
-    else if(document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
+    else if (document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
       document.body.style.overflow = "auto"
-      initStopOne(client,'no-home')
+      initStopOne(client, 'no-home')
       if (window.innerWidth < 550) {
         const main = document.querySelector('.main-layout')
         main.classList.remove("main-stream")
       }
-      document.querySelector('.header').classList.remove("non-appear")
+      if (document.querySelector('.header')) document.querySelector('.header').classList.remove("non-appear")
     }
   }, [])
 
@@ -98,7 +98,7 @@ function Creator() {
     setClient(AgoraRTC.createClient({ mode: "live", codec: "vp8" }))
   }
 
-  function initStopOne(client,path) {
+  function initStopOne(client, path) {
     if (channelParameters.localAudioTrack) {
       client.unpublish();
       channelParameters.localVideoTrack.stop();
@@ -117,7 +117,7 @@ function Creator() {
     });
     client.removeAllListeners();
     client.leave();
-    if(!path)window.location = '/';
+    if (!path) window.location = '/';
   }
 
   const joinRoom = async () => {
@@ -283,7 +283,7 @@ function Creator() {
         <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} />
       </div>}
 
-      {isMobile && <section className="stream-mobile" >
+      {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : '' }}>
         <StreamPopup />
         <section className="left-wrapper">
           <div className="upper">
