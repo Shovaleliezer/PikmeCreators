@@ -5,7 +5,6 @@ import AgoraRTC from "agora-rtc-sdk-ng"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
-import { setHeader } from "../store/actions/general.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
 import { makeCommas, getTimeUntil } from '../services/utils'
@@ -47,6 +46,7 @@ function Creator() {
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const [isEnd, setIsEnd] = useState(false)
   const [status, setStatus] = useState("not-live")
+  const [cameraIdx, setCameraIdx] = useState(0)
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
   let channel = ""
@@ -84,8 +84,12 @@ function Creator() {
 
   const switchCamera = async () => {
     const cameras = await AgoraRTC.getCameras()
-    channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack({ cameraId: cameras[Math.random() > 0.5 ? 1 : 0].deviceId })
-    channelParameters.localVideoTrack.play("agora_local");
+    channelParameters.localVideoTrack.stop();
+    const obj = await AgoraRTC.createCameraVideoTrack()
+    obj.setDevice(cameras[cameraIdx].deviceId)
+    channelParameters.localVideoTrack = obj
+    channelParameters.localVideoTrack.play("agora_local")
+    setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
 
   const endEvent = async () => {
