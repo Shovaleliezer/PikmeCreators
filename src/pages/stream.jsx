@@ -2,7 +2,6 @@
 import "../style/main.scss"
 import { userService } from '../services/userService'
 import AgoraRTC from "agora-rtc-sdk-ng"
-// import user selector from redux
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
@@ -82,6 +81,12 @@ function Creator() {
   useEffect(() => {
     joinRoom();
   }, [client])
+
+  const switchCamera = async () => {
+    const cameras = await AgoraRTC.getCameras()
+    channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack({ cameraId: cameras[Math.random() > 0.5 ? 1 : 0].deviceId })
+    channelParameters.localVideoTrack.play("agora_local");
+  }
 
   const endEvent = async () => {
     try {
@@ -298,7 +303,7 @@ function Creator() {
                 <p>{makeCommas(prizePool)}$</p>
               </div>
             </div>
-            <img src={require('../style/imgs/stream/full-screen.png')} />
+            <img src={require('../style/imgs/stream/full-screen.png')} onClick={switchCamera} />
           </div>
 
           <div id="agora_local" className="stream-video-mobile" />
