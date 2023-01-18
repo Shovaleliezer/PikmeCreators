@@ -88,6 +88,9 @@
         .stream-video-mobile{
             @include flex(0, center, center);
         }
+        .stream-video-mobile{
+            z-index: 0 !important;
+        }
         .stream-video-mobile > *{
                 transform: rotate(var(--video-rotate)) scaleY(var(--video-scale));
                 width: var(--video-height) !important;

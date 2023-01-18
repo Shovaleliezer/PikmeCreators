@@ -87,6 +87,7 @@ function Creator() {
       const height = agora.offsetHeight
       document.documentElement.style.setProperty('--video-height', height + 'px')
       document.documentElement.style.setProperty('--video-width', width + 'px')
+      if (window.innerWidth < 551) switchCamera()
     }
   }, [currentEvent])
 
