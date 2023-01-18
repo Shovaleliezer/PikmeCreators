@@ -48,7 +48,7 @@ function Creator() {
   const [modal, setModal] = useState(false)
   const [isEnd, setIsEnd] = useState(false)
   const [status, setStatus] = useState("not-live")
-  const [cameraIdx, setCameraIdx] = useState(1)
+  const [cameraIdx, setCameraIdx] = useState(0)
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
   let channel = ""
@@ -63,6 +63,7 @@ function Creator() {
     document.body.style.overflow = "hidden"
     if (window.innerWidth < 550) document.querySelector('.main-layout').classList.add("main-stream")
     else if (document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
+    window.screen.orientation.lock('landscape-primary')
 
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
@@ -70,6 +71,7 @@ function Creator() {
       initStopOne(client, 'no-home')
       if (window.innerWidth < 550) document.querySelector('.main-layout').classList.remove("main-stream")
       if (document.querySelector('.header')) document.querySelector('.header').classList.remove("non-appear")
+      window.screen.orientation.unlock()
     }
   }, [])
 
