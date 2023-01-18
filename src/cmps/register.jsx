@@ -86,9 +86,20 @@ export function Register() {
             setIsLoader(false)
             return
         }
-        const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
-        setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value, walletAddress: addressRef.current.value })
-        setPhase(2)
+        try {
+            const isTaken = await userService.isAddressValid(addressRef.current.value)
+            if (isTaken) {
+                dispatch(setUpperPopup('takenAddress'))
+                setIsLoader(false)
+                return
+            }
+            const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
+            setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value, walletAddress: addressRef.current.value })
+            setPhase(2)
+        }
+        catch {
+            dispatch(setUpperPopup('errorServer'))
+        }
     }
 
     const completePhase2 = (e) => {

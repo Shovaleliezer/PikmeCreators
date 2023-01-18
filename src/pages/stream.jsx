@@ -48,7 +48,7 @@ function Creator() {
   const [modal, setModal] = useState(false)
   const [isEnd, setIsEnd] = useState(false)
   const [status, setStatus] = useState("not-live")
-  const [cameraIdx, setCameraIdx] = useState(0)
+  const [cameraIdx, setCameraIdx] = useState(1)
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
   let channel = ""
@@ -63,7 +63,6 @@ function Creator() {
     document.body.style.overflow = "hidden"
     if (window.innerWidth < 550){
       document.querySelector('.main-layout').classList.add("main-stream")
-      switchCamera()
     } 
     else if (document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
 
@@ -95,9 +94,7 @@ function Creator() {
   }, [cameraIdx])
 
   const switchCamera = async () => {
-    alert('switching')
     const cameras = await AgoraRTC.getCameras()
-    alert(cameras)
     setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
 
@@ -105,6 +102,10 @@ function Creator() {
     const cameras = await AgoraRTC.getCameras()
     channelParameters.localVideoTrack.stop()
     const config = await AgoraRTC.createCameraVideoTrack()
+    if(!cameras[cameraIdx]){
+      setCameraIdx(0)
+      return
+    } 
     config.setDevice(cameras[cameraIdx].deviceId)
     channelParameters.localVideoTrack = config
     channelParameters.localVideoTrack.play("agora_local")
