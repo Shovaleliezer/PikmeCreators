@@ -61,18 +61,17 @@ function Creator() {
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
     document.body.style.overflow = "hidden"
-    if (window.innerWidth < 550) document.querySelector('.main-layout').classList.add("main-stream")
+    if (window.innerWidth < 550){
+      document.querySelector('.main-layout').classList.add("main-stream")
+      switchCamera()
+    } 
     else if (document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
-    if (window.innerWidth < 551) switchCamera()
 
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
       document.body.style.overflow = "auto"
       initStopOne(client, 'no-home')
-      if (window.innerWidth < 550) {
-        const main = document.querySelector('.main-layout')
-        main.classList.remove("main-stream")
-      }
+      if (window.innerWidth < 550) document.querySelector('.main-layout').classList.remove("main-stream")
       if (document.querySelector('.header')) document.querySelector('.header').classList.remove("non-appear")
     }
   }, [])
@@ -92,9 +91,14 @@ function Creator() {
   }, [currentEvent])
 
   useEffect(() => {
-    console.log('cameraIdx', cameraIdx)
     play()
   }, [cameraIdx])
+
+  const switchCamera = async () => {
+    alert('switching')
+    const cameras = await AgoraRTC.getCameras()
+    setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
+  }
 
   const play = async () => {
     const cameras = await AgoraRTC.getCameras()
@@ -111,11 +115,6 @@ function Creator() {
       document.documentElement.style.setProperty('--video-rotate', '-90deg')
       document.documentElement.style.setProperty('--video-scale', '1')
     }
-  }
-
-  const switchCamera = async () => {
-    const cameras = await AgoraRTC.getCameras()
-    setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
 
   const endEvent = async () => {
