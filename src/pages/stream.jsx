@@ -77,7 +77,6 @@ function Creator() {
 
   useEffect(() => {
     joinRoom()
-    loadBackCamrea()
   }, [client])
 
   useEffect(() => {
@@ -91,7 +90,6 @@ function Creator() {
   }, [currentEvent])
 
   useEffect(() => {
-    console.log('cameraIdx', cameraIdx)
     play()
   }, [cameraIdx])
 
@@ -103,9 +101,8 @@ function Creator() {
   const loadBackCamrea = async () => {
     const cameras = await AgoraRTC.getCameras()
     const backCameraIdx = cameras.findIndex(camera => camera.label.toLowerCase().includes('back'))
-    console.log('backCameraIdx', backCameraIdx)
-    if (backCameraIdx === -1) return
-    setCameraIdx(backCameraIdx)
+    if (backCameraIdx !== -1) setCameraIdx(backCameraIdx)
+    else play()
   }
 
   const play = async () => {
@@ -195,7 +192,6 @@ function Creator() {
   }
 
   let streamGaming = async (client, live = false) => {
-    console.log("here sports")
     if (options.type === "sports" && channelParameters.localVideoTrack === null) {
       try {
         channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
@@ -212,7 +208,8 @@ function Creator() {
 
         // create audio track
         channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-        channelParameters.localVideoTrack.play("agora_local");
+        loadBackCamrea()
+        // channelParameters.localVideoTrack.play("agora_local");
       }
       catch (e) {
         console.log("create audio track failed", e);
@@ -325,7 +322,7 @@ function Creator() {
         <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} />
       </div>}
 
-      {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : ''}} >
+      {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : '' }} >
 
         <StreamPopup />
         <section className="left-wrapper">
