@@ -92,7 +92,7 @@ function Creator() {
 
   const switchCamera = async () => {
     const cameras = await AgoraRTC.getCameras()
-    alert(cameraIdx)
+    setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
     channelParameters.localVideoTrack.stop()
     const config = await AgoraRTC.createCameraVideoTrack()
     config.setDevice(cameras[cameraIdx].deviceId)
@@ -106,7 +106,6 @@ function Creator() {
       document.documentElement.style.setProperty('--video-rotate', '-90deg')
       document.documentElement.style.setProperty('--video-scale', '1')
     }
-    setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
 
   const endEvent = async () => {
