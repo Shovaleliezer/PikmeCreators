@@ -97,6 +97,7 @@ function Creator() {
   const switchCamera = async () => {
     alert('switching')
     const cameras = await AgoraRTC.getCameras()
+    alert(cameras)
     setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
 
