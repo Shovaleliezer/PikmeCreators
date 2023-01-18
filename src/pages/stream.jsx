@@ -51,10 +51,10 @@ function Creator() {
   const [cameraIdx, setCameraIdx] = useState(0)
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
-  let channel = ""
-  let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
   const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
   const isMobile = window.innerWidth < 1100
+  let channel = ""
+  let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
 
   if (streamPhase === 0) dispatch(setStreamPhase(1))
 
@@ -77,6 +77,7 @@ function Creator() {
 
   useEffect(() => {
     joinRoom()
+    loadBackCamrea()
   }, [client])
 
   useEffect(() => {
@@ -90,12 +91,21 @@ function Creator() {
   }, [currentEvent])
 
   useEffect(() => {
+    console.log('cameraIdx', cameraIdx)
     play()
   }, [cameraIdx])
 
   const switchCamera = async () => {
     const cameras = await AgoraRTC.getCameras()
     setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
+  }
+
+  const loadBackCamrea = async () => {
+    const cameras = await AgoraRTC.getCameras()
+    const backCameraIdx = cameras.findIndex(camera => camera.label.toLowerCase().includes('back'))
+    console.log('backCameraIdx', backCameraIdx)
+    if (backCameraIdx === -1) return
+    setCameraIdx(backCameraIdx)
   }
 
   const play = async () => {
@@ -106,9 +116,6 @@ function Creator() {
       setCameraIdx(0)
       return
     }
-    config.setDevice(cameras[cameraIdx].deviceId)
-    channelParameters.localVideoTrack = config
-    channelParameters.localVideoTrack.play("agora_local")
     if (cameras[cameraIdx].label.toLowerCase().includes('back')) {
       document.documentElement.style.setProperty('--video-rotate', '90deg')
       document.documentElement.style.setProperty('--video-scale', '-1')
@@ -117,6 +124,9 @@ function Creator() {
       document.documentElement.style.setProperty('--video-rotate', '-90deg')
       document.documentElement.style.setProperty('--video-scale', '1')
     }
+    config.setDevice(cameras[cameraIdx].deviceId)
+    channelParameters.localVideoTrack = config
+    channelParameters.localVideoTrack.play("agora_local")
   }
 
   const endEvent = async () => {
