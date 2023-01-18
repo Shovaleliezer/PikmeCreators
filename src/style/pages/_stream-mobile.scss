@@ -89,7 +89,7 @@
             @include flex(0, center, center);
         }
         .stream-video-mobile > *{
-                transform: rotate(var(--video-rotate)) scale(var(--video-scale));
+                transform: rotate(var(--video-rotate)) scaleY(var(--video-scale));
                 width: var(--video-height) !important;
                 height: var(--video-width) !important;
             }
