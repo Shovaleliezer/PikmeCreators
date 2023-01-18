@@ -92,7 +92,7 @@ function Creator() {
 
   const switchCamera = async () => {
     const cameras = await AgoraRTC.getCameras()
-    dispatch(setStreamPopup(cameras[cameraIdx].label))
+    alert(cameraIdx)
     channelParameters.localVideoTrack.stop()
     const config = await AgoraRTC.createCameraVideoTrack()
     config.setDevice(cameras[cameraIdx].deviceId)
