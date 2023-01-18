@@ -44,6 +44,8 @@ function Creator() {
   const dispatch = useDispatch()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
+  const [client, setClient] = useState(null)
+  const [modal, setModal] = useState(false)
   const [isEnd, setIsEnd] = useState(false)
   const [status, setStatus] = useState("not-live")
   const [cameraIdx, setCameraIdx] = useState(0)
@@ -51,8 +53,6 @@ function Creator() {
   const { viewers } = useSelector((storeState) => storeState.generalModule)
   let channel = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
-  const [client, setClient] = useState(null)
-  const [modal, setModal] = useState(false)
   const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
   const isMobile = window.innerWidth < 1100
 
@@ -147,13 +147,11 @@ function Creator() {
 
   const joinRoom = async () => {
     try {
-      //client l
       let uid = String(Math.floor(Math.random() * 10000))
       channel = String(streamInfo._id)
       let token = await userService.getStreamTokenClient({ channel: channel, uid: uid, role: options.role })
       options.type = streamInfo.category
       uid = await client.join(APP_ID, channel, token.rtcToken, uid);
-      // set client role
       await client.setClientRole(options.role);
       setCurrentEvent(streamInfo)
       streamGaming(client);
