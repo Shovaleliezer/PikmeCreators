@@ -61,9 +61,7 @@ function Creator() {
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
     document.body.style.overflow = "hidden"
-    if (window.innerWidth < 550){
-      document.querySelector('.main-layout').classList.add("main-stream")
-    } 
+    if (window.innerWidth < 550) document.querySelector('.main-layout').classList.add("main-stream")
     else if (document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
 
     return () => {
@@ -102,10 +100,10 @@ function Creator() {
     const cameras = await AgoraRTC.getCameras()
     channelParameters.localVideoTrack.stop()
     const config = await AgoraRTC.createCameraVideoTrack()
-    if(!cameras[cameraIdx]){
+    if (!cameras[cameraIdx]) {
       setCameraIdx(0)
       return
-    } 
+    }
     config.setDevice(cameras[cameraIdx].deviceId)
     channelParameters.localVideoTrack = config
     channelParameters.localVideoTrack.play("agora_local")
@@ -315,7 +313,8 @@ function Creator() {
         <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} />
       </div>}
 
-      {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : '' }} >
+      {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : ''}} >
+
         <StreamPopup />
         <section className="left-wrapper">
           <div className="upper">
