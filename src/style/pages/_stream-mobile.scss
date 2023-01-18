@@ -82,7 +82,6 @@
 @media (max-width: 550px) {
     .stream-mobile {
         height: 98vw;
-        // width: 90vh;
         margin: 0;
         transform: rotate(90deg);
         .stream-video-mobile{
@@ -99,10 +98,12 @@
 
         .left-wrapper {
             width: 66vh;
+            flex: 2;
         }
 
         .chat-box {
-            width: 32vh
+            width: 32vh;
+            flex: 1;
         }
     }
 
