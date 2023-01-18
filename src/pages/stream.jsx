@@ -63,6 +63,7 @@ function Creator() {
     document.body.style.overflow = "hidden"
     if (window.innerWidth < 550) document.querySelector('.main-layout').classList.add("main-stream")
     else if (document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
+    if (window.innerWidth < 551) switchCamera()
 
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
@@ -87,13 +88,16 @@ function Creator() {
       const height = agora.offsetHeight
       document.documentElement.style.setProperty('--video-height', height + 'px')
       document.documentElement.style.setProperty('--video-width', width + 'px')
-      if (window.innerWidth < 551) switchCamera()
     }
   }, [currentEvent])
 
-  const switchCamera = async () => {
+  useEffect(() => {
+    console.log('cameraIdx', cameraIdx)
+    play()
+  }, [cameraIdx])
+
+  const play = async () => {
     const cameras = await AgoraRTC.getCameras()
-    setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
     channelParameters.localVideoTrack.stop()
     const config = await AgoraRTC.createCameraVideoTrack()
     config.setDevice(cameras[cameraIdx].deviceId)
@@ -107,6 +111,11 @@ function Creator() {
       document.documentElement.style.setProperty('--video-rotate', '-90deg')
       document.documentElement.style.setProperty('--video-scale', '1')
     }
+  }
+
+  const switchCamera = async () => {
+    const cameras = await AgoraRTC.getCameras()
+    setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
 
   const endEvent = async () => {
