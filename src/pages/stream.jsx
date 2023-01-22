@@ -62,7 +62,6 @@ function Creator() {
     document.documentElement.style.setProperty('--visibility', 'hidden')
     document.body.style.overflow = "hidden"
     if (window.innerWidth < 550) document.querySelector('.main-layout').classList.add("main-stream")
-    else if (document.querySelector('.header')) document.querySelector('.header').classList.add("non-appear")
     window.screen.orientation.lock('landscape-primary')
 
     return () => {
@@ -70,7 +69,6 @@ function Creator() {
       document.body.style.overflow = "auto"
       initStopOne(client, 'no-home')
       if (window.innerWidth < 550) document.querySelector('.main-layout').classList.remove("main-stream")
-      if (document.querySelector('.header')) document.querySelector('.header').classList.remove("non-appear")
       window.screen.orientation.unlock()
     }
   }, [])
@@ -123,6 +121,8 @@ function Creator() {
     }
     config.setDevice(cameras[cameraIdx].deviceId)
     channelParameters.localVideoTrack = config
+    client.unpublish()
+    client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
     channelParameters.localVideoTrack.play("agora_local")
   }
 
@@ -144,12 +144,12 @@ function Creator() {
   function initStopOne(client, path) {
     if (channelParameters.localAudioTrack) {
       client.unpublish();
-      channelParameters.localVideoTrack.stop();
-      channelParameters.localVideoTrack.close();
-      channelParameters.localAudioTrack.stop();
-      channelParameters.localAudioTrack.close();
-      channelParameters.localAudioTrack = null;
-      channelParameters.localVideoTrack = null;
+      channelParameters.localVideoTrack.stop()
+      channelParameters.localVideoTrack.close()
+      channelParameters.localAudioTrack.stop()
+      channelParameters.localAudioTrack.close()
+      channelParameters.localAudioTrack = null
+      channelParameters.localVideoTrack = null
     }
 
     client.remoteUsers.forEach(user => {
@@ -157,7 +157,7 @@ function Creator() {
         console.log("user has video , ", user);
       }
       client.unsubscribe(user);
-    });
+    })
     client.removeAllListeners();
     client.leave();
     if (!path) window.location = '/';

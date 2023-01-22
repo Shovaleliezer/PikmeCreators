@@ -1,6 +1,7 @@
 import { useEffect } from "react"
+import { useNavigate } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
-import { setPopup,setUpperPopup } from "../store/actions/general.actions"
+import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 import { WalletConnect } from '../cmps/wallet-connect'
 import { Create } from "./create"
@@ -11,6 +12,7 @@ import { EmailShareButton, WhatsappShareButton, TelegramShareButton, FacebookMes
 
 export function Popup({ mode }) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { popup } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
     const { createPhase } = useSelector((state) => state.tutorialModule)
@@ -26,6 +28,20 @@ export function Popup({ mode }) {
     }
 
     if (!popup) return <></>
+
+    if (popup.charAt(0) === '/') return <>
+        <div className="screen blur" onClick={() => { dispatch(setPopup('')) }}>
+            {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
+        </div>
+        <div className="confirm-exit">
+            <img src={require(`../style/imgs/stream/pause.png`)} />
+            <h1>Confirm navigation</h1>
+            <p>This action will pause your stream.</p>
+            <div>
+                <div className="cancel" onClick={() => dispatch(setPopup(''))}>Cancel</div>
+                <div onClick={() => {dispatch(setPopup('')) ; navigate(popup) }}>Continue</div>
+            </div>
+        </div></>
 
     return (<>
         <div className="screen blur" onClick={() => { dispatch(setPopup('')) }}>
@@ -45,7 +61,7 @@ export function Popup({ mode }) {
                 <p>To get it confirmed, please send your opponent the link below:</p>
                 <div className="share-wrapper">
                     <div className="copy"><span>{getRoute() + 'confirm/' + popup}</span>
-                        <img onClick={()=>{copy();dispatch(setUpperPopup('copied'))}} src={require('../style/imgs/register/address.png')} /></div>
+                        <img onClick={() => { copy(); dispatch(setUpperPopup('copied')) }} src={require('../style/imgs/register/address.png')} /></div>
                     <div className="buttons">
                         <EmailShareButton className="share-button email" url={getRoute() + 'confirm/' + popup} />
                         <WhatsappShareButton className="share-button whatsapp" url={getRoute() + 'confirm/' + popup} />
