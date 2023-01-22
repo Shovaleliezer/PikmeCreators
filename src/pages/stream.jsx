@@ -329,14 +329,15 @@ function Creator() {
           </div>
           <div className="option main-color" onClick={() => openOpt === 'camera' ? setOpenOpt('') : setOpenOpt('camera')}>
             <p>Camera</p><span class="material-symbols-outlined">{openOpt === 'camera' ? 'expand_less' : 'expand_more'}</span></div>
-          {openOpt === 'camera' && cameras.map((camera, idx) => <div className="clickable" onClick={() => setCameraIdx(idx)}>
-            <p className={cameraIdx === idx ? 'sec-color' : ''}>{idx + 1}.{camera.label}</p>
-          </div>)}
+          {openOpt === 'camera' && cameras.map((camera, idx) =>
+           <div className={cameraIdx === idx ? 'sub sec-color back-stream' : 'sub'} onClick={() => setCameraIdx(idx)}><p >{idx + 1}.{camera.label}</p></div>)}
+         
           <div className="option main-color" onClick={() => openOpt === 'mic' ? setOpenOpt('') : setOpenOpt('mic')}>
             <p>Microphone</p><span class="material-symbols-outlined">{openOpt === 'mic' ? 'expand_less' : 'expand_more'}</span></div>
-          {openOpt === 'mic' && mics.map((mic, idx) => <div className="clickable" onClick={() => setMicIdx(idx)}>
-            <p className={micIdx === idx ? 'sec-color' : ''}>{idx + 1}.{mic.label}</p>
-          </div>)}
+          {openOpt === 'mic' && mics.map((mic, idx) => 
+            <div onClick={() => setMicIdx(idx)} className={micIdx === idx ? 'sub sec-color back-stream' : 'sub'}>
+              <p >{idx + 1}. {mic.label.substring(0,mic.label.indexOf('('))}</p></div>)}
+          
         </div>
         <div className="stream">
           <div id="agora_local" className="stream-video"></div>
