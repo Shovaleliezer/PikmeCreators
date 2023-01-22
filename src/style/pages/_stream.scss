@@ -84,14 +84,27 @@
 .settings {
     flex:3;
     color:white;
+    padding-left: 5px;
+    p{
+        margin: 8px 0;
+    }
     .settings-upper{
         width: 100%;
-        @include flex(5px,space-between,center);
+        @include flex(10px,flex-start,center);
         border-bottom: 2px solid $bright-back;
         font-size: 24px;
         span{
             font-size: 30px;
         }
+    }
+    .option{
+        @include flex(0,space-between,center);
+        cursor: pointer;
+        font-size: 20px;
+    }
+    div{
+        word-break: break-word;
+        word-wrap: break-word;
     }
 }
 .confirm-exit{
