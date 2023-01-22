@@ -3,7 +3,7 @@ import "../style/main.scss"
 import { userService } from '../services/userService'
 import AgoraRTC from "agora-rtc-sdk-ng"
 import { useSelector, useDispatch } from "react-redux"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
@@ -53,11 +53,15 @@ function Creator() {
   const [mics, setMics] = useState([])
   const [micIdx, setMicIdx] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
+  const [volume, setVolume] = useState(1000)
   const [openOpt, setOpenOpt] = useState('')
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
   const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
   const isMobile = window.innerWidth < 1100
+  let time
+  let debounce = useRef(false)
+  let volumeRef = useRef()
   let channel = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
 
@@ -105,9 +109,28 @@ function Creator() {
     play('mic')
   }, [micIdx])
 
+  useEffect(() => {
+    if (!debounce.current) {
+      debounce.current = true
+      setTimeout(() => {
+        channelParameters.localAudioTrack.setVolume(Number(volumeRef.current.value))
+        client.unpublish()
+        client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+      }, 100)
+      if (time) clearTimeout(time)
+      time = setTimeout(() => {
+        debounce.current = false
+      }, 500)
+    }
+  }, [volume])
+
   const switchCamera = async () => {
     const cameras = await AgoraRTC.getCameras()
     setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
+  }
+
+  const sliderChange = async (e) => {
+    setVolume(e.target.value)
   }
 
   const loadBackCamrea = async () => {
@@ -330,17 +353,32 @@ function Creator() {
           <div className="option main-color" onClick={() => openOpt === 'camera' ? setOpenOpt('') : setOpenOpt('camera')}>
             <p>Camera</p><span class="material-symbols-outlined">{openOpt === 'camera' ? 'expand_less' : 'expand_more'}</span></div>
           {openOpt === 'camera' && cameras.map((camera, idx) =>
-           <div className={cameraIdx === idx ? 'sub sec-color back-stream' : 'sub'} onClick={() => setCameraIdx(idx)}><p >{idx + 1}.{camera.label}</p></div>)}
-         
+            <div key={idx} className={cameraIdx === idx ? 'sub sec-color back-stream' : 'sub'} onClick={() => setCameraIdx(idx)}><p >{idx + 1}.{camera.label}</p></div>)}
           <div className="option main-color" onClick={() => openOpt === 'mic' ? setOpenOpt('') : setOpenOpt('mic')}>
             <p>Microphone</p><span class="material-symbols-outlined">{openOpt === 'mic' ? 'expand_less' : 'expand_more'}</span></div>
-          {openOpt === 'mic' && mics.map((mic, idx) => 
-            <div onClick={() => setMicIdx(idx)} className={micIdx === idx ? 'sub sec-color back-stream' : 'sub'}>
-              <p >{idx + 1}. {mic.label.substring(0,mic.label.indexOf('('))}</p></div>)}
-          
+          {openOpt === 'mic' && mics.map((mic, idx) =>
+            <div key={idx} onClick={() => setMicIdx(idx)} className={micIdx === idx ? 'sub sec-color back-stream' : 'sub'}>
+              <p>{idx + 1}. {mic.label.substring(0, mic.label.indexOf('('))}</p></div>)}
+          <div className="option main-color" onClick={() => openOpt === 'volume' ? setOpenOpt('') : setOpenOpt('volume')}>
+            <p>Volume</p><span class="material-symbols-outlined">{openOpt === 'volume' ? 'expand_less' : 'expand_more'}</span></div>
+          {openOpt === 'volume' && <input type="range" min="1" max="1000" onChange={sliderChange} value={volume} ref={volumeRef} />}
         </div>
         <div className="stream">
-          <div id="agora_local" className="stream-video"></div>
+          <div id="agora_local" className="stream-video">
+            {cameras.length === 0 && <div className="no-camera">
+              <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_1126_3578)">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M96.3827 92.7377C98.8906 90.4582 100.496 87.5647 100.973 84.4652L128.32 94.8302C129.658 95.3389 131.125 95.5542 132.586 95.4566C134.047 95.3589 135.456 94.9514 136.685 94.271C137.914 93.5906 138.925 92.659 139.625 91.5608C140.324 90.4626 140.691 89.2326 140.692 87.9827V32.0177C140.691 30.7688 140.324 29.5399 139.624 28.4426C138.925 27.3453 137.916 26.4143 136.687 25.7341C135.459 25.0539 134.052 24.6461 132.592 24.5476C131.132 24.4491 129.667 24.6631 128.328 25.1702L100.973 35.5352C100.414 31.9284 98.3373 28.6177 95.1294 26.2197C91.9216 23.8216 87.8013 22.4998 83.5358 22.5002H37.5647L43.8431 30.0002H83.5358C85.8679 30.0002 88.1045 30.7904 89.7535 32.1969C91.4026 33.6034 92.329 35.5111 92.329 37.5002V82.5002C92.3306 83.8695 91.8927 85.2131 91.0628 86.3852L96.3827 92.7377ZM12.5567 31.3502C11.3947 32.0406 10.4455 32.9605 9.7902 34.0313C9.1349 35.1021 8.79286 36.2923 8.79324 37.5002V82.5002C8.79324 84.4893 9.71966 86.397 11.3687 87.8035C13.0178 89.21 15.2544 90.0002 17.5865 90.0002H61.6758L67.9541 97.5002H17.5865C12.9223 97.5002 8.44906 95.9198 5.15096 93.1068C1.85286 90.2938 0 86.4784 0 82.5002V37.5002C0 32.4377 2.93694 27.9602 7.44787 25.2452L12.5479 31.3502H12.5567ZM131.899 87.9752L101.122 76.3127V43.6877L131.899 32.0177V87.9827V87.9752ZM93.1468 114.675L5.21439 9.6752L12.3721 5.3252L100.304 110.325L93.1468 114.675Z" fill="#F3F3F3" fill-opacity="0.9" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1126_3578">
+                    <rect width="140.692" height="120" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              <h1>Could not detect any camera</h1>
+            </div>}
+          </div>
           <div className="stream-control" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
             <div className="options" style={{ width }}>
               <svg className={`clickable ${isMuted ? 'sec-svg' : ''}`} onClick={() => isMuted ? play('mic') : mute()} width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -392,7 +430,21 @@ function Creator() {
             <img src={require('../style/imgs/stream/full-screen.png')} onClick={switchCamera} />
           </div>
 
-          <div id="agora_local" className="stream-video-mobile" />
+          <div id="agora_local" className="stream-video">
+            {cameras.length === 0 && <div className="no-camera">
+              <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_1126_3578)">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M96.3827 92.7377C98.8906 90.4582 100.496 87.5647 100.973 84.4652L128.32 94.8302C129.658 95.3389 131.125 95.5542 132.586 95.4566C134.047 95.3589 135.456 94.9514 136.685 94.271C137.914 93.5906 138.925 92.659 139.625 91.5608C140.324 90.4626 140.691 89.2326 140.692 87.9827V32.0177C140.691 30.7688 140.324 29.5399 139.624 28.4426C138.925 27.3453 137.916 26.4143 136.687 25.7341C135.459 25.0539 134.052 24.6461 132.592 24.5476C131.132 24.4491 129.667 24.6631 128.328 25.1702L100.973 35.5352C100.414 31.9284 98.3373 28.6177 95.1294 26.2197C91.9216 23.8216 87.8013 22.4998 83.5358 22.5002H37.5647L43.8431 30.0002H83.5358C85.8679 30.0002 88.1045 30.7904 89.7535 32.1969C91.4026 33.6034 92.329 35.5111 92.329 37.5002V82.5002C92.3306 83.8695 91.8927 85.2131 91.0628 86.3852L96.3827 92.7377ZM12.5567 31.3502C11.3947 32.0406 10.4455 32.9605 9.7902 34.0313C9.1349 35.1021 8.79286 36.2923 8.79324 37.5002V82.5002C8.79324 84.4893 9.71966 86.397 11.3687 87.8035C13.0178 89.21 15.2544 90.0002 17.5865 90.0002H61.6758L67.9541 97.5002H17.5865C12.9223 97.5002 8.44906 95.9198 5.15096 93.1068C1.85286 90.2938 0 86.4784 0 82.5002V37.5002C0 32.4377 2.93694 27.9602 7.44787 25.2452L12.5479 31.3502H12.5567ZM131.899 87.9752L101.122 76.3127V43.6877L131.899 32.0177V87.9827V87.9752ZM93.1468 114.675L5.21439 9.6752L12.3721 5.3252L100.304 110.325L93.1468 114.675Z" fill="#F3F3F3" fill-opacity="0.9" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1126_3578">
+                    <rect width="140.692" height="120" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              <h1>Could not detect any camera</h1>
+            </div>}
+          </div>
           <div className="lower" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
             <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
             {status != "live" ? <img onClick={() => { hasStarted() ? setModal('start') : dispatch(setStreamPopup(timeUntilEvent)) }} src={require('../style/imgs/stream/start.png')} />

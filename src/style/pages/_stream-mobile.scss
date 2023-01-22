@@ -104,6 +104,7 @@
         .left-wrapper {
             width: 66vh;
             flex: 2;
+            @include flex(0, space-between, center, column);
         }
 
         .chat-box {
