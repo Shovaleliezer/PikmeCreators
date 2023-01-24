@@ -15,17 +15,12 @@ import { setUpperPopup, setStreamPopup } from "../store/actions/general.actions"
 
 let options =
 {
-  // Pass your App ID here.
   appId: 'f4e41c5975dd4a86a326e4c426420ca4',
-  // Set the channel name.
   channel: 'teamOne636b79ecaa9a2464787e48a9',
   channel2: 'teamOne636cf202090bc65af885478b',
-  // Pass your temp token here.
   token: "007eJxTYJj0Nn8W686+hj/tdzzsvlscqjTxZDpe+mR1bGGPusbMkKcKDGkmqSaGyaaW5qYpKSaJFmaJxkZmqSbJJkZmJkYGyYkmrQ3VyQ2BjAzy+U6sjAwQCOYzlKQm5vrnpZoZmyWZW6YmJyZaJhqZmJmYW5inmlgkWjIwAABQWib1",
-  // Set the user ID.
   token2: "007eJxTYBCLfHj9bsScb/08O+3fyn5X+nvnTOOmJv6j589L/Xov3tuuwJBmkmpimGxqaW6akmKSaGGWaGxklmqSbGJkZmJkkJxo8rSpOrkhkJEhqGIqAyMUgvjyDCWpibn+ealmxmbJaUYGRgaWBknJZqaJaRYWpibmFkkMDABfRynX",
   uid: String(Math.floor(Math.random() * 10000)),
-  // Set the user role
   role: 'host',
   type: "sports"
 }
@@ -73,7 +68,7 @@ function Creator() {
   useEffect(() => {
     document.documentElement.style.setProperty('--visibility', 'hidden')
     document.body.style.overflow = "hidden"
-    if (window.innerWidth < 550) document.querySelector('.main-layout').classList.add("main-stream")
+    if (window.innerWidth < 1100) document.querySelector('.main-layout').classList.add("main-stream")
     loadCameras()
     loadMics()
     window.screen.orientation.lock('landscape-primary')
@@ -95,9 +90,7 @@ function Creator() {
     const agora = document.getElementById('agora_local')
     if (agora) {
       const width = agora.offsetWidth
-      const height = agora.offsetHeight
-      document.documentElement.style.setProperty('--video-height', height + 'px')
-      document.documentElement.style.setProperty('--video-width', width + 'px')
+      document.documentElement.style.setProperty('--video-height', (width * 9 / 16) + 'px')
     }
   }, [currentEvent])
 
@@ -155,14 +148,6 @@ function Creator() {
       if (!cameras[cameraIdx]) {
         setCameraIdx(0)
         return
-      }
-      if (cameras[cameraIdx].label.toLowerCase().includes('back')) {
-        document.documentElement.style.setProperty('--video-rotate', '90deg')
-        document.documentElement.style.setProperty('--video-scale', '-1')
-      }
-      else {
-        document.documentElement.style.setProperty('--video-rotate', '-90deg')
-        document.documentElement.style.setProperty('--video-scale', '1')
       }
       config.setDevice(cameras[cameraIdx].deviceId)
       channelParameters.localVideoTrack = config
@@ -342,6 +327,8 @@ function Creator() {
   let Modal = modal === 'start' ? 'Start' : 'End'
   const timeUntilEvent = getTimeUntil(currentEvent.date)
 
+  if (window.innerWidth < 550) return <div className="home"><h1>please rotate your phone</h1></div>
+
   try {
     return (<>
       {!isMobile && <div className="stream-container">
@@ -407,11 +394,11 @@ function Creator() {
             </div>
           </div>
         </div>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} 
-        zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} cameraIdx={cameraIdx} cameras={cameras}/>
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`}
+          zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} cameraIdx={cameraIdx} cameras={cameras} />
       </div>}
 
-      {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : '' }} >
+      {isMobile && <section className="stream-mobile" >
 
         <StreamPopup />
         <section className="left-wrapper">
@@ -459,7 +446,7 @@ function Creator() {
           </div>
         </section>
         <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`}
-         mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} cameraIdx={cameraIdx} cameras={cameras}/>
+          mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} cameraIdx={cameraIdx} cameras={cameras} />
       </section>
       }
 

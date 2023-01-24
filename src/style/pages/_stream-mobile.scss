@@ -1,8 +1,5 @@
 :root {
     --video-height: 300px;
-    --video-width: 300px;
-    --video-rotate: -90deg;
-    --video-scale: 1;
 }
 
 .stream-mobile {
@@ -79,47 +76,38 @@
     }
 }
 
-@media (max-width: 550px) {
-    .stream-mobile {
-        height: 98vw;
-        margin: 0;
-        transform: rotate(90deg);
-
-        .stream-video-mobile {
-            @include flex(0, center, center);
-            z-index: 0 !important;
-        }
-
-        .stream-video-mobile>* {
-            transform: rotate(var(--video-rotate)) scaleY(var(--video-scale));
-            height: var(--video-width) !important;
-            width: calc(var(--video-width) * 9 / 16) !important;
-        }
-
-        .left-wrapper {
-            width: 66vh;
-            flex: 2;
-            @include flex(0, space-between, center, column);
-        }
-
-        .chat-box {
-            width: 32vh;
-            flex: 1;
-        }
+.stream-mobile {
+height: 100%;
+    .stream-video-mobile {
+        @include flex(0, center, center);
+        z-index: 0 !important;
     }
 
-    .confirm-exit {
-        height: 98vw;
-        width: 500px;
-        top: 25vh;
-        left: -60px;
-        transform: rotate(90deg);
+    .stream-video-mobile>* {
+        height: var(--video-height) !important;
+    }
+
+    .left-wrapper {
+        width: 66vh;
+        flex: 2;
+        @include flex(0, space-between, center, column);
+    }
+
+    .chat-box {
+        width: 32vh;
+        flex: 1;
     }
 }
 
+.confirm-exit {
+    height: 98vw;
+    width: 500px;
+    top: 25vh;
+    left: -60px;
+    transform: rotate(90deg);
+}
 
 .main-stream {
     margin: 0 !important;
-    height: 95vh;
-    @include flex(0, center, center);
+    height: 100%;
 }
