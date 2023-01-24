@@ -28,7 +28,7 @@ export function UpperPopup() {
             {upperPopup === 'errorCreate' && <p>something went wrong... could not create event.</p>}
             {upperPopup === 'errorDelete' && <p>something went wrong... could not delete event.</p>}
             {upperPopup==='choose' && <p>Please complete all the fields</p>}
-            {upperPopup==='invalidPhone' && <p>invalid phone number, make sure </p>}
+            {upperPopup==='invalidPhone' && <p>invalid phone number, make sure the phone you entered is correct.</p>}
             {upperPopup==='invalidAddress' && <p>invalid address, make sure you use a valid ethereum wallet.</p>}
             {upperPopup==='takenAddress' && <p>This address is already used by other user.</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}

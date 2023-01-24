@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useEffect } from "react";
+import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { io } from "socket.io-client"
 import { setViewers } from '../store/actions/general.actions'
@@ -8,57 +8,48 @@ const colors = [
     "blue", "cyan", "magenta", "lime", "maroon", "navy", "olive", "teal", "violet", "silver", "gold", "indigo", "coral", "crimson", "fuchsia", "khaki", "lavender", "plum", "turquoise", "wheat", "beige", "azure", "aliceblue", "antiquewhite", "aquamarine", "bisque", "blanchedalmond", "blueviolet", "burlywood", "cadetblue", "chartreuse", "chocolate", "cornflowerblue", "cornsilk", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "gainsboro", "ghostwhite", "gold", "goldenrod", "greenyellow", "honeydew", "hotpink", "indianred", "ivory", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "limegreen", "linen", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "oldlace", "ol"];
 const joinRoom = (username, roomName) => {
     if (socket) {
-        socket.emit('joinRoom', { username, roomName });
+        socket.emit('joinRoom', { username, roomName })
     }
 }
 
 const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
+    const user = useSelector((state) => state.user)
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        return () => {
+            socket.off("message")
+        }
+    }, [socket])
+    
     if (end) {
         socket.emit('end-event')
     }
+
     if (cameras) {
         let type = 'normal'
         if (cameras[cameraIdx].label.toLowerCase().includes('back')) type = 'back'
         if (cameras[cameraIdx].label.toLowerCase().includes('front')) type = 'front'
         socket.emit('change-camera', { message: type })
     }
-    useEffect(() => {
-        return () => {
-            socket.off("message");
-        }
-    }, [socket])
+    
 
-    var randomColor = colors[Math.floor(Math.random() * colors.length)];
+    var randomColor = colors[Math.floor(Math.random() * colors.length)]
     const colorize = (username) => {
 
         for (let i = 0; i < 1; i++) {
             randomColor = colors[username.charCodeAt(i) % colors.length];
         }
     }
-
-    const user = useSelector((state) => state.user)
-    let nickName = (user.creator && user.creator.nickName) ? user.creator.nickName : 'bug';
-
-    if (!nickName) nickName = "Guest" + Math.floor(Math.random() * 10000);
-    colorize(nickName)
-
-    useEffect(() => {
-        return () => {
-            socket.off("message");
-        }
-    }, [socket])
-
+    
     const onEnter = (ev) => {
         if (ev.key === "Enter") {
-            sendMessage();
+            sendMessage()
         }
     }
-
-    joinRoom(nickName, eventName);
+    
     socket.on('message', (message) => {
         dispatch(setViewers(message.viewers))
         if (message.newRoom) {
@@ -69,9 +60,9 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
         }
     }
     )
-
+    
     const sendMessage = () => {
-        const message = document.getElementById('input').value;
+        const message = document.getElementById('input').value
         if (message !== "") {
             if (socket) {
                 socket.emit('chat', { "nickName": nickName, "message": message, "color": randomColor })
@@ -81,6 +72,11 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
             document.getElementById('body-text').scrollTop = document.getElementById('body-text').scrollHeight
         }
     }
+    
+    let nickName = (user.creator && user.creator.nickName) ? user.creator.nickName : 'bug'
+    if (!nickName) nickName = "Guest" + Math.floor(Math.random() * 10000)
+    joinRoom(nickName, eventName)
+    colorize(nickName)
 
     return (<>
         {(mobile && !showChat) ?
