@@ -125,7 +125,6 @@ function Creator() {
   }, [volume])
 
   const switchCamera = async () => {
-    const cameras = await AgoraRTC.getCameras()
     setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
 
@@ -431,7 +430,7 @@ function Creator() {
             <img src={require('../style/imgs/stream/full-screen.png')} onClick={switchCamera} />
           </div>
 
-          <div id="agora_local" className="stream-video">
+          <div id="agora_local" className="stream-video-mobile">
             {cameras.length === 0 && <div className="no-camera">
               <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_1126_3578)">
@@ -459,7 +458,8 @@ function Creator() {
             <img className="smaller" src={require('../style/imgs/stream/settings.png')} />
           </div>
         </section>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} />
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`}
+         mobile={true} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} cameraIdx={cameraIdx} cameras={cameras}/>
       </section>
       }
 
