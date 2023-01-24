@@ -13,10 +13,14 @@ const joinRoom = (username, roomName) => {
 }
 
 const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
-    const dispatch = useDispatch()
+
+    let nickName = (user.creator && user.creator.nickName) ? user.creator.nickName : 'bug'
+    if (!nickName) nickName = "Guest" + Math.floor(Math.random() * 10000)
+    joinRoom(nickName, eventName)
 
     useEffect(() => {
         return () => {
@@ -73,9 +77,6 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
         }
     }
     
-    let nickName = (user.creator && user.creator.nickName) ? user.creator.nickName : 'bug'
-    if (!nickName) nickName = "Guest" + Math.floor(Math.random() * 10000)
-    joinRoom(nickName, eventName)
     colorize(nickName)
 
     return (<>
