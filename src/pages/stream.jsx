@@ -408,7 +408,8 @@ function Creator() {
             </div>
           </div>
         </div>
-        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} />
+        <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`} 
+        zIndex={streamPhase === 2 ? '1001' : '0'} end={isEnd} cameraIdx={cameraIdx} cameras={cameras}/>
       </div>}
 
       {isMobile && <section className="stream-mobile" style={{ width: window.innerWidth < 551 ? window.innerHeight + 'px' : '' }} >

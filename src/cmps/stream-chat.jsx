@@ -12,17 +12,21 @@ const joinRoom = (username, roomName) => {
     }
 }
 
-const StreamChat = ({ eventName, mobile, zIndex, end }) => {
+const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
     const [messages, setMessages] = useState([])
     const [showChat, setShowChat] = useState(true)
     const dispatch = useDispatch()
-   
-    if(end) {
-      
+
+    if (end) {
         socket.emit('end-event')
     }
+    if (cameras) {
+        let type = 'normal'
+        if (cameras[cameraIdx].label.toLowerCase().includes('back')) type = 'back'
+        if (cameras[cameraIdx].label.toLowerCase().includes('front')) type = 'front'
+        socket.emit('change-camera', { message: type })
+    }
     useEffect(() => {
- 
         return () => {
             socket.off("message");
         }
