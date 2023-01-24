@@ -25,6 +25,10 @@
             margin-top: 20px;
             background-color: #3b3b3b2d;
         }
+        div{
+            height: var(--video-height) !important;
+            max-height: calc(100vh - 90px);
+        }
     }
 }
 
