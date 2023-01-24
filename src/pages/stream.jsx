@@ -136,6 +136,8 @@ function Creator() {
     if (device === 'mic') {
       const config = await AgoraRTC.createMicrophoneAudioTrack()
       config.setDevice(mics[micIdx].deviceId)
+      config.setVolume(Number(volumeRef.current.value))
+      channelParameters.localAudioTrack.setVolume(Number(volumeRef.current.value))
       channelParameters.localAudioTrack = config
       client.unpublish()
       client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
@@ -168,9 +170,11 @@ function Creator() {
   }
 
   const mute = async () => {
-    channelParameters.localAudioTrack = null
-    client.unpublish()
-    client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+    const config = await AgoraRTC.createMicrophoneAudioTrack()
+    config.setMuted(true)
+    channelParameters.localAudioTrack = config
+    await client.unpublish()
+    await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
     setIsMuted(true)
   }
 
@@ -344,7 +348,11 @@ function Creator() {
               <p>{idx + 1}. {mic.label.substring(0, mic.label.indexOf('('))}</p></div>)}
           <div className="option main-color" onClick={() => openOpt === 'volume' ? setOpenOpt('') : setOpenOpt('volume')}>
             <p>Volume</p><span class="material-symbols-outlined">{openOpt === 'volume' ? 'expand_less' : 'expand_more'}</span></div>
-          {openOpt === 'volume' && <input type="range" min="1" max="1000" onChange={sliderChange} value={volume} ref={volumeRef} />}
+          {openOpt === 'volume' && <div className="range-wrapper">
+            -
+            <input type="range" min="0" max="1000" onChange={sliderChange} value={volume} ref={volumeRef} />
+            +
+          </div>}
         </div>
         <div className="stream">
           <div id="agora_local" className="stream-video">

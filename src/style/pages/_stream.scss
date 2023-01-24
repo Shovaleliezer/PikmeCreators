@@ -25,7 +25,7 @@
             margin-top: 20px;
             background-color: #3b3b3b2d;
         }
-        div{
+        div {
             height: var(--video-height) !important;
             max-height: calc(100vh - 90px);
         }
@@ -35,21 +35,21 @@
 .stream-control {
     flex: 1.5;
     @include flex(0, space-between, flex-start);
-    padding:10px;
+    padding: 10px;
     box-shadow: 0px -4px 6px -4px #000000;
     z-index: 1;
-    .options{
+    .options {
         @include flex(40px, center, center);
-        img{
-            width:30px;
+        img {
+            width: 30px;
             aspect-ratio: 1/1;
             cursor: pointer;
         }
     }
-    .start{
+    .start {
         @include flex(22px, center, center);
-        div{
-            color:white;
+        div {
+            color: white;
             font-size: 20px;
             border-radius: 10px;
             cursor: pointer;
@@ -57,28 +57,28 @@
             height: 30px;
             @include flex(0, center, center);
         }
-        .begin{
-            background-color: $main; 
+        .begin {
+            background-color: $main;
         }
-        .end{
-            background-color: #F31313;
+        .end {
+            background-color: #f31313;
         }
-        .pause{
+        .pause {
             background-color: $bright-back;
         }
     }
-    .details{
+    .details {
         @include flex(40px, center, center);
         color: white;
         font-size: 20px;
         height: min-content;
-        img{
-            width:30px;
+        img {
+            width: 30px;
             aspect-ratio: 1/1;
         }
-        div{
+        div {
             @include flex(4px, center, center);
-            p{
+            p {
                 margin: 0;
             }
         }
@@ -86,47 +86,58 @@
 }
 
 .settings {
-    flex:3;
-    color:white;
+    flex: 3;
+    color: white;
     padding: 0 5px;
     min-width: 160px;
 
-    .settings-upper{
+    .settings-upper {
         width: 100%;
-        @include flex(10px,flex-start,center);
+        @include flex(10px, flex-start, center);
         border-bottom: 2px solid $bright-back;
         font-size: 24px;
-        span{
+        span {
             font-size: 30px;
         }
     }
-    .option{
-        @include flex(0,space-between,center);
+    .option {
+        @include flex(0, space-between, center);
         cursor: pointer;
         font-size: 20px;
         border-bottom: 2px solid $bright-back;
-        p{
+        p {
             margin: 8px 0;
         }
     }
-    .sub{
+    .sub {
         border-bottom: 2px solid $bright-back;
         padding: 10px 0;
         cursor: pointer;
-        p{
+        p {
             margin: 0;
         }
     }
-    div{
+    div {
         word-break: break-word;
         word-wrap: break-word;
     }
+    .range-wrapper {
+        padding-right:5px;
+        margin-top: 10px;
+        color: $main;
+        @include flex(0, center, center);
+        input[type="range"] {
+            background: $bright-back;
+            flex: 1;
+            border-radius: 10px;
+        }
+    }
 }
-.no-camera{
+.no-camera {
     @include flex(0, center, center, column);
-    color:#f3f3f3;
+    color: #f3f3f3;
 }
-.confirm-exit{
+.confirm-exit {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -136,41 +147,41 @@
     border-radius: 15px;
     width: 520px;
     padding: 20px;
-    @include flex(0, center, center,column);
+    @include flex(0, center, center, column);
 
-    img{
-        width:95px;
+    img {
+        width: 95px;
         aspect-ratio: 1/1;
         margin-bottom: 24px;
     }
-    h1{
+    h1 {
         margin: 8px;
-        color:white;
+        color: white;
         font-size: 28px;
     }
-    p{
+    p {
         margin-top: 0;
         margin-bottom: 65px;
-        color:rgba($color: #f3f3f3, $alpha: 0.7);
+        color: rgba($color: #f3f3f3, $alpha: 0.7);
         font-size: 20px;
         text-align: center;
     }
-    div{
+    div {
         @include flex(24px, center, center);
-        div{
+        div {
             width: 165px;
-            height:42px;
+            height: 42px;
             border: 1px solid $main;
-            color:white;
+            color: white;
             border-radius: 10px;
             font-size: 20px;
             cursor: pointer;
         }
-        div:hover{
+        div:hover {
             background-color: $main;
         }
-        .cancel{
-            background-color:$main
+        .cancel {
+            background-color: $main;
         }
     }
 }
