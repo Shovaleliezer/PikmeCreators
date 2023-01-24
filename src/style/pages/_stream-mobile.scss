@@ -1,110 +1,101 @@
 :root {
     --video-height: 300px;
 }
-
-.stream-mobile {
-    height: calc(100vh - 70px);
-    @include flex(0, center, center);
-    position: relative;
-
-    .left-wrapper {
-        @include flex(0, center, center, column);
-        flex: 1;
+@media (max-width: 1100px) {
+    .stream-mobile {
+        @include flex(0, center, center);
         height: 100%;
 
-        .stream-video-mobile {
-            width: 100%;
-            height: 300px;
+        .left-wrapper {
+            @include flex(0, center, center, column);
             flex: 1;
-        }
+            height: 98vh;
 
-        .lower {
-            @include flex(0, space-around, center);
-            width: 100%;
-            background-color: $back-dark;
-            padding: 3px;
-
-            img {
-                width: 30px;
-                aspect-ratio: 1/1;
+            .stream-video-mobile {
+                width: 100%;
+                height: 300px;
+                flex: 1;
             }
 
-            .smaller {
-                width: 25px;
-            }
-        }
+            .lower {
+                @include flex(0, space-around, center);
+                width: 100%;
+                background-color: $back-dark;
+                padding: 3px;
 
-        .upper {
-            width: 100%;
-            background-color: $back-dark;
-            padding: 5px 15px;
-            @include flex(0, space-between, center);
-            color: white;
+                img {
+                    width: 30px;
+                    aspect-ratio: 1/1;
+                }
 
-            img {
-                width: 28px;
-                aspect-ratio: 1/1;
-            }
-
-            .detail-holder {
-                @include flex(22px, center, center);
-
-                div {
-                    @include flex(5px, center, center);
-
-                    img {
-                        width: 22px;
-                        aspect-ratio: 1/1;
-                    }
-
-                    p {
-                        margin: 0;
-                        font-size: 18px;
-                    }
+                .smaller {
+                    width: 25px;
                 }
             }
 
-            .end-event-mobile {
-                height: 28px;
+            .upper {
+                width: 100%;
+                background-color: $back-dark;
+                padding: 5px 15px;
+                @include flex(0, space-between, center);
                 color: white;
-                background-color: #F31313;
-                border-radius: 10px;
-                padding: 0 14px;
-                @include flex(0, center, center);
+
+                img {
+                    width: 28px;
+                    aspect-ratio: 1/1;
+                }
+
+                .detail-holder {
+                    @include flex(22px, center, center);
+
+                    div {
+                        @include flex(5px, center, center);
+
+                        img {
+                            width: 22px;
+                            aspect-ratio: 1/1;
+                        }
+
+                        p {
+                            margin: 0;
+                            font-size: 18px;
+                        }
+                    }
+                }
+
+                .end-event-mobile {
+                    height: 28px;
+                    color: white;
+                    background-color: #f31313;
+                    border-radius: 10px;
+                    padding: 0 14px;
+                    @include flex(0, center, center);
+                }
             }
         }
-    }
-}
+        .stream-video-mobile {
+            @include flex(0, center, center);
+            z-index: 0 !important;
+        }
 
-.stream-mobile {
-height: 100%;
-    .stream-video-mobile {
-        @include flex(0, center, center);
-        z-index: 0 !important;
-    }
+        .stream-video-mobile > * {
+            height: var(--video-height) !important;
+        }
 
-    .stream-video-mobile>* {
-        height: var(--video-height) !important;
-    }
+        .left-wrapper {
+            width: 66vh;
+            flex: 2;
+            @include flex(0, space-between, center, column);
+        }
 
-    .left-wrapper {
-        width: 66vh;
-        flex: 2;
-        @include flex(0, space-between, center, column);
+        .chat-box {
+            width: 32vh;
+            flex: 1;
+        }
     }
-
-    .chat-box {
-        width: 32vh;
-        flex: 1;
+    .confirm-exit {
+        width: 500px;
     }
-}
-
-.confirm-exit {
-    height: 98vw;
-    width: 500px;
-    top: 25vh;
-    left: -60px;
-    transform: rotate(90deg);
 }
 
 .main-stream {
