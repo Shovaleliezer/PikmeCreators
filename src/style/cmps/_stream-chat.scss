@@ -120,7 +120,7 @@
     .chat-box {
         display: flex;
         flex: 1;
-        height: 98vh;
+        height: 100%;
         width: 270px;
         .chat-header{
             @include flex(0, center, center);
