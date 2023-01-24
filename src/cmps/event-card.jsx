@@ -76,7 +76,6 @@ export function EventCard({ ev, creator }) {
                 <div className='bolder' onClick={() => setIsOpen(false)}>Cancel</div>
                 <div className='lighter' onClick={() => deleteEvent(false)}>Delete</div>
             </div>
-
         </div>}
     </>)
 }

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { uploadService } from '../services/upload.service.js'
 import { RegisterProgress } from './register-progress.jsx'
 import { getYears } from '../services/utils.js'
-import { setCreator,setAddress,setIsConnected,setPhone } from '../store/reducers/userReducer.js'
+import { setCreator, setAddress, setIsConnected, setPhone } from '../store/reducers/userReducer.js'
 import { setCallbackLink, setUpperPopup } from '../store/actions/general.actions.js'
 import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
 import { userService } from '../services/userService.js'
@@ -29,8 +29,8 @@ export function Register() {
         experience: '',
         socialLink: ''
     })
-    const [img, setImg] = useState({ category: 'choose', game: 'choose' })
-    const [category, setCategory] = useState('gaming')
+    const [img, setImg] = useState({ category: 'gaming', game: 'choose' })
+    const [category, setCategory] = useState('sports')
     const [isLoader, setIsLoader] = useState(false)
     const [file, setFile] = useState(null)
     const [sent, setSent] = useState(false)
@@ -80,9 +80,26 @@ export function Register() {
     const completePhase1 = async (e) => {
         e.preventDefault()
         setIsLoader(true)
-        const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
-        setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value, walletAddress: addressRef.current.value })
-        setPhase(2)
+        const eth = new RegExp(/^0x[a-fA-F0-9]{40}$/)
+        if (!eth.test(addressRef.current.value)) {
+            dispatch(setUpperPopup('invalidAddress'))
+            setIsLoader(false)
+            return
+        }
+        try {
+            const isTaken = await userService.isAddressValid(addressRef.current.value)
+            if (isTaken) {
+                dispatch(setUpperPopup('takenAddress'))
+                setIsLoader(false)
+                return
+            }
+            const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
+            setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value, walletAddress: addressRef.current.value })
+            setPhase(2)
+        }
+        catch {
+            dispatch(setUpperPopup('errorServer'))
+        }
     }
 
     const completePhase2 = (e) => {
@@ -155,8 +172,8 @@ export function Register() {
                 <h3>Nickname</h3>
                 <input type="text" placeholder="Enter your nickname" required maxLength={15} ref={nameRef} />
                 <h3>Wallet address</h3>
-                <input type="text" placeholder="crypto wallet address" required ref={addressRef} />
-                <h3>Image</h3>
+                <input type="text" placeholder="Ethereum wallet address" required ref={addressRef} />
+                <h3>Profile Image</h3>
                 <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{file && file.name}</div></label>
                 <input id='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" required ref={imgRef} onChange={handleFile} />
                 {isLoader && <div className="loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
@@ -170,10 +187,10 @@ export function Register() {
                         <h3>Category</h3>
                         <div className='select-wrapper'>
                             <img src={require(`../style/imgs/register/${img.category}.png`)} />
-                            <select ref={categoryRef} onClick={handleImg} name='category' style={{ opacity: (!categoryRef.current || categoryRef.current.value === 'choose') ? 0.7 : 1 }}>
-                                <option value='choose'>Choose</option>
-                                <option value="gaming">Gaming</option>
+                            <select ref={categoryRef} onClick={handleImg} name='category' disabled>
                                 <option value="sports">Sports</option>
+                                <option value="gaming">Gaming</option>
+                                <option value='choose'>Choose</option>
                             </select>
                         </div>
                     </div>
@@ -181,7 +198,7 @@ export function Register() {
                         <h3>Game</h3>
                         <div className='select-wrapper'>
                             <img src={require(`../style/imgs/register/${img.game}.png`)} />
-                            <select ref={gameRef} onClick={handleImg} name='game' style={{ opacity: (!gameRef.current || gameRef.current.value === 'choose') ? 0.7 : 1 }}>
+                            <select ref={gameRef} onClick={handleImg} name='game' >
                                 <option value="choose">Choose</option>
                                 <option value="valorant">Valorant</option>
                                 <option value="fifa">Fifa</option>
@@ -192,7 +209,8 @@ export function Register() {
                         <h3>sport type</h3>
                         <div className='select-wrapper'>
                             <img src={require(`../style/imgs/register/${img.game}.png`)} />
-                            <select ref={gameRef} onClick={handleImg} name='game' style={{ opacity: (!gameRef.current || gameRef.current.value === 'choose') ? 0.7 : 1 }}>
+                            <select ref={gameRef} onClick={handleImg} name='game'>
+                                <option value="choose">Choose</option>
                                 <option value="table-tennis">Table tennis</option>
                                 <option value="poker">Poker</option>
                             </select>

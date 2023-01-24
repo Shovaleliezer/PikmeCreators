@@ -80,18 +80,47 @@
         }
     }
 }
+
 .settings {
     flex:3;
     color:white;
+    padding: 0 5px;
+    min-width: 160px;
+
     .settings-upper{
         width: 100%;
-        @include flex(5px,space-between,center);
+        @include flex(10px,flex-start,center);
         border-bottom: 2px solid $bright-back;
         font-size: 24px;
         span{
             font-size: 30px;
         }
     }
+    .option{
+        @include flex(0,space-between,center);
+        cursor: pointer;
+        font-size: 20px;
+        border-bottom: 2px solid $bright-back;
+        p{
+            margin: 8px 0;
+        }
+    }
+    .sub{
+        border-bottom: 2px solid $bright-back;
+        padding: 10px 0;
+        cursor: pointer;
+        p{
+            margin: 0;
+        }
+    }
+    div{
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+}
+.no-camera{
+    @include flex(0, center, center, column);
+    color:#f3f3f3;
 }
 .confirm-exit{
     position: fixed;

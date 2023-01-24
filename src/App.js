@@ -1,9 +1,6 @@
 import './style/main.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
-import { setIsConnected, setCreator, setAddress, resetState } from './store/reducers/userReducer'
-import { userService } from './services/userService'
-import { useEffect } from "react"
 
 //pages
 import { Home } from './pages/home'
@@ -27,13 +24,21 @@ import { TutorialStream } from './cmps/tutorial-stream'
 
 //debug
 import { resetGeneralState } from './store/actions/general.actions'
-import { setStreamPhase,setRegisterPhase} from './store/actions/tutorial.actions'
-// const ethereum = window.ethereum
+import { setStreamPhase, setRegisterPhase } from './store/actions/tutorial.actions'
+
 
 
 function App() {
-  const { mode, channel, type } = useSelector((storeState) => storeState.generalModule)
   const dispatch = useDispatch()
+  const { mode, channel, type } = useSelector((storeState) => storeState.generalModule)
+  const { streamPhase, registerPhase, homePhase } = useSelector((storeState) => storeState.tutorialModule)
+
+  if ((streamPhase <= 3 && streamPhase > 0) || (registerPhase > 0 && registerPhase >= 3) || homePhase === 1) {
+    document.body.style.overflow = "hidden"
+  }
+  else {
+    document.body.style.overflow = "auto"
+  }
 
   document.body.classList = [`back-${mode.type}`]
   return (
@@ -49,7 +54,7 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        {/* <button className='reset' onClick={()=>{dispatch(setRegisterPhase(1))}}>DEBUG</button> */}
+        {/* <button className='reset' onClick={() => { dispatch(setStreamPhase(0)) }}>DEBUG</button> */}
         <Footer />
       </div>
       <Menu mode={mode} />
@@ -60,13 +65,16 @@ function App() {
       <TutorialRegister />
       <TutorialCreate />
       <TutorialStream />
-      
+
     </Router>
   )
 }
 
 export default App;
-
+// import { setIsConnected, setCreator, setAddress, resetState } from './store/reducers/userReducer'
+// import { userService } from './services/userService'
+// import { useEffect } from "react"
+// const ethereum = window.ethereum
 // useEffect(() => {
   //   if (ethereum) {
   //     ethereum.on('accountsChanged', async (accounts) => {

@@ -8,6 +8,7 @@ export const userService = {
     checkIsCreator,
     addCreator,
     editCreator,
+    isAddressValid,
     getStreamTokenClient,
     deleteCreatorEvent,
     validateOTP,
@@ -59,6 +60,17 @@ async function editCreator(phone, creator) {
 async function getStreamTokenClient({ uid, role, channel }) {
     const token = await httpService.get(`rtc/${channel}/${role}/uid/${uid}`)
     return token
+}
+
+async function isAddressValid(address) {
+    try {
+        const valid = await httpService.get('handle-creator/check-wallet-address/' + address)
+        return valid.exist
+    }
+    catch {
+        return true
+    }
+
 }
 
 async function sendOTP(phone) {

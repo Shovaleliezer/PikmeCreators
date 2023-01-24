@@ -13,6 +13,7 @@ export function Profile() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const [creator, setLocalCreator] = useState('loading')
+    const [isOpen, setIsOpen] = useState(false)
     const [img, setImg] = useState('valorant')
     const [isChanged, setIsChanged] = useState(false)
     const [sent, setSent] = useState(false)
@@ -95,7 +96,7 @@ export function Profile() {
 
     const { nickName, walletAddress, image, proficiencyGame, region, topAchievement, status, experience, socialLink } = creator
     try {
-        return <section className="profile">
+        return <><section className="profile">
             <h1>Account information</h1>
             <div className="edit-container">
                 <div className="main-img-wrapper">
@@ -184,10 +185,20 @@ export function Profile() {
                 </div>
             </div>
             <div className="save-wrapper">
-                <button onClick={() => navigate('/')} className="back clickable">Back</button>
+                <button onClick={() => { isChanged ? setIsOpen(true) : navigate('/')}} className="back clickable">Back</button>
                 <button onClick={save} className="save clickable">Save</button>
             </div>
         </section>
+            {isOpen && <div className="simple-popup">
+                <img src={require('../style/imgs/error.png')} />
+                <h1>Are you sure</h1>
+                <p>The changes you done will not be saved, go back anyway?</p>
+                <div className='buttons-wrapper'>
+                    <div className='bolder' onClick={() => setIsOpen(false)}>Cancel</div>
+                    <div className='lighter' onClick={() => navigate('/')}>Back</div>
+                </div>
+            </div>}
+        </>
     }
     catch {
         return <Error />

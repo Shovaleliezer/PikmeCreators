@@ -11,6 +11,14 @@
     }
 }
 
+.buddy-rotate{
+    transform: rotate(90deg) translate(-50%, 50%)!important ;
+}
+
+.right-rotate{
+    transform: rotate(90deg) translate(-100%, 15%)!important ;
+}
+
 .buddy-connect {
     transform: translate(-50%, -50%);
     top: 30vh;
@@ -468,4 +476,62 @@
     background-color: black;
     z-index: 1000;
     opacity: 0.7;
+}
+
+@media screen and (max-width: 550px) {
+    .tutorial-specific-stream {
+        z-index: 1001;
+        top: 0 !important;
+        left: 0 !important;
+        width: 480px;
+        height: 224px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: white;
+        padding: 20px;
+    
+        .specific-inner {
+            width: 100%;
+            @include flex(12px, center, center, column);
+    
+            h1,
+            p {
+                font-weight: 200;
+                margin: 0;
+                text-align: center;
+            }
+    
+            h1 {
+                font-size: 20px;
+            }
+    
+            p {
+                font-size: 20px;
+                opacity: 0.7;
+            }
+        }
+        .continue-wrapper {
+            width: 100%;
+            @include flex(0, space-between, center);
+            position: absolute;
+    
+            h5 {
+                font-size: 20px;
+                color: $main;
+                text-decoration: underline;
+                cursor: pointer;
+                margin: 0;
+            }
+    
+            p {
+                font-size: 20px;
+                margin: 0;
+            }
+    
+        }
+    }
+    .t-right-mobile{
+        background-image: url("../imgs/tutorial/popup-right-mobile.png");
+    }
+    
 }

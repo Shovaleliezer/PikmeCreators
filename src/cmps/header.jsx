@@ -1,22 +1,28 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink, useLocation } from "react-router-dom"
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { toggleMenu, setMenuSide, setPopup } from "../store/actions/general.actions"
 
 export function Header(props) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const location = useLocation()
     const user = useSelector((state) => state.user)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const { registerPhase } = useSelector((state) => state.tutorialModule)
     let isMobile = window.innerWidth < 930 ? true : false
 
+    const navTo = (path) => {
+        if(!location.pathname.includes('stream-control')) navigate(path)
+        else dispatch(setPopup(path))
+    }
+
     return (
         <>
             {!isMobile && <div className="header noselect" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
                 <div className="options-bar">
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
-                    <NavLink to='/profile'>
+                    <div onClick={() => navTo('/profile')}>
                         {(user.creator) ? <img className='header-user-img' src={user.creator.image} /> :
                             <svg width="30" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="clickable hover-main-svg">
                                 <g clipPath="url(#clip0_424_10288)">
@@ -30,11 +36,11 @@ export function Header(props) {
                                 </defs>
                             </svg>
                         }
-                    </NavLink>
+                    </div>
                 </div>
-                <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
+                <img onClick={()=>{navTo('/')}} className="logo clickable" src={require('../style/imgs/logo.png')} />
                 <div className="options-bar" style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}>
-                    <NavLink to='/join'><div className="join-button">Join</div></NavLink>
+                    <div onClick={()=>{navTo('/join')}} className="join-button clickable">Join</div>
                     <div onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
                 </div>
 
@@ -45,13 +51,13 @@ export function Header(props) {
                     <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
                     <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
                 </div>
-                <nav className={`footer-mobile ${props.mode.type}`} style={{zIndex : registerPhase===2? '1001' : '1'}}>
+                <nav className={`footer-mobile ${props.mode.type}`} style={{ zIndex: registerPhase === 2 ? '1001' : '1' }}>
                     <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>
                     {(user && user.creator) && <img src={require('../style/imgs/create.png')} onClick={() => setIsMenuOpen(!isMenuOpen)} />}
                     <NavLink to='/'><img src={require(`../style/imgs/home-icon-${props.mode.type}.png`)} /></NavLink>
                     {isMenuOpen && <div className="create-menu">
                         <div onClick={() => { dispatch(setPopup('create')); setIsMenuOpen(false) }}>Create new event</div>
-                        <NavLink to='/join' onClick={()=>setIsMenuOpen(false)}><div>Join event</div></NavLink>
+                        <NavLink to='/join' onClick={() => setIsMenuOpen(false)}><div>Join event</div></NavLink>
                     </div>}
                 </nav>
             </>}
