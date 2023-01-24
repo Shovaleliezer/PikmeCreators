@@ -182,7 +182,6 @@ function Creator() {
     catch {
       console.log('something went wrong')
     }
-    return () => dispatch(setStreamPhase(0))
   }
 
   function initStopOne(client, path) {
@@ -249,8 +248,6 @@ function Creator() {
           // create camera track
           channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
         }
-
-        // create audio track
         channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
         loadBackCamrea()
         // channelParameters.localVideoTrack.play("agora_local");
@@ -315,7 +312,7 @@ function Creator() {
     return width
   }
 
-  if (currentEvent.length === 0) return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
+  if (currentEvent.length === 0) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div></div></div></div>
 
   let prizePool = 0
