@@ -75,6 +75,12 @@ function Creator() {
       document.documentElement.style.setProperty('--visibility', 'visible')
       document.body.style.overflow = "auto"
       initStopOne(client, 'no-home')
+      try {
+        client.unpublish()
+      }
+      catch {
+        console.log('no client')
+      }
       if (window.innerWidth < 550) document.querySelector('.main-layout').classList.remove("main-stream")
       window.screen.orientation.unlock()
     }
@@ -147,8 +153,6 @@ function Creator() {
       config.setDevice(mics[micIdx].deviceId)
       config.setVolume(Number(volume))
       channelParameters.localAudioTrack = config
-      client.unpublish()
-      client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
       setIsMuted(false)
     }
     else {
@@ -161,9 +165,11 @@ function Creator() {
       }
       config.setDevice(cameras[cameraIdx].deviceId)
       channelParameters.localVideoTrack = config
+      channelParameters.localVideoTrack.play("agora_local")
+    }
+    if (status === 'live') {
       client.unpublish()
       client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
-      channelParameters.localVideoTrack.play("agora_local")
     }
   }
 
@@ -234,12 +240,10 @@ function Creator() {
       console.log("join failed", e);
     }
 
-    // detect if user published
     client.on("user-published", async (user, mediaType) => {
       setAlreadyStreamed(true)
       console.log("user-published", user, mediaType);
     });
-    // detect if user unpublish
     client.on("user-unpublished", async (user, mediaType) => {
       setAlreadyStreamed(false)
       console.log("user-unpublished", user, mediaType);
@@ -277,11 +281,7 @@ function Creator() {
         console.log("create video track failed", e);
       }
     }
-
-
-
     if (channelParameters.localVideoTrack && channelParameters.localAudioTrack && live) {
-      console.log("publishing", client)
       if (alreadyStreamed && options.type === "sports") {
         console.log("stream already started by your opponent")
       }
@@ -478,7 +478,8 @@ function Creator() {
                 endEvent()
               }
               else {
-                streamGaming(client, true)
+                if (!alreadyStreamed) streamGaming(client, true)
+                else dispatch(setUpperPopup('otherStream'))
                 setModal(false)
               }
             }}>{Modal}</div>

@@ -31,6 +31,7 @@ export function UpperPopup() {
             {upperPopup==='invalidPhone' && <p>invalid phone number, make sure the phone you entered is correct.</p>}
             {upperPopup==='invalidAddress' && <p>invalid address, make sure you use a valid ethereum wallet.</p>}
             {upperPopup==='takenAddress' && <p>This address is already used by other user.</p>}
+            {upperPopup==='otherStream' && <p>Someone else already started streaming.</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
         </section>
     )
