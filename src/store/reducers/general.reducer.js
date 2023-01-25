@@ -52,8 +52,6 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, popupEvent: action.popupEvent }
         case 'SET_UPPER_POPUP':
             return { ...state, upperPopup: action.upperPopup }
-        case 'SET_STREAM_POPUP':
-            return { ...state, streamPopup: action.streamPopup }
         case 'SET_CALLBACK_LINK':
             return { ...state, callbackLink: action.callbackLink }
         case 'RESET_GENERAL_STATE':

@@ -50,12 +50,6 @@ export function resetGeneralState() {
     }
 }
 
-export function setStreamPopup(streamPopup) {
-    return (dispatch) => {
-        dispatch({ type: 'SET_STREAM_POPUP', streamPopup })
-    }
-}
-
 export function setCallbackLink(callbackLink) {
     return (dispatch) => {
         dispatch({ type: 'SET_CALLBACK_LINK', callbackLink })
