@@ -34,9 +34,11 @@
             }
 
             .upper {
+                box-sizing: unset;
                 width: 100%;
                 background-color: $back-dark;
                 padding: 5px 15px;
+                padding-top: 40px;
                 @include flex(0, space-between, center);
                 color: white;
 
@@ -78,7 +80,7 @@
             z-index: 0 !important;
             div{
                 height: var(--video-height) !important;
-                max-height: calc(100vh - 74px);
+                max-height: calc(100vh - 100px);
                 transform: scaleX(-1);
             }
         }

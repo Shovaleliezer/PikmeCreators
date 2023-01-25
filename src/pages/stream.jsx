@@ -214,14 +214,11 @@ function Creator() {
     }
 
     client.remoteUsers.forEach(user => {
-      if (user.hasVideo) {
-        console.log("user has video , ", user);
-      }
-      client.unsubscribe(user);
+      client.unsubscribe(user)
     })
-    client.removeAllListeners();
-    client.leave();
-    if (!path) window.location = '/';
+    client.removeAllListeners()
+    client.leave()
+    if (!path) window.location = '/'
   }
 
   const joinRoom = async () => {
@@ -230,23 +227,23 @@ function Creator() {
       channel = String(streamInfo._id)
       let token = await userService.getStreamTokenClient({ channel: channel, uid: uid, role: options.role })
       options.type = streamInfo.category
-      uid = await client.join(APP_ID, channel, token.rtcToken, uid);
+      uid = await client.join(APP_ID, channel, token.rtcToken, uid)
       await client.setClientRole(options.role);
       setCurrentEvent(streamInfo)
       streamGaming(client);
     }
 
     catch (e) {
-      console.log("join failed", e);
+      console.log("join failed", e)
     }
 
     client.on("user-published", async (user, mediaType) => {
       setAlreadyStreamed(true)
-      console.log("user-published", user, mediaType);
+      console.log("user-published", user, mediaType)
     });
     client.on("user-unpublished", async (user, mediaType) => {
       setAlreadyStreamed(false)
-      console.log("user-unpublished", user, mediaType);
+      console.log("user-unpublished", user, mediaType)
     });
   }
 
@@ -265,7 +262,7 @@ function Creator() {
         loadBackCamrea()
       }
       catch (e) {
-        console.log("create audio track failed", e);
+        console.log("create audio track failed", e)
       }
     }
 
