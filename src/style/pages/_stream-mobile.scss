@@ -127,3 +127,10 @@
     margin: 0 !important;
     height: 100%;
 }
+
+.rotate-phone{
+    @include flex(0, center, center, column);
+    width: 90%;
+    color: white;
+    text-align: center;
+}

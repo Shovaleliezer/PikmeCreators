@@ -95,6 +95,7 @@ function Creator() {
     if (agora) {
       const width = agora.offsetWidth
       document.documentElement.style.setProperty('--video-height', (width * 9 / 16) + 'px')
+      window.scrollTo(0, document.body.scrollHeight)
     }
   }, [currentEvent])
 
@@ -329,7 +330,9 @@ function Creator() {
   let Modal = modal === 'start' ? 'Start' : 'End'
   const timeUntilEvent = getTimeUntil(currentEvent.date)
 
-  if (window.innerWidth < 550) return <div className="home"><h1>please rotate your phone</h1></div>
+  if (window.innerWidth < 550) return <div className="center-fixed rotate-phone">
+    <h1>please rotate your phone. On a landscape mode, <span onClick={()=>window.location.reload()} className="main-color">reload page</span>.</h1>
+    </div>
 
   try {
     return (<>
