@@ -33,12 +33,12 @@ function App() {
   const { mode, channel, type } = useSelector((storeState) => storeState.generalModule)
   const { streamPhase, registerPhase, homePhase } = useSelector((storeState) => storeState.tutorialModule)
 
-  if ((streamPhase <= 3 && streamPhase > 0) || (registerPhase > 0 && registerPhase >= 3) || homePhase === 1) {
-    document.body.style.overflow = "hidden"
-  }
-  else {
-    document.body.style.overflow = "auto"
-  }
+  // if ((streamPhase <= 3 && streamPhase > 0) || (registerPhase > 0 && registerPhase >= 3) || homePhase === 1) {
+  //   document.body.style.overflow = "hidden"
+  // }
+  // else {
+  //   document.body.style.overflow = "auto"
+  // }
 
   document.body.classList = [`back-${mode.type}`]
   return (

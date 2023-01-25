@@ -110,11 +110,11 @@ function Creator() {
   }, [currentEvent])
 
   useEffect(() => {
-    play()
+    if (cameras.length) play()
   }, [cameraIdx])
 
   useEffect(() => {
-    play('mic')
+    if (mics.length) play('mic')
   }, [micIdx])
 
   useEffect(() => {
@@ -151,17 +151,17 @@ function Creator() {
     setVolume(e.target.value)
   }
 
-  const loadBackCamrea = () => {
+  const loadBackCamrea = async() => {
+    const cameras = await AgoraRTC.getCameras()
     const backCameraIdx = cameras.findIndex(camera => camera.label.toLowerCase().includes('back'))
     if (backCameraIdx !== -1) setCameraIdx(backCameraIdx)
     else play()
   }
 
   const play = async (device) => {
+    const cameras = await AgoraRTC.getCameras()
+    const mics = await AgoraRTC.getMicrophones()
 
-    // console.log('ccc', channelParameters.localVideoTrack)
-    // if (mics.length === 0 || cameras.length === 0 || !document.getElementById('agora_local')) return
-    // alert('channelParameters' + channelParameters)
     if (device === 'mic') {
       const config = await AgoraRTC.createMicrophoneAudioTrack()
       config.setDevice(mics[micIdx].deviceId)
@@ -170,13 +170,13 @@ function Creator() {
       setIsMuted(false)
     }
     else {
-      const cameras = await AgoraRTC.getCameras()
-      if(channelParameters.localVideoTrack) channelParameters.localVideoTrack.stop()
       const config = await createVideo()
       if (!cameras[cameraIdx]) {
         setCameraIdx(0)
         return
       }
+      alert(channelParameters.localVideoTrack)
+      if (channelParameters.localVideoTrack) channelParameters.localVideoTrack.stop()
       config.setDevice(cameras[cameraIdx].deviceId)
       channelParameters.localVideoTrack = config
       channelParameters.localVideoTrack.play("agora_local")
@@ -228,28 +228,28 @@ function Creator() {
   }
 
   function initStopOne(client, path) {
-    try{
-    if (channelParameters.localAudioTrack) {
-      client.unpublish()
-      channelParameters.localVideoTrack.stop()
-      channelParameters.localVideoTrack.close()
-      channelParameters.localAudioTrack.stop()
-      channelParameters.localAudioTrack.close()
-      channelParameters.localAudioTrack = null
-      channelParameters.localVideoTrack = null
-    }
+    try {
+      if (channelParameters.localAudioTrack) {
+        client.unpublish()
+        channelParameters.localVideoTrack.stop()
+        channelParameters.localVideoTrack.close()
+        channelParameters.localAudioTrack.stop()
+        channelParameters.localAudioTrack.close()
+        channelParameters.localAudioTrack = null
+        channelParameters.localVideoTrack = null
+      }
 
-    client.remoteUsers.forEach(user => {
-      client.unsubscribe(user)
-    })
-    client.removeAllListeners()
-    client.leave()
-    if (!path) window.location = '/'
+      client.remoteUsers.forEach(user => {
+        client.unsubscribe(user)
+      })
+      client.removeAllListeners()
+      client.leave()
+      if (!path) window.location = '/'
+    }
+    catch (err) {
+      alert('inittt' + err)
+    }
   }
-  catch(err){
-    alert('inittt'+err)
-  }
-}
 
   const joinRoom = async () => {
     try {
