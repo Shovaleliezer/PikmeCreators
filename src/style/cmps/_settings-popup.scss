@@ -1,0 +1,44 @@
+.settings-popup{
+    z-index: 100;
+    background-color: rgb(11, 11, 11);
+    border-radius: 15px;
+    width: 520px;
+    padding: 20px;
+    @include flex(0, center, center, column);
+
+    img {
+        width: 95px;
+        aspect-ratio: 1/1;
+        margin-bottom: 24px;
+    }
+    h1 {
+        margin: 8px;
+        color: white;
+        font-size: 28px;
+    }
+    p {
+        margin-top: 0;
+        margin-bottom: 65px;
+        color: rgba($color: #f3f3f3, $alpha: 0.7);
+        font-size: 20px;
+        text-align: center;
+    }
+    div {
+        @include flex(24px, center, center);
+        div {
+            width: 165px;
+            height: 42px;
+            border: 1px solid $main;
+            color: white;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        div:hover {
+            background-color: $main;
+        }
+        .cancel {
+            background-color: $main;
+        }
+    }
+}
