@@ -69,7 +69,7 @@ function Creator() {
     if (window.innerWidth < 1100) document.querySelector('.main-layout').classList.add("main-stream")
     loadCameras()
     loadMics()
-    window.screen.orientation.lock('landscape-primary')
+    window.addEventListener("resize", ()=>{window.location.reload()} )
 
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
@@ -82,7 +82,7 @@ function Creator() {
         console.log('no client')
       }
       if (window.innerWidth < 550) document.querySelector('.main-layout').classList.remove("main-stream")
-      window.screen.orientation.unlock()
+      window.removeEventListener("resize", ()=>{window.location.reload()} )
     }
   }, [])
 
@@ -331,7 +331,7 @@ function Creator() {
   const timeUntilEvent = getTimeUntil(currentEvent.date)
 
   if (window.innerWidth < 550) return <div className="center-fixed rotate-phone">
-    <h1>please rotate your phone. On a landscape mode, <span onClick={()=>window.location.reload()} className="main-color">reload page</span>.</h1>
+    <h1>Please rotate your phone.</h1>
     </div>
 
   try {
