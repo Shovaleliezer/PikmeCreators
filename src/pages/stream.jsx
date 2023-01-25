@@ -11,6 +11,7 @@ import { makeCommas, getTimeUntil } from '../services/utils'
 import { NavLink } from 'react-router-dom'
 import { eventService } from "../services/event.service"
 import { setUpperPopup } from "../store/actions/general.actions"
+// import { SettingsPopup } from "../cmps/settings-popup"
 
 let options =
 {
@@ -26,12 +27,9 @@ let options =
 
 let channelParameters =
 {
-  // A variable to hold a local audio track.
   localAudioTrack: null,
-  // A variable to hold a local video track.
   localVideoTrack: null,
   localCamera: null,
-  // A variable to hold a remote audio track.
 }
 
 function Creator() {
@@ -40,6 +38,7 @@ function Creator() {
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const [client, setClient] = useState(null)
   const [modal, setModal] = useState(false)
+  // const [settings, setSettings] = useState(false)
   const [isEnd, setIsEnd] = useState(false)
   const [status, setStatus] = useState("not-live")
   const [cameras, setCameras] = useState([])
@@ -116,6 +115,17 @@ function Creator() {
     }
   }, [volume])
 
+  const createVideo = async () => {
+    const config = await AgoraRTC.createCameraVideoTrack({
+      optimizationMode: 'motion',
+      encoderConfig: {
+        bitrateMax: 3000,
+        frameRate: { min: 25, max: 60 },
+      }
+    })
+    return config
+  }
+
   const switchCamera = async () => {
     setCameraIdx(cameraIdx === cameras.length - 1 ? 0 : cameraIdx + 1)
   }
@@ -144,7 +154,7 @@ function Creator() {
     else {
       const cameras = await AgoraRTC.getCameras()
       channelParameters.localVideoTrack.stop()
-      const config = await AgoraRTC.createCameraVideoTrack()
+      const config = await createVideo()
       if (!cameras[cameraIdx]) {
         setCameraIdx(0)
         return
@@ -239,20 +249,16 @@ function Creator() {
   let streamGaming = async (client, live = false) => {
     if (options.type === "sports" && channelParameters.localVideoTrack === null) {
       try {
-        channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-
-
+        channelParameters.localVideoTrack = await createVideo();
       } catch (e) {
         console.log("create video track failed", e);
       }
       try {
         if (!channelParameters.localVideoTrack) {
-          // create camera track
           channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
         }
         channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
         loadBackCamrea()
-        // channelParameters.localVideoTrack.play("agora_local");
       }
       catch (e) {
         console.log("create audio track failed", e);
@@ -402,7 +408,6 @@ function Creator() {
       </div>}
 
       {isMobile && <section className="stream-mobile" >
-
         <section className="left-wrapper">
           <div className="upper">
             <div onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }} className="end-event-mobile">End Event</div>
@@ -444,7 +449,7 @@ function Creator() {
               <path d="M17.2521 18.5722L16.0832 17.4032C15.6091 17.5914 15.0961 17.6608 14.589 17.6051C14.0819 17.5495 13.5962 17.3706 13.1742 17.0841C12.7521 16.7975 12.4067 16.412 12.1679 15.9613C11.9291 15.5105 11.8043 15.0081 11.8043 14.498V13.1259L10.2415 11.5631V14.498C10.2413 15.319 10.4566 16.1256 10.866 16.8372C11.2753 17.5488 11.8644 18.1404 12.5742 18.5529C13.284 18.9654 14.0896 19.1843 14.9106 19.1877C15.7315 19.191 16.539 18.9788 17.2521 18.5722ZM5 4.11181L23.7533 22.8651L24.8597 21.7586L6.10644 3.00537L5 4.11181Z"
                 fill='white' fill-opacity="0.9" />
             </svg>
-            <img className="smaller" src={require('../style/imgs/stream/settings.png')} />
+            {/* <img onClick={()=>setSettings(!settings)} className="smaller" src={require('../style/imgs/stream/settings.png')} /> */}
           </div>
         </section>
         <StreamChat eventName={currentEvent.category == "sports" ? `${currentEvent._id}` : `${currentEvent._id}`}
