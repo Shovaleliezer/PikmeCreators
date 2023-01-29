@@ -6,8 +6,8 @@ import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import { Home } from './pages/home'
 import { Confirm } from './pages/confirm'
 import { Profile } from './pages/profile'
-import Creator from './pages/stream'
 import { Join } from './pages/join'
+import { StreamWrapper } from './pages/stream-wrapper'
 
 //cmps
 import { Header } from './cmps/header'
@@ -50,7 +50,7 @@ function App() {
             <Route path='/profile' element={<Profile />} />
             <Route path='/confirm/:id' element={<Confirm />} />
             <Route path='/' element={<Home mode={mode} />} />
-            <Route path='/stream-control' element={<Creator channel={channel} type={type} />} />
+            <Route path='/stream-control' element={<StreamWrapper />} />
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
