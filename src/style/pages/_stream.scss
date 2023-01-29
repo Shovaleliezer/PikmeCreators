@@ -25,6 +25,7 @@
             margin-top: 20px;
             background-color: #3b3b3b2d;
         }
+
         div {
             height: var(--video-height) !important;
             max-height: calc(100vh - 90px);
@@ -38,16 +39,20 @@
     padding: 10px;
     box-shadow: 0px -4px 6px -4px #000000;
     z-index: 1;
+
     .options {
         @include flex(40px, center, center);
+
         img {
             width: 30px;
             aspect-ratio: 1/1;
             cursor: pointer;
         }
     }
+
     .start {
         @include flex(22px, center, center);
+
         div {
             color: white;
             font-size: 20px;
@@ -57,27 +62,40 @@
             height: 30px;
             @include flex(0, center, center);
         }
+
         .begin {
             background-color: $main;
         }
+
         .end {
             background-color: #f31313;
         }
+
         .pause {
             background-color: $bright-back;
         }
     }
+
+    .stream-timer{
+        color:$main;
+        margin: 0;
+        font-size: 22px;
+    }
+
     .details {
         @include flex(40px, center, center);
         color: white;
         font-size: 20px;
         height: min-content;
+
         img {
             width: 30px;
             aspect-ratio: 1/1;
         }
+
         div {
             @include flex(4px, center, center);
+
             p {
                 margin: 0;
             }
@@ -96,41 +114,50 @@
         @include flex(10px, flex-start, center);
         border-bottom: 2px solid $bright-back;
         font-size: 24px;
+
         span {
             font-size: 30px;
         }
     }
+
     .option {
         @include flex(0, space-between, center);
         cursor: pointer;
         font-size: 20px;
         border-bottom: 2px solid $bright-back;
+
         p {
             margin: 8px 0;
         }
     }
+
     .sub {
         border-bottom: 2px solid $bright-back;
         padding: 10px 0;
         cursor: pointer;
+
         p {
             margin: 0;
         }
     }
+
     div {
         word-break: break-word;
         word-wrap: break-word;
     }
+
     .range-wrapper {
         padding-right: 5px;
         margin-top: 10px;
         color: $main;
         @include flex(0, center, center);
+
         input[type="range"] {
             background: $bright-back;
             flex: 1;
             border-radius: 10px;
         }
+
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             background-color: $sec;
@@ -139,15 +166,18 @@
             border-radius: 50%;
             cursor: pointer;
         }
+
         input[type="range"]::-webkit-slider-thumb:hover {
             background-color: $main;
         }
     }
 }
+
 .no-camera {
     @include flex(0, center, center, column);
     color: #f3f3f3;
 }
+
 .confirm-exit {
     position: fixed;
     top: 50%;
@@ -165,11 +195,13 @@
         aspect-ratio: 1/1;
         margin-bottom: 24px;
     }
+
     h1 {
         margin: 8px;
         color: white;
         font-size: 28px;
     }
+
     p {
         margin-top: 0;
         margin-bottom: 65px;
@@ -177,8 +209,10 @@
         font-size: 20px;
         text-align: center;
     }
+
     div {
         @include flex(24px, center, center);
+
         div {
             width: 165px;
             height: 42px;
@@ -188,9 +222,11 @@
             font-size: 20px;
             cursor: pointer;
         }
+
         div:hover {
             background-color: $main;
         }
+
         .cancel {
             background-color: $main;
         }

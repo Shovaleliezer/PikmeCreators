@@ -48,6 +48,12 @@
                     aspect-ratio: 1/1;
                 }
 
+                .stream-timer{
+                    color:$main;
+                    margin: 0;
+                    font-size: 20px;
+                }
+
                 .detail-holder {
                     @include flex(22px, center, center);
                     padding-right: 10px;

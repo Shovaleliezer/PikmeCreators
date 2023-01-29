@@ -1,4 +1,3 @@
-
 import "../style/main.scss"
 import { userService } from '../services/userService'
 import AgoraRTC from "agora-rtc-sdk-ng"
@@ -6,9 +5,10 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState, useRef } from "react"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
+import { StreamTimer } from "../cmps/stream-timer"
 import { Error } from "./error";
 import { makeCommas, getTimeUntil, putKandM } from '../services/utils'
-import { useNavigate, NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { eventService } from "../services/event.service"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 
@@ -265,9 +265,9 @@ function Creator() {
       }
       try {
         if (!channelParameters.localVideoTrack) {
-          channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
+          channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack()
         }
-        channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+        channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack()
         loadBackCamrea()
       }
       catch (e) {
@@ -278,8 +278,6 @@ function Creator() {
     else if (options.type === "gaming" && channelParameters.localVideoTrack === null) {
       try {
         channelParameters.localVideoTrack = await AgoraRTC.createScreenVideoTrack();
-
-
         channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
         channelParameters.localVideoTrack.play("agora_local");
       }
@@ -394,7 +392,10 @@ function Creator() {
                 <div className="begin" onClick={() => { hasStarted() ? setModal('start') : dispatch(setUpperPopup(timeUntilEvent)) }}>Go Live </div>
                 <div className="end" onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }}>End Event</div>
               </> :
-                <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
+                <>
+                  <StreamTimer />
+                  <div className="begin" onClick={() => setModal('end')}>Stop Live</div>
+                </>}
             </div>
             <div className="details">
               <div>
@@ -416,6 +417,7 @@ function Creator() {
         <section className="left-wrapper">
           <div className="upper">
             <div onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }} className="end-event-mobile">End Event</div>
+            {status === 'live' && <StreamTimer />}
             <div className="detail-holder">
               <div>
                 <img src={require('../style/imgs/stream/viewers.png')} />
