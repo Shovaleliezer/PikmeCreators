@@ -39,15 +39,6 @@
     position: relative;
 }
 
-textarea {
-    resize: none;
-}
-
-select,
-input {
-    -webkit-appearance: none;
-}
-
 body {
     margin: 0;
     position: relative;
@@ -78,4 +69,13 @@ body {
     .main-layout {
         margin-bottom: 60px;
     }
+}
+
+textarea {
+    resize: none;
+}
+
+select,
+input {
+    -webkit-appearance: none;
 }

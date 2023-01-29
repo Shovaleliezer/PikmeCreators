@@ -65,18 +65,18 @@ function Creator() {
   useEffect(() => {
     try {
       document.documentElement.style.setProperty('--visibility', 'hidden')
-      document.body.style.overflow = "hidden"
+      // document.body.style.overflow = "hidden"
       if (window.innerWidth < 1100) document.querySelector('.main-layout').classList.add("main-stream")
       loadCameras()
       loadMics()
       window.addEventListener("resize", onRotate)
     }
     catch (err) {
-      alert(1 + err)
+      console.log(err)
     }
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
-      document.body.style.overflow = "auto"
+      // document.body.style.overflow = "auto"
       initStopOne(client, 'no-home')
       try {
         client.unpublish()
@@ -100,11 +100,11 @@ function Creator() {
       if (agora) {
         const width = agora.offsetWidth
         document.documentElement.style.setProperty('--video-height', (width * 9 / 16) + 'px')
-        window.scrollTo(0, document.body.scrollHeight)
+        console.log('scroll')
       }
     }
     catch (err) {
-      alert(2 + err)
+      console.log(err)
     }
 
   }, [currentEvent])
@@ -151,7 +151,7 @@ function Creator() {
     setVolume(e.target.value)
   }
 
-  const loadBackCamrea = async() => {
+  const loadBackCamrea = async () => {
     const cameras = await AgoraRTC.getCameras()
     const backCameraIdx = cameras.findIndex(camera => camera.label.toLowerCase().includes('back'))
     if (backCameraIdx !== -1) setCameraIdx(backCameraIdx)
@@ -159,6 +159,7 @@ function Creator() {
   }
 
   const play = async (device) => {
+    window.scrollTo(0, document.body.scrollHeight)
     const cameras = await AgoraRTC.getCameras()
     const mics = await AgoraRTC.getMicrophones()
 
@@ -175,7 +176,6 @@ function Creator() {
         setCameraIdx(0)
         return
       }
-      alert(channelParameters.localVideoTrack)
       if (channelParameters.localVideoTrack) channelParameters.localVideoTrack.stop()
       config.setDevice(cameras[cameraIdx].deviceId)
       channelParameters.localVideoTrack = config
@@ -247,7 +247,7 @@ function Creator() {
       if (!path) window.location = '/'
     }
     catch (err) {
-      alert('inittt' + err)
+      console.log('init' + err)
     }
   }
 
