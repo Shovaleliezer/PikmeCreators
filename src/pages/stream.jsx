@@ -62,15 +62,10 @@ function Creator() {
   }
 
   useEffect(() => {
-    try {
-      document.documentElement.style.setProperty('--visibility', 'hidden')
-      if (window.innerWidth < 1100) document.querySelector('.main-layout').classList.add("main-stream")
-      loadCameras()
-      loadMics()
-    }
-    catch (err) {
-      console.log(err)
-    }
+    document.documentElement.style.setProperty('--visibility', 'hidden')
+    if (window.innerWidth < 1100) document.querySelector('.main-layout').classList.add("main-stream")
+    loadCameras()
+    loadMics()
     return () => {
       document.documentElement.style.setProperty('--visibility', 'visible')
       initStopOne(client, 'no-home')
@@ -94,7 +89,6 @@ function Creator() {
       if (agora) {
         const width = agora.offsetWidth
         document.documentElement.style.setProperty('--video-height', (width * 9 / 16) + 'px')
-        console.log('scroll')
       }
     }
     catch (err) {
@@ -112,17 +106,19 @@ function Creator() {
   }, [micIdx])
 
   useEffect(() => {
-    if (!debounce.current) {
-      debounce.current = true
-      setTimeout(() => {
-        channelParameters.localAudioTrack.setVolume(Number(volumeRef.current.value))
-        client.unpublish()
-        client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
-      }, 100)
-      if (time) clearTimeout(time)
-      time = setTimeout(() => {
-        debounce.current = false
-      }, 500)
+    if (mics.length) {
+      if (!debounce.current) {
+        debounce.current = true
+        setTimeout(() => {
+          channelParameters.localAudioTrack.setVolume(Number(volumeRef.current.value))
+          client.unpublish()
+          client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+        }, 100)
+        if (time) clearTimeout(time)
+        time = setTimeout(() => {
+          debounce.current = false
+        }, 500)
+      }
     }
   }, [volume])
 
@@ -153,7 +149,6 @@ function Creator() {
   }
 
   const play = async (device) => {
-    window.scrollTo(0, document.body.scrollHeight)
     const cameras = await AgoraRTC.getCameras()
     const mics = await AgoraRTC.getMicrophones()
 
