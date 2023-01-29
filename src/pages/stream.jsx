@@ -10,7 +10,7 @@ import { Error } from "./error";
 import { makeCommas, getTimeUntil } from '../services/utils'
 import { NavLink } from 'react-router-dom'
 import { eventService } from "../services/event.service"
-import { setUpperPopup, setResized } from "../store/actions/general.actions"
+import { setUpperPopup } from "../store/actions/general.actions"
 
 let options =
 {
@@ -81,7 +81,6 @@ function Creator() {
         console.log('no client')
       }
       if (window.innerWidth < 550) document.querySelector('.main-layout').classList.remove("main-stream")
-      dispatch(setResized(false))
     }
   }, [])
 

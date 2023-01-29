@@ -55,9 +55,3 @@ export function setCallbackLink(callbackLink) {
         dispatch({ type: 'SET_CALLBACK_LINK', callbackLink })
     }
 }
-
-export function setResized(resized) {
-    return (dispatch) => {
-        dispatch({ type: 'SET_RESIZED', resized })
-    }
-}

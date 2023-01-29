@@ -10,7 +10,6 @@ const INITIAL_STATE = {
     upperPopup: '',
     streamPopup:'',
     callbackLink: '',
-    resized: false, 
     streamInfo: {}
 }
 
@@ -53,8 +52,6 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, popupEvent: action.popupEvent }
         case 'SET_UPPER_POPUP':
             return { ...state, upperPopup: action.upperPopup }
-        case 'SET_RESIZED':
-            return { ...state, resized: action.resized }    
         case 'SET_CALLBACK_LINK':
             return { ...state, callbackLink: action.callbackLink }
         case 'RESET_GENERAL_STATE':
@@ -67,7 +64,6 @@ export function generalReducer(state = INITIAL_STATE, action) {
                 menuSide: 'right',
                 popup: '',
                 popupEvent: '',
-                resized: false,
                 upperPopup: '',
                 streamInfo: {}
             }
