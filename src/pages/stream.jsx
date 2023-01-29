@@ -7,10 +7,10 @@ import { useEffect, useState, useRef } from "react"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
-import { makeCommas, getTimeUntil } from '../services/utils'
+import { makeCommas, getTimeUntil, putKandM } from '../services/utils'
 import { useNavigate, NavLink } from 'react-router-dom'
 import { eventService } from "../services/event.service"
-import { setPopup,setUpperPopup } from "../store/actions/general.actions"
+import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 
 let options =
 {
@@ -33,7 +33,7 @@ let channelParameters =
 
 function Creator() {
   const dispatch = useDispatch()
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const [client, setClient] = useState(null)
@@ -340,7 +340,7 @@ function Creator() {
 
   try {
     return (<>
-    {/* <div style={{width:'100%',height:'100px'}}>hhhhhhh</div> */}
+      {/* <div style={{width:'100%',height:'100px'}}>hhhhhhh</div> */}
       {!isMobile && <div className="stream-container">
         <div className="settings noselect">
           <div className="settings-upper">
@@ -419,11 +419,11 @@ function Creator() {
             <div className="detail-holder">
               <div>
                 <img src={require('../style/imgs/stream/viewers.png')} />
-                <p>{viewers - 1}</p>
+                <p>{putKandM(viewers - 1)}</p>
               </div>
               <div>
                 <img src={require('../style/imgs/stream/coins.png')} />
-                <p>{makeCommas(prizePool)}$</p>
+                <p>{putKandM(prizePool)}$</p>
               </div>
             </div>
           </div>
@@ -444,7 +444,7 @@ function Creator() {
             </div>}
           </div>
           <div className="lower" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
-            <img onClick={()=>{hasStarted() ? dispatch(setPopup('/')) : navigate('/')}} className="smaller" src={require('../style/imgs/stream/home.png')} />
+            <img onClick={() => { hasStarted() ? dispatch(setPopup('/')) : navigate('/') }} className="smaller" src={require('../style/imgs/stream/home.png')} />
             {status != "live" ? <img onClick={() => { hasStarted() ? setModal('start') : dispatch(setUpperPopup(timeUntilEvent)) }} src={require('../style/imgs/stream/start.png')} />
               : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
             <svg className={`clickable ${isMuted ? 'sec-svg' : ''}`} onClick={() => isMuted ? play('mic') : mute()} width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" >

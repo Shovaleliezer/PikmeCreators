@@ -41,13 +41,13 @@ export function EventCard({ ev, creator }) {
                         <p onClick={openEdit}>Edit</p>
                         <p onClick={() => copy('creators')}>Share</p>
                         <p onClick={() => setIsOpen(true)}>Delete</p>
+                        <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
                     </>}
                     {(ev.approved && !ev.over) && <>
                         <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
                         <p onClick={() => { copy('clients') }}>Share</p>
                     </>}
                     {ev.over && <p onClick={() => deleteEvent(true)}>Delete</p>}
-                    <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
                 </div>
             </div>
             <div className="event-inner">

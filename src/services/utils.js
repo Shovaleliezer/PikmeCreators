@@ -31,8 +31,8 @@ export function getSocialIcon(link) {
 
 export function putKandM(num) {
   if (typeof num !== 'number') return 'To be added'
-  if (num < 100000) return makeCommas(num)
-  if (num < 1000000) return (num / 1000).toFixed(2) + 'K'
+  if (num < 10000) return makeCommas(num)
+  else if (num < 1000000) return (num / 1000).toFixed(1) + 'K'
   return (num / 1000000).toFixed(2) + 'M'
 }
 
