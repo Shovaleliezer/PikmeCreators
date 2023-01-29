@@ -8,9 +8,9 @@ import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { Error } from "./error";
 import { makeCommas, getTimeUntil } from '../services/utils'
-import { NavLink } from 'react-router-dom'
+import { useNavigate, NavLink } from 'react-router-dom'
 import { eventService } from "../services/event.service"
-import { setUpperPopup } from "../store/actions/general.actions"
+import { setPopup,setUpperPopup } from "../store/actions/general.actions"
 
 let options =
 {
@@ -33,6 +33,7 @@ let channelParameters =
 
 function Creator() {
   const dispatch = useDispatch()
+  const navigate=useNavigate()
   const [currentEvent, setCurrentEvent] = useState([])
   const [alreadyStreamed, setAlreadyStreamed] = useState(false)
   const [client, setClient] = useState(null)
@@ -443,7 +444,7 @@ function Creator() {
             </div>}
           </div>
           <div className="lower" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
-            <NavLink to='/'><img className="smaller" src={require('../style/imgs/stream/home.png')} /></NavLink>
+            <img onClick={()=>{hasStarted() ? dispatch(setPopup('/')) : navigate('/')}} className="smaller" src={require('../style/imgs/stream/home.png')} />
             {status != "live" ? <img onClick={() => { hasStarted() ? setModal('start') : dispatch(setUpperPopup(timeUntilEvent)) }} src={require('../style/imgs/stream/start.png')} />
               : <img onClick={() => setModal('end')} src={require('../style/imgs/stream/pause.png')} />}
             <svg className={`clickable ${isMuted ? 'sec-svg' : ''}`} onClick={() => isMuted ? play('mic') : mute()} width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -473,12 +474,13 @@ function Creator() {
                 stopStream(client)
                 setModal(false)
               }
-              else if (modal == "exit") {
+              else if (modal === "exit") {
                 initStopOne(client)
               }
-              else if (modal == "end-event") {
+              else if (modal === "end-event") {
                 setModal(false)
                 endEvent()
+                navigate('/')
               }
               else {
                 if (!alreadyStreamed) streamGaming(client, true)
@@ -495,4 +497,4 @@ function Creator() {
     return <Error />
   }
 }
-export default Creator;
+export default Creator
