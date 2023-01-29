@@ -200,6 +200,7 @@ function Creator() {
     try {
       await eventService.endEvent(currentEvent._id)
       setIsEnd(true)
+      setTimeout(() => { navigate('/') }, 500)
     }
     catch {
       console.log('something went wrong')
@@ -239,7 +240,7 @@ function Creator() {
       uid = await client.join(APP_ID, channel, token.rtcToken, uid)
       await client.setClientRole(options.role)
       setCurrentEvent(streamInfo)
-      streamGaming(client);
+      streamGaming(client)
     }
 
     catch (e) {
@@ -342,7 +343,7 @@ function Creator() {
       {!isMobile && <div className="stream-container">
         <div className="settings noselect">
           <div className="settings-upper">
-            <span className="material-symbols-outlined">settings</span><p>Settings</p>
+            <span onClick={() => setIsEnd(!isEnd)} className="material-symbols-outlined">settings</span><p>Settings</p>
           </div>
           <div className="option main-color" onClick={() => openOpt === 'camera' ? setOpenOpt('') : setOpenOpt('camera')}>
             <p>Camera</p><span class="material-symbols-outlined">{openOpt === 'camera' ? 'expand_less' : 'expand_more'}</span></div>
@@ -385,17 +386,15 @@ function Creator() {
                 <path d="M17.2521 18.5722L16.0832 17.4032C15.6091 17.5914 15.0961 17.6608 14.589 17.6051C14.0819 17.5495 13.5962 17.3706 13.1742 17.0841C12.7521 16.7975 12.4067 16.412 12.1679 15.9613C11.9291 15.5105 11.8043 15.0081 11.8043 14.498V13.1259L10.2415 11.5631V14.498C10.2413 15.319 10.4566 16.1256 10.866 16.8372C11.2753 17.5488 11.8644 18.1404 12.5742 18.5529C13.284 18.9654 14.0896 19.1843 14.9106 19.1877C15.7315 19.191 16.539 18.9788 17.2521 18.5722ZM5 4.11181L23.7533 22.8651L24.8597 21.7586L6.10644 3.00537L5 4.11181Z"
                   fill='white' fillOpacity="0.9" />
               </svg>
-              <img onClick={() => { (status == "live") ? setModal('exit') : initStopOne(client) }} src={require('../style/imgs/stream/home.png')} />
+              <img onClick={() => { hasStarted() ? dispatch(setPopup('/')) : navigate('/') }} src={require('../style/imgs/stream/home.png')} />
             </div>
             <div className="start">
+              <StreamTimer status={status} />
               {status != "live" ? <>
                 <div className="begin" onClick={() => { hasStarted() ? setModal('start') : dispatch(setUpperPopup(timeUntilEvent)) }}>Go Live </div>
                 <div className="end" onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }}>End Event</div>
               </> :
-                <>
-                  <StreamTimer />
-                  <div className="begin" onClick={() => setModal('end')}>Stop Live</div>
-                </>}
+                <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
             </div>
             <div className="details">
               <div>
@@ -417,7 +416,7 @@ function Creator() {
         <section className="left-wrapper">
           <div className="upper">
             <div onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }} className="end-event-mobile">End Event</div>
-            {status === 'live' && <StreamTimer />}
+            <StreamTimer status={status} />
             <div className="detail-holder">
               <div>
                 <img src={require('../style/imgs/stream/viewers.png')} />
@@ -476,13 +475,9 @@ function Creator() {
                 stopStream(client)
                 setModal(false)
               }
-              else if (modal === "exit") {
-                initStopOne(client)
-              }
               else if (modal === "end-event") {
                 setModal(false)
                 endEvent()
-                navigate('/')
               }
               else {
                 if (!alreadyStreamed) streamGaming(client, true)
