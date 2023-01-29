@@ -1,6 +1,7 @@
 :root {
     --video-height: 300px;
 }
+
 @media (max-width: 1100px) {
     .stream-mobile {
         margin-top: 100px;
@@ -38,7 +39,7 @@
                 box-sizing: unset;
                 width: 100%;
                 background-color: $back-dark;
-                padding: 5px 15px;
+                padding: 5px;
                 @include flex(0, space-between, center);
                 color: white;
 
@@ -49,6 +50,7 @@
 
                 .detail-holder {
                     @include flex(22px, center, center);
+                    padding-right: 10px;
 
                     div {
                         @include flex(5px, center, center);
@@ -72,13 +74,16 @@
                     border-radius: 10px;
                     padding: 0 14px;
                     @include flex(0, center, center);
+                    margin-left: 5px;
                 }
             }
         }
+
         .stream-video-mobile {
             @include flex(0, center, center);
             z-index: 0 !important;
-            div{
+
+            div {
                 height: var(--video-height) !important;
                 max-height: calc(100vh - 100px);
                 transform: scaleX(-1);
@@ -96,6 +101,7 @@
             flex: 1;
         }
     }
+
     .confirm-exit {
         width: 520px;
         padding: 20px;
@@ -105,14 +111,17 @@
             aspect-ratio: 1/1;
             margin-bottom: 12px;
         }
+
         h1 {
             font-size: 20px;
             font-weight: 100;
         }
+
         p {
             margin-bottom: 40px;
             font-size: 16px;
         }
+
         div {
             div {
                 width: 120px;
@@ -128,7 +137,7 @@
     height: 100%;
 }
 
-.rotate-phone{
+.rotate-phone {
     @include flex(0, center, center, column);
     width: 90%;
     color: white;

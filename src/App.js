@@ -30,7 +30,7 @@ import { setStreamPhase, setRegisterPhase } from './store/actions/tutorial.actio
 
 function App() {
   const dispatch = useDispatch()
-  const { mode, channel, type } = useSelector((storeState) => storeState.generalModule)
+  const { mode } = useSelector((storeState) => storeState.generalModule)
   const { streamPhase, registerPhase, homePhase } = useSelector((storeState) => storeState.tutorialModule)
 
   // if ((streamPhase <= 3 && streamPhase > 0) || (registerPhase > 0 && registerPhase >= 3) || homePhase === 1) {
@@ -54,7 +54,7 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        <button className='reset' onClick={() => {localStorage.clear()}}>DEBUG</button>
+        {/* <button className='reset' onClick={() => {localStorage.clear()}}>DEBUG</button> */}
         <Footer />
       </div>
       <Menu mode={mode} />
