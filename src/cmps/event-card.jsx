@@ -24,7 +24,6 @@ export function EventCard({ ev, creator }) {
         catch {
             dispatch(setUpperPopup('errorDelete'))
         }
-
     }
 
     const openEdit = () => {
@@ -32,39 +31,56 @@ export function EventCard({ ev, creator }) {
         dispatch(setPopup('edit'))
     }
 
+    const getOptions = () => {
+        if (ev.fund) {
+            if (!ev.approved) return <>
+                <p onClick={openEdit}>Edit</p>
+                <p onClick={() => setIsOpen(true)}>Delete</p>
+            </>
+            else if (!ev.over) return <>
+                <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                <p onClick={() => { copy('clients') }}>Share</p>
+            </>
+            return <p onClick={() => deleteEvent(true)}>Delete</p>
+        }
+        return <>
+            {(!ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
+                <p onClick={openEdit}>Edit</p>
+                <p onClick={() => copy('creators')}>Share</p>
+                <p onClick={() => setIsOpen(true)}>Delete</p>
+            </>}
+            {(ev.approved && !ev.over) && <>
+                <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                <p onClick={() => { copy('clients') }}>Share</p>
+            </>}
+            {ev.over && <p onClick={() => deleteEvent(true)}>Delete</p>}
+        </>
+
+    }
+
     return (<>
         <div className='event-card'>
             <div className="event-upper">
                 <h3>Event Info</h3>
-                <div>
-                    {(!ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
-                        <p onClick={openEdit}>Edit</p>
-                        <p onClick={() => copy('creators')}>Share</p>
-                        <p onClick={() => setIsOpen(true)}>Delete</p>
-                        <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
-                    </>}
-                    {(ev.approved && !ev.over) && <>
-                        <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
-                        <p onClick={() => { copy('clients') }}>Share</p>
-                    </>}
-                    {ev.over && <p onClick={() => deleteEvent(true)}>Delete</p>}
-                </div>
+                <div>{getOptions()}</div>
             </div>
             <div className="event-inner">
                 <img src={require(`../style/imgs/event-card/${ev.game}.png`)} />
                 <div className="headers">
-                    <p>Category: </p>
+                    {!ev.fund && <p>Category: </p>}
                     <p>Game: </p>
-                    <p>players </p>
+                    {! ev.fund && <p>players </p>}
                     <p>Date:</p>
                     <p>Status:</p>
                 </div>
                 <div className="details">
-                    <p>{ev.category}</p>
+                    {!ev.fund && <p>{ev.category}</p>}
                     <p>{ev.game}</p>
-                    <p>{ev.players.length}</p>
+                    {!ev.fund && <p>{ev.players.length}</p>}
                     <p>{formatDateHour(ev.date)}</p>
-                    <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13')) }}>{(ev.over ? 'Over' : (ev.approved ? 'approved' : 'waiting'))}</p>
+                    <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13')) }}>
+                        {(ev.over ? 'Over' : (ev.approved ? ev.fund ? '0/' + ev.fund.target + '$' : 'approved' : 'waiting'))}
+                    </p>
                 </div>
             </div>
         </div>

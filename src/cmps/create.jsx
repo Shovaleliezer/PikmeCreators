@@ -17,7 +17,7 @@ export function Create() {
     const dateRef = useRef()
     const descRef = useRef()
     const prizeRef = useRef()
-    const requiredRef = useRef()
+    const targetRef = useRef()
 
     const { createPhase } = useSelector((state) => state.tutorialModule)
     if (createPhase === 0) dispatch(setCreatePhase(1))
@@ -39,7 +39,7 @@ export function Create() {
         const utcString = date.toUTCString()
         let newEvent
         newEvent = {
-            category: categoryRef.current.value,
+            category: 'sports',
             game: gameRef.current.value,
             date: utcString,
             shareWithCommunity: isShare,
@@ -49,12 +49,14 @@ export function Create() {
         if (isFund) newEvent.fund = {
             description: descRef.current.value,
             prize: prizeRef.current.value,
-            required: requiredRef.current.value
+            target: targetRef.current.value
         }
-
+       
         try {
             const { _id } = await eventService.addEvent(newEvent, user.creator.walletAddress)
             if (!isFund) dispatch(setPopup(_id))
+            else dispatch(setPopup('created'))
+
         }
 
         catch {
@@ -142,7 +144,7 @@ export function Create() {
                 <h3>Target</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/target.png`)} />
-                    <input className='date-special' placeholder='1,000$' type="number" ref={requiredRef} required></input>
+                    <input className='date-special' placeholder='1,000$' type="number" ref={targetRef} required></input>
                 </div>
             </div>
             <div className='h3-wrapper'>
@@ -154,7 +156,7 @@ export function Create() {
             </div>
             <div className='h3-wrapper' style={{width:'100%'}}>
             <h3>Description</h3>
-                <textarea className='fund-desc' placeholder='Tell us about the competition...'/>
+                <textarea className='fund-desc' placeholder='Tell us about the competition...' ref={descRef}/>
             </div>
         </div>}
         <div className='center'>

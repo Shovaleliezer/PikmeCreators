@@ -39,7 +39,7 @@ export function Popup({ mode }) {
             <p>This action will pause your stream.</p>
             <div>
                 <div className="cancel" onClick={() => dispatch(setPopup(''))}>Cancel</div>
-                <div onClick={() => {dispatch(setPopup('')) ; navigate(popup) }}>Continue</div>
+                <div onClick={() => { dispatch(setPopup('')); navigate(popup) }}>Continue</div>
             </div>
         </div></>
 
@@ -69,6 +69,13 @@ export function Popup({ mode }) {
                         <TelegramShareButton className="share-button telegram" url={getRoute() + 'confirm/' + popup} />
                     </div>
                 </div>
+                <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>
+            </div>}
+
+            {popup === 'created' && <div className="created">
+                <img src={require('../style/imgs/share/vi.png')} />
+                <h1>Event in progress</h1>
+                <p>The event was successfully created and is now awaiting approval. You can edit your event until the event is approved.</p>
                 <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>
             </div>}
 
