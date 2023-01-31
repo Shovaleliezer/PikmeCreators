@@ -41,7 +41,7 @@ export function Header(props) {
                 <img onClick={()=>{navTo('/')}} className="logo clickable" src={require('../style/imgs/logo.png')} />
                 <div className="options-bar" style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}>
                     <div onClick={()=>{navTo('/join')}} className="join-button clickable">Join</div>
-                    <div onClick={() => dispatch(setPopup('create'))} className="create">Create</div>
+                    <div onClick={() => dispatch(setPopup('create'))} className="create-button">Create</div>
                 </div>
 
             </div>}

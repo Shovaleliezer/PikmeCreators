@@ -11,9 +11,13 @@ export function Create() {
     const [category, setCategory] = useState('sports')
     const [isShare, setIsShare] = useState(true)
     const [sent, setSent] = useState(false)
+    const [isFund, setIsFund] = useState(false)
     const categoryRef = useRef()
     const gameRef = useRef()
     const dateRef = useRef()
+    const descRef = useRef()
+    const prizeRef = useRef()
+    const requiredRef = useRef()
 
     const { createPhase } = useSelector((state) => state.tutorialModule)
     if (createPhase === 0) dispatch(setCreatePhase(1))
@@ -33,7 +37,8 @@ export function Create() {
         setSent(true)
         const date = new Date(dateRef.current.value)
         const utcString = date.toUTCString()
-        const newEvent = {
+        let newEvent
+        newEvent = {
             category: categoryRef.current.value,
             game: gameRef.current.value,
             date: utcString,
@@ -41,10 +46,17 @@ export function Create() {
             player: user.creator
         }
 
+        if (isFund) newEvent.fund = {
+            description: descRef.current.value,
+            prize: prizeRef.current.value,
+            required: requiredRef.current.value
+        }
+
         try {
             const { _id } = await eventService.addEvent(newEvent, user.creator.walletAddress)
-            dispatch(setPopup(_id))
+            if (!isFund) dispatch(setPopup(_id))
         }
+
         catch {
             dispatch(setUpperPopup('errorCreate'))
             dispatch(setPopup(''))
@@ -59,17 +71,51 @@ export function Create() {
             <h1>Create New Stream</h1>
             <img src={require('../style/imgs/close-icon.png')} onClick={() => dispatch(setPopup(''))} />
         </div>
-        <div className='all-select-wrapper'>
-            <div className='h3-wrapper'>
-                <h3>Category</h3>
-                <div className='select-wrapper'>
-                    <img src={require(`../style/imgs/register/${img.category}.png`)} />
-                    <select disabled={true} ref={categoryRef} onChange={handleImg} name='category'>
-                        <option value="sports">Sports</option>
-                        <option value="gaming">Gaming</option>
-                    </select>
+        <div className='create-type'>
+            <p className={!isFund ? 'active' : 'inactive'} onClick={() => setIsFund(false)}>VS Event</p>
+            <p className={isFund ? 'active' : 'inactive'} onClick={() => setIsFund(true)}>Funding Event</p>
+        </div>
+        {!isFund &&
+            <div className='all-select-wrapper'>
+                <div className='h3-wrapper'>
+                    <h3>Category</h3>
+                    <div className='select-wrapper'>
+                        <img src={require(`../style/imgs/register/${img.category}.png`)} />
+                        <select disabled={true} ref={categoryRef} onChange={handleImg} name='category'>
+                            <option value="sports">Sports</option>
+                            <option value="gaming">Gaming</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
+                <div className='h3-wrapper'>
+                    <h3>Game</h3>
+                    <div className='select-wrapper'>
+                        <img src={require(`../style/imgs/register/${img.game}.png`)} />
+                        <select ref={gameRef} onChange={handleImg} name='game' required>
+                            {category === 'gaming' ? <>
+                                <option value="valorant">Valorant</option>
+                                <option value="fifa">Fifa</option></> :
+                                <>
+                                    <option value="table-tennis">Table tennis</option>
+                                    <option value="poker">Poker</option>
+                                </>}
+                        </select>
+                    </div>
+                </div>
+                <div className='h3-wrapper date'>
+                    <h3>Date</h3>
+                    <div className='select-wrapper'>
+                        <input type="datetime-local" ref={dateRef} required></input>
+                    </div>
+                </div>
+                <div className='checkbox-wrapper' style={{ zIndex: createPhase === 1 ? '1001' : '0' }}>
+                    <div className='checkbox' onClick={() => setIsShare(!isShare)}>
+                        {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
+                    </div>
+                    <p>Share with community</p>
+                </div>
+            </div>}
+        {isFund && <div className='all-select-wrapper'>
             <div className='h3-wrapper'>
                 <h3>Game</h3>
                 <div className='select-wrapper'>
@@ -85,19 +131,32 @@ export function Create() {
                     </select>
                 </div>
             </div>
-            <div className='h3-wrapper date'>
+            <div className='h3-wrapper'>
                 <h3>Date</h3>
                 <div className='select-wrapper'>
-                    <input type="datetime-local" ref={dateRef} required></input>
+                    <img src={require(`../style/imgs/register/calendar.png`)} />
+                    <input type="datetime-local" className='date-special' ref={dateRef} required></input>
                 </div>
             </div>
-            <div className='checkbox-wrapper' style={{ zIndex: createPhase === 1 ? '1001' : '0' }}>
-                <div className='checkbox' onClick={() => setIsShare(!isShare)}>
-                    {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
+            <div className='h3-wrapper'>
+                <h3>Target</h3>
+                <div className='select-wrapper'>
+                    <img src={require(`../style/imgs/register/target.png`)} />
+                    <input className='date-special' placeholder='1,000$' type="number" ref={requiredRef} required></input>
                 </div>
-                <p>Share with community</p>
             </div>
-        </div>
+            <div className='h3-wrapper'>
+                <h3>Prize</h3>
+                <div className='select-wrapper'>
+                    <img src={require(`../style/imgs/register/achievement.png`)} />
+                    <input placeholder='1,000,000$' className='date-special' type="number" ref={prizeRef} required></input>
+                </div>
+            </div>
+            <div className='h3-wrapper' style={{width:'100%'}}>
+            <h3>Description</h3>
+                <textarea className='fund-desc' placeholder='Tell us about the competition...'/>
+            </div>
+        </div>}
         <div className='center'>
             <button>Create!</button>
         </div>

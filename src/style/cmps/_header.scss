@@ -16,7 +16,7 @@
         object-fit: contain;
     }
 
-    .create,
+    .create-button,
     .join-button {
         font-size: 18px;
         padding: 6px;
@@ -29,7 +29,7 @@
         text-align: center;
     }
 
-    .create {
+    .create-button {
         background-color: $main;
     }
 
