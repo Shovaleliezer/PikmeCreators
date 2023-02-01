@@ -75,7 +75,7 @@ function Creator() {
       catch {
         console.log('no client')
       }
-      if (window.innerWidth < 550) document.querySelector('.main-layout').classList.remove("main-stream")
+      document.querySelector('.main-layout').classList.remove("main-stream")
     }
   }, [])
 
@@ -338,7 +338,6 @@ function Creator() {
 
   try {
     return (<>
-      {/* <div style={{width:'100%',height:'100px'}}>hhhhhhh</div> */}
       {!isMobile && <div className="stream-container">
         <div className="settings noselect">
           <div className="settings-upper">
