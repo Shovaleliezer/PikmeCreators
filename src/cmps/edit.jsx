@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPopup } from '../store/actions/general.actions'
+import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
 
 export function Edit() {
@@ -14,7 +14,9 @@ export function Edit() {
     const [fund, setFund] = useState(popupEvent.fund ? {
         description: popupEvent.fund.description,
         prize: popupEvent.fund.prize,
-        target: popupEvent.fund.target
+        target: popupEvent.fund.target,
+        investors: 0,
+        current: 0
     } : null)
 
     const [sent, setSent] = useState(false)
@@ -33,9 +35,13 @@ export function Edit() {
 
     const editEvent = async (e) => {
         e.preventDefault()
+        if (fund && fund.description.length < 150) {
+            dispatch(setUpperPopup('desc'))
+            return
+        }
         try {
             setSent(true)
-            const newEv = await eventService.editEvent(popupEvent._id, popupEvent.fund ? {...event,fund} : event)
+            const newEv = await eventService.editEvent(popupEvent._id, popupEvent.fund ? { ...event, fund } : event)
             if (newEv) {
                 dispatch(setPopup(''))
                 window.location.reload()
