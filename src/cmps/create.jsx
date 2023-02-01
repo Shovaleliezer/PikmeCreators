@@ -51,7 +51,7 @@ export function Create() {
             prize: prizeRef.current.value,
             target: targetRef.current.value,
             current:0,
-            investors:0
+            investors:{}
         }
        
         try {
@@ -158,7 +158,7 @@ export function Create() {
             </div>
             <div className='h3-wrapper' style={{width:'100%'}}>
             <h3>Description</h3>
-                <textarea minLength={200} className='fund-desc' placeholder='Tell us about the competition...' ref={descRef}/>
+                <textarea minLength={150} className='fund-desc' placeholder='Tell us about the competition...' ref={descRef}/>
             </div>
         </div>}
         <div className='center'>

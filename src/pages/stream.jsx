@@ -57,7 +57,6 @@ function Creator() {
   let channel = ""
   let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
 
-  // if (streamPhase === 0) dispatch(setStreamPhase(1))
   if (!client) {
     setClient(AgoraRTC.createClient({ mode: "live", codec: "vp8" }))
   }
@@ -91,11 +90,11 @@ function Creator() {
         const width = agora.offsetWidth
         document.documentElement.style.setProperty('--video-height', (width * 9 / 16) + 'px')
       }
+      if (streamPhase === 0) dispatch(setStreamPhase(1))
     }
     catch (err) {
       console.log(err)
     }
-
   }, [currentEvent])
 
   useEffect(() => {

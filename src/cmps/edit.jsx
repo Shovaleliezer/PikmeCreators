@@ -15,7 +15,7 @@ export function Edit() {
         description: popupEvent.fund.description,
         prize: popupEvent.fund.prize,
         target: popupEvent.fund.target,
-        investors: 0,
+        investors: {},
         current: 0
     } : null)
 
