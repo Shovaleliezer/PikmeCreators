@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
 
@@ -11,6 +11,11 @@ export function TutorialStream() {
 
     const [x, setX] = useState(isDesktop ? '55%' : (window.innerWidth - 400) + 'px')
     const [y, setY] = useState(isDesktop ? '30%' : '350px')
+
+    useEffect(() => {
+        if (streamPhase <= 3 && streamPhase > 0 && window.innerWidth > 1100 && window.location.pathname.includes('stream-control')) document.body.style.overflow = 'hidden'
+        else document.body.style.overflow = 'auto'
+    }, [streamPhase])
 
     const handlePhases = () => {
         if (!isDesktop) {
@@ -29,7 +34,7 @@ export function TutorialStream() {
     }
 
     const getClass = () => {
-        if(isNarrow){
+        if (isNarrow) {
             if (streamPhase === 2) return 't-right t-right-mobile right-rotate'
             else return 't-down t-down-mobile right-rotate'
         }
@@ -44,9 +49,9 @@ export function TutorialStream() {
     }
 
     if (streamPhase === 0 || streamPhase > 3) return <></>
-    
+
     if (streamPhase > 1) return <>
-        <div className="screen-tutorial"/>
+        <div className="screen-tutorial" />
         <div className={`${isDesktop ? 'tutorial-specific' : 'tutorial-specific-stream'} ${getClass()}`} style={{ top: y, left: x }}>
             <div className="specific-inner">
                 {streamPhase === 2 && <>
@@ -66,7 +71,7 @@ export function TutorialStream() {
     </>
 
     return (<>
-        <div className="screen-tutorial"/>
+        <div className="screen-tutorial" />
         <div className={`buddy-wrapper ${isNarrow ? 'buddy-rotate' : ''}`}>
             <img src={require('../style/imgs/tutorial/buddy-upper.png')} />
             <section className='tutorial-center'>

@@ -1,9 +1,15 @@
+import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setHomePhase } from "../store/actions/tutorial.actions"
 
 export function TutorialHome() {
     const dispatch = useDispatch()
     const { homePhase } = useSelector((storeState) => storeState.tutorialModule)
+
+    useEffect(() => {
+        if (homePhase === 1) document.body.style.overflow = 'hidden'
+        else document.body.style.overflow = 'auto'
+    }, [homePhase])
 
     if (homePhase !== 1) return <></>
 
