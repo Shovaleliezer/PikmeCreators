@@ -396,8 +396,8 @@ function Creator() {
             </div>
             <div className="details">
               <div>
-                <img src={require('../style/imgs/stream/coins.png')} />
-                <p>{makeCommas(prizePool)}$</p>
+                <img src={require('../style/imgs/binance-logo.png')} />
+                <p>{makeCommas(prizePool)}</p>
               </div>
               <div>
                 <img src={require('../style/imgs/stream/viewers.png')} />
@@ -421,8 +421,8 @@ function Creator() {
                 <p>{putKandM(viewers - 1)}</p>
               </div>
               <div>
-                <img src={require('../style/imgs/stream/coins.png')} />
-                <p>{putKandM(prizePool)}$</p>
+                <img src={require('../style/imgs/binance-logo.png')} />
+                <p>{putKandM(prizePool)}</p>
               </div>
             </div>
           </div>
