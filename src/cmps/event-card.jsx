@@ -79,7 +79,7 @@ export function EventCard({ ev, creator }) {
                     {!ev.fund && <p>{ev.players.length}</p>}
                     <p>{formatDateHour(ev.date)}</p>
                     <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13')) }}>
-                        {(ev.over ? 'Over' : (ev.approved ? ev.fund ? ev.fund.current + '/' + ev.fund.target + '$' : 'approved' : 'waiting'))}
+                        {(ev.over ? 'Over' : (ev.approved ? ev.fund ? ev.fund.current + '/' + ev.fund.target + 'BNB' : 'approved' : 'waiting'))}
                     </p>
                 </div>
             </div>

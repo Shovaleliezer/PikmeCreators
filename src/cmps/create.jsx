@@ -146,14 +146,14 @@ export function Create() {
                 <h3>Target</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/target.png`)} />
-                    <input className='date-special' placeholder='1,000$' type="number" ref={targetRef} required></input>
+                    <input className='date-special' placeholder='100 BNB' type="number" ref={targetRef} required></input>
                 </div>
             </div>
             <div className='h3-wrapper'>
                 <h3>Prize</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/achievement.png`)} />
-                    <input placeholder='1,000,000$' className='date-special' type="number" ref={prizeRef} required></input>
+                    <input placeholder='1,000 BNB' className='date-special' type="number" ref={prizeRef} required></input>
                 </div>
             </div>
             <div className='h3-wrapper' style={{width:'100%'}}>

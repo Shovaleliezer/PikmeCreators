@@ -132,14 +132,14 @@ export function Edit() {
                 <h3>Target</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/target.png`)} />
-                    <input name='target' onChange={handleFund} className='date-special' placeholder='1,000$' type="number" value={fund.target} required></input>
+                    <input name='target' onChange={handleFund} className='date-special' placeholder='100 BNB' type="number" value={fund.target} required></input>
                 </div>
             </div>
             <div className='h3-wrapper'>
                 <h3>Prize</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/achievement.png`)} />
-                    <input name='prize' onChange={handleFund} placeholder='1,000,000$' className='date-special' type="number" value={fund.prize} required></input>
+                    <input name='prize' onChange={handleFund} placeholder='1000BNB' className='date-special' type="number" value={fund.prize} required></input>
                 </div>
             </div>
             <div className='h3-wrapper' style={{ width: '100%' }}>
