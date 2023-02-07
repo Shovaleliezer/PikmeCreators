@@ -7,7 +7,7 @@ import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { StreamTimer } from "../cmps/stream-timer"
 import { Error } from "./error";
-import { makeCommas, getTimeUntil, putKandM } from '../services/utils'
+import { makeCommas, getTimeUntil, putKandM, make2digits } from '../services/utils'
 import { useNavigate } from 'react-router-dom'
 import { eventService } from "../services/event.service"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
@@ -397,7 +397,7 @@ function Creator() {
             <div className="details">
               <div>
                 <img src={require('../style/imgs/binance-logo.png')} />
-                <p>{makeCommas(prizePool)}</p>
+                <p>{prizePool.toFixed(2)}</p>
               </div>
               <div>
                 <img src={require('../style/imgs/stream/viewers.png')} />
@@ -422,7 +422,7 @@ function Creator() {
               </div>
               <div>
                 <img src={require('../style/imgs/binance-logo.png')} />
-                <p>{putKandM(prizePool)}</p>
+                <p>{prizePool.toFixed(2)}</p>
               </div>
             </div>
           </div>
