@@ -38,12 +38,11 @@ export function Menu(props) {
 
     return (<>
         <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
-        <section className={`menu ${props.mode.type + ' ' + menuSide} noselect`}>
-
+        <section className={`menu ${menuSide} noselect`}>
             {menu === 'normal' && <>
                 <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                 <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
-                {user.isConnected ? <div onClick={() => { logOut(); dispatch(setMenu('')) }} className="hover-main"><NavLink to='/' className="main-color"><span className="material-symbols-outlined">logout</span> <div>Log out</div></NavLink></div> :
+                {user.isConnected ? <div onClick={() => { logOut(); dispatch(setMenu('')) }} className="hover-main"><NavLink to='/'><span className="material-symbols-outlined">logout</span> <div>Log out</div></NavLink></div> :
                     <div className="hover-main" onClick={() => { dispatch(setMenu('')) }}><NavLink className="main-color" to='/profile'><span className="material-symbols-outlined">login</span><div>Login</div></NavLink></div>}
                 {isMobile && <div onClick={() => dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>}
             </>}
@@ -60,14 +59,14 @@ export function Menu(props) {
                 <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
             </>}
             {menu === 'feedback' && <>
-                <form className="center-start" onSubmit={sendFeedback}>
+                <form className="center-start feedback" onSubmit={sendFeedback}>
                     <p>Feedback</p>
-                    <textarea name={'message'} rows="5" cols="25" className={props.mode.type} ref={textRef} autoFocus required placeholder="Please tell us how can we improve our product..."></textarea>
-                    <input name={'user_name'} type='text' ref={nameRef} className={`txt ${props.mode.type}`} placeholder='Your name' required />
-                    <input name={'user_email'} type='email' ref={mailRef} className={`txt ${props.mode.type}`} placeholder='Your email' required />
+                    <textarea name={'message'} rows="5" cols="25" ref={textRef} autoFocus required placeholder="Please tell us how can we improve our product..."></textarea>
+                    <input name={'user_name'} type='text' ref={nameRef} className='txt' placeholder='Your name' required />
+                    <input name={'user_email'} type='email' ref={mailRef} className='txt' placeholder='Your email' required />
                     <div><input type="checkbox" id="notify" required ref={boxRef} />
                         <label htmlFor="notify"> Allow support to contact back</label></div>
-                    <button className={`${props.mode.type} border-${props.mode.type}`}>Send</button>
+                    <button >Send</button>
                 </form>
                 <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
             </>}

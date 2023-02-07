@@ -30,18 +30,16 @@ import { setStreamPhase,setHomePhase, setRegisterPhase } from './store/actions/t
 
 function App() {
   const dispatch = useDispatch()
-  const { mode } = useSelector((storeState) => storeState.generalModule)
 
-  document.body.classList = [`back-${mode.type}`]
   return (
     <Router>
       <div className="app">
-        <Header mode={mode} />
+        <Header/>
         <main className='main-layout'>
           <Routes>
             <Route path='/profile' element={<Profile />} />
             <Route path='/confirm/:id' element={<Confirm />} />
-            <Route path='/' element={<Home mode={mode} />} />
+            <Route path='/' element={<Home />} />
             <Route path='/stream-control' element={<StreamWrapper />} />
             <Route path='/join' element={<Join />} />
           </Routes>
@@ -49,8 +47,8 @@ function App() {
         {/* <button className='reset' onClick={() => {dispatch(setHomePhase(0))}}>DEBUG</button> */}
         <Footer />
       </div>
-      <Menu mode={mode} />
-      <Popup mode={mode} />
+      <Menu />
+      <Popup />
       <UpperPopup />
 
       <TutorialHome />
@@ -63,30 +61,3 @@ function App() {
 }
 
 export default App;
-// import { setIsConnected, setCreator, setAddress, resetState } from './store/reducers/userReducer'
-// import { userService } from './services/userService'
-// import { useEffect } from "react"
-// const ethereum = window.ethereum
-// useEffect(() => {
-  //   if (ethereum) {
-  //     ethereum.on('accountsChanged', async (accounts) => {
-  //       if (accounts[0]) {
-  //         const res = await userService.checkIsCreator(accounts[0])
-  //         if (res) {
-  //           const loadedCreator = await userService.addCreator(accounts[0], null)
-  //           if (loadedCreator) dispatch(setCreator(loadedCreator))
-  //           window.location = '#/'
-  //         }
-  //         dispatch(resetState())
-  //         dispatch(setAddress(accounts[0]))
-  //         dispatch(setIsConnected(true))
-  //         window.location = '#/'
-  //       }
-  //       else {
-  //         dispatch(resetState())
-  //         window.location = '#/'
-  //       }
-  //     })
-  //   }
-  // }, [])
-

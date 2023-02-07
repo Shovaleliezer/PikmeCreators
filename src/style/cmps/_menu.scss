@@ -7,6 +7,8 @@
     display: flex;
     gap: 25px;
     justify-content: flex-start;
+    background-color: $back-dark;
+    color: white;
     align-content: center;
     flex-direction: column;
     z-index: 10;
@@ -15,6 +17,11 @@
     border-bottom: 1px solid $main;
     border-left: 1px solid $main;
     border-bottom-left-radius: 10px;
+
+a{
+    color:white;
+}
+
     div {
         @include flex(10px, flex-start, center);
         cursor: pointer;
@@ -102,6 +109,18 @@
             border-radius: 8px;
         }
     }
+    .feedback{
+        input,textarea{
+            color: white;
+            background-color: transparent;
+        }
+        button{
+            background-color: $main;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 10px;
+        }
+    }
 }
 
 .left{
@@ -112,8 +131,6 @@
     border-bottom-left-radius: unset;
     border-bottom-right-radius: 10px;
     box-shadow: 10px 10px 12px -12px $sec;
-
-
 }
 
 @media (max-width: $mobile) {
