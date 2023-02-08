@@ -1,7 +1,4 @@
 const INITIAL_STATE = {
-    mode: {
-        type: 'dark',
-    },
     viewers: 0,
     menu: '',
     menuSide: 'right',
@@ -15,20 +12,6 @@ const INITIAL_STATE = {
 
 export function generalReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case 'TOGGLE_MODE':
-            if (state.mode.type === 'dark')
-                return {
-                    ...state, mode: {
-                        type: 'light',
-                    }
-                }
-            else return {
-                ...state,
-                mode: {
-                    type: 'dark',
-                }
-            }
-
         case 'SET_FILTER':
             return { ...state, filter: action.filter }
         case 'SET_VIEWERS':
@@ -56,9 +39,6 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, callbackLink: action.callbackLink }
         case 'RESET_GENERAL_STATE':
             return {
-                mode: {
-                    type: 'dark',
-                },
                 viewers: 0,
                 menu: '',
                 menuSide: 'right',

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
-import { toggleMenu, setMenuSide, setPopup } from "../store/actions/general.actions"
+import { toggleMenu, setPopup } from "../store/actions/general.actions"
 
 export function Header() {
     const dispatch = useDispatch()
@@ -21,7 +21,7 @@ export function Header() {
         <>
             {!isMobile && <div className="header noselect" style={{ zIndex: registerPhase === 2 ? '1001' : '100' }}>
                 <div className="options-bar">
-                    <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
+                    <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                     <div onClick={() => navTo('/profile')}>
                         {(user.creator) ? <img className='header-user-img' src={user.creator.image} /> :
                             <svg width="30" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="clickable hover-main-svg">
@@ -49,7 +49,7 @@ export function Header() {
                 <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '5' }}>
                     <span className="material-symbols-outlined menu-icon hidden">menu</span>
                     <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
-                    <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => { dispatch(setMenuSide('left')); dispatch(toggleMenu()) }}>menu</span>
+                    <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => dispatch(toggleMenu()) }>menu</span>
                 </div>
                 <nav className='footer-mobile' style={{ zIndex: registerPhase === 2 ? '1001' : '1' }}>
                     <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>

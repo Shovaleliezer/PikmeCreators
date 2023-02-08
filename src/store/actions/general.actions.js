@@ -1,13 +1,6 @@
-
-
 export function setMenu(menu) {
     return (dispatch) => {
         dispatch({ type: 'SET_MENU', menu })
-    }
-}
-export function setMenuSide(side) {
-    return (dispatch) => {
-        dispatch({ type: 'SET_MENU_SIDE', side })
     }
 }
 
