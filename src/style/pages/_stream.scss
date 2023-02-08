@@ -15,6 +15,7 @@
         @include flex(0, center, center);
         flex: 18;
         background-size: cover;
+        background-color: #000000;
 
         .timer {
             @include flex(0, center, center);

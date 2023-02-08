@@ -9,6 +9,7 @@ export function EventCard({ ev, creator }) {
 
     const dispatch = useDispatch()
     const [isOpen, setIsOpen] = useState(false)
+    console.log(ev)
 
     const copy = (to) => {
         if (to === 'clients') navigator.clipboard.writeText('https://pickmetv.onrender.com/#/event/' + ev._id)
