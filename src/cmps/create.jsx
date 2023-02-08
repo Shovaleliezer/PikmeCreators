@@ -107,11 +107,12 @@ export function Create() {
                     </div>
                 </div>
                 <div className='h3-wrapper date'>
-                    <h3>Date</h3>
-                    <div className='select-wrapper'>
-                        <input type="datetime-local" ref={dateRef} required></input>
-                    </div>
+                <h3>Date</h3>
+                <div className='select-wrapper'>
+                    <img src={require(`../style/imgs/register/calendar.png`)}/>
+                    <input type="datetime-local" className='date-special' ref={dateRef} required></input>
                 </div>
+            </div>
                 <div className='checkbox-wrapper' style={{ zIndex: createPhase === 1 ? '1001' : '0' }}>
                     <div className='checkbox' onClick={() => setIsShare(!isShare)}>
                         {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
