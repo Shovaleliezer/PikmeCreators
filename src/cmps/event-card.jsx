@@ -69,6 +69,7 @@ export function EventCard({ ev, creator }) {
                 <div className="headers">
                     {!ev.fund && <p>Category: </p>}
                     <p>Game: </p>
+                    {ev.fund && <p>Investors:</p>}
                     {! ev.fund && <p>players </p>}
                     <p>Date:</p>
                     <p>Status:</p>
@@ -76,6 +77,7 @@ export function EventCard({ ev, creator }) {
                 <div className="details">
                     {!ev.fund && <p>{ev.category}</p>}
                     <p>{ev.game}</p>
+                    {ev.fund && <p>{Object.keys(ev.fund.investors).length}</p>}
                     {!ev.fund && <p>{ev.players.length}</p>}
                     <p>{formatDateHour(ev.date)}</p>
                     <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13')) }}>
