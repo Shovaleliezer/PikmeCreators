@@ -5,14 +5,13 @@ import emailjs from 'emailjs-com'
 import { resetState } from "../store/reducers/userReducer"
 import { setMenu } from "../store/actions/general.actions"
 
-export function Menu(props) {
+export function Menu() {
     const dispatch = useDispatch()
     const textRef = useRef()
     const boxRef = useRef()
     const nameRef = useRef()
     const mailRef = useRef()
     const { menu } = useSelector((storeState) => storeState.generalModule)
-    const { menuSide } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
     const isMobile = window.innerWidth < 700
 
@@ -38,7 +37,7 @@ export function Menu(props) {
 
     return (<>
         <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
-        <section className={`menu noselect`}>
+        <section className='menu noselect'>
             {menu === 'normal' && <>
                 <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                 <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
