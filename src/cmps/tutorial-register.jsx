@@ -30,8 +30,8 @@ export function TutorialRegister() {
         <div className="buddy-wrapper">
             <img src={require('../style/imgs/tutorial/buddy-upper.png')} />
             <section className="tutorial-center">
-                <h1>Registered successfully!</h1>
-                <p>You can new start creating your events or joining an existing one.</p>
+                <h1>Wellcome to pikmeTV creator mode</h1>
+                <p>Your registration is now complete.</p>
                 <div onClick={() => dispatch(setRegisterPhase(2))} className="action">Got it!</div>
                 <div className="progress-circles"><div className="main-back" /><div /></div>
             </section>

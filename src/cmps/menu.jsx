@@ -38,7 +38,7 @@ export function Menu(props) {
 
     return (<>
         <div className="screen" onClick={() => dispatch(setMenu(''))}></div>
-        <section className={`menu ${menuSide} noselect`}>
+        <section className={`menu noselect`}>
             {menu === 'normal' && <>
                 <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
                 <div className="hover-main" onClick={() => dispatch(setMenu('feedback'))}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>

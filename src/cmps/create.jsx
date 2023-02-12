@@ -71,7 +71,7 @@ export function Create() {
 
     return <form className='create' onSubmit={addEvent}>
         <div className='create-upper'>
-            <img src={require('../style/imgs/create-stream.png')} />
+            <img src={require('../style/imgs/create-stream.png')} style={{cursor:'auto'}}/>
             <h1>Create New Stream</h1>
             <img src={require('../style/imgs/close-icon.png')} onClick={() => dispatch(setPopup(''))} />
         </div>
@@ -147,19 +147,19 @@ export function Create() {
                 <h3>Target</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/target.png`)} />
-                    <input className='date-special' placeholder='100 BNB' type="number" ref={targetRef} required></input>
+                    <input min='0.01' className='date-special' step="0.01" placeholder='100 BNB' type="number" ref={targetRef} required></input>
                 </div>
             </div>
             <div className='h3-wrapper'>
                 <h3>Prize</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/achievement.png`)} />
-                    <input placeholder='1,000 BNB' className='date-special' type="number" ref={prizeRef} required></input>
+                    <input min='0.01' placeholder='1,000 BNB' step="0.01" className='date-special' type="number" ref={prizeRef} required></input>
                 </div>
             </div>
             <div className='h3-wrapper' style={{width:'100%'}}>
             <h3>Description</h3>
-                <textarea minLength={150} className='fund-desc' placeholder='Tell us about the competition...' ref={descRef}/>
+                <textarea maxLength={220} required className='fund-desc' placeholder='Tell us about the competition...' ref={descRef}/>
             </div>
         </div>}
         <div className='center'>

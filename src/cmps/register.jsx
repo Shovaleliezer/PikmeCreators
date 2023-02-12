@@ -276,9 +276,10 @@ export function Register() {
                     <div className='select-wrapper'>
                         <select ref={statusRef}>
                             <option value="choose">Choose</option>
-                            <option value="gaming influencer">Gaming influencer</option>
-                            <option value="streamer">Streamer</option>
-                            <option value="pro player">Pro player</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermidate">Intermidate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="pro">Pro</option>
                         </select>
                     </div>
                 </div>
