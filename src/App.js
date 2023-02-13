@@ -44,7 +44,7 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        {/* <button className='reset' onClick={() => {dispatch(setHomePhase(0))}}>DEBUG</button> */}
+        <button className='reset' onClick={() => {dispatch(setStreamPhase(0))}}>DEBUG</button>
         <Footer />
       </div>
       <Menu />
