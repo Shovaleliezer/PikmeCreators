@@ -43,7 +43,7 @@ export function Footer() {
                     <section className="account">
                         <div className='my-account'>
                             <h3>my account</h3>
-                            <p onClick={() => { navigate('/profile') }}>my account</p>
+                            <p onClick={() => { navigate('/profile') }}>Profile</p>
                             <p onClick={() => { navigate('/') }}>my events</p>
                             <p onClick={() => dispatch(setPopup('create'))}>create event</p>
                         </div>

@@ -36,7 +36,7 @@ export function Popup() {
         <div className="confirm-exit">
             <img src={require(`../style/imgs/stream/pause.png`)} />
             <h1>Confirm navigation</h1>
-            <p>This action will pause your stream.</p>
+            <p>If you are already live, this action will pause your stream, continue anyway?</p>
             <div>
                 <div className="cancel" onClick={() => dispatch(setPopup(''))}>Cancel</div>
                 <div onClick={() => { dispatch(setPopup('')); navigate(popup) }}>Continue</div>

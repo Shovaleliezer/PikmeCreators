@@ -27,7 +27,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
             socket.off("message")
         }
     }, [socket])
-    
+
     if (end) {
         socket.emit('end-event')
     }
@@ -38,7 +38,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
         if (cameras[cameraIdx].label.toLowerCase().includes('front')) type = 'front'
         socket.emit('change-camera', { message: type })
     }
-    
+
 
     var randomColor = colors[Math.floor(Math.random() * colors.length)]
     const colorize = (username) => {
@@ -47,13 +47,13 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
             randomColor = colors[username.charCodeAt(i) % colors.length];
         }
     }
-    
+
     const onEnter = (ev) => {
         if (ev.key === "Enter") {
             sendMessage()
         }
     }
-    
+
     socket.on('message', (message) => {
         dispatch(setViewers(message.viewers))
         if (message.newRoom) {
@@ -64,7 +64,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
         }
     }
     )
-    
+
     const sendMessage = () => {
         const message = document.getElementById('input').value
         if (message !== "") {
@@ -76,7 +76,11 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
             document.getElementById('body-text').scrollTop = document.getElementById('body-text').scrollHeight
         }
     }
-    
+
+    const prevent=(e)=> {
+        e.preventDefault()
+    }
+
     colorize(nickName)
 
     return (<>
@@ -104,9 +108,11 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
                     })}
                 </div>
 
-                <div className="chat-box-input">
+                <form className="chat-box-input" onSubmit={prevent}>
                     <input id="input" type="text" onKeyDown={onEnter} placeholder="Type a message" />
-                </div>
+                    <input type='submit' style={{width:'0',padding:'0',borderWidth:'0',visibility:'hidden'}}/>
+                    <button style={{width:'0',padding:'0',borderWidth:'0',visibility:'hidden'}}></button>
+                </form>
             </div>}
     </>)
 }

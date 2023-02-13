@@ -6,7 +6,6 @@ import { formatDateHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
 import { userService } from '../services/userService'
 export function EventCard({ ev, creator }) {
-
     const dispatch = useDispatch()
     const [isOpen, setIsOpen] = useState(false)
 

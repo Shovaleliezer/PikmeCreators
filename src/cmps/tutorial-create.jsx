@@ -5,7 +5,7 @@ export function TutorialCreate() {
     const dispatch = useDispatch()
     const { createPhase } = useSelector((storeState) => storeState.tutorialModule)
 
-    if (createPhase !== 1)return <></>
+    if (createPhase !== 1) return <></>
 
     return (<>
         <div className="screen-tutorial"/>
