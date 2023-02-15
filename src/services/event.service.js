@@ -32,7 +32,7 @@ async function editEvent(id,event) {
 }
 
 async function getById(eventId) {
-    const event = await httpService.get('handle-event/get-event/' + eventId)
+    const event = await httpService.get('handle-event/get-event-creator/' + eventId)
     return event
 }
 
