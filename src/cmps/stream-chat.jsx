@@ -32,7 +32,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
         socket.emit('end-event')
     }
 
-    if (cameras) {
+    if (cameras && cameras.length > 0) {
         let type = 'normal'
         if (cameras[cameraIdx].label.toLowerCase().includes('back')) type = 'back'
         if (cameras[cameraIdx].label.toLowerCase().includes('front')) type = 'front'
@@ -77,7 +77,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
         }
     }
 
-    const prevent=(e)=> {
+    const prevent = (e) => {
         e.preventDefault()
     }
 
@@ -110,8 +110,8 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
 
                 <form className="chat-box-input" onSubmit={prevent}>
                     <input id="input" type="text" onKeyDown={onEnter} placeholder="Type a message" />
-                    <input type='submit' style={{width:'0',padding:'0',borderWidth:'0',visibility:'hidden'}}/>
-                    <button style={{width:'0',padding:'0',borderWidth:'0',visibility:'hidden'}}></button>
+                    <input type='submit' style={{ width: '0', padding: '0', borderWidth: '0', visibility: 'hidden' }} />
+                    <button style={{ width: '0', padding: '0', borderWidth: '0', visibility: 'hidden' }}></button>
                 </form>
             </div>}
     </>)
