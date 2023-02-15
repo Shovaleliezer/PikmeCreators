@@ -32,29 +32,28 @@ export function EventCard({ ev, creator }) {
 
     const getOptions = () => {
         if (ev.fund) {
-            if (!ev.approved) return <>
-                <p onClick={openEdit}>Edit</p>
-                <p onClick={() => setIsOpen(true)}>Delete</p>
-            </>
-            else if (!ev.over) return <>
+            if (ev.over) return <p onClick={() => deleteEvent(true)}>Delete</p>
+            if (ev.approved) return <>
                 <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
                 <p onClick={() => { copy('clients') }}>Share</p>
             </>
-            return <p onClick={() => deleteEvent(true)}>Delete</p>
+            return <>
+                <p onClick={openEdit}>Edit</p>
+                <p onClick={() => setIsOpen(true)}>Delete</p>
+            </>
         }
-        return <>
-            {(!ev.approved && ev.players[0].walletAddress === creator.walletAddress) && <>
+        else {
+            if (ev.over) return <p onClick={() => deleteEvent(true)}>Delete</p>
+            if (ev.approved) return <>
+                <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                <p onClick={() => { copy('clients') }}>Share</p>
+            </>
+            if (ev.players[0].walletAddress === creator.walletAddress) return <>
                 <p onClick={openEdit}>Edit</p>
                 <p onClick={() => copy('creators')}>Share</p>
                 <p onClick={() => setIsOpen(true)}>Delete</p>
-            </>}
-            {(ev.approved && !ev.over) && <>
-                <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
-                <p onClick={() => { copy('clients') }}>Share</p>
-            </>}
-            {ev.over && <p onClick={() => deleteEvent(true)}>Delete</p>}
-        </>
-
+            </>
+        }
     }
 
     return (<>
@@ -69,7 +68,7 @@ export function EventCard({ ev, creator }) {
                     {!ev.fund && <p>Category: </p>}
                     <p>Game: </p>
                     {ev.fund && <p>Investors:</p>}
-                    {! ev.fund && <p>players </p>}
+                    {!ev.fund && <p>players </p>}
                     <p>Date:</p>
                     <p>Status:</p>
                 </div>

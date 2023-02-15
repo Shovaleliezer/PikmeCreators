@@ -355,7 +355,7 @@ function Creator() {
   const timeUntilEvent = getTimeUntil(currentEvent.date)
 
   if (noPermission) return <section className="no-permission">
-    <span className="material-symbols-outlined camera">photo_camera</span>
+    <span className="material-symbols-outlined camera">no_photography</span>
     <p>this website does not have access to your camera, please grant a camera permission in 
       <a href='https://support.google.com/chrome/answer/2693767?hl=en&co=GENIE.Platform%3DDesktop'> Chrome </a> or  
       <a href='https://support.apple.com/en-il/guide/mac-help/mchlf6d108da/mac'> Safari</a>, then <span onClick={()=>window.location.reload()}>reload the page.</span>
