@@ -346,10 +346,11 @@ function Creator() {
     <div></div><div></div><div></div><div></div></div></div></div>
 
   let prizePool = 0
-  for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
+  if(currentEvent.fund) prizePool = currentEvent.fund.prize
+  else for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
     prizePool += value
   }
-  prizePool = prizePool * 5
+
 
   const width = getWidth(prizePool)
   const timeUntilEvent = getTimeUntil(currentEvent.date)
@@ -432,7 +433,7 @@ function Creator() {
             </div>
             <div className="details">
               <div>
-                <img src={require('../style/imgs/binance-logo.png')} />
+                <img src={currentEvent.fund ? require('../style/imgs/stream/prize.png') : require('../style/imgs/binance-logo.png')} />
                 <p>{prizePool.toFixed(2)}</p>
               </div>
               <div>
@@ -457,7 +458,7 @@ function Creator() {
                 <p>{putKandM(viewers - 1)}</p>
               </div>
               <div>
-                <img src={require('../style/imgs/binance-logo.png')} />
+              <img src={currentEvent.fund ? require('../style/imgs/stream/prize.png') : require('../style/imgs/binance-logo.png')} />
                 <p>{prizePool.toFixed(2)}</p>
               </div>
             </div>
