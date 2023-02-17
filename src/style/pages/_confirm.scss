@@ -104,12 +104,14 @@
 
     .same {
         width: min-content;
-        p{
+
+        p {
             font-size: 24px;
             margin: 0;
             margin-bottom: 10px;
             text-align: center;
         }
+
         .copy {
             @include flex(10px, center, center);
             width: fit-content;
@@ -139,6 +141,28 @@
         padding-top: 10px;
         width: 100%;
 
+        .h3-wrapper {
+            h3 {
+                font-size: 16px;
+                margin-bottom: 4px;
+                margin-top: 0
+            }
+
+            .info-wrapper {
+                @include flex(0, center, center);
+                height: 40px;
+                padding: 0 5px;
+
+                p {
+                    font-size: 16px;
+                }
+
+                img {
+                    width: 25px;
+                }
+            }
+        }
+
         .boxes-wrapper {
             flex-direction: column;
         }
@@ -149,27 +173,46 @@
 
         .checkbox-wrapper {
             align-self: center;
+            margin: 20px 0;
+            width: 300px;
+
+            .checkbox {
+                width: 30px;
+                height: 30px;
+
+                span {
+                    font-size: 24px;
+                }
+            }
+
+            p {
+                font-size: 16px;
+            }
+
         }
 
         .buttons {
 
             .accept,
             .reject {
-                width: 150px;
+                width: 120px;
+                font-size: 16px;
             }
         }
 
         .same {
             padding: 10px;
-            p{
+
+            p {
                 font-size: 16px;
             }
 
             .copy {
-                width: fit-content;
+                width: 300px;
 
                 span {
                     font-size: 16px;
+                    overflow-x: ;
                 }
 
                 img {
