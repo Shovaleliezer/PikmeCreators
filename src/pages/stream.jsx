@@ -346,7 +346,7 @@ function Creator() {
     <div></div><div></div><div></div><div></div></div></div></div>
 
   let prizePool = 0
-  if(currentEvent.fund) prizePool = currentEvent.fund.prize
+  if (currentEvent.fund) prizePool = currentEvent.fund.prize
   else for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
     prizePool += value
   }
@@ -357,9 +357,9 @@ function Creator() {
 
   if (noPermission) return <section className="no-permission">
     <span className="material-symbols-outlined camera">no_photography</span>
-    <p>this website does not have access to your camera, please grant a camera permission in 
-      <a href='https://support.google.com/chrome/answer/2693767?hl=en&co=GENIE.Platform%3DDesktop'> Chrome </a> or  
-      <a href='https://support.apple.com/en-il/guide/mac-help/mchlf6d108da/mac'> Safari</a>, then <span onClick={()=>window.location.reload()}>reload the page.</span>
+    <p>this website does not have access to your camera, please grant a camera permission in
+      <a href='https://support.google.com/chrome/answer/2693767?hl=en&co=GENIE.Platform%3DDesktop'> Chrome </a> or
+      <a href='https://support.apple.com/en-il/guide/mac-help/mchlf6d108da/mac'> Safari</a>, then <span onClick={() => window.location.reload()}>reload the page.</span>
     </p>
   </section>
 
@@ -458,7 +458,7 @@ function Creator() {
                 <p>{putKandM(viewers - 1)}</p>
               </div>
               <div>
-              <img src={currentEvent.fund ? require('../style/imgs/stream/prize.png') : require('../style/imgs/binance-logo.png')} />
+                <img src={currentEvent.fund ? require('../style/imgs/stream/prize.png') : require('../style/imgs/binance-logo.png')} />
                 <p>{prizePool.toFixed(2)}</p>
               </div>
             </div>
