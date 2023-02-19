@@ -1,5 +1,5 @@
 import "../style/main.scss"
-import { userService } from '../services/userService'
+import { userService } from '../services/user.service'
 import AgoraRTC from "agora-rtc-sdk-ng"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState, useRef } from "react"

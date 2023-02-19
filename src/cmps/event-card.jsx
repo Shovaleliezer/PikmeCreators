@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
 import { formatDateHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
-import { userService } from '../services/userService'
+import { userService } from '../services/user.service'
 export function EventCard({ ev, creator }) {
     const dispatch = useDispatch()
     const [isOpen, setIsOpen] = useState(false)

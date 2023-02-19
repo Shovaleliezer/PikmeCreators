@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
-import { userService } from "../services/userService"
+import { userService } from "../services/user.service"
 import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
 import { Error } from './error'

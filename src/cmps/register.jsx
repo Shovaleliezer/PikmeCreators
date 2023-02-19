@@ -7,7 +7,7 @@ import { getYears } from '../services/utils.js'
 import { setCreator, setAddress, setIsConnected, setPhone } from '../store/reducers/userReducer.js'
 import { setCallbackLink, setUpperPopup } from '../store/actions/general.actions.js'
 import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
-import { userService } from '../services/userService.js'
+import { userService } from '../services/user.service'
 
 export function Register() {
     const navigate = useNavigate()

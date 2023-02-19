@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { userService } from "../services/userService"
+import { userService } from "../services/user.service"
 import { setUpperPopup } from "../store/actions/general.actions"
 import { Error } from "../pages/error"
 import { countryList } from "../services/phone.service"

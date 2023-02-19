@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setMenu, setPopup } from "../store/actions/general.actions"
 import { setIsConnected, setAddress, resetState } from '../store/reducers/userReducer'
 import { setConnectPhase } from '../store/actions/tutorial.actions'
-import { userService } from '../services/userService'
+import { userService } from '../services/user.service'
 import { TutorialConnect } from './tutorial-connect'
 
 export function WalletConnect({ from, handleCreatorAddress }) {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
-import { userService } from "../services/userService"
+import { userService } from "../services/user.service"
 import { uploadService } from "../services/upload.service"
 import { setCreator } from "../store/reducers/userReducer"
 import { setUpperPopup } from "../store/actions/general.actions"
