@@ -28,6 +28,10 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
         }
     }, [socket])
 
+    useEffect(() => {
+        document.getElementById('body-text').scrollTop = document.getElementById('body-text').scrollHeight
+    }, [messages])
+
     if (end) {
         socket.emit('end-event')
     }
