@@ -100,7 +100,7 @@ export function Profile() {
             <h1>Account information</h1>
             <div className="edit-container">
                 <div className="main-img-wrapper">
-                    <label htmlFor='img'><img className="main-img" src={image} /></label>
+                    <label htmlFor='img' className="noselect"><img className="main-img" src={image} /></label>
                     <input id='img' className="non-appear" type="file" accept="image/*" onChange={handleChangeImage} />
                 </div>
                 <div className="h3-wrapper">
