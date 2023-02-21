@@ -48,12 +48,12 @@ export function Menu() {
             {menu === 'help' && <>
                 <div className='center-start'>
                     <p className="help-p">Help</p>
-                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/metamask-full-guide', '_blank').focus()}><p>how to install metamask?</p><span className="material-symbols-outlined">chevron_right</span></div>
-                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/add-funds-to-metamask', '_blank').focus()}><p>how to add money to the meta mask?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={() => window.open('https://homeric-games.gitbook.io/cvc/metamask-full-guide', '_blank').focus()}><p>how to install metamask?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={() => window.open('https://homeric-games.gitbook.io/cvc/add-funds-to-metamask', '_blank').focus()}><p>how to add money to the meta mask?</p><span className="material-symbols-outlined">chevron_right</span></div>
                     <div className={`help-opt hover-main`}><p>how to buy a ticket?</p><span className="material-symbols-outlined">chevron_right</span></div>
-                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/i-bought-a-ticket-what-now', '_blank').focus()}><p>I bought a ticket what now?</p><span className="material-symbols-outlined">chevron_right</span></div>
-                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/how-to-add-bnb-network-to-metamask', '_blank').focus()}><p>how to add my network to metamask?</p><span className="material-symbols-outlined">chevron_right</span></div>
-                    <div className={`help-opt hover-main`} onClick={()=>window.open('https://homeric-games.gitbook.io/cvc/metamask-full-guide', '_blank').focus()}><p>general help in the platform.</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={() => window.open('https://homeric-games.gitbook.io/cvc/i-bought-a-ticket-what-now', '_blank').focus()}><p>I bought a ticket what now?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={() => window.open('https://homeric-games.gitbook.io/cvc/how-to-add-bnb-network-to-metamask', '_blank').focus()}><p>how to add my network to metamask?</p><span className="material-symbols-outlined">chevron_right</span></div>
+                    <div className={`help-opt hover-main`} onClick={() => window.open('https://homeric-games.gitbook.io/cvc/metamask-full-guide', '_blank').focus()}><p>general help in the platform.</p><span className="material-symbols-outlined">chevron_right</span></div>
                 </div>
                 <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>
             </>}
@@ -63,8 +63,10 @@ export function Menu() {
                     <textarea name={'message'} rows="5" cols="25" ref={textRef} autoFocus required placeholder="Please tell us how can we improve our product..."></textarea>
                     <input name={'user_name'} type='text' ref={nameRef} className='txt' placeholder='Your name' required />
                     <input name={'user_email'} type='email' ref={mailRef} className='txt' placeholder='Your email' required />
-                    <div><input type="checkbox" id="notify" required ref={boxRef} />
-                        <label htmlFor="notify"> Allow support to contact back</label></div>
+                    <div>
+                        <input className="checkbox" type="checkbox" id="notify" required ref={boxRef} />
+                        <label htmlFor="notify"> Allow support to contact back</label>
+                    </div>
                     <button >Send</button>
                 </form>
                 <div className="close" onClick={() => dispatch(setMenu('normal'))}><span className="material-symbols-outlined">close</span></div>

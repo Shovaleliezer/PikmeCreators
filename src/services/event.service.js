@@ -38,7 +38,6 @@ async function getById(eventId) {
 
 async function confirm(creator,id) {
     const event = await httpService.put('handle-event/accept-event/' + id, {playerToAdd:creator})
-    
     if(event) return event
 }
 
