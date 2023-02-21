@@ -5,7 +5,7 @@ import { userService } from "../services/user.service"
 import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
 import { Error } from './error'
-import { setAddress, setIsConnected, setPhone, setCreator } from "../store/reducers/userReducer"
+import { setAddress, setIsConnected, setPhone, setCreator, resetState } from "../store/reducers/userReducer"
 import { setCallbackLink, setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { setHomePhase } from "../store/actions/tutorial.actions"
 import { Login } from "../cmps/login"
@@ -14,6 +14,7 @@ export function Home() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [creator, setLocalCreator] = useState('loading')
+    const [error, setError] = useState(false)
     const { isConnected } = useSelector((state) => state.user)
     const { homePhase } = useSelector((state) => state.tutorialModule)
     const { callbackLink } = useSelector((state) => state.generalModule)
@@ -32,6 +33,8 @@ export function Home() {
             }
 
             catch {
+                setError(true)
+                dispatch(resetState())
                 setLocalCreator(false)
             }
         }
@@ -68,7 +71,7 @@ export function Home() {
             dispatch(setUpperPopup('errorServer'))
         }
     }
-
+    if (error) return <Error />
     if (!isConnected) return <Login handleCreatorPhone={handleCreatorPhone} />
     if (creator === 'loading') return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>
