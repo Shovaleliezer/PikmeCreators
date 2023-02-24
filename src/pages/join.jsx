@@ -8,7 +8,9 @@ export function Join() {
         e.preventDefault()
         window.location.replace(linkRef.current.value)
     }
+
     try {
+        window.scrollTo(0, 0)
         return (
             <div className='join'>
                 <h1>join an event</h1>

@@ -36,6 +36,11 @@ export function Create() {
         e.preventDefault()
         setSent(true)
         const date = new Date(dateRef.current.value)
+        if(new Date(Date.now()) > new Date(dateRef.current.value)){
+            setSent(false)
+            dispatch(setUpperPopup('date'))
+            return
+        }
         const utcString = date.toUTCString()
         let newEvent
         newEvent = {

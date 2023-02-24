@@ -30,7 +30,6 @@ import { setStreamPhase,setHomePhase, setRegisterPhase } from './store/actions/t
 
 function App() {
   const dispatch = useDispatch()
-
   return (
     <Router>
       <div className="app">

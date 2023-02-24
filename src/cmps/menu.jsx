@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import { NavLink } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import emailjs from 'emailjs-com'
@@ -14,6 +14,12 @@ export function Menu() {
     const { menu } = useSelector((storeState) => storeState.generalModule)
     const user = useSelector((state) => state.user)
     const isMobile = window.innerWidth < 700
+
+    useEffect(() => {
+        if (menu && isMobile) document.body.style.overflowY = 'hidden'
+        else document.body.style.overflowY = 'auto'
+        return () => document.body.style.overflowY = 'auto'
+    }, [menu])
 
     const sendFeedback = async (ev) => {
         ev.preventDefault()

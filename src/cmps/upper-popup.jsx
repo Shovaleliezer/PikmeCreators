@@ -33,6 +33,7 @@ export function UpperPopup() {
             {upperPopup==='desc' && <p>Use at least 150 characters for the description.</p>}
             {upperPopup==='takenAddress' && <p>This address is already used by other user.</p>}
             {upperPopup==='otherStream' && <p>Someone else already started streaming.</p>}
+            {upperPopup==='date' && <p>Cannot create event in the past, please enter a valid date in the future.</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
         </section>
     )

@@ -18,9 +18,9 @@ export function Popup() {
     const { createPhase } = useSelector((state) => state.tutorialModule)
 
     useEffect(() => {
-        if (popup) document.body.classList.add("no-scroll")
-        else document.body.classList.remove("no-scroll")
-        return () => document.body.classList.remove("no-scroll")
+        if (popup) document.body.style.overflowY = 'hidden'
+        else document.body.style.overflowY = 'auto'
+        return () => document.body.style.overflowY = 'auto'
     }, [popup])
 
     const copy = () => {
