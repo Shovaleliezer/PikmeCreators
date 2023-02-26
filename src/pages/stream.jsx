@@ -46,7 +46,7 @@ function Creator() {
   const [mics, setMics] = useState([])
   const [micIdx, setMicIdx] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
-  const [volume, setVolume] = useState(1000)
+  const [volume, setVolume] = useState(500)
   const [openOpt, setOpenOpt] = useState('')
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
