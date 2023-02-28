@@ -18,6 +18,8 @@
     border-bottom-left-radius: unset;
     border-bottom-right-radius: 10px;
     box-shadow: 10px 10px 12px -12px $sec;
+    animation: slide-right 0.3s ease;
+
 
     a {
         color: white;
@@ -156,5 +158,24 @@
         border-left: unset;
         border-bottom-left-radius: unset;
         border-width: 0;
+        animation: slide-left 0.3s ease;
+    }
+}
+
+@keyframes slide-right {
+    0% {
+        left: -320px;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+@keyframes slide-left {
+    0% {
+        left:100vw
+    }
+    100% {
+        left: 0;
     }
 }
