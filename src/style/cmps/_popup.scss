@@ -4,10 +4,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: $back-dark;
-    color:white;
+    color: white;
     border: 2px solid $bright-back;
     border-radius: 10px;
     width: 700px;
+    animation: fadeIn 0.4s ease;
 
     div {
         .wallet-connect {
@@ -44,6 +45,7 @@
 
     .wellcome {
         padding-bottom: 20px;
+
         h1 {
             font-size: 32px;
             text-align: center;
@@ -51,81 +53,92 @@
             margin-bottom: 40px;
         }
     }
-    .event-link{
+
+    .event-link {
         padding-bottom: 20px;
-        p{
+
+        p {
             text-align: center;
             font-size: 24px;
         }
+
         .share-wrapper {
             width: 90%;
-            @include flex(20px, center, center,column);
+            @include flex(20px, center, center, column);
             margin: auto;
             margin-bottom: 30px;
             margin-top: 30px;
-            .copy{
+
+            .copy {
                 @include flex(10px, center, center);
                 width: fit-content;
                 margin: auto;
                 border: 4px solid $bright-back;
                 border-radius: 10px;
                 padding: 5px 10px;
-               span{
-                text-align: center;
-                font-size: 16px;
-                color: $gray;
-                text-decoration: underline;
-               } 
-               img{
-                width:20px;
-                aspect-ratio: 1/1;
-                cursor: pointer;
-               }
+
+                span {
+                    text-align: center;
+                    font-size: 16px;
+                    color: $gray;
+                    text-decoration: underline;
+                }
+
+                img {
+                    width: 20px;
+                    aspect-ratio: 1/1;
+                    cursor: pointer;
+                }
             }
         }
-        .buttons{
+
+        .buttons {
             width: 100%;
-            @include flex(30px,center,center)
+            @include flex(30px, center, center)
         }
-        
+
         .share-button {
             width: 40px;
             aspect-ratio: 1/1;
             background-repeat: no-repeat;
             background-size: cover;
         }
-        
+
         .whatsapp {
             background-image: url('../imgs/share/whatsapp.png');
         }
-        
+
         .email {
             background-image: url('../imgs/share/email.png');
         }
-        
+
         .telegram {
             background-image: url('../imgs/share/telegram.png');
             width: 45px;
             margin-top: 6px !important;
         }
-        
+
         .facebook {
             background-image: url('../imgs/share/facebook.png');
         }
     }
-    .created{
-        @include flex(0,center,center,column);
+
+    .created {
+        @include flex(0, center, center, column);
         padding: 20px;
-        img{
-            width:135;
+
+        img {
+            width: 135;
             aspect-ratio: 1/1;
         }
-        h1{
+
+        h1 {
             font-size: 36px;
             margin: 20px 0;
             text-align: center;
         }
-        p{
+
+        p {
             font-size: 24px;
             margin: 0;
             margin-bottom: 40px;
@@ -169,20 +182,23 @@
             }
         }
 
-        .event-link{
-            p{
+        .event-link {
+            p {
                 font-size: 18px;
-            } 
-            .copy{
+            }
+
+            .copy {
                 width: 90% !important;
-                span{
+
+                span {
                     font-size: 16px !important;
                     word-break: break-all;
                 }
-                img{
+
+                img {
                     width: 16px !important;
                 }
-            }     
+            }
         }
 
         .bought {
@@ -228,16 +244,19 @@
             }
         }
 
-        .created{
+        .created {
             padding: 10px;
-            img{
-                width:80px;
+
+            img {
+                width: 80px;
             }
-            h1{
+
+            h1 {
                 font-size: 24px;
                 margin: 14px 0;
             }
-            p{
+
+            p {
                 font-size: 16px;
                 margin-bottom: 30px;
             }
@@ -247,5 +266,19 @@
             font-size: 26px !important;
             padding: 8px 35px !important;
         }
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        top:100vh
+    }
+    50%{
+        opacity:0.4;
+    }
+    100% {
+        opacity: 1;
+        top:50%;
     }
 }

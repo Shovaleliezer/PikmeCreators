@@ -3,10 +3,10 @@
     @include flex(0, flex-start, center, column);
     width: 100%;
     padding: 5px 100px;
+    margin-bottom: 0;
 
     .footer {
         @include flex(50px, flex-start, flex-start);
-
         border-bottom: 1px solid rgba($color: #606060, $alpha: 0.2);
         width: 100%;
 
@@ -73,7 +73,8 @@
 
         .contact {
             flex: 4;
-            h3{
+
+            h3 {
                 text-align: center
             }
 
@@ -91,29 +92,35 @@
 
         .account {
             flex: 5;
-            @include flex(50px, center, center);
-            p{
+            @include flex(50px, space-between, center);
+
+            p {
                 cursor: pointer;
             }
         }
     }
 
     .footer-bottom {
+        @include flex(100px, space-between, center);
+        width: 100%;
+
         p {
             font-size: 13px;
             color: rgba($color: $bright-text, $alpha: 0.85);
             cursor: pointer;
         }
 
+        &>:first-child {
+            flex: 10;
+        }
+
         p::first-letter {
             text-transform: capitalize;
         }
 
-        @include flex(20px, space-between, center);
-        width: 100%;
-
         div {
-            @include flex(100px, space-between, center);
+            flex: 5 1;
+            @include flex(0, space-between, center);
         }
     }
 }
@@ -124,12 +131,44 @@
         margin-bottom: 60px;
 
         .footer {
-            @include flex(20px,center,flex-start,column);
+            @include flex(0, center, flex-start, column);
 
             .email {
+                @include flex(20px, center, center, column);
+                *{
+                    margin:0;
+                }
+                p{
+                    text-align: center;
+                }
                 form {
                     margin-bottom: 20px;
                 }
+            }
+
+            .contact,
+            .account {
+                width: 100%;
+            }
+
+            .account {
+                @include flex(0, space-around)
+            }
+
+            .contact>div {
+                margin-bottom: 20px
+            }
+        }
+
+        .footer-bottom {
+            @include flex(0, space-evenly, center);
+            p{
+                flex: unset !important;
+                width: 33%;
+            }
+            div{
+                flex:1;
+                @include flex(0, space-around, center);
             }
         }
     }
