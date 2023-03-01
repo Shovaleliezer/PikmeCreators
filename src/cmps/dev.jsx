@@ -8,7 +8,7 @@ export function Dev({ setDevModal }) {
     const action = async () => {
         if (opt === 'create') {
             try {
-                const res = await httpService.post('handle-dev/create-and-confirm', password.current.value)
+                const res = await httpService.post('handle-dev/create-and-confirm', {password:password.current.value})
                 alert(res)
             }
             catch (err) {

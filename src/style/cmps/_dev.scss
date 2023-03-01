@@ -11,5 +11,14 @@
 
 .dev{
     z-index: 1001;
-    @include flex(20px,center,center,column)
+    @include flex(20px,center,center,column);
+    button{
+        height: 40px;
+        padding: 0 10px;
+        border-radius: 10px;
+        font-size: 22px;
+        color: white;
+        background-color: $main;
+        cursor: pointer;
+    }
 }
