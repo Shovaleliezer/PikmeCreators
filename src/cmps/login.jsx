@@ -28,7 +28,8 @@ export function Login(props) {
         const formatted = countryRef.current.value + (phoneRef.current.value[0] == 0 ? phoneRef.current.value.slice(1) : phoneRef.current.value)
         try {
             const confirm = await userService.sendOTP(Number(formatted))
-            if (confirm.response) setPhone(formatted)
+            if(confirm.name==='AxiosError') dispatch(setUpperPopup('errorServer'))
+            else if (confirm.response) setPhone(formatted)
             else dispatch(setUpperPopup('invalidPhone'))
         }
         catch {
