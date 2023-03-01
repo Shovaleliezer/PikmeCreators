@@ -1,5 +1,5 @@
 import './style/main.scss'
-import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 
 //pages
@@ -15,6 +15,7 @@ import { Footer } from './cmps/footer'
 import { Menu } from "../src/cmps/menu"
 import { Popup } from "../src/cmps/popup"
 import { UpperPopup } from "../src/cmps/upper-popup"
+import { Dev } from '../src/cmps/dev'
 
 //tutorials
 import { TutorialRegister } from './cmps/tutorial-register'
@@ -22,14 +23,8 @@ import { TutorialHome } from './cmps/tutorial-home'
 import { TutorialCreate } from './cmps/tutorial-create'
 import { TutorialStream } from './cmps/tutorial-stream'
 
-//debug
-import { resetGeneralState } from './store/actions/general.actions'
-import { setStreamPhase,setHomePhase, setRegisterPhase } from './store/actions/tutorial.actions'
-
-
-
 function App() {
-  const dispatch = useDispatch()
+  const [devModal,setDevModal] = useState()
   return (
     <Router>
       <div className="app">
@@ -43,7 +38,8 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        {/* <button className='reset' onClick={() => {dispatch(setStreamPhase(0))}}>DEBUG</button> */}
+        {process.env.NODE_ENV === 'development' && <button className='dev-button' onClick={()=>setDevModal(true)}>DEV</button>}
+        {devModal && <Dev setDevModal={setDevModal}/>}
         <Footer />
       </div>
       <Menu />

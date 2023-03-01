@@ -1,0 +1,15 @@
+.dev-button{
+    position: fixed;
+    top:0;
+    left:200px;
+    font-size: 22px;
+    width: 100px;
+    height: 40px;
+    z-index: 1000000000;
+    cursor: pointer;
+}
+
+.dev{
+    z-index: 1001;
+    @include flex(20px,center,center,column)
+}

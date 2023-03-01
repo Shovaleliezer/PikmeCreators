@@ -31,6 +31,7 @@
 @import "src/style/cmps/event-card";
 @import "src/style/cmps/tutorial";
 @import "src/style/cmps/simple-popup";
+@import "src/style/cmps/dev";
 
 * {
     box-sizing: border-box;
@@ -54,16 +55,6 @@ body {
     margin: auto;
     margin-top: 60px;
     width: 100vw;
-}
-
-.reset{
-    font-size: 20px;
-    width: 100px;
-    height: 40px;
-    position: fixed;
-    top:0;
-    left:100px;
-    z-index: 1000000000;
 }
 
 @media (max-width: 930px){
