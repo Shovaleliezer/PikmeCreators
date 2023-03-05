@@ -1,9 +1,8 @@
 import Axios from 'axios'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://pikmeserver.herokuapp.com/'
+    ? '/'
     : '//localhost:3030/'
-    // '//localhost:3030/'
 
 var axios = Axios.create({
     withCredentials: false
@@ -31,11 +30,6 @@ async function ajax(endpoint, method = 'GET', data = null) {
             method,
             data,
             params: (method === 'GET') ? data : null,
-            headers:{
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-            }
         })
         return res.data
     } catch (err) {
