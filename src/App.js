@@ -25,7 +25,7 @@ import { TutorialStream } from './cmps/tutorial-stream'
 
 function App() {
   const [devModal,setDevModal] = useState()
-  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+  console.log('process.env.NODE_ENV', process.env.NODE_ENV,process.env.mongo)
   return (
     <Router>
       <div className="app">
