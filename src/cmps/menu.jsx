@@ -40,7 +40,7 @@ export function Menu() {
         <section className='menu noselect'>
             {menu === 'normal' && <>
                 <div className="hover-main" onClick={() => dispatch(setMenu('help'))}><span className="material-symbols-outlined">help</span> <div>Help</div></div>
-                <div className="hover-main" onClick={() => window.open('mailto:test@example.com?subject=subject&body=body')}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
+                <div className="hover-main" onClick={() => window.open('mailto:HomericEntertainment@gmail.com?subject=feedback&body=')}><span className="material-symbols-outlined">add_comment</span> <div>Feedback</div></div>
                 {user.isConnected ? <div onClick={() => { logOut(); dispatch(setMenu('')) }} className="hover-main"><NavLink to='/'><span className="material-symbols-outlined">logout</span> <div>Log out</div></NavLink></div> :
                     <div className="hover-main" onClick={() => { dispatch(setMenu('')) }}><NavLink className="main-color" to='/profile'><span className="material-symbols-outlined">login</span><div>Login</div></NavLink></div>}
                 {isMobile && <div onClick={() => dispatch(setMenu(''))} className="close-mobile clickable"><span className="material-symbols-outlined">cancel</span></div>}
