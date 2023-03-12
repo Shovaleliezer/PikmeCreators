@@ -141,7 +141,8 @@ function Creator() {
       return config
     }
     catch {
-      setNoPermission(true)
+      // console.log('1111')
+      // setNoPermission(true)
     }
   }
 
@@ -277,7 +278,8 @@ function Creator() {
       }
       try {
         if (!channelParameters.localVideoTrack) {
-          setNoPermission(true)
+          // console.log('1112')
+          // setNoPermission(true)
         }
         else {
           channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack()
@@ -313,7 +315,8 @@ function Creator() {
         console.log("track detected")
       }
       else {
-        setNoPermission(true)
+        // setNoPermission(true)
+        // console.log('1113')
       }
     }
   }
