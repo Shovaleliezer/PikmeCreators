@@ -351,7 +351,6 @@ function Creator() {
     prizePool += value
   }
 
-
   const width = getWidth(prizePool)
   const timeUntilEvent = getTimeUntil(currentEvent.date)
 
