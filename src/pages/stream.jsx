@@ -46,6 +46,7 @@ function Creator() {
   const [mics, setMics] = useState([])
   const [micIdx, setMicIdx] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
+  const [isScreen, setIsScreen] = useState(false)
   const [volume, setVolume] = useState(500)
   const [openOpt, setOpenOpt] = useState('')
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
@@ -105,6 +106,7 @@ function Creator() {
   }, [currentEvent])
 
   useEffect(() => {
+    if(isScreen) setIsScreen(false)
     if (cameras.length) play()
   }, [cameraIdx])
 
@@ -140,9 +142,9 @@ function Creator() {
       })
       return config
     }
-    catch {
-      // console.log('1111')
-      // setNoPermission(true)
+    catch (err) {
+      setNoPermission(true)
+      console.log(err)
     }
   }
 
@@ -269,16 +271,23 @@ function Creator() {
     });
   }
 
+  const shareScreen = async () => {
+    options.type = 'gaming'
+    if(channelParameters.localVideoTrack) channelParameters.localVideoTrack.stop()
+    channelParameters.localVideoTrack = null
+    setIsScreen(true)
+    streamGaming(client, status === 'live' ? true : false)
+  }
+
   const streamGaming = async (client, live = false) => {
     if (options.type === "sports" && channelParameters.localVideoTrack === null) {
       try {
-        channelParameters.localVideoTrack = await createVideo();
+        channelParameters.localVideoTrack = await createVideo()
       } catch (e) {
         console.log("create video track failed", e);
       }
       try {
         if (!channelParameters.localVideoTrack) {
-          // console.log('1112')
           // setNoPermission(true)
         }
         else {
@@ -302,7 +311,7 @@ function Creator() {
       }
     }
     if (channelParameters.localVideoTrack && channelParameters.localAudioTrack && live) {
-      if (alreadyStreamed && options.type === "sports") {
+      if (alreadyStreamed) {
         console.log("stream already started by your opponent")
       }
       else {
@@ -316,7 +325,6 @@ function Creator() {
       }
       else {
         // setNoPermission(true)
-        // console.log('1113')
       }
     }
   }
@@ -343,6 +351,14 @@ function Creator() {
 
   const startTutorialMobile = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !tutorialDone.current) dispatch(setStreamPhase(1))
+  }
+
+  const onCameraClick = (idx) => {
+    if(cameraIdx === idx){
+      setIsScreen(false)
+      play()
+    } 
+    else setCameraIdx(idx)
   }
 
   if (currentEvent.length === 0) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
@@ -375,12 +391,16 @@ function Creator() {
       {!isMobile && <div className="stream-container">
         <div className="settings noselect">
           <div className="settings-upper">
-            <span onClick={() => setIsEnd(!isEnd)} className="material-symbols-outlined">settings</span><p>Settings</p>
+            <span className="material-symbols-outlined">settings</span><p>Options</p>
           </div>
           <div className="option main-color" onClick={() => openOpt === 'camera' ? setOpenOpt('') : setOpenOpt('camera')}>
-            <p>Camera</p><span className="material-symbols-outlined">{openOpt === 'camera' ? 'expand_less' : 'expand_more'}</span></div>
-          {openOpt === 'camera' && cameras.map((camera, idx) =>
-            <div key={idx} className={cameraIdx === idx ? 'sub sec-color back-stream' : 'sub'} onClick={() => setCameraIdx(idx)}><p >{idx + 1}.{camera.label}</p></div>)}
+            <p>Stream source</p><span className="material-symbols-outlined">{openOpt === 'camera' ? 'expand_less' : 'expand_more'}</span>
+          </div>
+          {openOpt === 'camera' && <>
+            <div className={isScreen ? 'sub sec-color back-stream' : 'sub'} onClick={shareScreen}><span class="material-symbols-outlined">desktop_mac</span><p> Screen</p></div>
+            {cameras.map((camera, idx) =>
+              <div key={idx} className={(!isScreen && cameraIdx === idx) ? 'sub sec-color back-stream' : 'sub'} onClick={() =>onCameraClick(idx)}><p>{camera.label}</p></div>)}               
+          </>}
           <div className="option main-color" onClick={() => openOpt === 'mic' ? setOpenOpt('') : setOpenOpt('mic')}>
             <p>Microphone</p><span className="material-symbols-outlined">{openOpt === 'mic' ? 'expand_less' : 'expand_more'}</span></div>
           {openOpt === 'mic' && mics.map((mic, idx) =>
@@ -410,7 +430,7 @@ function Creator() {
               <h1>Could not detect any camera</h1>
             </div>}
           </div>
-          <div className="stream-control" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
+          <div className="stream-control noselect" style={{ zIndex: streamPhase === 3 ? '1001' : 0 }}>
             <div className="options" style={{ width }}>
               {
                 isMuted ? <svg className='clickable sec-svg' onClick={() => play('mic')} width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" >
