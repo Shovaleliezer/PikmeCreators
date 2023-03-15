@@ -276,7 +276,7 @@ function Creator() {
     if(channelParameters.localVideoTrack) channelParameters.localVideoTrack.stop()
     channelParameters.localVideoTrack = null
     setIsScreen(true)
-    streamGaming(client, status === 'live' ? true : false)
+    streamGaming(client, status === 'live')
   }
 
   const streamGaming = async (client, live = false) => {
@@ -311,22 +311,13 @@ function Creator() {
       }
     }
     if (channelParameters.localVideoTrack && channelParameters.localAudioTrack && live) {
-      if (alreadyStreamed) {
-        console.log("stream already started by your opponent")
-      }
-      else {
+      if(!alreadyStreamed) {
+        await client.unpublish()
         await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
         setStatus("live")
       }
     }
-    else {
-      if (channelParameters.localVideoTrack && channelParameters.localAudioTrack) {
-        console.log("track detected")
-      }
-      else {
-        // setNoPermission(true)
-      }
-    }
+
   }
 
   const stopStream = async (client) => {
