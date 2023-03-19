@@ -10,7 +10,7 @@ export function EventCard({ ev, creator }) {
     const [isOpen, setIsOpen] = useState(false)
 
     const copy = (to) => {
-        if (to === 'clients') navigator.clipboard.writeText('https://pickmetv.onrender.com/#/event/' + ev._id)
+        if (to === 'clients') navigator.clipboard.writeText('https://d3d4bwbgnbrnq1.cloudfront.net/#/event/' + ev._id)
         else navigator.clipboard.writeText(getRoute() + 'confirm/' + ev._id)
         dispatch(setUpperPopup('copied'))
     }
