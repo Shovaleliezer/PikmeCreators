@@ -317,7 +317,6 @@ function Creator() {
         setStatus("live")
       }
     }
-
   }
 
   const stopStream = async (client) => {

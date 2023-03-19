@@ -42,7 +42,7 @@ async function checkIsCreator(address) {
     return isCreator
 }
 
-async function addCreator(address, creator) {
+async function addCreator(address, creator) { 
     const newCreator = await httpService.post('handle-creator/add-creator/' + address, creator)
     return newCreator
 }
@@ -70,7 +70,6 @@ async function isAddressValid(address) {
     catch {
         return true
     }
-
 }
 
 async function sendOTP(phone) {
