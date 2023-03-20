@@ -25,7 +25,6 @@ import { TutorialStream } from './cmps/tutorial-stream'
 
 function App() {
   const [devModal,setDevModal] = useState()
-  console.log('process.env.NODE_ENV', process.env.NODE_ENV,process.env.mongo)
   return (
     <Router>
       <div className="app">
@@ -39,8 +38,8 @@ function App() {
             <Route path='/join' element={<Join />} />
           </Routes>
         </main>
-        {process.env.NODE_ENV === 'development' && <button className='dev-button' onClick={()=>setDevModal(true)}>DEV</button>}
-        {devModal && <Dev setDevModal={setDevModal}/>}
+        {/* {process.env.NODE_ENV === 'development' && <button className='dev-button' onClick={()=>setDevModal(true)}>DEV</button>}
+        {devModal && <Dev setDevModal={setDevModal}/>} */}
         <Footer />
       </div>
       <Menu />

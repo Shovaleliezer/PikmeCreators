@@ -24,11 +24,11 @@ export function Login(props) {
     }, [code])
 
     const handlePhone = async (ev) => {
-        if(ev) ev.preventDefault()
+        if (ev) ev.preventDefault()
         const formatted = countryRef.current.value + (phoneRef.current.value[0] == 0 ? phoneRef.current.value.slice(1) : phoneRef.current.value)
         try {
             const confirm = await userService.sendOTP(Number(formatted))
-            if(confirm.name==='AxiosError') dispatch(setUpperPopup('errorServer'))
+            if (confirm.name === 'AxiosError') dispatch(setUpperPopup('errorServer'))
             else if (confirm.response) setPhone(formatted)
             else dispatch(setUpperPopup('invalidPhone'))
         }
@@ -38,18 +38,27 @@ export function Login(props) {
     }
 
     const submitCode = async (ev) => {
-        if(ev) ev.preventDefault()
+        if (ev) ev.preventDefault()
         const formatted = code[0] + code[1] + code[2] + code[3] + code[4] + code[5]
         props.handleCreatorPhone(phone, formatted)
     }
 
     const handleCode = (ev) => {
         const { value, name } = ev.target
-        if (value === '' && name !== '0') document.getElementById(Number(name) - 1).focus()
+        for (let i = 0; i < Number(name); i++) if (code[i] === '') {
+            document.getElementById(i).focus()
+            return
+        }
+
         if ((Number(value) >= 0 && Number(value) <= 9)) {
             if (value !== '' && name !== '5') document.getElementById(Number(name) + 1).focus()
             setCode({ ...code, [name]: value })
         }
+    }
+
+    const onDelete = (ev) => {
+        const { key, target } = ev
+        if (key === 'Backspace' && target.value === '' && target.name !== '0') document.getElementById(Number(target.name) - 1).focus()
     }
 
     const slots = [0, 1, 2, 3, 4, 5]
@@ -73,7 +82,7 @@ export function Login(props) {
                     <h5 style={{ marginBottom: '8px' }}>Enter the code you received to</h5>
                     <p style={{ opacity: '1' }}>{phone}</p>
                     <form className="code" onSubmit={submitCode}>
-                        {slots.map(num => <input key={num} autoFocus={num === 0 ? true : false} id={num} type="number" name={num} className="digit" value={code[num]} onChange={handleCode} />)}
+                        {slots.map(num => <input key={num} autoFocus={num === 0 ? true : false} id={num} type="number" name={num} className="digit" value={code[num]} onChange={handleCode} onKeyDown={onDelete} />)}
                     </form>
                     <h4 onClick={() => { setPhone(null); setCode({ 0: '', 1: '', 2: '', 3: '', 4: '', 5: '' }) }}><span className="material-symbols-outlined">chevron_left</span>Back</h4>
                     <button onClick={submitCode}>Continue</button>
