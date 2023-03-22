@@ -7,7 +7,8 @@ export const eventService = {
     editEvent,
     endEvent,
     getById,
-    confirm
+    confirm,
+    getGlobalEvent
 }
 
 async function addEvent(details) {
@@ -35,6 +36,12 @@ async function getById(eventId) {
     const event = await httpService.get('handle-event/get-event-creator/' + eventId)
     return event
 }
+
+async function getGlobalEvent(eventId) {
+    const event = await httpService.get(`handle-event/get-event-stream/${eventId}`)
+    return event
+}
+
 
 async function confirm(creator,id) {
     const event = await httpService.put('handle-event/accept-event/' + id, {playerToAdd:creator})

@@ -47,6 +47,7 @@ function Creator() {
   const [micIdx, setMicIdx] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
   const [isScreen, setIsScreen] = useState(false)
+  const [prizePool, setPrizePool] = useState(0)
   const [volume, setVolume] = useState(500)
   const [openOpt, setOpenOpt] = useState('')
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
@@ -99,6 +100,12 @@ function Creator() {
         const width = agora.offsetWidth
         document.documentElement.style.setProperty('--video-height', (width * 9 / 16) + 'px')
       }
+      let p = 0
+      if (currentEvent.fund) prizePool = currentEvent.fund.prize
+      else if (currentEvent.playersTickets) for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
+        p += value
+      }
+      setPrizePool(p * 0.01)
     }
     catch (err) {
       console.log(err)
@@ -106,7 +113,7 @@ function Creator() {
   }, [currentEvent])
 
   useEffect(() => {
-    if(isScreen) setIsScreen(false)
+    if (isScreen) setIsScreen(false)
     if (cameras.length) play()
   }, [cameraIdx])
 
@@ -273,7 +280,7 @@ function Creator() {
 
   const shareScreen = async () => {
     options.type = 'gaming'
-    if(channelParameters.localVideoTrack) channelParameters.localVideoTrack.stop()
+    if (channelParameters.localVideoTrack) channelParameters.localVideoTrack.stop()
     channelParameters.localVideoTrack = null
     setIsScreen(true)
     streamGaming(client, status === 'live')
@@ -311,7 +318,7 @@ function Creator() {
       }
     }
     if (channelParameters.localVideoTrack && channelParameters.localAudioTrack && live) {
-      if(!alreadyStreamed) {
+      if (!alreadyStreamed) {
         await client.unpublish()
         await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
         setStatus("live")
@@ -344,23 +351,17 @@ function Creator() {
   }
 
   const onCameraClick = (idx) => {
-    if(cameraIdx === idx){
+    if (cameraIdx === idx) {
       setIsScreen(false)
       play()
-    } 
+    }
     else setCameraIdx(idx)
   }
 
   if (currentEvent.length === 0) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div></div></div></div>
 
-  let prizePool = 0
-  if (currentEvent.fund) prizePool = currentEvent.fund.prize
-  else for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
-    prizePool += value
-  }
-
-  const width = getWidth(prizePool)
+  const width = getWidth(prizePool.toFixed(2))
   const timeUntilEvent = getTimeUntil(currentEvent.date)
 
   if (noPermission) return <section className="no-permission">
@@ -389,7 +390,7 @@ function Creator() {
           {openOpt === 'camera' && <>
             <div className={isScreen ? 'sub sec-color back-stream' : 'sub'} onClick={shareScreen}><span class="material-symbols-outlined">desktop_mac</span><p> Screen</p></div>
             {cameras.map((camera, idx) =>
-              <div key={idx} className={(!isScreen && cameraIdx === idx) ? 'sub sec-color back-stream' : 'sub'} onClick={() =>onCameraClick(idx)}><p>{camera.label}</p></div>)}               
+              <div key={idx} className={(!isScreen && cameraIdx === idx) ? 'sub sec-color back-stream' : 'sub'} onClick={() => onCameraClick(idx)}><p>{camera.label}</p></div>)}
           </>}
           <div className="option main-color" onClick={() => openOpt === 'mic' ? setOpenOpt('') : setOpenOpt('mic')}>
             <p>Microphone</p><span className="material-symbols-outlined">{openOpt === 'mic' ? 'expand_less' : 'expand_more'}</span></div>

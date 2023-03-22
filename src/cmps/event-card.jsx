@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
 import { formatDate, formatHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
 import { userService } from '../services/user.service'
 export function EventCard({ ev, creator }) {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [isOpen, setIsOpen] = useState(false)
 
@@ -34,7 +35,7 @@ export function EventCard({ ev, creator }) {
         if (ev.fund) {
             if (ev.over) return <p onClick={() => deleteEvent(true)}>Delete</p>
             if (ev.approved) return <>
-                <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                <p onClick={() => loadEventForStream(ev)}>Manage</p>
                 <p onClick={() => { copy('clients') }}>Share</p>
             </>
             return <>
@@ -45,7 +46,7 @@ export function EventCard({ ev, creator }) {
         else {
             if (ev.over) return <p onClick={() => deleteEvent(true)}>Delete</p>
             if (ev.approved) return <>
-                <p onClick={() => dispatch(setStreamInfo(ev))}><NavLink to='/stream-control'>Manage</NavLink></p>
+                <p onClick={() => loadEventForStream(ev)}>Manage</p>
                 <p onClick={() => { copy('clients') }}>Share</p>
             </>
             if (ev.players[0].walletAddress === creator.walletAddress) return <>
@@ -54,6 +55,18 @@ export function EventCard({ ev, creator }) {
                 <p onClick={() => setIsOpen(true)}>Delete</p>
             </>
         }
+    }
+
+    const loadEventForStream = async () => {
+        try {
+            const eventForStream = await eventService.getGlobalEvent(ev._id)
+            dispatch(setStreamInfo(eventForStream))
+            navigate('/stream-control')
+        }
+        catch {
+            dispatch(setUpperPopup('errorLoadEvent'))
+        }
+
     }
 
     return (<>

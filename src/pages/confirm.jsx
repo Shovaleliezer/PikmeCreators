@@ -22,7 +22,6 @@ export function Confirm() {
     const loadEvent = async () => {
         try {
             const loadedEvent = await eventService.getById(id)
-            console.log('loadedEvent', loadedEvent)
             if(!user || !user.creator){
                 dispatch(setCallbackLink('confirm/' + loadedEvent._id))
                 navigate('/')
