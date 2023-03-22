@@ -21,6 +21,16 @@ export function formatDateHour(date) {
   return `${d.getFullYear()}-${make2digits(d.getMonth() + 1)}-${make2digits(d.getDate())}  ${make2digits(d.getHours())}:${make2digits(d.getMinutes())}`
 }
 
+export function formatDate(date) {
+  const d = new Date(date)
+  return `${d.getFullYear()}/${make2digits(d.getMonth() + 1)}/${make2digits(d.getDate())}`
+}
+
+export function formatHour(date) {
+  const d = new Date(date)
+  return `${make2digits(d.getHours())}:${make2digits(d.getMinutes())}`
+}
+
 export function getSocialIcon(link) {
   if (!link) return 'instagram'
   if (link.includes('twitter')) return 'twitter'

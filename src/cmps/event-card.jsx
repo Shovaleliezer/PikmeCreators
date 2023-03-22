@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
-import { formatDateHour, getRoute } from '../services/utils'
+import { formatDate, formatHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
 import { userService } from '../services/user.service'
 export function EventCard({ ev, creator }) {
@@ -70,6 +70,7 @@ export function EventCard({ ev, creator }) {
                     {ev.fund && <p>Investors:</p>}
                     {!ev.fund && <p>players </p>}
                     <p>Date:</p>
+                    <p>Time:</p>
                     <p>Status:</p>
                 </div>
                 <div className="details">
@@ -77,7 +78,8 @@ export function EventCard({ ev, creator }) {
                     <p>{ev.game}</p>
                     {ev.fund && <p>{Object.keys(ev.fund.investors).length}</p>}
                     {!ev.fund && <p>{ev.players.length}</p>}
-                    <p>{formatDateHour(ev.date)}</p>
+                    <p>{formatDate(ev.date)}</p>
+                    <p>{formatHour(ev.date)}</p>
                     <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13')) }}>
                         {(ev.over ? 'Over' : (ev.approved ? ev.fund ? ev.fund.current.toFixed(2) + '/' + ev.fund.target + 'BNB' : 'approved' : 'waiting'))}
                     </p>
