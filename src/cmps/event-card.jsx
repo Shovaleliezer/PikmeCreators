@@ -32,8 +32,8 @@ export function EventCard({ ev, creator }) {
     }
 
     const getOptions = () => {
+        if (ev.over || ev.cancelled) return <p onClick={() => deleteEvent(true)}>Delete</p>
         if (ev.fund) {
-            if (ev.over) return <p onClick={() => deleteEvent(true)}>Delete</p>
             if (ev.approved) return <>
                 <p onClick={() => loadEventForStream(ev)}>Stream</p>
                 <p onClick={() => { copy('clients') }}>Share</p>
@@ -44,7 +44,6 @@ export function EventCard({ ev, creator }) {
             </>
         }
         else {
-            if (ev.over) return <p onClick={() => deleteEvent(true)}>Delete</p>
             if (ev.approved) return <>
                 <p onClick={() => loadEventForStream(ev)}>Stream</p>
                 <p onClick={() => { copy('clients') }}>Share</p>
@@ -55,6 +54,15 @@ export function EventCard({ ev, creator }) {
                 <p onClick={() => setIsOpen(true)}>Delete</p>
             </>
         }
+    }
+
+    const getStatus = ()=>{
+        if(ev.cancelled) return 'Cancelled'
+        if(ev.approved){
+            if (ev.fund) return ev.fund.current.toFixed(2) + '/' + ev.fund.target + 'BNB'
+            return 'Approved'
+        }
+        return 'Waiting...'
     }
 
     const loadEventForStream = async () => {
@@ -78,7 +86,6 @@ export function EventCard({ ev, creator }) {
             <div className="event-inner">
                 <img src={require(`../style/imgs/event-card/${ev.game}.png`)} />
                 <div className="headers">
-                    {!ev.fund && <p>Category: </p>}
                     <p>Game: </p>
                     {ev.fund && <p>Investors:</p>}
                     {!ev.fund && <p>players </p>}
@@ -87,14 +94,13 @@ export function EventCard({ ev, creator }) {
                     <p>Status:</p>
                 </div>
                 <div className="details">
-                    {!ev.fund && <p>{ev.category}</p>}
                     <p>{ev.game}</p>
                     {ev.fund && <p>{Object.keys(ev.fund.investors).length}</p>}
                     {!ev.fund && <p>{ev.players.length}</p>}
                     <p>{formatDate(ev.date)}</p>
                     <p>{formatHour(ev.date)}</p>
                     <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13')) }}>
-                        {(ev.over ? 'Over' : (ev.approved ? ev.fund ? ev.fund.current.toFixed(2) + '/' + ev.fund.target + 'BNB' : 'approved' : 'waiting'))}
+                        {getStatus()}
                     </p>
                 </div>
             </div>
