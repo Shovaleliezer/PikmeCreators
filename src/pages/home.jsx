@@ -95,45 +95,4 @@ export function Home() {
     catch {
         return <Error />
     }
-
 }
-
-// import { WalletConnect } from "../cmps/wallet-connect"
-// import { ExtensionConnect } from "../cmps/extention-connect"
-
-// const { ethereum } = window
-
- // useEffect(() => {
-    //     if (address) {
-    //         handleCreatorAddress(address)
-    //     }
-    //     window.scrollTo(0, 0)
-    // }, [address])
-
-    // const handleCreatorAddress = async (address) => {
-    //     const isCreator = await userService.checkIsCreator(address)
-    //     if (isCreator) {
-    //         try {
-    //             const loadedCreator = await userService.addCreator(address, null)
-    //             setLocalCreator(loadedCreator)
-    //             dispatch(setCreator(loadedCreator))
-    //             dispatch(setIsConnected(true))
-    //             dispatch(setAddress(loadedCreator.walletAddress))
-    //             if (callbackLink) {
-    //                 navigate(callbackLink)
-    //                 dispatch(setCallbackLink(''))
-    //             }
-    //         }
-
-    //         catch {
-    //             setLocalCreator(false)
-    //         }
-    //     }
-    //     else {
-    //         setLocalCreator(false)
-    //     }
-    // }
-
-    // if (!ethereum) return <ExtensionConnect />
-    // if (!isConnected) return <WalletConnect from='home' handleCreatorAddress={handleCreatorAddress} />
-
