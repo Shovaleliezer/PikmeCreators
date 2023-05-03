@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 import { WalletConnect } from '../cmps/wallet-connect'
-import { PopupPlayers } from "./popup-players"
-import { PopupView } from "./popup-view"
 import { Create } from "./create"
 import { Edit } from "./edit"
 import { ExtensionConnect } from '../cmps/extention-connect'
@@ -18,8 +16,6 @@ export function Popup() {
     const { popup } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
     const { createPhase } = useSelector((state) => state.tutorialModule)
-    const { popupPlayers } = useSelector((state) => state.generalModule)
-    const { popupView } = useSelector((state) => state.generalModule)
 
     useEffect(() => {
         if (popup) document.body.style.overflowY = 'hidden'
@@ -59,12 +55,6 @@ export function Popup() {
             {popup === 'create' && <Create />}
 
             {popup === 'edit' && <Edit />}
-
-            {popup === 'players' && <PopupPlayers players={popupPlayers} />}
-
-            {popup==='view' && <PopupView event={popupView} />}
-
-            {popup === 'fund' && <popupView event={popupView} />}
 
             {popup.slice(0, 1) === '6' && <div className="event-link">
                 <p>Event created successfully!</p>

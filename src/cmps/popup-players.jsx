@@ -1,14 +1,18 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { setPopup } from "../store/actions/general.actions"
 import { getSocialIcon } from "../services/utils"
 
-export function PopupPlayers({ players }) {
+export function PopupPlayers({ players,setPopup }) {
     const dispatch = useDispatch()
     const [idx, setIdx] = useState(0)
     let isNarrow = window.innerWidth < 700 ? true : false
 
-    return (<div className="bought noselect">
+    return (<>
+        <div className="screen blur" onClick={() => setPopup(false)}>
+            {window.innerWidth<700 && <div onClick={() => setPopup(false)} className="popup-close-mobile"><p>Tap to close</p></div>}
+        </div>
+        <section className='popup' style={{ zIndex: '1001' }}>
+        <div className="bought noselect">
         <div className="upper-navbar">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
                 onClick={(() => setIdx(idx - 1))} style={{ visibility: idx === 0 ? 'hidden' : '' }}>
@@ -66,5 +70,8 @@ export function PopupPlayers({ players }) {
                 </div>}
             </div>}
         <div className="done" onClick={() => dispatch(setPopup(''))}>Got it!</div>
-    </div>)
+    </div>
+
+        </section>
+    </>)
 }

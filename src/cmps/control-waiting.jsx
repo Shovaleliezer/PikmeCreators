@@ -1,14 +1,14 @@
 import { adminService } from "../services/admin.service"
 import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
 import { formatHour } from "../services/utils"
 import { Error } from '../pages/error'
-import { setPopup, setPopupPlayers, setPopupView } from "../store/actions/general.actions"
+import { PopupPlayers } from "./popup-players"
+import { PopupView } from "./popup-view"
 
 export function ControlWaiting() {
-    const dispatch = useDispatch()
     const [waiting, setWaiting] = useState([])
     const [error, setError] = useState(false)
+    const [popup, setPopup] = useState(false)
 
     useEffect(() => {
         loadWaiting()
@@ -31,20 +31,7 @@ export function ControlWaiting() {
         return `${d.getDate()} ${monthNames[+date.slice(5, 7) - 1]} ${d.getFullYear()}, ${formatHour(date)}`
     }
 
-    const openPopup = (ev) => {
-        if (ev.fund) {
-            dispatch(setPopupView(ev))
-            dispatch(setPopup('view'))
-        }
-        else {
-            dispatch(setPopupPlayers(ev.players))
-            dispatch(setPopup('players'))
-        }
-    }
-
     if (error) return <Error />
-
-    console.log(waiting)
 
     return (<>
         <div className="control-wrapper">
@@ -70,7 +57,7 @@ export function ControlWaiting() {
 
                     </div>
                     <div className="right">
-                        <div onClick={() => openPopup(ev)}>
+                        <div onClick={() => setPopup(ev)}>
                             <svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M26.7049 14.745C25.8228 12.4632 24.2914 10.49 22.3 9.06906C20.3086 7.64817 17.9445 6.84193 15.4999 6.75C13.0553 6.84193 10.6912 7.64817 8.69983 9.06906C6.70844 10.49 5.17705 12.4632 4.29493 14.745C4.23535 14.9098 4.23535 15.0902 4.29493 15.255C5.17705 17.5368 6.70844 19.51 8.69983 20.9309C10.6912 22.3518 13.0553 23.1581 15.4999 23.25C17.9445 23.1581 20.3086 22.3518 22.3 20.9309C24.2914 19.51 25.8228 17.5368 26.7049 15.255C26.7645 15.0902 26.7645 14.9098 26.7049 14.745V14.745ZM15.4999 21.75C11.5249 21.75 7.32492 18.8025 5.80242 15C7.32492 11.1975 11.5249 8.25 15.4999 8.25C19.4749 8.25 23.6749 11.1975 25.1974 15C23.6749 18.8025 19.4749 21.75 15.4999 21.75Z" fill="white" />
                                 <path d="M15.5 10.5C14.61 10.5 13.74 10.7639 12.9999 11.2584C12.2599 11.7529 11.6831 12.4557 11.3425 13.2779C11.0019 14.1002 10.9128 15.005 11.0865 15.8779C11.2601 16.7508 11.6887 17.5526 12.318 18.182C12.9474 18.8113 13.7492 19.2399 14.6221 19.4135C15.495 19.5872 16.3998 19.4981 17.2221 19.1575C18.0443 18.8169 18.7471 18.2401 19.2416 17.5001C19.7361 16.76 20 15.89 20 15C20 13.8065 19.5259 12.6619 18.682 11.818C17.8381 10.9741 16.6935 10.5 15.5 10.5ZM15.5 18C14.9067 18 14.3266 17.8241 13.8333 17.4944C13.3399 17.1648 12.9554 16.6962 12.7284 16.1481C12.5013 15.5999 12.4419 14.9967 12.5576 14.4147C12.6734 13.8328 12.9591 13.2982 13.3787 12.8787C13.7982 12.4591 14.3328 12.1734 14.9147 12.0576C15.4967 11.9419 16.0999 12.0013 16.6481 12.2284C17.1962 12.4554 17.6648 12.8399 17.9944 13.3333C18.3241 13.8266 18.5 14.4067 18.5 15C18.5 15.7956 18.1839 16.5587 17.6213 17.1213C17.0587 17.6839 16.2957 18 15.5 18Z" fill="white" />
@@ -90,6 +77,8 @@ export function ControlWaiting() {
                             <p>accept</p>
                         </div>
                     </div>
+                    {popup.fund && <PopupView event={popup} setPopup={setPopup} />}
+                    {(popup && !popup.fund) && <PopupPlayers players={popup.players} setPopup={setPopup} />}
                 </div>)}
             </div>
         </div>
