@@ -8,6 +8,7 @@ import { Confirm } from './pages/confirm'
 import { Profile } from './pages/profile'
 import { Join } from './pages/join'
 import { StreamWrapper } from './pages/stream-wrapper'
+import { ControlPanel } from './pages/control-panel'
 
 //cmps
 import { Header } from './cmps/header'
@@ -15,7 +16,6 @@ import { Footer } from './cmps/footer'
 import { Menu } from "../src/cmps/menu"
 import { Popup } from "../src/cmps/popup"
 import { UpperPopup } from "../src/cmps/upper-popup"
-import { Dev } from '../src/cmps/dev'
 
 //tutorials
 import { TutorialRegister } from './cmps/tutorial-register'
@@ -36,6 +36,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/stream-control' element={<StreamWrapper />} />
             <Route path='/join' element={<Join />} />
+            <Route path='/admin' element={<ControlPanel />}/>
           </Routes>
         </main>
         {/* {process.env.NODE_ENV === 'development' && <button className='dev-button' onClick={()=>setDevModal(true)}>DEV</button>}
