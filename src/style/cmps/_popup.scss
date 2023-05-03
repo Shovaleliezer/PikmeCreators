@@ -146,6 +146,120 @@
             opacity: 0.7;
         }
     }
+
+    .bought {
+        padding-bottom: 20px;
+
+        .upper-navbar {
+            background-color: $bright-back;
+            padding: 20px;
+            @include flex(10px, space-between, center);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+
+            svg:hover {
+                cursor: pointer;
+
+                circle {
+                    fill: rgb(182, 182, 182) !important;
+                }
+            }
+
+            div {
+                @include flex(10px, space-between, center);
+
+                img {
+                    width: 70px;
+                    height: 70px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+
+                h1 {
+                    font-size: 28px;
+                    margin: 0;
+                    font-weight: 100;
+                }
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin: 25px 0;
+
+        }
+
+        .inner-bought {
+            @include flex(30px, flex-start, flex-start);
+            font-size: 20px;
+            padding: 20px;
+
+            img {
+                width: 200px;
+                aspect-ratio: 2/3;
+                object-fit: cover;
+            }
+
+            .contact-creator {
+                width: 30px;
+                height: 30px;
+            }
+
+            .headers {
+                height: 300px;
+                @include flex(35px, flex-start, flex-start, column);
+
+                p {
+                    margin: 0;
+                    font-weight: 600;
+                    color: white;
+                    width: max-content;
+                }
+            }
+
+            .details {
+                height: 300px;
+                @include flex(35px, flex-start, flex-start, column);
+
+                p {
+                    margin: 0;
+                    font-weight: 300;
+                    color: rgba(255, 255, 255, 0.8);
+                }
+
+                img {
+                    width: 25px;
+                    height: 25px;
+                    cursor: pointer;
+                }
+
+            }
+
+            .player-details {
+                height: 300px;
+                @include flex(0, space-between, flex-start, column);
+
+                p {
+                    @include flex(20px, flex-start, center);
+                    margin: 0;
+                    font-weight: 600;
+
+                    span {
+                        font-weight: 300;
+                        color: rgba(255, 255, 255, 0.8);
+                    }
+                }
+
+                img {
+                    width: 35px;
+                    height: 35px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
 }
 
 .done {
@@ -272,13 +386,15 @@
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        top:100vh
+        top: 100vh
     }
-    50%{
-        opacity:0.4;
+
+    50% {
+        opacity: 0.4;
     }
+
     100% {
         opacity: 1;
-        top:50%;
+        top: 50%;
     }
 }

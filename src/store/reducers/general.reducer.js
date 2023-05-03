@@ -2,7 +2,9 @@ const INITIAL_STATE = {
     viewers: 0,
     menu: '',
     popup: '',
+    popupPlayers: '',
     popupEvent: '',
+    popupView: '',
     upperPopup: '',
     streamPopup:'',
     callbackLink: '',
@@ -21,6 +23,10 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, streamInfo: action.event }
         case 'SET_POPUP':
             return { ...state, popup: action.popup }
+        case 'SET_POPUP_PLAYERS':
+            return { ...state, popupPlayers: action.popupPlayers } 
+        case 'SET_POPUP_VIEW':
+            return { ...state, popupView: action.popupView }
         case 'SET_POPUP_INFO':
             return { ...state, popupInfo: action.popupInfo }
         case 'SET_POPUP_BOUGHT':
@@ -39,7 +45,9 @@ export function generalReducer(state = INITIAL_STATE, action) {
                 viewers: 0,
                 menu: '',
                 popup: '',
+                popupPlayers: '',
                 popupEvent: '',
+                popupView: '',
                 upperPopup: '',
                 streamInfo: {}
             }

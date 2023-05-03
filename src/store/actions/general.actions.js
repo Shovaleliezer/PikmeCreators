@@ -14,6 +14,26 @@ export function setPopup(popup) {
         dispatch({ type: 'SET_POPUP', popup })
     }
 }
+
+export function setPopupPlayers(popupPlayers) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_POPUP_PLAYERS', popupPlayers })
+    }
+}
+
+export function setPopupView(popupView) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_POPUP_VIEW', popupView })
+    }
+}
+
+export function setPopupEvent(popupEvent) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_POPUP_EVENT', popupEvent })
+    }
+}
+
+
 export function setStreamInfo(event) {
     return (dispatch) => {
         dispatch({ type: 'SET_STREAM', event })
@@ -22,12 +42,6 @@ export function setStreamInfo(event) {
 export function toggleMenu() {
     return (dispatch) => {
         dispatch({ type: 'TOGGLE_MENU' })
-    }
-}
-
-export function setPopupEvent(popupEvent) {
-    return (dispatch) => {
-        dispatch({ type: 'SET_POPUP_EVENT', popupEvent })
     }
 }
 

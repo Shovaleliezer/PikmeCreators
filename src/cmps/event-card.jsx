@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
 import { formatDate, formatHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
