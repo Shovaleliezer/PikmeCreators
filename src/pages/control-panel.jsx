@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 import { adminService } from "../services/admin.service"
 import { Error } from './error'
 import { ControlWaiting } from "../cmps/control-waiting"
+import { ControlCurrent } from "../cmps/control-current"
 
 export function ControlPanel() {
     const navigate = useNavigate()
@@ -42,9 +43,10 @@ export function ControlPanel() {
             <section className="control">
                 <div className="control-banner"><h1>Wellcome {user.creator.nickName}</h1></div>
                 <div className="options-bar">
-                    {options.map(op => <p className={op === opt ? 'chosen' : ''} onClick={() => setOpt(op)}>{op}</p>)}
+                    {options.map(op => <p className={op === opt ? 'chosen' : ''} key={op} onClick={() => setOpt(op)}>{op}</p>)}
                 </div>
                 {opt === 'waiting list' && <ControlWaiting />}
+                {opt === 'current events' && <ControlCurrent/>}
             </section>)
     }
     catch {

@@ -180,6 +180,16 @@
                     margin: 0;
                     font-weight: 100;
                 }
+
+                select{
+                    background-color: $bright-back;
+                    color: $main;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    font-size:28px; 
+                    -webkit-appearance:button;
+                }
             }
         }
 
@@ -259,7 +269,28 @@
             }
         }
     }
+    .buttons-wrapper {
+        width: 100%;
+        @include flex(40px, center, center);
+        margin-top: 20px;
 
+        .bolder,
+        .lighter {
+            width: 160px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            padding: 10px 0;
+            cursor: pointer;
+            border:2px solid $main;
+            border-radius: 10px;
+        }
+
+        .bolder {
+            background-color: $main;
+            border-radius: 10px;
+        }
+    }
 }
 
 .done {

@@ -49,3 +49,38 @@
         }
     }
 }
+
+@media (max-width: 940px) {
+    .control {
+        .control-banner {
+            height: 110px;
+            h1 {
+                font-size: 24px;
+            }
+        }
+    
+        .options-bar {
+            margin: auto;
+            padding: 0 10px;
+            @include flex(50px, space-between, center);
+            margin-bottom: 25px;
+            overflow-x: scroll;
+            width: 100%;
+    
+            p {
+                font-size: 16px;
+            }
+
+        }
+
+        .list-count {
+            font-size: 16px;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+
+        .control-wrapper {
+            width: 95vw;
+        }
+    }
+}

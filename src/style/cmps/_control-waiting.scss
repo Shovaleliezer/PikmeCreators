@@ -81,5 +81,57 @@
             }
         }
     }
+}
 
+@media (max-width: 920px) {
+    .list {
+        width: 100%;
+        border: 2px solid $bright-back;
+        padding: 4px;
+    
+        .event {
+            padding: 0 6px;
+            margin-bottom: 4px;
+    
+            .left {
+                @include flex(2px, center, center);
+                .details {
+                    @include flex(5px, center, flex-start, column);
+                    p{
+                        font-size: 14px;
+                    }
+                }
+    
+                .game {
+                    width: 35px
+                }
+    
+                .top {
+                    @include flex(4px, center, center);
+    
+                    img {
+                        width: 16px;
+                    }
+    
+                    .img-wrapper {
+                        width: 30px;
+                        height: 16px;
+                    }
+                }
+            }
+    
+            .right {
+                @include flex(10px, center, center);
+    
+                div {
+                    @include flex(2px, center, center, column);
+
+                    p {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+    
 }
