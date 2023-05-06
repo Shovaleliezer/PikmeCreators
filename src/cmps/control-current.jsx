@@ -25,24 +25,27 @@ export function ControlCurrent() {
         }
     }
 
-    const endEvent = async (id) => {
-        try {
-            await adminService.announceWinner(id)
-            await loadCurrent()
-        }
-        catch {
-            dispatch(setUpperPopup('errorServer'))
-        }
+    const endEvent = async (id, details) => {
+        console.log(id)
+        console.log(details)
+        // try {
+        //     const payings = typeof details === 'number' ? await adminService.announceWinnerFund(id,details) : await adminService.announceWinner(id,details)
+        //      loadCurrent()
+        // }
+        // catch {
+        //     dispatch(setUpperPopup('errorServer'))
+        // }
     }
 
     const cancelEvent = async (id) => {
-        try {
-            await adminService.cancelEvent(id)
-            await loadCurrent()
-        }
-        catch {
-            dispatch(setUpperPopup('errorServer'))
-        }
+        console.log(id)
+        // try {
+        //     await adminService.cancelEvent(id)
+        //     await loadCurrent()
+        // }
+        // catch {
+        //     dispatch(setUpperPopup('errorServer'))
+        // }
     }
 
     if (error) return <Error />
@@ -51,7 +54,7 @@ export function ControlCurrent() {
         <div className="control-current">
             <p className="list-count">Current events : <span>{current.length}</span></p>
             <div className="events-container">
-                {current.map(ev => <CurrentCard key={ev._id} ev={ev} cancelEvent={cancelEvent} endEvent={endEvent}/>)}   
+                {current.map(ev => <CurrentCard key={ev._id} ev={ev} cancelEvent={cancelEvent} endEvent={endEvent} />)}
             </div>
         </div>
 

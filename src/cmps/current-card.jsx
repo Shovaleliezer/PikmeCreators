@@ -1,9 +1,21 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { formatDate } from "../services/utils"
 
 export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const [popup, setPopup] = useState(false)
     const [selectedIdx, setSelectedIdx] = useState(0)
+    const prize = useRef()
+
+    const handleEnd = () => {
+        if (ev.fund) endEvent(ev._id, prize.current.value)
+        else endEvent(ev._id, ev.players[selectedIdx])
+        setPopup(false)
+    }
+
+    const handleSelected = (e) => {
+        setSelectedIdx(e.target.value)
+    }
+
     return (<>
         <div className='current-card'>
             <div className="event-upper">
@@ -44,16 +56,25 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
             </div>
             <div className="screen blur" onClick={() => setPopup(false)} />
         </>}
+
         {popup === 'end' && <>
             <div className="simple-popup">
                 <img src={require('../style/imgs/error.png')} />
-                <h1>Choose the winner</h1>
-                <select>
+                {ev.fund && <div className="wrapper"> 
+                    <h2>Enter amount won</h2>
+                    <input type='number' ref={prize} className='prize' placeholder="0.0 BNB"/>
+                </div>}
+                   
+                {!ev.fund && <div className="wrapper">
+                    <h2>Choose the winner</h2>
+                    <select onChange={handleSelected} className="player-select">
+                        {ev.players.map((player, idx) => <option key={idx} value={idx}>{player.nickName}</option>)}
+                    </select>
+                </div>}
 
-                </select>
                 <div className='buttons-wrapper'>
-                    <div className='lighter' onClick={() => setPopup(false)}>Return</div>
-                    <div className='bolder' onClick={() => { endEvent(ev._id); setPopup(false) }}>Confirm</div>
+                    <div className='lighter' onClick={() => setPopup(false)}>Close</div>
+                    <div className='bolder' onClick={handleEnd}>Confirm</div>
                 </div>
             </div>
             <div className="screen blur" onClick={() => setPopup(false)} />

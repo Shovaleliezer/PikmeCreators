@@ -17,12 +17,14 @@ export function PopupPlayers({ players, setPopup,event, accept,reject }) {
         <section className='popup' style={{ zIndex: '1001' }}>
             <div className="bought noselect">
                 <div className="upper-navbar center">
+                <img src={require('../style/imgs/close-icon.png')} className='hidden'/>
                     <div className="center">
                         <img src={players[idx].image} />
                         <select onChange={handleChange} >
                             {players.map((player, index) => <option value={index}>{player.nickName}</option>)}
                         </select>
                     </div>
+                    <img src={require('../style/imgs/close-icon.png')} onClick={() => { setPopup(false) }} />
                 </div>
                 {!isNarrow ? <div className="inner-bought">
                     <img src={require(`../style/imgs/popup/${players[idx].proficiencyGame}.png`)} />

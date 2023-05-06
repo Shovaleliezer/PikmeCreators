@@ -7,7 +7,7 @@ export function PopupView({ event, setPopup, accept, reject }) {
         <section className='popup' style={{ zIndex: '1001' }}>
             <form className='create' >
                 <div className='create-upper'>
-                    <div></div>
+                    <div/>
                     <h1>Funding event</h1>
                     <img src={require('../style/imgs/close-icon.png')} onClick={() => { setPopup(false) }} />
                 </div>

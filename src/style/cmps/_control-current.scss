@@ -97,30 +97,52 @@
     }
 }
 
+.simple-popup {
+    .wrapper {
+        width: 360px;
+    }
+
+    .player-select,
+    .prize {
+        outline: none;
+        border: 1px solid $main;
+        font-size: 24px;
+        background-color: $bright-back;
+        color: $main;
+        border-radius: 10px;
+        padding-left: 10px;
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: $mobile) {
     .control-current {
         margin-left: 0;
+
         .events-container {
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             width: 95%;
-            .current-card{
+
+            .current-card {
                 .event-inner {
                     @include flex(10px, flex-start, flex-start);
                     font-size: 16px;
                     padding: 8px;
-                    }
                 }
-                .no-events{
-                    margin-top: 0px;
-                    @include flex(10px,center,center,column);
-            
-                    h1{
-                        font-size: 20px;
-                    }
-                    img{
-                        width: 160px;
-                    }
+            }
+
+            .no-events {
+                margin-top: 0px;
+                @include flex(10px, center, center, column);
+
+                h1 {
+                    font-size: 20px;
                 }
+
+                img {
+                    width: 160px;
+                }
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ export const adminService = {
     rejectEvent,
     getCurrentEvents,
     announceWinner,
+    announceWinnerFund,
     cancelEvent
 }
 
@@ -35,9 +36,14 @@ async function getCurrentEvents(){
     return events
 }
 
-async function announceWinner(eventId){
-    const winner = await httpService.post('handle-admin/announce-winner/' + eventId)
-    return winner
+async function announceWinner(eventId,teamWon){
+    const payings = await httpService.post('handle-admin/announce-winner/' + eventId,{teamWon})
+    return payings
+}
+
+async function announceWinnerFund(eventId,prize){
+    const payings = await httpService.post('handle-admin/announce-winner/' + eventId,{prize})
+    return payings
 }
 
 async function cancelEvent(){
