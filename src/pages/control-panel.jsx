@@ -20,7 +20,8 @@ export function ControlPanel() {
 
     const authorize = async () => {
             try {
-                const admin = await adminService.authorize(user.creator.phone)
+                console.log(user.creator._id)
+                const admin = await adminService.authorize(user.creator._id)
                 if(admin) setIsAdmin(true)
                 else setIsAdmin(false)
             }

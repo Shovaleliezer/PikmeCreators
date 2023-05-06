@@ -7,8 +7,8 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const prize = useRef()
 
     const handleEnd = () => {
-        if (ev.fund) endEvent(ev._id, prize.current.value)
-        else endEvent(ev._id, ev.players[selectedIdx])
+        if (ev.fund) endEvent(ev._id,'fund', prize.current.value)
+        else endEvent(ev._id,'vs', ev.players[selectedIdx])
         setPopup(false)
     }
 

@@ -9,7 +9,7 @@ import { setUpperPopup } from "../store/actions/general.actions"
 
 export function ControlWaiting() {
     const dispatch = useDispatch()
-    const [waiting, setWaiting] = useState([])
+    const [waiting, setWaiting] = useState(null)
     const [error, setError] = useState(false)
     const [popup, setPopup] = useState(false)
 
@@ -28,8 +28,7 @@ export function ControlWaiting() {
     }
 
     const formatDate = (date) => {
-        const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-            "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+        const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN","JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
         const d = new Date(date)
         return `${d.getDate()} ${monthNames[+date.slice(5, 7) - 1]} ${d.getFullYear()}, ${formatHour(date)}`
     }
@@ -56,12 +55,15 @@ export function ControlWaiting() {
 
     if (error) return <Error />
 
+    if (!waiting) return <div className="loader"><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div></div>
+
     const svgWidth = window.innerWidth < 700 ? 20 : 30;
 
     return (<>
         <div className="control-wrapper">
             <p className="list-count">Waiting events : <span>{waiting.length}</span></p>
-            <div className="list">
+            {waiting.length>0 && <div className="list">
                 {waiting.map((ev, idx) => <div key={idx} className="event">
                     <div className="left">
                         <img className="game" src={require(`../style/imgs/${ev.game}-white.png`)} />
@@ -106,7 +108,7 @@ export function ControlWaiting() {
                     {popup.fund && <PopupView event={popup} setPopup={setPopup} accept={accept} reject={reject} />}
                     {(popup && !popup.fund) && <PopupPlayers event={popup} players={popup.players} setPopup={setPopup} accept={accept} reject={reject} />}
                 </div>)}
-            </div>
+            </div>}
         </div>
     </>)
 }

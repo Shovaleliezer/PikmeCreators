@@ -56,9 +56,10 @@ export function EventCard({ ev, creator }) {
         }
     }
 
-    const getStatus = ()=>{
-        if(ev.cancelled) return 'Cancelled'
-        if(ev.approved){
+    const getStatus = () => {
+        if (ev.cancelled) return 'Cancelled'
+        if(ev.over) return 'Over'
+        if (ev.approved) {
             if (ev.fund) return ev.fund.current.toFixed(2) + '/' + ev.fund.target + 'BNB'
             return 'Approved'
         }
@@ -74,7 +75,6 @@ export function EventCard({ ev, creator }) {
         catch {
             dispatch(setUpperPopup('errorLoadEvent'))
         }
-
     }
 
     return (<>

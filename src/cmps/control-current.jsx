@@ -7,7 +7,7 @@ import { CurrentCard } from "./current-card"
 
 export function ControlCurrent() {
     const dispatch = useDispatch()
-    const [current, setcurrent] = useState([])
+    const [current, setcurrent] = useState()
     const [error, setError] = useState(false)
     const [popup, setPopup] = useState(false)
 
@@ -25,30 +25,32 @@ export function ControlCurrent() {
         }
     }
 
-    const endEvent = async (id, details) => {
-        console.log(id)
-        console.log(details)
-        // try {
-        //     const payings = typeof details === 'number' ? await adminService.announceWinnerFund(id,details) : await adminService.announceWinner(id,details)
-        //      loadCurrent()
-        // }
-        // catch {
-        //     dispatch(setUpperPopup('errorServer'))
-        // }
+    const endEvent = async (id, type, details) => {
+        try {
+            console.log('jjj',details)
+            const payings = type === 'fund' ? await adminService.announceWinnerFund(id, details) : await adminService.announceWinner(id, details.walletAddress)
+            console.log(payings)
+            loadCurrent()
+        }
+        catch {
+            dispatch(setUpperPopup('errorServer'))
+        }
     }
 
     const cancelEvent = async (id) => {
-        console.log(id)
-        // try {
-        //     await adminService.cancelEvent(id)
-        //     await loadCurrent()
-        // }
-        // catch {
-        //     dispatch(setUpperPopup('errorServer'))
-        // }
+        try {
+            await adminService.cancelEvent(id)
+            await loadCurrent()
+        }
+        catch {
+            dispatch(setUpperPopup('errorServer'))
+        }
     }
 
     if (error) return <Error />
+
+    if (!current) return <div className="loader"><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div></div>
 
     return (<>
         <div className="control-current">
