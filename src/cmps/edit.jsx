@@ -59,7 +59,6 @@ export function Edit() {
 
     const handleFund = (ev) => {
         const { name, value } = ev.target
-        console.log(name, value)
         setFund({ ...fund, [name]: value })
     }
 
