@@ -10,6 +10,7 @@ export const adminService = {
     getPaymentEvents,
     announceWinner,
     announceWinnerFund,
+    getHistory,
     cancelEvent
 }
 
@@ -30,6 +31,11 @@ async function authorize(id) {
 
 async function getWaitingEvents() {
     const events = await httpService.get('handle-admin/get-waiting-events')
+    return events
+}
+
+async function getHistory() {
+    const events = await httpService.get('handle-admin/get-history')
     return events
 }
 

@@ -6,6 +6,7 @@ import { Error } from './error'
 import { ControlWaiting } from "../cmps/control-waiting"
 import { ControlCurrent } from "../cmps/control-current"
 import { ControlPayment } from "../cmps/control-payment"
+import { ControlHistory } from "../cmps/control-history"
 
 export function ControlPanel() {
     const navigate = useNavigate()
@@ -49,6 +50,7 @@ export function ControlPanel() {
                 {opt === 'waiting list' && <ControlWaiting />}
                 {opt === 'upcoming' && <ControlCurrent />}
                 {opt === 'payment' && <ControlPayment />}
+                {opt === 'history' && <ControlHistory />}
             </section>)
     }
     catch {
