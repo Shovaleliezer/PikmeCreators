@@ -9,7 +9,6 @@ export function ControlCurrent() {
     const dispatch = useDispatch()
     const [current, setcurrent] = useState()
     const [error, setError] = useState(false)
-    const [popup, setPopup] = useState(false)
 
     useEffect(() => {
         loadCurrent()
@@ -27,9 +26,7 @@ export function ControlCurrent() {
 
     const endEvent = async (id, type, details) => {
         try {
-            console.log('jjj',details)
-            const payings = type === 'fund' ? await adminService.announceWinnerFund(id, details) : await adminService.announceWinner(id, details.walletAddress)
-            console.log(payings)
+            const events = type === 'fund' ? await adminService.announceWinnerFund(id, details) : await adminService.announceWinner(id, details.walletAddress)
             loadCurrent()
         }
         catch {
@@ -59,6 +56,5 @@ export function ControlCurrent() {
                 {current.map(ev => <CurrentCard key={ev._id} ev={ev} cancelEvent={cancelEvent} endEvent={endEvent} />)}
             </div>
         </div>
-
     </>)
 }

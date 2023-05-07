@@ -22,6 +22,7 @@ export function UpperPopup() {
             {upperPopup === 'errorServer' && <p>something went wrong... please try again later.</p>}
             {upperPopup === 'errorCode' && <p>Code is incorrect, please enter a valid one.</p>}
             {upperPopup === 'copied' && <p>Link Copied!</p>}
+            {upperPopup === 'copied-list' && <p>List has been copied to clipboard!</p>}
             {upperPopup === 'copied-address' && <p>Address Copied!</p>}
             {upperPopup === 'socialError' && <p>Link broken!</p>}
             {upperPopup === 'socialUnsupported' && <p>you may enter only tiktok,instagram,twitter or youtube links</p>}

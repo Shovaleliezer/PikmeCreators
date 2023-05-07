@@ -21,7 +21,7 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
             <div className="event-upper">
                 <div className="name-wrapper">
                     <img src={ev.players[0].image} />
-                    <h3>Event Info</h3>
+                    <h3>{ev.players[0].nickName}</h3>
                 </div>
                 <div>
                     <p onClick={() => setPopup('cancel')}>cancel</p>

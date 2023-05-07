@@ -37,6 +37,14 @@
                 }
             }
 
+            .options{
+                gap: 20px;
+                img{
+                    width: 30px;
+                    cursor: pointer;
+                }
+            }
+
             div {
                 @include flex(40px, center, center);
 
@@ -128,6 +136,20 @@
                     @include flex(10px, flex-start, flex-start);
                     font-size: 16px;
                     padding: 8px;
+                }
+                .name-wrapper{
+                    h3{
+                        font-size: 16px;
+                    }
+                    img{
+                        width: 30px;
+                    }
+                }
+                .options{
+                    gap:25px;
+                    img{
+                        width: 25px;
+                    }
                 }
             }
 

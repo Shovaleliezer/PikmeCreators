@@ -60,7 +60,7 @@ export function EventCard({ ev, creator }) {
         if (ev.cancelled) return 'Cancelled'
         if(ev.over) return 'Over'
         if (ev.approved) {
-            if (ev.fund) return ev.fund.current.toFixed(2) + '/' + ev.fund.target + 'BNB'
+            if (ev.fund) return <><span style={{color:ev.fund.current === ev.fund.target ? '#04C300' : 'white'}}>{ev.fund.current.toFixed(2)}</span ><span style={{color:'white'}}>/</span><span>{ev.fund.target + 'BNB'}</span></>
             return 'Approved'
         }
         return 'Waiting...'
@@ -99,7 +99,7 @@ export function EventCard({ ev, creator }) {
                     {!ev.fund && <p>{ev.players.length}</p>}
                     <p>{formatDate(ev.date)}</p>
                     <p>{formatHour(ev.date)}</p>
-                    <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13')) }}>
+                    <p style={{ color: (ev.over ? 'red' : (ev.approved ? '#04C300' : '#F37F13'))}}>
                         {getStatus()}
                     </p>
                 </div>

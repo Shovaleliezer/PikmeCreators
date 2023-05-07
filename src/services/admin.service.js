@@ -5,7 +5,9 @@ export const adminService = {
     getWaitingEvents,
     acceptEvent,
     rejectEvent,
+    confirmPayment,
     getCurrentEvents,
+    getPaymentEvents,
     announceWinner,
     announceWinnerFund,
     cancelEvent
@@ -28,6 +30,16 @@ async function authorize(id) {
 
 async function getWaitingEvents() {
     const events = await httpService.get('handle-admin/get-waiting-events')
+    return events
+}
+
+async function confirmPayment(id) {
+    const confirm = await httpService.get('handle-admin/confirm-payment/' + id)
+    return confirm
+}
+
+async function getPaymentEvents() {
+    const events = await httpService.get('handle-admin/get-payment-events')
     return events
 }
 
