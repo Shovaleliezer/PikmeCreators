@@ -33,7 +33,12 @@ export function ControlWaiting() {
         return `${d.getDate()} ${monthNames[+date.slice(5, 7) - 1]} ${d.getFullYear()}, ${formatHour(date)}`
     }
 
-    const accept = async (id) => {
+    const accept = async (ev) => {
+        if(!ev.fund && ev.players.length < 2) {
+            dispatch(setUpperPopup('noPlayers'))
+            return
+        }
+        const id = ev._id
         try {
             await adminService.acceptEvent(id)
             await loadWaiting()
@@ -98,7 +103,7 @@ export function ControlWaiting() {
                             </svg>
                             <p>reject</p>
                         </div>
-                        <div onClick={() => accept(ev._id)}>
+                        <div onClick={() => accept(ev)}>
                             <svg width={svgWidth} height={svgWidth} viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M25.6704 5.30229C25.8671 5.51051 25.9852 5.80174 25.9987 6.11195C26.0122 6.42215 25.92 6.72594 25.7424 6.95653L13.0752 23.3584L12.3852 24.25L11.6432 23.4194L4.30911 15.2184C4.11736 15.0037 4.00626 14.7085 4.00026 14.3979C3.99426 14.0872 4.09384 13.7865 4.27711 13.5618C4.46038 13.3372 4.71231 13.207 4.97749 13.2C5.24267 13.1929 5.49937 13.3096 5.69113 13.5243L12.2812 20.8935L24.2584 5.38547C24.3465 5.27133 24.453 5.17867 24.5717 5.11278C24.6905 5.04689 24.8191 5.00905 24.9504 5.00144C25.0816 4.99382 25.2128 5.01657 25.3365 5.06839C25.4602 5.12022 25.574 5.20009 25.6714 5.30346L25.6704 5.30229Z" fill="white" />
                             </svg>

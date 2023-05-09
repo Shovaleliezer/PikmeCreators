@@ -294,7 +294,7 @@ export function Register() {
                 </div>
                 <div className='h3-wrapper'>
                     <h3>Link to social page</h3>
-                    <input type="text" placeholder="leave empty if you have none" ref={socialRef} style={{ marginTop: '0', width: '100%' }} />
+                    <input type="text" placeholder="Optional" ref={socialRef} style={{ marginTop: '0', width: '100%' }} />
                 </div>
                 <button>Create <span className="material-symbols-outlined">arrow_forward</span></button>
             </form>

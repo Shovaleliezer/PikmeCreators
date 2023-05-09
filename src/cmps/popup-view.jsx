@@ -50,7 +50,7 @@ export function PopupView({ event, setPopup, accept, reject }) {
                     </div>
                     <div className='buttons-wrapper'>
                         <div className='lighter' onClick={() => reject(event._id)}>Reject</div>
-                        <div className='bolder' onClick={() => accept(event._id)}>Accept</div>
+                        <div className='bolder' onClick={() => accept(event)}>Accept</div>
                     </div>
                 </div>
 

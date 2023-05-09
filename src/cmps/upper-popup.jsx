@@ -28,6 +28,7 @@ export function UpperPopup() {
             {upperPopup === 'socialUnsupported' && <p>you may enter only tiktok,instagram,twitter or youtube links</p>}
             {upperPopup === 'errorCreate' && <p>something went wrong... could not create event.</p>}
             {upperPopup === 'errorDelete' && <p>something went wrong... could not delete event.</p>}
+            {upperPopup === 'noPlayers' && <p>Vs events need at least 2 players in order to be accepted</p>}
             {upperPopup==='choose' && <p>Please complete all the fields</p>}
             {upperPopup==='invalidPhone' && <p>invalid phone number, make sure the phone you entered is correct.</p>}
             {upperPopup==='invalidAddress' && <p>invalid address, make sure you use a valid ethereum wallet.</p>}

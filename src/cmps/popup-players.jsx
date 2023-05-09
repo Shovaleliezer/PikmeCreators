@@ -24,7 +24,7 @@ export function PopupPlayers({ players, setPopup,event, accept,reject }) {
                             {players.map((player, index) => <option value={index}>{player.nickName}</option>)}
                         </select>
                     </div>
-                    <img src={require('../style/imgs/close-icon.png')} onClick={() => { setPopup(false) }} />
+                    <img className="clickable" src={require('../style/imgs/close-icon.png')} onClick={() => { setPopup(false) }} />
                 </div>
                 {!isNarrow ? <div className="inner-bought">
                     <img src={require(`../style/imgs/popup/${players[idx].proficiencyGame}.png`)} />
@@ -68,7 +68,7 @@ export function PopupPlayers({ players, setPopup,event, accept,reject }) {
                     </div>}
                 <div className='buttons-wrapper'>
                     <div className='lighter' onClick={() => reject(event._id)}>Reject</div>
-                    <div className='bolder' onClick={() => accept(event._id)}>Accept</div>
+                    <div className='bolder' onClick={() => accept(event)}>Accept</div>
                 </div>
             </div>
 
