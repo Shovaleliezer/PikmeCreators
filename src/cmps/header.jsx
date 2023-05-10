@@ -8,12 +8,14 @@ export function Header() {
     const navigate = useNavigate()
     const location = useLocation()
     const user = useSelector((state) => state.user)
+    const phones = [972528087084]
+    const admin = user.creator && phones.includes(user.creator.phone)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const { registerPhase } = useSelector((state) => state.tutorialModule)
     let isMobile = window.innerWidth < 930 ? true : false
 
     const navTo = (path) => {
-        if(!location.pathname.includes('stream-control')) navigate(path)
+        if (!location.pathname.includes('stream-control')) navigate(path)
         else dispatch(setPopup(path))
     }
 
@@ -37,19 +39,20 @@ export function Header() {
                             </svg>
                         }
                     </div>
+                    <img className="admin" src={require('../style/imgs/admin.png')} onClick={() => navTo('/admin')} />
                 </div>
-                <img onClick={()=>{navTo('/')}} className="logo clickable" src={require('../style/imgs/logo.png')} />
+                <img onClick={() => { navTo('/') }} className="logo clickable" src={require('../style/imgs/logo.png')} />
                 <div className="options-bar" style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}>
-                    <div onClick={()=>{navTo('/join')}} className="join-button clickable">Join</div>
+                    <div onClick={() => { navTo('/join') }} className="join-button clickable">Join</div>
                     <div onClick={() => dispatch(setPopup('create'))} className="create-button">Create</div>
                 </div>
 
             </div>}
             {(isMobile && !location.pathname.includes('stream-control')) && <>
                 <div className="header" style={{ zIndex: registerPhase === 2 ? '1001' : '5' }}>
-                    <span className="material-symbols-outlined menu-icon hidden">menu</span>
+                <img className="admin" src={require('../style/imgs/admin.png')} onClick={() => navTo('/admin')} />
                     <NavLink to='/'><img className="logo" src={require('../style/imgs/logo.png')} /></NavLink>
-                    <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => dispatch(toggleMenu()) }>menu</span>
+                    <span className="material-symbols-outlined menu-icon clickable hover-main" onClick={() => dispatch(toggleMenu())}>menu</span>
                 </div>
                 <nav className='footer-mobile' style={{ zIndex: registerPhase === 2 ? '1001' : '1' }}>
                     <NavLink to='/profile'><img className='user-img circle' src={(user.creator) ? user.creator.image : require('../style/imgs/user-icon.png')} /></NavLink>

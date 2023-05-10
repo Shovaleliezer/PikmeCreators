@@ -5,7 +5,7 @@ const BASE_URL = process.env.NODE_ENV === 'production'
     : '//localhost:3030/'
 
 var axios = Axios.create({
-    withCredentials: false
+    withCredentials: true
 })
 
 export const httpService = {
