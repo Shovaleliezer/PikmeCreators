@@ -72,7 +72,7 @@ export function Register() {
         }
 
         catch (err) {
-            console.log('could not register')
+            console.log(err)
             navigate('/')
         }
     }

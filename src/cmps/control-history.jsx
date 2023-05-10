@@ -48,7 +48,7 @@ export function ControlHistory() {
                             <td>{event.players.length}</td>
                             <td>{formatDateHour(event.date)}</td>
                             <td>{event.fund ? 'Fund event' : 'Vs event'}</td>
-                            <td>{event.fund ? event.fund.won : event.winner.nickName}</td>
+                            <td>{event.fund ? event.fund.won === -1 ? 'Cancelled' : event.fund.won : event.winner.nickName}</td>
                         </tr>)}
                     </tbody>
                 </table>}

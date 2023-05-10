@@ -22,7 +22,7 @@ export function Confirm() {
     const loadEvent = async () => {
         try {
             const loadedEvent = await eventService.getById(id)
-            if(!user || !user.creator){
+            if (!user || !user.creator) {
                 dispatch(setCallbackLink('confirm/' + loadedEvent._id))
                 navigate('/')
                 return
@@ -38,8 +38,13 @@ export function Confirm() {
 
     const confirm = async () => {
         if (user && user.creator) {
-            const ev = await eventService.confirm(user.creator, id)
-            if (ev) navigate('/')
+            try {
+                const ev = await eventService.confirm(user.creator, id)
+                if (ev) navigate('/')
+            }
+            catch {
+                dispatch(setUpperPopup('errorServer'))
+            }
         }
         navigate('/')
     }
