@@ -78,7 +78,7 @@
                 width: 280px;
             }
 
-            .date-special{
+            .date-special {
                 width: 240px;
                 font-size: 20px;
             }
@@ -100,16 +100,17 @@
         }
     }
 
-    .fund-desc{
+    .fund-desc {
         width: 100%;
         background: transparent;
         color: white;
         font-size: 20px;
         height: 150px;
-        border:2px solid $bright-back;
+        border: 2px solid $bright-back;
         border-radius: 10px;
     }
-    .fund-desc:focus{
+
+    .fund-desc:focus {
         outline: 0px;
     }
 
@@ -188,7 +189,6 @@
     }
 }
 
-
 @media (max-width: $mobile) {
     .create {
         height: 700px;
@@ -255,5 +255,13 @@
                 }
             }
         }
+    }
+}
+
+@media(max-height:700px) {
+    .create {
+        height: 100vh;
+        overflow-y: auto;
+        padding-bottom: 100px;
     }
 }
