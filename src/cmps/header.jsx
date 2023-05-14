@@ -8,7 +8,7 @@ export function Header() {
     const navigate = useNavigate()
     const location = useLocation()
     const user = useSelector((state) => state.user)
-    const phones = [972528087084]
+    const phones = [972528087084,972509620963,972503843964]
     const admin = user.creator && phones.includes(user.creator.phone)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const { registerPhase } = useSelector((state) => state.tutorialModule)
