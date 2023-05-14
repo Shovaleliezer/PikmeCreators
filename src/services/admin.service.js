@@ -25,7 +25,7 @@ async function rejectEvent(eventId) {
 }
 
 async function authorize(id) {
-    const isAdmin = await httpService.get('handle-admin/authorize/' + id)
+    const isAdmin = await httpService.post('handle-admin/authorize/' + id)
     return isAdmin
 }
 
