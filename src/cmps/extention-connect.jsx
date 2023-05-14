@@ -21,7 +21,7 @@ export function ExtensionConnect() {
         <a href={isMobile ? getOSLink()
           : "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"}
           className='main-color' target="_blank"> here.</a></p>
-      <p>If you use a mobile device, open Metamask application browser <a href='https://metamask.app.link/dapp/pickmetv.onrender.com/#/' className='main-color'>here.</a></p>
+      <p>If you use a mobile device, open Metamask application browser <a href='https://metamask.app.link/dapp/pikme.tv/#/' className='main-color'>here.</a></p>
       <p>If you use a PC, <span onClick={() => window.location.reload()} className='main-color clickable underline'>refresh the page </span>once Chrome Metamask extension is installed.</p>
     </div>
   )
