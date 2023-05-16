@@ -32,7 +32,7 @@ export function UpperPopup() {
             {upperPopup==='choose' && <p>Please complete all the fields</p>}
             {upperPopup==='invalidPhone' && <p>invalid phone number, make sure the phone you entered is correct.</p>}
             {upperPopup==='invalidAddress' && <p>invalid address, make sure you use a valid ethereum wallet.</p>}
-            {upperPopup==='desc' && <p>Use at least 150 characters for the description.</p>}
+            {upperPopup==='desc' && <p>Use at least 20 characters for the description.</p>}
             {upperPopup==='takenAddress' && <p>This address is already used by other user.</p>}
             {upperPopup==='otherStream' && <p>Someone else already started streaming.</p>}
             {upperPopup==='date' && <p>Cannot create event in the past, please enter a valid date in the future.</p>}
