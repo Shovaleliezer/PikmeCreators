@@ -5,6 +5,7 @@ export const eventService = {
     deleteEvent,
     endEvent,
     editEvent,
+    startEvent,
     endEvent,
     getById,
     confirm,
@@ -27,6 +28,11 @@ async function endEvent(id) {
     return end
 }
 
+async function startEvent(id) {
+    const confirm = await httpService.post('handle-event/start-event/'+id)
+    return confirm
+}
+
 async function editEvent(id,event) {
     const newEv = await httpService.post('handle-event/edit-event/' +  id, event)
     return newEv
@@ -42,9 +48,8 @@ async function getGlobalEvent(eventId) {
     return event
 }
 
-
-async function confirm(creator,id) {
-    const event = await httpService.put('handle-event/accept-event/' + id, {playerToAdd:creator})
+async function confirm(creatorId,id) {
+    const event = await httpService.put('handle-event/accept-event/' + id, {creatorId})
     if(event) return event
 }
 

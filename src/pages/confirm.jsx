@@ -39,7 +39,7 @@ export function Confirm() {
     const confirm = async () => {
         if (user && user.creator) {
             try {
-                const ev = await eventService.confirm(user.creator, id)
+                const ev = await eventService.confirm(user.creator._id, id)
                 if (ev) navigate('/')
             }
             catch {

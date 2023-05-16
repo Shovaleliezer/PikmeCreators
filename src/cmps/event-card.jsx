@@ -35,7 +35,7 @@ export function EventCard({ ev, creator }) {
         if (ev.over || ev.cancelled) return <p onClick={() => deleteEvent(true)}>Delete</p>
         if (ev.fund) {
             if (ev.approved) return <>
-                <p onClick={() => loadEventForStream(ev)}>Stream</p>
+                <p className='main-color' onClick={() => loadEventForStream(ev)}>Stream</p>
                 <p onClick={() => { copy('clients') }}>Share</p>
             </>
             return <>
@@ -45,7 +45,7 @@ export function EventCard({ ev, creator }) {
         }
         else {
             if (ev.approved) return <>
-                <p onClick={() => loadEventForStream(ev)}>Stream</p>
+                <p className='main-color' onClick={() => loadEventForStream(ev)}>Stream</p>
                 <p onClick={() => { copy('clients') }}>Share</p>
             </>
             if (ev.players[0].walletAddress === creator.walletAddress) return <>

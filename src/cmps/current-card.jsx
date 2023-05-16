@@ -16,6 +16,15 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
         setSelectedIdx(e.target.value)
     }
 
+    let status = 'Upcoming'
+    if(new Date(Date.now()) > new Date(ev.date)) status = 'Started'
+    if(ev.creatorStarted) status = 'Live'
+    if(ev.over) status = 'Ended'
+    let color = 'white'
+    if(status === 'Started') color = '#F29B00'
+    if(status === 'Live') color = '#F37F13'
+    if(status === 'Ended') color = 'red'
+
     return (<>
         <div className='current-card'>
             <div className="event-upper">
@@ -36,6 +45,7 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                     <p>players: </p>
                     <p>Date: </p>
                     <p>Time: </p>
+                    <p>status:</p>
                 </div>
                 <div className="details">
                     <p>{ev.fund ? 'Fund event' : 'Vs event'}</p>
@@ -43,6 +53,7 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                     <p>{ev.players.length}</p>
                     <p>{formatDate(ev.date)}</p>
                     <p>{formatHour(ev.date)}</p>
+                    <p style={{color}}>{status}</p>
                 </div>
             </div>
         </div>

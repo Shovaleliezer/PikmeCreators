@@ -7,6 +7,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(470px, 1fr));
         gap: 40px;
+        padding-right:10px;
     }
 
     .current-card {
@@ -131,6 +132,7 @@
         .events-container {
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             width: 95%;
+            padding-right:0;
 
             .current-card {
                 .event-inner {
