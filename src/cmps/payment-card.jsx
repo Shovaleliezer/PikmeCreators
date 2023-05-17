@@ -21,7 +21,14 @@ export function PaymentCard({ ev, loadPayment }) {
     }
 
     const copyPayments = () => {
-        navigator.clipboard.writeText(JSON.stringify(ev.payments.moneyWon))
+        const payments = ev.payments.moneyWon
+        let str = '['
+        payments.forEach((address, idx) => {
+            str += Number(address)
+            if (idx !== payments.length - 1) str += ', '
+        })
+        str += ']'
+        navigator.clipboard.writeText(str)
         dispatch(setUpperPopup('copied-list'))
     }
 
