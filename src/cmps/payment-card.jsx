@@ -50,7 +50,7 @@ export function PaymentCard({ ev, loadPayment }) {
                     <h3>{ev.players[0].nickName}</h3>
                 </div>
                 <div className="options">
-                    {ev.shareWithCommunity || ev.cancelled && <>
+                    {(ev.shareWithCommunity || ev.cancelled) && <>
                         <img src={require('../style/imgs/payments/wallet.png')} onClick={copyWallets} />
                         <img src={require('../style/imgs/payments/moneyWon.png')} onClick={copyPayments} />
                     </>}

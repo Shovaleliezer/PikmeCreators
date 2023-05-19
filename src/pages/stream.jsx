@@ -6,7 +6,8 @@ import { useEffect, useState, useRef } from "react"
 import { setStreamPhase } from "../store/actions/tutorial.actions"
 import StreamChat from '../cmps/stream-chat.jsx'
 import { StreamTimer } from "../cmps/stream-timer"
-import { Error } from "./error";
+import { Error } from "./error"
+import { Timer } from "../cmps/timer"
 import { getTimeUntil, putKandM } from '../services/utils'
 import { useNavigate } from 'react-router-dom'
 import { eventService } from "../services/event.service"
@@ -417,6 +418,7 @@ function Creator() {
             <input type="range" min="0" max="1000" onChange={sliderChange} value={volume} ref={volumeRef} />
             +
           </div>}
+         <Timer eventDate={new Date(currentEvent.date)} />
         </div>
         <div className="stream">
           <div id="agora_local" className="stream-video">

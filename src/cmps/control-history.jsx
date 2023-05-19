@@ -21,6 +21,12 @@ export function ControlHistory() {
         }
     }
 
+    const getResult = (ev) => {
+        if(ev.cancelled) return 'Cancelled'
+        if (ev.fund) return ev.fund.won
+        return ev.winner.nickName
+    }
+
     if (error) return <Error />
 
     if (!history) return <div className="loader"><div></div><div></div><div></div><div></div>
@@ -48,7 +54,7 @@ export function ControlHistory() {
                             <td>{event.players.length}</td>
                             <td>{formatDateHour(event.date)}</td>
                             <td>{event.fund ? 'Fund event' : 'Vs event'}</td>
-                            <td>{event.fund ? event.fund.won === -1 ? 'Cancelled' : event.fund.won : event.winner.nickName}</td>
+                            <td>{getResult(event)}</td>
                         </tr>)}
                     </tbody>
                 </table>}
