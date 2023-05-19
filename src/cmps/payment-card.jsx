@@ -50,9 +50,12 @@ export function PaymentCard({ ev, loadPayment }) {
                     <h3>{ev.players[0].nickName}</h3>
                 </div>
                 <div className="options">
-                    <img src={require('../style/imgs/payments/wallet.png')} onClick={copyWallets}/>
-                    <img src={require('../style/imgs/payments/moneyWon.png')} onClick={copyPayments}/>
-                    <img src={require('../style/imgs/payments/vi.png')} onClick={()=>setPopup(true)}/>
+                    {ev.shareWithCommunity || ev.cancelled && <>
+                        <img src={require('../style/imgs/payments/wallet.png')} onClick={copyWallets} />
+                        <img src={require('../style/imgs/payments/moneyWon.png')} onClick={copyPayments} />
+                    </>}
+
+                    <img src={require('../style/imgs/payments/vi.png')} onClick={() => setPopup(true)} />
                 </div>
             </div>
             <div className="event-inner">
@@ -77,7 +80,7 @@ export function PaymentCard({ ev, loadPayment }) {
             <div className="simple-popup">
                 <img src={require('../style/imgs/error.png')} />
                 <h1>Confirm payment</h1>
-                <p>By clicking confirm, you approve that everyone who was destined to receive a payment receive it. this action can't be undone.</p>
+                <p>By clicking confirm, you approve that everyone who was destined to receive a payment received it. this action can't be undone.</p>
                 <div className='buttons-wrapper'>
                     <div className='lighter' onClick={() => setPopup(false)}>Close</div>
                     <div className='bolder' onClick={() => { confirmPayment(); setPopup(false) }}>confirm</div>

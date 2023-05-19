@@ -7,7 +7,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(470px, 1fr));
         gap: 40px;
-        padding-right:10px;
+        padding-right: 10px;
     }
 
     .current-card {
@@ -39,9 +39,14 @@
                 }
             }
 
-            .options{
+            img {
+                width: 30px;
+            }
+
+            .options {
                 gap: 20px;
-                img{
+
+                img {
                     width: 30px;
                     cursor: pointer;
                 }
@@ -107,24 +112,6 @@
     }
 }
 
-.simple-popup {
-    .wrapper {
-        width: 360px;
-    }
-
-    .player-select,
-    .prize {
-        outline: none;
-        border: 1px solid $main;
-        font-size: 24px;
-        background-color: $bright-back;
-        color: $main;
-        border-radius: 10px;
-        padding-left: 10px;
-        width: 100%;
-    }
-}
-
 @media screen and (max-width: $mobile) {
     .control-current {
         margin-left: 0;
@@ -132,7 +119,7 @@
         .events-container {
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             width: 95%;
-            padding-right:0;
+            padding-right: 0;
 
             .current-card {
                 .event-inner {
@@ -140,17 +127,17 @@
                     font-size: 16px;
                     padding: 8px;
                 }
-                .name-wrapper{
-                    h3{
+
+                .name-wrapper {
+                    h3 {
                         font-size: 16px;
                     }
-                    img{
-                        width: 30px;
-                    }
                 }
-                .options{
-                    gap:25px;
-                    img{
+
+                .options {
+                    gap: 25px;
+
+                    img {
                         width: 25px;
                     }
                 }
