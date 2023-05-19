@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://pikme-server.onrender.com/'
+    ? 'https://pikme-server-7vdz.onrender.com/'
     : '//localhost:3030/'
 
 var axios = Axios.create({

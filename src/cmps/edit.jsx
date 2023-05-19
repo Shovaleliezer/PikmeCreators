@@ -6,10 +6,12 @@ import { eventService } from '../services/event.service'
 export function Edit() {
     const dispatch = useDispatch()
     const popupEvent = useSelector((state) => state.generalModule.popupEvent)
+    let date = new Date(popupEvent.date)
+    date = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, '0') + "-" + date.getDate() + "T" + date.getHours().toString().padStart(2, '0') + ":" + date.getMinutes().toString().padStart(2, '0');
     const [event, setEvent] = useState({
         category: popupEvent.category,
         game: popupEvent.game,
-        date: popupEvent.date,
+        date: date,
     })
     const [fund, setFund] = useState(popupEvent.fund ? {
         description: popupEvent.fund.description,
@@ -35,7 +37,7 @@ export function Edit() {
 
     const editEvent = async (e) => {
         e.preventDefault()
-        if (fund && fund.description.length < 150) {
+        if (fund && fund.description.length < 20) {
             dispatch(setUpperPopup('desc'))
             return
         }
@@ -100,7 +102,7 @@ export function Edit() {
             <div className='h3-wrapper date'>
                 <h3>Date</h3>
                 <div className='select-wrapper'>
-                    <input type="datetime-local" name='date' required onChange={handleChange} value={event.date.slice(0, 16)} />
+                    <input type="datetime-local" name='date' required onChange={handleChange} value={event.date} />
                 </div>
             </div>
         </div>}
@@ -124,7 +126,7 @@ export function Edit() {
                 <h3>Date</h3>
                 <div className='select-wrapper'>
                     <img src={require(`../style/imgs/register/calendar.png`)} />
-                    <input type="datetime-local" onChange={handleChange} name='date' className='date-special' value={event.date.slice(0, 16)} required></input>
+                    <input type="datetime-local" onChange={handleChange} name='date' className='date-special' value={event.date} required></input>
                 </div>
             </div>
             <div className='h3-wrapper'>

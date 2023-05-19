@@ -1,5 +1,5 @@
 import { useState, useRef } from "react"
-import { formatDate } from "../services/utils"
+import { formatDate, formatHour } from "../services/utils"
 
 export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const [popup, setPopup] = useState(false)
@@ -7,14 +7,23 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const prize = useRef()
 
     const handleEnd = () => {
-        if (ev.fund) endEvent(ev._id,'fund', prize.current.value)
-        else endEvent(ev._id,'vs', ev.players[selectedIdx])
+        if (ev.fund) endEvent(ev._id, 'fund', prize.current.value)
+        else endEvent(ev._id, 'vs', ev.players[selectedIdx])
         setPopup(false)
     }
 
     const handleSelected = (e) => {
         setSelectedIdx(e.target.value)
     }
+
+    let status = 'Upcoming'
+    if(new Date(Date.now()) > new Date(ev.date)) status = 'Started'
+    if(ev.creatorStarted) status = 'Live'
+    if(ev.over) status = 'Ended'
+    let color = 'white'
+    if(status === 'Started') color = '#F29B00'
+    if(status === 'Live') color = '#F37F13'
+    if(status === 'Ended') color = 'red'
 
     return (<>
         <div className='current-card'>
@@ -34,13 +43,17 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                     <p>Type: </p>
                     <p>Game</p>
                     <p>players: </p>
-                    <p>Starts at:</p>
+                    <p>Date: </p>
+                    <p>Time: </p>
+                    <p>status:</p>
                 </div>
                 <div className="details">
                     <p>{ev.fund ? 'Fund event' : 'Vs event'}</p>
                     <p>{ev.game}</p>
                     <p>{ev.players.length}</p>
                     <p>{formatDate(ev.date)}</p>
+                    <p>{formatHour(ev.date)}</p>
+                    <p style={{color}}>{status}</p>
                 </div>
             </div>
         </div>
@@ -60,11 +73,11 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
         {popup === 'end' && <>
             <div className="simple-popup">
                 <img src={require('../style/imgs/error.png')} />
-                {ev.fund && <div className="wrapper"> 
+                {ev.fund && <div className="wrapper">
                     <h2>Enter amount won</h2>
-                    <input type='number' ref={prize} className='prize' placeholder="0.0 BNB"/>
+                    <input type='number' ref={prize} className='prize' placeholder="0.0 BNB" />
                 </div>}
-                   
+
                 {!ev.fund && <div className="wrapper">
                     <h2>Choose the winner</h2>
                     <select onChange={handleSelected} className="player-select">

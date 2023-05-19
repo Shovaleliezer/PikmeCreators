@@ -99,12 +99,13 @@ function Creator() {
         const width = agora.offsetWidth
         document.documentElement.style.setProperty('--video-height', (width * 9 / 16) + 'px')
       }
-      let p = 0
-      if (currentEvent.fund) prizePool = currentEvent.fund.prize
-      else if (currentEvent.playersTickets) for (const [key, value] of Object.entries(currentEvent.playersTickets)) {
-        p += value
+
+      if (currentEvent.fund) setPrizePool(currentEvent.fund.prize)
+      else if (currentEvent.playersTickets) {
+        let p = 0
+        for (const [key, value] of Object.entries(currentEvent.playersTickets)) p += value
+        setPrizePool(p * 0.01)
       }
-      setPrizePool(p * 0.01)
     }
     catch (err) {
       console.log(err)
@@ -353,6 +354,31 @@ function Creator() {
     else setCameraIdx(idx)
   }
 
+  const handleModal = async() => {
+    if (modal === 'end') {
+      stopStream(client)
+      setModal(false)
+    }
+    else if (modal === "end-event") {
+      setModal(false)
+      endEvent()
+    }
+    else {
+      if (!alreadyStreamed) {
+        try {
+          const confirm = await eventService.startEvent(currentEvent._id)
+          if (confirm) streamGaming(client, true)
+          else dispatch(setUpperPopup('errorServer'))
+        }
+        catch {
+          dispatch(setUpperPopup('errorServer'))
+        }
+      }
+      else dispatch(setUpperPopup('otherStream'))
+      setModal(false)
+    }
+  }
+
   if (currentEvent.length === 0) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div></div></div></div>
 
@@ -514,21 +540,7 @@ function Creator() {
           <p>This Action cannot be undone. Are you sure you want to {modal} the {modal == "end-event" ? "Event?" : "Stream?"}</p>
           <div>
             <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
-            <div onClick={() => {
-              if (modal === 'end') {
-                stopStream(client)
-                setModal(false)
-              }
-              else if (modal === "end-event") {
-                setModal(false)
-                endEvent()
-              }
-              else {
-                if (!alreadyStreamed) streamGaming(client, true)
-                else dispatch(setUpperPopup('otherStream'))
-                setModal(false)
-              }
-            }}>{modal.charAt(0).toUpperCase() + modal.slice(1)}
+            <div onClick={handleModal}>{modal.charAt(0).toUpperCase() + modal.slice(1)}
             </div>
           </div>
         </div>

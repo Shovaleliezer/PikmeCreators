@@ -13,7 +13,7 @@ export function PaymentCard({ ev, loadPayment }) {
         let walletsStr = '['
         wallets.forEach((address, idx) => {
             walletsStr += address
-            if (idx !== wallets.length - 1) walletsStr += ', '
+            if (idx !== wallets.length - 1) walletsStr += ','
         })
         walletsStr += ']'
         navigator.clipboard.writeText(walletsStr)
@@ -21,7 +21,14 @@ export function PaymentCard({ ev, loadPayment }) {
     }
 
     const copyPayments = () => {
-        navigator.clipboard.writeText(JSON.stringify(ev.payments.moneyWon))
+        const payments = ev.payments.moneyWon
+        let str = '['
+        payments.forEach((address, idx) => {
+            str += Number(address)
+            if (idx !== payments.length - 1) str += ','
+        })
+        str += ']'
+        navigator.clipboard.writeText(str)
         dispatch(setUpperPopup('copied-list'))
     }
 
