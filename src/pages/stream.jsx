@@ -368,7 +368,7 @@ function Creator() {
         try {
           const confirm = await eventService.startEvent(currentEvent._id)
           if (confirm) streamGaming(client, true)
-          else dispatch(setUpperPopup('errorServer'))
+          else dispatch(setUpperPopup('event-ended-error'))
         }
         catch {
           dispatch(setUpperPopup('errorServer'))
