@@ -75,10 +75,16 @@
         .pause {
             background-color: $bright-back;
         }
+
+        .timer {
+            font-size: 20px;
+            color: $main;
+            cursor: default;
+        }
     }
 
-    .stream-timer{
-        color:$main;
+    .stream-timer {
+        color: $main;
         margin: 0;
         font-size: 22px;
     }
@@ -182,7 +188,7 @@
     color: #f3f3f3;
 }
 
-.no-permission{
+.no-permission {
     @include flex(0, center, center, column);
     color: white;
     position: fixed;
@@ -192,16 +198,20 @@
     padding: 0 10px;
     font-size: 36px;
     text-align: center;
-    .camera{
+
+    .camera {
         font-size: 80px;
     }
-    p{
+
+    p {
         margin: 0;
     }
-    a{
+
+    a {
         color: $main;
     }
-    span{
+
+    span {
         color: $main;
         cursor: pointer;
     }
