@@ -47,6 +47,7 @@ function Creator() {
   const [micIdx, setMicIdx] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
   const [isScreen, setIsScreen] = useState(false)
+  const [showTimer, setShowTimer] = useState(true)
   const [prizePool, setPrizePool] = useState(0)
   const [volume, setVolume] = useState(500)
   const [openOpt, setOpenOpt] = useState('')
@@ -355,7 +356,7 @@ function Creator() {
     else setCameraIdx(idx)
   }
 
-  const handleModal = async() => {
+  const handleModal = async () => {
     if (modal === 'end') {
       stopStream(client)
       setModal(false)
@@ -418,7 +419,6 @@ function Creator() {
             <input type="range" min="0" max="1000" onChange={sliderChange} value={volume} ref={volumeRef} />
             +
           </div>}
-         <Timer eventDate={new Date(currentEvent.date)} />
         </div>
         <div className="stream">
           <div id="agora_local" className="stream-video">
@@ -459,7 +459,8 @@ function Creator() {
             <div className="start">
               <StreamTimer status={status} />
               {status != "live" ? <>
-                <div className="begin" onClick={() => { hasStarted() ? setModal('start') : dispatch(setUpperPopup(timeUntilEvent)) }}>Go Live </div>
+                {showTimer ? <Timer eventDate={new Date(currentEvent.date)} setShowTimer={setShowTimer} />
+                  : <div className="begin" onClick={() => { hasStarted() ? setModal('start') : dispatch(setUpperPopup(timeUntilEvent)) }}>Go Live </div>}
                 <div className="end" onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }}>End Event</div>
               </> :
                 <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
@@ -484,6 +485,7 @@ function Creator() {
         <section className="left-wrapper">
           <div className="upper">
             <div onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }} className="end-event-mobile">End Event</div>
+            <Timer eventDate={new Date(currentEvent.date)} setShowTimer={setShowTimer}/>
             <StreamTimer status={status} />
             <div className="detail-holder">
               <div>

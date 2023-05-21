@@ -19,13 +19,8 @@ export function Timer(props) {
 
     if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
         clearTimeout(timeOut)
-        if (props.onEndStream){
-            if(props.onEndStream.name === 'loadEvents') props.onEndStream(props.filter)
-            else props.onEndStream(true)
-        } 
-        return <div className='timer'>
-            <span>00</span>:<span>00</span>:<span>00</span>:<span>00</span>
-        </div>
+        if(props.setShowTimer) props.setShowTimer(false)
+        return <></>
     }
 
     return (
