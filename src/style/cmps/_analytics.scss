@@ -2,6 +2,7 @@
     background-color: $mid-back;
     border-radius: 10px;
     padding: 20px;
+
     .upper {
         @include flex(0, space-between, center);
         border-top-left-radius: 10px;
@@ -22,9 +23,21 @@
 
     .display {
         @include flex(0, space-evenly, center);
+        margin-top: 40px;
 
-        p {
-            font-size: 26px;
+        div {
+            @include flex(10px, center, center);
+            padding-bottom: 5px;
+
+            p {
+                font-size: 26px;
+                margin: 0;
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+            }
         }
 
         .active {
@@ -40,6 +53,29 @@
 
         .inactive:hover {
             opacity: 1;
+        }
+    }
+
+    .details {
+        @include flex(10px, space-between, center);
+        margin: 30px 0;
+
+        .data {
+            @include flex(5px, flex-start, center, column);
+            div{
+                @include flex(5px, center, center);
+                width: 100%;
+                p {
+                    margin: 0;
+                    margin-top: 2px;
+                    padding-left: 5px;
+                }
+                div{
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
         }
     }
 
