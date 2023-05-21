@@ -16,6 +16,7 @@ export function Create() {
     const gameRef = useRef()
     const dateRef = useRef()
     const descRef = useRef()
+    const linkRef = useRef()
     const prizeRef = useRef()
     const targetRef = useRef()
 
@@ -55,6 +56,7 @@ export function Create() {
             description: descRef.current.value,
             prize: prizeRef.current.value,
             target: targetRef.current.value,
+            link: linkRef.current.value,
             current:0,
             investors:{}
         }
@@ -165,6 +167,10 @@ export function Create() {
             <div className='h3-wrapper' style={{width:'100%'}}>
             <h3>Description</h3>
                 <textarea maxLength={220} required className='fund-desc' placeholder='Tell us about the competition...' ref={descRef}/>
+            </div>
+            <div className='h3-wrapper' style={{width:'100%'}}>
+            <h3>Link (optional)</h3>
+                <input className='link' placeholder='Link to competiton page' ref={linkRef}/>
             </div>
         </div>}
         <div className='center'>

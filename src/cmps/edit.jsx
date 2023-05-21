@@ -7,7 +7,7 @@ export function Edit() {
     const dispatch = useDispatch()
     const popupEvent = useSelector((state) => state.generalModule.popupEvent)
     let date = new Date(popupEvent.date)
-    date = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, '0') + "-" + date.getDate() + "T" + date.getHours().toString().padStart(2, '0') + ":" + date.getMinutes().toString().padStart(2, '0');
+    date = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, '0') + "-" + date.getDate() + "T" + date.getHours().toString().padStart(2, '0') + ":" + date.getMinutes().toString().padStart(2, '0');
     const [event, setEvent] = useState({
         category: popupEvent.category,
         game: popupEvent.game,
@@ -17,6 +17,7 @@ export function Edit() {
         description: popupEvent.fund.description,
         prize: popupEvent.fund.prize,
         target: popupEvent.fund.target,
+        link: popupEvent.fund.link,
         investors: {},
         current: 0
     } : null)
@@ -61,6 +62,7 @@ export function Edit() {
 
     const handleFund = (ev) => {
         const { name, value } = ev.target
+        console.log(name, value)
         setFund({ ...fund, [name]: value })
     }
 
@@ -146,6 +148,10 @@ export function Edit() {
             <div className='h3-wrapper' style={{ width: '100%' }}>
                 <h3>Description</h3>
                 <textarea name='description' onChange={handleFund} className='fund-desc' placeholder='Tell us about the competition...' value={fund.description} />
+            </div>
+            <div className='h3-wrapper' style={{ width: '100%' }}>
+                <h3>Link (optional)</h3>
+                <input className='link' placeholder='Link to competiton page' name='link' value={fund.link} onChange={handleFund} />
             </div>
         </div>}
         <div className='center'>
