@@ -1,0 +1,46 @@
+.analytics {
+    background-color: $mid-back;
+    border-radius: 10px;
+    padding: 20px;
+    .upper {
+        @include flex(0, space-between, center);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        img {
+            width: 30px;
+            cursor: pointer;
+        }
+
+    }
+
+    .display {
+        @include flex(0, space-evenly, center);
+
+        p {
+            font-size: 26px;
+        }
+
+        .active {
+            color: $main;
+            cursor: default;
+            border-bottom: 2px solid $main;
+        }
+
+        .inactive {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .inactive:hover {
+            opacity: 1;
+        }
+    }
+
+}

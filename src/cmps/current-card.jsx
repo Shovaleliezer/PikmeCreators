@@ -1,12 +1,13 @@
 import { useState, useRef } from "react"
 import { useDispatch } from "react-redux"
 import { adminService } from "../services/admin.service"
-import { setUpperPopup } from "../store/actions/general.actions"
+import { eventService } from "../services/event.service"
+import { setUpperPopup, setPopup, setPopupStats } from "../store/actions/general.actions"
 import { formatDate, formatHour } from "../services/utils"
 
 export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const dispatch = useDispatch()
-    const [popup, setPopup] = useState(false)
+    const [popup, setLocalPopup] = useState(false)
     const [selectedIdx, setSelectedIdx] = useState(0)
     const [share, setShare] = useState(ev.shareWithCommunity)
     const prize = useRef()
@@ -14,7 +15,7 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const handleEnd = () => {
         if (ev.fund) endEvent(ev._id, 'fund', prize.current.value)
         else endEvent(ev._id, 'vs', ev.players[selectedIdx])
-        setPopup(false)
+        setLocalPopup(false)
     }
 
     const handleSelected = (e) => {
@@ -25,7 +26,18 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
         try {
             await adminService.changeShare(ev._id)
             setShare(true)
-            setPopup(false)
+            setLocalPopup(false)
+        }
+        catch {
+            dispatch(setUpperPopup('errorServer'))
+        }
+    }
+
+    const loadAnalytics = async () => {
+        try {
+            const analytics = await eventService.getAnalytics(ev._id)
+            dispatch(setPopupStats(analytics))
+            dispatch(setPopup('stats'))
         }
         catch {
             dispatch(setUpperPopup('errorServer'))
@@ -49,9 +61,10 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                     <h3>{ev.players[0].nickName}</h3>
                 </div>
                 <div>
-                    {!share && <img className="clickable" src={require('../style/imgs/error.png')} onClick={() => setPopup('share')} />}
-                    <p onClick={() => setPopup('cancel')}>cancel</p>
-                    <p onClick={() => setPopup('end')}>end</p>
+                    {!share && <img className="clickable" src={require('../style/imgs/error.png')} onClick={() => setLocalPopup('share')} />}
+                    {!ev.fund && <p onClick={loadAnalytics}>Info</p>}
+                    <p onClick={() => setLocalPopup('cancel')}>cancel</p>
+                    <p onClick={() => setLocalPopup('end')}>end</p>
                 </div>
             </div>
             <div className="event-inner">
@@ -80,11 +93,11 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                 <h1>Cancel the event?</h1>
                 <p>This action cannot be undone. are you sure you want to delete the event?</p>
                 <div className='buttons-wrapper'>
-                    <div className='lighter' onClick={() => setPopup(false)}>Close</div>
-                    <div className='bolder' onClick={() => { cancelEvent(ev._id); setPopup(false) }}>Cancel</div>
+                    <div className='lighter' onClick={() => setLocalPopup(false)}>Close</div>
+                    <div className='bolder' onClick={() => { cancelEvent(ev._id); setLocalPopup(false) }}>Cancel</div>
                 </div>
             </div>
-            <div className="screen blur" onClick={() => setPopup(false)} />
+            <div className="screen blur" onClick={() => setLocalPopup(false)} />
         </>}
 
         {popup === 'end' && <>
@@ -103,11 +116,11 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                 </div>}
 
                 <div className='buttons-wrapper'>
-                    <div className='lighter' onClick={() => setPopup(false)}>Close</div>
+                    <div className='lighter' onClick={() => setLocalPopup(false)}>Close</div>
                     <div className='bolder' onClick={handleEnd}>Confirm</div>
                 </div>
             </div>
-            <div className="screen blur" onClick={() => setPopup(false)} />
+            <div className="screen blur" onClick={() => setLocalPopup(false)} />
         </>}
 
         {popup === 'share' && <>
@@ -116,11 +129,11 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                 <h1>Share with community</h1>
                 <p>The creator chose to not share the earnings from this event with his community. Share with community anyway?</p>
                 <div className='buttons-wrapper'>
-                    <div className='lighter' onClick={() => setPopup(false)}>Close</div>
+                    <div className='lighter' onClick={() => setLocalPopup(false)}>Close</div>
                     <div className='bolder' onClick={changeShare}>Share</div>
                 </div>
             </div>
-            <div className="screen blur" onClick={() => setPopup(false)} />
+            <div className="screen blur" onClick={() => setLocalPopup(false)} />
         </>}
     </>)
 }

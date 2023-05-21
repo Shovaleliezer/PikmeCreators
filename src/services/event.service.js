@@ -8,33 +8,34 @@ export const eventService = {
     startEvent,
     endEvent,
     getById,
+    getAnalytics,
     confirm,
     getGlobalEvent
 }
 
 async function addEvent(details) {
     const event = await httpService.post('handle-event/create-event', details)
-  
-    if(event) return event
+
+    if (event) return event
 }
 
 async function deleteEvent(id) {
-    const confirm = await httpService.post('handle-event/delete-unapproved-event/'+id)
+    const confirm = await httpService.post('handle-event/delete-unapproved-event/' + id)
     return confirm
 }
 
 async function endEvent(id) {
-    const end = await httpService.post('handle-event/end-event/'+id)
+    const end = await httpService.post('handle-event/end-event/' + id)
     return end
 }
 
 async function startEvent(id) {
-    const confirm = await httpService.post('handle-event/start-event/'+id)
+    const confirm = await httpService.post('handle-event/start-event/' + id)
     return confirm
 }
 
-async function editEvent(id,event) {
-    const newEv = await httpService.post('handle-event/edit-event/' +  id, event)
+async function editEvent(id, event) {
+    const newEv = await httpService.post('handle-event/edit-event/' + id, event)
     return newEv
 }
 
@@ -43,13 +44,20 @@ async function getById(eventId) {
     return event
 }
 
+
+async function getAnalytics(eventId) {
+    const analytics = await httpService.get('handle-event/get-event-analytics/' + eventId)
+    return analytics
+}
+
+
 async function getGlobalEvent(eventId) {
     const event = await httpService.get(`handle-event/get-event-stream/${eventId}`)
     return event
 }
 
-async function confirm(creatorId,id) {
-    const event = await httpService.put('handle-event/accept-event/' + id, {creatorId})
-    if(event) return event
+async function confirm(creatorId, id) {
+    const event = await httpService.put('handle-event/accept-event/' + id, { creatorId })
+    if (event) return event
 }
 

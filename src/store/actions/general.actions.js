@@ -33,6 +33,11 @@ export function setPopupEvent(popupEvent) {
     }
 }
 
+export function setPopupStats(popupStats) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_POPUP_STATS', popupStats })
+    }
+}
 
 export function setStreamInfo(event) {
     return (dispatch) => {

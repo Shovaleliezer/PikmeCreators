@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 import { WalletConnect } from '../cmps/wallet-connect'
+import { PopupStats } from "./popup-stats"
 import { Create } from "./create"
 import { Edit } from "./edit"
 import { ExtensionConnect } from '../cmps/extention-connect'
@@ -14,6 +15,7 @@ export function Popup() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { popup } = useSelector((storeState) => storeState.generalModule)
+    const { popupStats } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
     const { createPhase } = useSelector((state) => state.tutorialModule)
 
@@ -55,6 +57,8 @@ export function Popup() {
             {popup === 'create' && <Create />}
 
             {popup === 'edit' && <Edit />}
+
+            {popup === 'stats' && <PopupStats stats={popupStats} />}
 
             {popup.slice(0, 1) === '6' && <div className="event-link">
                 <p>Event created successfully!</p>
