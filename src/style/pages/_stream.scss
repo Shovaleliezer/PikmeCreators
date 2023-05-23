@@ -271,6 +271,36 @@
             background-color: $main;
         }
     }
+
+    .checkbox-wrapper {
+        @include flex(10px, center, center);
+        margin-top: 10px;
+        z-index: 1001;
+        margin-top: -40px;
+
+        p {
+            margin: 0 !important;
+            font-size: 20px
+        }
+
+        .checkbox {
+            @include flex(0, center, center);
+            width: 30px;
+            height: 30px;
+            border: 1px solid $bright-back;
+            cursor: pointer;
+            position: relative;
+            z-index: 1001;
+            margin-bottom: 10px;
+
+            span {
+                font-size: 30px;
+            }
+        }
+        .checkbox:hover {
+            background-color: transparent;
+        }
+    }
 }
 
 ::-webkit-scrollbar {

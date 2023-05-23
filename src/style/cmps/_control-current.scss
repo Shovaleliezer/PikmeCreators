@@ -123,6 +123,16 @@
             padding-right: 0;
 
             .current-card {
+                .event-upper{
+                    div {
+                        @include flex(15px, center, center);
+                        p {
+                            margin: 0;
+                            font-size: 16px;
+                            cursor: pointer;
+                        }
+                    }
+                }
                 .event-inner {
                     @include flex(10px, flex-start, flex-start);
                     font-size: 16px;

@@ -6,7 +6,6 @@ export const eventService = {
     endEvent,
     editEvent,
     startEvent,
-    endEvent,
     getById,
     getAnalytics,
     confirm,
@@ -24,8 +23,8 @@ async function deleteEvent(id) {
     return confirm
 }
 
-async function endEvent(id) {
-    const end = await httpService.post('handle-event/end-event/' + id)
+async function endEvent(id, shareWithCommunity) {
+    const end = await httpService.post('handle-event/end-event/' + id, { shareWithCommunity })
     return end
 }
 

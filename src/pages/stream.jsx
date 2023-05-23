@@ -51,6 +51,7 @@ function Creator() {
   const [prizePool, setPrizePool] = useState(0)
   const [volume, setVolume] = useState(500)
   const [openOpt, setOpenOpt] = useState('')
+  const [isShare, setIsShare] = useState(true)
   const { streamInfo } = useSelector((storeState) => storeState.generalModule)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
   const { streamPhase } = useSelector((storeState) => storeState.tutorialModule)
@@ -220,7 +221,7 @@ function Creator() {
 
   const endEvent = async () => {
     try {
-      await eventService.endEvent(currentEvent._id)
+      await eventService.endEvent(currentEvent._id, isShare)
       setIsEnd(true)
       setTimeout(() => { navigate('/') }, 500)
     }
@@ -485,7 +486,7 @@ function Creator() {
         <section className="left-wrapper">
           <div className="upper">
             <div onClick={() => { hasStarted() ? setModal('end-event') : dispatch(setUpperPopup(timeUntilEvent)) }} className="end-event-mobile">End Event</div>
-            <Timer eventDate={new Date(currentEvent.date)} setShowTimer={setShowTimer}/>
+            <Timer eventDate={new Date(currentEvent.date)} setShowTimer={setShowTimer} />
             <StreamTimer status={status} />
             <div className="detail-holder">
               <div>
@@ -542,6 +543,12 @@ function Creator() {
           <img src={require(`../style/imgs/stream/${(modal == "exit" || modal == "end-event") ? "end" : modal}.png`)} />
           <h1>{modal.charAt(0).toUpperCase() + modal.slice(1)} {modal == "end-event" ? "Event?" : "Live Stream?"}</h1>
           <p>This Action cannot be undone. Are you sure you want to {modal} the {modal == "end-event" ? "Event?" : "Stream?"}</p>
+          {(modal == "end-event" && !currentEvent.fund) && <div className='checkbox-wrapper'>
+            <div className='checkbox' onClick={() => setIsShare(!isShare)}>
+              {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
+            </div>
+            <p>Share rewards with community ?</p>
+          </div>}
           <div>
             <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
             <div onClick={handleModal}>{modal.charAt(0).toUpperCase() + modal.slice(1)}

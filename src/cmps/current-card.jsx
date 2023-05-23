@@ -9,7 +9,7 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const dispatch = useDispatch()
     const [popup, setLocalPopup] = useState(false)
     const [selectedIdx, setSelectedIdx] = useState(0)
-    const [share, setShare] = useState(ev.shareWithCommunity)
+    const [share, setShare] = useState(!(ev.over && !ev.shareWithCommunity))
     const prize = useRef()
 
     const handleEnd = () => {
@@ -98,8 +98,8 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                 <h1>Cancel the event?</h1>
                 <p>This action cannot be undone. are you sure you want to delete the event?</p>
                 <div className='buttons-wrapper'>
-                    <div className='lighter' onClick={() => setLocalPopup(false)}>Close</div>
-                    <div className='bolder' onClick={() => { cancelEvent(ev._id); setLocalPopup(false) }}>Cancel</div>
+                    <div className='lighter' onClick={() => setLocalPopup(false)}>Back</div>
+                    <div className='bolder' onClick={() => { cancelEvent(ev._id); setLocalPopup(false) }}>Confirm</div>
                 </div>
             </div>
             <div className="screen blur" onClick={() => setLocalPopup(false)} />

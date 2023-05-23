@@ -9,7 +9,7 @@ export function Create() {
     const user = useSelector((state) => state.user)
     const [img, setImg] = useState({ category: 'sports', game: 'table-tennis' })
     const [category, setCategory] = useState('sports')
-    const [isShare, setIsShare] = useState(true)
+    // const [isShare, setIsShare] = useState(true)
     const [sent, setSent] = useState(false)
     const [isFund, setIsFund] = useState(false)
     const categoryRef = useRef()
@@ -48,7 +48,7 @@ export function Create() {
             category: 'sports',
             game: gameRef.current.value,
             date: utcString,
-            shareWithCommunity: isShare,
+            shareWithCommunity: false,
             player: user.creator
         }
 
@@ -120,12 +120,12 @@ export function Create() {
                     <input type="datetime-local" className='date-special' ref={dateRef} required></input>
                 </div>
             </div>
-                <div className='checkbox-wrapper' style={{ zIndex: createPhase === 1 ? '1001' : '0' }}>
+                {/* <div className='checkbox-wrapper' style={{ zIndex: createPhase === 1 ? '1001' : '0' }}>
                     <div className='checkbox' onClick={() => setIsShare(!isShare)}>
                         {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
                     </div>
                     <p>Share with community</p>
-                </div>
+                </div> */}
             </div>}
         {isFund && <div className='all-select-wrapper'>
             <div className='h3-wrapper'>

@@ -51,7 +51,7 @@ export function PopupStats({ stats }) {
     }
 
     if (stats === 'no-tickets') return (<>
-        <h1>no tickets</h1>
+        <h1>No one bought any tickets yet...</h1>
     </>)
 
     return (<>
