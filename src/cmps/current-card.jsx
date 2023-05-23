@@ -71,16 +71,21 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                 <img src={require(`../style/imgs/event-card/${ev.game}.png`)} />
                 <div className="headers">
                     <p>Type: </p>
-                    <p>Game</p>
-                    <p>players: </p>
+                    {!ev.fund && <p>players: </p>}
+                    {ev.fund && <>
+                    <p>Investors:</p>
+                    <p>Goal:</p></>}
                     <p>Date: </p>
                     <p>Time: </p>
                     <p>status:</p>
+                    
                 </div>
                 <div className="details">
                     <p>{ev.fund ? 'Fund event' : 'Vs event'}</p>
-                    <p>{ev.game}</p>
-                    <p>{ev.players.length}</p>
+                    {!ev.fund && <p>{ev.players.length}</p>}
+                    {ev.fund && <>
+                    <p>{ Object.keys(ev.fund.investors).length}</p>
+                    <p><><span style={{color:ev.fund.current === ev.fund.target ? '#04C300' : 'white'}}>{ev.fund.current.toFixed(2)}</span ><span style={{color:'white'}}>/</span><span>{ev.fund.target + ' BNB'}</span></></p></>}
                     <p>{formatDate(ev.date)}</p>
                     <p>{formatHour(ev.date)}</p>
                     <p style={{ color }}>{status}</p>

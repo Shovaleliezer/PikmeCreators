@@ -59,24 +59,108 @@
     .details {
         @include flex(10px, space-between, center);
         margin: 30px 0;
+        .chart{
+            height: 300px;
+            width: 300px;
+            p{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 20px;
+                margin: 0;
+            }
+        }
 
         .data {
-            @include flex(5px, flex-start, center, column);
-            div{
-                @include flex(5px, center, center);
-                width: 100%;
-                p {
-                    margin: 0;
-                    margin-top: 2px;
-                    padding-left: 5px;
+            @include flex(30px, space-between, flex-start);
+            overflow-y: scroll;
+            width: 50%;
+            height: 300px;
+            border: 2px solid $bright-back;
+            border-radius: 10px;
+            padding: 5px;
+
+            div {
+                @include flex(10px, flex-start, flex-start, column);
+                color: white;
+
+                div {
+                    @include flex(5px, center, center);
+
+                    img {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
-                div{
+
+                .circle {
+                    width: 15px;
+                    height: 15px;
                     border-radius: 50%;
-                    width: 20px;
-                    height: 20px;
+                }
+
+                p {
+                    font-size: 16px;
+                    margin: 0;
+                }
+            }
+
+            .amounts {
+                p {
+                    opacity: 0.7;
                 }
             }
         }
     }
+}
 
+@media (max-width: $middle) {
+    .analytics {
+        padding: 10px;
+
+        .display {
+            margin-top: 20px;
+
+            div {
+                padding-bottom: 3px;
+
+                p {
+                    font-size: 20px;
+                }
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+
+        .details {
+            @include flex(15px, space-between, center, column);
+            margin: 20px 0;
+
+            .chart {
+                width: 230px;
+                height: 230px;
+            }
+
+            .data {
+                @include flex(20px, space-between, flex-start);
+                width: 100%;
+                height: fit-content;
+                max-height: 150px;
+
+                div {
+                    @include flex(10px, flex-start, flex-start, column);
+                    color: white;
+
+                    p {
+                        font-size: 18px;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -87,6 +87,15 @@
 .circle {
     border-radius: 50%;
 }
+    
+@media(max-height:700px) {
+    .too-low-fix {
+        height: 98vh;
+        overflow-y: auto;
+        padding-bottom: 100px;
+    }
+}
+
 
 .noselect {
     -webkit-touch-callout: none;
