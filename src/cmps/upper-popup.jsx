@@ -36,6 +36,7 @@ export function UpperPopup() {
             {upperPopup==='takenAddress' && <p>This address is already used by other user.</p>}
             {upperPopup==='otherStream' && <p>Someone else already started streaming.</p>}
             {upperPopup==='date' && <p>Cannot create event in the past, please enter a valid date in the future.</p>}
+            {upperPopup==='invalidPrize' && <p>Please enter a valid prize</p>}
             {upperPopup==='errorLoadEvent' && <p>Cannot load event, please try again later</p>}
             {upperPopup==='event-ended-error' && <p>Cannot start stream, the other creator might have ended it already</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}

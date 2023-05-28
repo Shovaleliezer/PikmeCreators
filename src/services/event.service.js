@@ -9,7 +9,8 @@ export const eventService = {
     getById,
     getAnalytics,
     confirm,
-    getGlobalEvent
+    getGlobalEvent,
+    setDistribution,
 }
 
 async function addEvent(details) {
@@ -43,12 +44,15 @@ async function getById(eventId) {
     return event
 }
 
-
 async function getAnalytics(eventId) {
     const analytics = await httpService.get('handle-event/get-event-analytics/' + eventId)
     return analytics
 }
 
+async function setDistribution(eventId, shareWithCommunity) {
+    const event = await httpService.put('handle-event/set-fund-distribution/' + eventId, { shareWithCommunity })
+    return event
+}
 
 async function getGlobalEvent(eventId) {
     const event = await httpService.get(`handle-event/get-event-stream/${eventId}`)

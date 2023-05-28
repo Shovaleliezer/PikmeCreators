@@ -39,14 +39,11 @@ function App() {
             <Route path='/admin' element={<ControlPanel />}/>
           </Routes>
         </main>
-        {/* {process.env.NODE_ENV === 'development' && <button className='dev-button' onClick={()=>setDevModal(true)}>DEV</button>}
-        {devModal && <Dev setDevModal={setDevModal}/>} */}
         <Footer />
       </div>
       <Menu />
       <Popup />
       <UpperPopup />
-
       <TutorialHome />
       <TutorialRegister />
       <TutorialCreate />

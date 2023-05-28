@@ -8,21 +8,9 @@ var arrayOfStrings = ["FF8447", "FFC247", "FFFF47", "C2FF47", "84FF47", "47FF47"
 var colors = arrayOfStrings.map(color => `rgb(${parseInt(color.slice(0, 2), 16)}, ${parseInt(color.slice(2, 4), 16)}, ${parseInt(color.slice(4, 6), 16)})`)
 const options = { plugins: { legend: { display: false } } }
 
-const get20players = () => {
-    const players = []
-    for (let i = 0; i < 19; i++) {
-        players.push({
-            amount: 12.05, percentage: 30,
-            viewers: 47, percentageViewers: 12, nickName: 'billboobeg13'
-        })
-    }
-    return players
-}
-
 export function PopupStats({ stats }) {
     const dispatch = useDispatch()
-    const { totalTickets, totalViewers, game } = stats
-    const players = get20players()
+    const {players, totalTickets, totalViewers, game } = stats
     const [isMoney, setIsMoney] = useState(true)
     const names = []
     const money = []

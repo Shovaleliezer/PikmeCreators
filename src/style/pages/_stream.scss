@@ -274,7 +274,6 @@
 
     .checkbox-wrapper {
         @include flex(10px, center, center);
-        margin-top: 10px;
         z-index: 1001;
         margin-top: -40px;
 
@@ -297,8 +296,48 @@
                 font-size: 30px;
             }
         }
+
         .checkbox:hover {
             background-color: transparent;
+        }
+    }
+
+    .percent-wrapper {
+        width: 100%;
+        @include flex(0, center, center, column);
+        z-index: 1001;
+        margin-top: -40px;
+
+        p {
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+        div {
+            width: 320px;
+            @include flex(10px, center, center);
+            height: unset;
+            border:0;
+            select,
+            input {
+                width: 165px;
+                margin-bottom: 20px;
+                color: white;
+                background-color: $mid-back;
+                font-size: 18px;
+                padding: 5px 10px;
+                border: 1px solid $main;
+                border-radius: 10px;
+
+            }
+
+            select:focus,
+            input:focus {
+                outline: none;
+            }
+        }
+        div:hover{
+            background-color: $mid-back;
         }
     }
 }

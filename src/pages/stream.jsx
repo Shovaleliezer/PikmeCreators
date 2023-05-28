@@ -13,8 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { eventService } from "../services/event.service"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 
-let options =
-{
+let options = {
   appId: 'f4e41c5975dd4a86a326e4c426420ca4',
   channel: 'teamOne636b79ecaa9a2464787e48a9',
   channel2: 'teamOne636cf202090bc65af885478b',
@@ -24,6 +23,8 @@ let options =
   role: 'host',
   type: "sports"
 }
+
+let percent = [0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.1, 0.05, 0]
 
 let channelParameters =
 {
@@ -58,6 +59,8 @@ function Creator() {
   const isMobile = window.innerWidth < 1100
   let time
   let debounce = useRef(false)
+  let percentRef = useRef(0.95)
+  const prizeRef = useRef(-1)
   let volumeRef = useRef()
   const tutorialDone = useRef(streamPhase > 3)
   let channel = ""
@@ -220,9 +223,14 @@ function Creator() {
   }
 
   const endEvent = async () => {
+    if (currentEvent.fund && (Number(prizeRef.current.value) < 0 || prizeRef.current.value === '')) {
+      dispatch(setUpperPopup('invalidPrize'))
+      return
+    }
     try {
-      await eventService.endEvent(currentEvent._id, isShare)
+      await eventService.endEvent(currentEvent._id, currentEvent.fund ? { percent: percentRef.current.value, prize: prizeRef.current.value } : isShare)
       setIsEnd(true)
+      setModal(false)
       setTimeout(() => { navigate('/') }, 500)
     }
     catch {
@@ -363,7 +371,6 @@ function Creator() {
       setModal(false)
     }
     else if (modal === "end-event") {
-      setModal(false)
       endEvent()
     }
     else {
@@ -541,13 +548,22 @@ function Creator() {
         <div className="screen blur" onClick={() => setModal(false)} />
         <div className="confirm-exit">
           <img src={require(`../style/imgs/stream/${(modal == "exit" || modal == "end-event") ? "end" : modal}.png`)} />
-          <h1>{modal.charAt(0).toUpperCase() + modal.slice(1)} {modal == "end-event" ? "Event?" : "Live Stream?"}</h1>
+          <h1>{modal.charAt(0).toUpperCase() + modal.slice(1)} {modal == "end-event" ? "?" : "Live Stream?"}</h1>
           <p>This Action cannot be undone. Are you sure you want to {modal} the {modal == "end-event" ? "Event?" : "Stream?"}</p>
           {(modal == "end-event" && !currentEvent.fund) && <div className='checkbox-wrapper'>
             <div className='checkbox' onClick={() => setIsShare(!isShare)}>
               {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
             </div>
-            <p>Share rewards with community ?</p>
+            <p>Share rewards with community ? </p>
+          </div>}
+          {(modal == "end-event" && currentEvent.fund) && <div className="percent-wrapper">
+            <p>Enter your prize, as well as how much would you like to share with your investors:</p>
+            <div>
+              <input type='number' placeholder="20BNB" ref={prizeRef} />
+              <select ref={percentRef} >
+                {percent.map((p) => <option key={p} value={p}>{(p * 100).toFixed(0)}%</option>)}
+              </select>
+            </div>
           </div>}
           <div>
             <div className="cancel" onClick={() => setModal(false)}>Cancel</div>

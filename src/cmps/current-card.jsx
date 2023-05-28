@@ -48,10 +48,12 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
     if (new Date(Date.now()) > new Date(ev.date)) status = 'Started'
     if (ev.creatorStarted) status = 'Live'
     if (ev.over) status = 'Ended'
+    if (ev.over && ev.fund && !ev.fund.creatorPaid) status = 'payment'
     let color = 'white'
     if (status === 'Started') color = '#F29B00'
     if (status === 'Live') color = '#F37F13'
     if (status === 'Ended') color = 'red'
+    if (status === 'payment') color = 'gold'
 
     return (<>
         <div className='current-card'>
@@ -64,7 +66,7 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                     {!share && <img className="clickable" src={require('../style/imgs/error.png')} onClick={() => setLocalPopup('share')} />}
                     {!ev.fund && <p onClick={loadAnalytics}>Info</p>}
                     <p onClick={() => setLocalPopup('cancel')}>cancel</p>
-                    <p onClick={() => setLocalPopup('end')}>end</p>
+                    {(!ev.fund || (ev.fund && ev.fund.creatorPaid)) && <p onClick={() => setLocalPopup('end')}>end</p>}
                 </div>
             </div>
             <div className="event-inner">
@@ -73,19 +75,22 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                     <p>Type: </p>
                     {!ev.fund && <p>players: </p>}
                     {ev.fund && <>
-                    <p>Investors:</p>
-                    <p>Goal:</p></>}
+                        <p>Investors:</p>
+                        <p>Goal:</p>
+                        <p>Max prize:</p></>}
                     <p>Date: </p>
                     <p>Time: </p>
                     <p>status:</p>
-                    
+
                 </div>
                 <div className="details">
                     <p>{ev.fund ? 'Fund event' : 'Vs event'}</p>
                     {!ev.fund && <p>{ev.players.length}</p>}
                     {ev.fund && <>
-                    <p>{ Object.keys(ev.fund.investors).length}</p>
-                    <p><><span style={{color:ev.fund.current === ev.fund.target ? '#04C300' : 'white'}}>{ev.fund.current.toFixed(2)}</span ><span style={{color:'white'}}>/</span><span>{ev.fund.target + ' BNB'}</span></></p></>}
+                        <p>{Object.keys(ev.fund.investors).length}</p>
+                        <p><><span style={{ color: ev.fund.current === ev.fund.target ? '#04C300' : 'white' }}>{ev.fund.current.toFixed(2)}</span ><span style={{ color: 'white' }}>/</span><span>{ev.fund.target + ' BNB'}</span></></p>
+                        <p>{ev.fund.prize} BNB</p>
+                    </>}
                     <p>{formatDate(ev.date)}</p>
                     <p>{formatHour(ev.date)}</p>
                     <p style={{ color }}>{status}</p>
