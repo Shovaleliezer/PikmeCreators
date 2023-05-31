@@ -30,8 +30,8 @@ async function endEvent(id, shareWithCommunity) {
     return end
 }
 
-async function payCreator(eventId, payZero = false) {
-    const confirm = await httpService.put('handle-event/pay-creator/' + eventId, { payZero })
+async function payCreator(eventId, details) {
+    const confirm = await httpService.put('handle-event/pay-creator/' + eventId, { details })
     return confirm
 }
 

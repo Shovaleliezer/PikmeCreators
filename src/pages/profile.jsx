@@ -95,6 +95,7 @@ export function Profile() {
     if (!creator) return <></>
 
     const { nickName, walletAddress, image, proficiencyGame, region, topAchievement, status, experience, socialLink } = creator
+    
     try {
         return <><section className="profile">
             <h1>Account information</h1>

@@ -64,8 +64,8 @@ export function EventCard({ ev, creator }) {
     }
 
     const getStatus = () => {
-        if (ev.fund && ev.fund.creatorPaid) return <p style={{ color: 'lime' }}>Payed</p>
-        if (ev.fund && !ev.fund.creatorPaid) return <p style={{ color: 'gold' }}>Payment</p>
+        if (ev.fund && ev.over && ev.fund.creatorPaid) return <p style={{ color: 'lime' }}>Payed</p>
+        if (ev.fund && ev.over && !ev.fund.creatorPaid) return <p style={{ color: 'gold' }}>Payment</p>
         if (ev.cancelled) return 'Cancelled'
         if (ev.over) return 'Over'
         if (ev.approved) {
@@ -103,7 +103,7 @@ export function EventCard({ ev, creator }) {
     const setDistribution = async () => {
         try {
             if (Number(percent) === 0 || Number(won) === 0) {
-                const confirm = await eventService.payCreator(ev._id, true)
+                const confirm = await eventService.payCreator(ev._id, {payZero: true})
                 if (confirm) window.location.reload()
                 else dispatch(setUpperPopup('errorServer'))
                 return

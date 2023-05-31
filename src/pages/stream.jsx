@@ -221,12 +221,8 @@ function Creator() {
   }
 
   const endEvent = async () => {
-    if (currentEvent.fund && (Number(prizeRef.current.value) < 0 || prizeRef.current.value === '')) {
-      dispatch(setUpperPopup('invalidPrize'))
-      return
-    }
     try {
-      await eventService.endEvent(currentEvent._id, currentEvent.fund ? { percent: percentRef.current.value, prize: prizeRef.current.value } : isShare)
+      await eventService.endEvent(currentEvent._id, currentEvent.fund ? true : isShare)
       setIsEnd(true)
       setModal(false)
       setTimeout(() => { navigate('/') }, 500)
