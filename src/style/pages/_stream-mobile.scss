@@ -49,13 +49,13 @@
                     aspect-ratio: 1/1;
                 }
 
-                .stream-timer{
-                    color:$main;
+                .stream-timer {
+                    color: $main;
                     margin: 0;
                     font-size: 18px;
                 }
 
-                .timer{
+                .timer {
                     color: white;
                     font-size: 18px;
                 }
@@ -142,10 +142,12 @@
             }
         }
     }
-    .no-permission{
+
+    .no-permission {
         padding: 0;
         font-size: 24px;
-        .camera{
+
+        .camera {
             font-size: 60px;
         }
     }

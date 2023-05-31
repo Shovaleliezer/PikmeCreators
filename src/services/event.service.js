@@ -10,6 +10,7 @@ export const eventService = {
     getAnalytics,
     confirm,
     getGlobalEvent,
+    payCreator,
     setDistribution,
 }
 
@@ -27,6 +28,11 @@ async function deleteEvent(id) {
 async function endEvent(id, shareWithCommunity) {
     const end = await httpService.post('handle-event/end-event/' + id, { shareWithCommunity })
     return end
+}
+
+async function payCreator(eventId, payZero = false) {
+    const confirm = await httpService.put('handle-event/pay-creator/' + eventId, { payZero })
+    return confirm
 }
 
 async function startEvent(id) {

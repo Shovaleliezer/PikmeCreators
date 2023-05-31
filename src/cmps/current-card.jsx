@@ -4,16 +4,18 @@ import { adminService } from "../services/admin.service"
 import { eventService } from "../services/event.service"
 import { setUpperPopup, setPopup, setPopupStats } from "../store/actions/general.actions"
 import { formatDate, formatHour } from "../services/utils"
+const arrPercent = [0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.1, 0.05, 0]
 
 export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const dispatch = useDispatch()
     const [popup, setLocalPopup] = useState(false)
     const [selectedIdx, setSelectedIdx] = useState(0)
     const [share, setShare] = useState(!(ev.over && !ev.shareWithCommunity))
-    const prize = useRef()
+    const prizeRef = useRef()
+    const percentRef = useRef()
 
     const handleEnd = () => {
-        if (ev.fund) endEvent(ev._id, 'fund', prize.current.value)
+        if (ev.fund) endEvent(ev._id, 'fund', { won: prizeRef.current.value, percent: percentRef.current.value })
         else endEvent(ev._id, 'vs', ev.players[selectedIdx])
         setLocalPopup(false)
     }
@@ -49,11 +51,13 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
     if (ev.creatorStarted) status = 'Live'
     if (ev.over) status = 'Ended'
     if (ev.over && ev.fund && !ev.fund.creatorPaid) status = 'payment'
+    if (ev.over && ev.fund && ev.fund.creatorPaid) status = 'Payed'
     let color = 'white'
     if (status === 'Started') color = '#F29B00'
     if (status === 'Live') color = '#F37F13'
     if (status === 'Ended') color = 'red'
     if (status === 'payment') color = 'gold'
+    if (status === 'Payed') color = 'lime'
 
     return (<>
         <div className='current-card'>
@@ -97,6 +101,7 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                 </div>
             </div>
         </div>
+
         {popup === 'cancel' && <>
             <div className="simple-popup">
                 <img src={require('../style/imgs/error.png')} />
@@ -113,11 +118,25 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
         {popup === 'end' && <>
             <div className="simple-popup">
                 <img src={require('../style/imgs/error.png')} />
-                {ev.fund && <div className="wrapper">
-                    <h2>Enter amount won</h2>
-                    <input type='number' ref={prize} className='prize' placeholder="0.0 BNB" />
-                </div>}
+                {ev.fund && <>
+                    <h2>Review fund event</h2>
+                    <p>The creator won <span className="main-color">{ev.fund.won} BNB</span> and Chose to share <span className="main-color"> {ev.fund.won * ev.fund.percent} BNB</span> ({ev.fund.percent * 100}%).
+                        You can also edit the distribution to his supporters here (leave blank to use the cretor's choice):</p>
+                    <div className="percent-wrapper">
+                        <div>
+                            <p>Prize:</p>
+                            <input type='number' ref={prizeRef} className='prize' placeholder={ev.fund.won + ' BNB'} />
+                        </div>
+                        <div>
+                            <p>Share:</p>
+                            <select ref={percentRef}>
+                                <option key={'900'} value={ev.fund.percent}>{ev.fund.percent * 100}%</option>
+                                {arrPercent.map((p) => <option key={p} value={p}>{(p * 100).toFixed(0)}%</option>)}
+                            </select>
 
+                        </div>
+                    </div>
+                </>}
                 {!ev.fund && <div className="wrapper">
                     <h2>Choose the winner</h2>
                     <select onChange={handleSelected} className="player-select">

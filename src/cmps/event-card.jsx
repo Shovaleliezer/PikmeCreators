@@ -36,15 +36,15 @@ export function EventCard({ ev, creator }) {
     }
 
     const getOptions = () => {
-        if (ev.over || ev.cancelled) {
-            if (ev.fund && !ev.fund.creatorPaid) return <p onClick={() => setIsOpen('pay')}>Pay</p>
-            return <p onClick={() => deleteEvent(true)}>Delete</p>
-        }
         if (ev.fund) {
-            if (ev.approved) return <>
+            if (ev.approved && !ev.cancelled && !ev.over) return <>
                 <p className='main-color' onClick={() => loadEventForStream(ev)}>Stream</p>
                 <p onClick={() => { copy('clients') }}>Share</p>
             </>
+            if (ev.over || ev.cancelled) {
+                if (ev.fund && !ev.fund.creatorPaid) return <p onClick={() => setIsOpen('pay')}>Pay</p>
+                return <p onClick={() => deleteEvent(true)}>Delete</p>
+            }
             return <>
                 <p onClick={openEdit}>Edit</p>
                 <p onClick={() => setIsOpen(true)}>Delete</p>
@@ -64,6 +64,7 @@ export function EventCard({ ev, creator }) {
     }
 
     const getStatus = () => {
+        if (ev.fund && ev.fund.creatorPaid) return <p style={{ color: 'lime' }}>Payed</p>
         if (ev.fund && !ev.fund.creatorPaid) return <p style={{ color: 'gold' }}>Payment</p>
         if (ev.cancelled) return 'Cancelled'
         if (ev.over) return 'Over'
@@ -101,6 +102,12 @@ export function EventCard({ ev, creator }) {
 
     const setDistribution = async () => {
         try {
+            if (Number(percent) === 0 || Number(won) === 0) {
+                const confirm = await eventService.payCreator(ev._id, true)
+                if (confirm) window.location.reload()
+                else dispatch(setUpperPopup('errorServer'))
+                return
+            }
             let link
             if (process.env.NODE_ENV === 'production') {
                 if (window.innerWidth < 1000) link = 'https://metamask.app.link/dapp/pikme.tv/pay/'
@@ -109,8 +116,7 @@ export function EventCard({ ev, creator }) {
             else link = 'http://localhost:3001/#/pay/'
             link += ev._id
             const confirm = await eventService.setDistribution(ev._id, { prize: won, percent })
-            console.log(link)
-            if (confirm)  window.open(link, "_blank")
+            if (confirm) window.open(link, "_blank")
         }
 
         catch {
@@ -166,10 +172,15 @@ export function EventCard({ ev, creator }) {
             <p>You may also edit it here before payment:</p>
             <div className="percent-wrapper">
                 <div>
+                    <p>Prize:</p>
                     <input type='number' placeholder="20BNB" value={won} onChange={handleWon} />
+                </div>
+                <div>
+                    <p>Share:</p>
                     <select value={percent} onChange={handlePercent}>
                         {arrPercent.map((p) => <option key={p} value={p}>{(p * 100).toFixed(0)}%</option>)}
                     </select>
+
                 </div>
             </div>
             <div className='buttons-wrapper' value={String(won)}>

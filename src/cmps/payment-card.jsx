@@ -65,14 +65,14 @@ export function PaymentCard({ ev, loadPayment }) {
                     <p>Game</p>
                     <p>players: </p>
                     <p>Ended at:</p>
-                    <p>{ev.fund ? 'Won:' : 'Winner:'}</p>
+                    <p>{ev.fund ? 'Shared:' : 'Winner:'}</p>
                 </div>
                 <div className="details">
                     <p>{ev.fund ? 'Fund event' : 'Vs event'}</p>
                     <p>{ev.game}</p>
                     <p>{ev.players.length}</p>
                     <p>{formatDate(ev.date)}</p>
-                    <p>{ev.fund ? ev.cancelled ? 'Cancelled' : ev.fund.won : ev.winner.nickName}</p>
+                    <p>{ev.fund ? ev.cancelled ? 'Cancelled' : ev.fund.won * ev.fund.percent + ' BNB' : ev.winner.nickName}</p>
                 </div>
             </div>
         </div>

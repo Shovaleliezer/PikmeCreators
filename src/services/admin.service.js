@@ -60,8 +60,8 @@ async function announceWinner(eventId, teamWon) {
     return payings
 }
 
-async function announceWinnerFund(eventId, prize) {
-    const payings = await httpService.post('handle-admin/announce-winner-fund/' + eventId, { prize })
+async function announceWinnerFund(eventId, shareWithCommunity) {
+    const payings = await httpService.post('handle-admin/announce-winner-fund/' + eventId, { shareWithCommunity })
     return payings
 }
 

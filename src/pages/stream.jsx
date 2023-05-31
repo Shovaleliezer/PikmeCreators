@@ -24,8 +24,6 @@ let options = {
   type: "sports"
 }
 
-let percent = [0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.1, 0.05, 0]
-
 let channelParameters =
 {
   localAudioTrack: null,
@@ -549,7 +547,7 @@ function Creator() {
         <div className="confirm-exit">
           <img src={require(`../style/imgs/stream/${(modal == "exit" || modal == "end-event") ? "end" : modal}.png`)} />
           <h1>{modal.charAt(0).toUpperCase() + modal.slice(1)} {modal == "end-event" ? "?" : "Live Stream?"}</h1>
-          <p>This Action cannot be undone. Are you sure you want to {modal} the {modal == "end-event" ? "Event?" : "Stream?"}</p>
+          <p>This Action cannot be undone. </p>
           {(modal == "end-event" && !currentEvent.fund) && <div className='checkbox-wrapper'>
             <div className='checkbox' onClick={() => setIsShare(!isShare)}>
               {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
@@ -557,13 +555,8 @@ function Creator() {
             <p>Share rewards with community ? </p>
           </div>}
           {(modal == "end-event" && currentEvent.fund) && <div className="percent-wrapper">
-            <p>Enter your prize, as well as how much would you like to share with your investors:</p>
-            <div>
-              <input type='number' placeholder="20BNB" ref={prizeRef} />
-              <select ref={percentRef} >
-                {percent.map((p) => <option key={p} value={p}>{(p * 100).toFixed(0)}%</option>)}
-              </select>
-            </div>
+            <p>Don't forget to share your prize with your investors:</p>
+            <img src={require(window.innerHeight < 900 ? '../style/imgs/stream/pay-mobile.jpeg' : '../style/imgs/stream/pay.jpeg')} className={window.innerHeight < 1000 ? 'pay-img-mobile' : 'pay-img'} />
           </div>}
           <div>
             <div className="cancel" onClick={() => setModal(false)}>Cancel</div>
