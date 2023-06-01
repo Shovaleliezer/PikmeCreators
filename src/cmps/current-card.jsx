@@ -4,7 +4,7 @@ import { adminService } from "../services/admin.service"
 import { eventService } from "../services/event.service"
 import { setUpperPopup, setPopup, setPopupStats } from "../store/actions/general.actions"
 import { formatDate, formatHour } from "../services/utils"
-const arrPercent = [0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.1, 0.05, 0]
+const arrPercent = [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.1, 0.05, 0]
 
 export function CurrentCard({ ev, endEvent, cancelEvent }) {
     const dispatch = useDispatch()
