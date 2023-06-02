@@ -7,6 +7,7 @@ import { formatDate, formatHour } from "../services/utils"
 const arrPercent = [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.1, 0.05, 0]
 
 export function CurrentCard({ ev, endEvent, cancelEvent }) {
+    console.log(ev.fund)
     const dispatch = useDispatch()
     const [popup, setLocalPopup] = useState(false)
     const [selectedIdx, setSelectedIdx] = useState(0)
@@ -117,10 +118,11 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
 
         {popup === 'end' && <>
             <div className="simple-popup">
-                <img src={require('../style/imgs/error.png')} />
                 {ev.fund && <>
                     <h2>Review fund event</h2>
-                    <p>The creator won <span className="main-color">{ev.fund.won} BNB</span> and Chose to share <span className="main-color"> {ev.fund.won * ev.fund.percent} BNB</span> ({ev.fund.percent * 100}%).
+                    <p>The creator won {ev.fund.won} BNB and Chose to share 
+                        <span onClick={() => window.open(`https://bscscan.com/tx/${ev.fund.transactionHash}`, "_blank")}
+                            className="main-color clickable underline">  {ev.fund.won * ev.fund.percent} BNB</span> ({ev.fund.percent * 100}%).
                         You can also edit the distribution to his supporters here (leave blank to use the cretor's choice):</p>
                     <div className="percent-wrapper">
                         <div>
@@ -133,7 +135,6 @@ export function CurrentCard({ ev, endEvent, cancelEvent }) {
                                 <option key={'900'} value={ev.fund.percent}>{ev.fund.percent * 100}%</option>
                                 {arrPercent.map((p) => <option key={p} value={p}>{(p * 100).toFixed(0)}%</option>)}
                             </select>
-
                         </div>
                     </div>
                 </>}
