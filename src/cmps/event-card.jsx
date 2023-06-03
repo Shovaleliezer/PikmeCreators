@@ -42,7 +42,7 @@ export function EventCard({ ev, creator }) {
                 <p onClick={() => { copy('clients') }}>Share</p>
             </>
             if (ev.over || ev.cancelled) {
-                if (ev.fund && !ev.fund.creatorPaid) return <p onClick={() => setIsOpen('pay')}>Pay</p>
+                if (ev.fund && !ev.fund.creatorPaid && !ev.cancelled) return <p onClick={() => setIsOpen('pay')}>Pay</p>
                 return <p onClick={() => deleteEvent(true)}>Delete</p>
             }
             return <>
@@ -51,6 +51,7 @@ export function EventCard({ ev, creator }) {
             </>
         }
         else {
+            if (ev.cancelled || ev.over) return <p onClick={() => deleteEvent(true)}>Delete</p>
             if (ev.approved) return <>
                 <p className='main-color' onClick={() => loadEventForStream(ev)}>Stream</p>
                 <p onClick={() => { copy('clients') }}>Share</p>
@@ -64,9 +65,9 @@ export function EventCard({ ev, creator }) {
     }
 
     const getStatus = () => {
+        if (ev.cancelled) return 'Cancelled'
         if (ev.fund && ev.over && ev.fund.creatorPaid) return <p style={{ color: 'lime' }}>Payed</p>
         if (ev.fund && ev.over && !ev.fund.creatorPaid) return <p style={{ color: 'gold' }}>Payment</p>
-        if (ev.cancelled) return 'Cancelled'
         if (ev.over) return 'Over'
         if (ev.approved) {
             if (ev.fund) return <><span style={{ color: ev.fund.current === ev.fund.target ? '#04C300' : 'white' }}>{ev.fund.current.toFixed(2)}</span ><span style={{ color: 'white' }}>/</span><span>{ev.fund.target + 'BNB'}</span></>
