@@ -42,12 +42,12 @@ export function EventCard({ ev, creator }) {
                 <p onClick={() => { copy('clients') }}>Share</p>
             </>
             if (ev.over || ev.cancelled) {
-                if (ev.fund && !ev.fund.creatorPaid && !ev.cancelled) return <p onClick={() => setIsOpen('pay')}>Pay</p>
+                if (!ev.fund.creatorPaid && !ev.cancelled) return <p onClick={() => setIsOpen('pay')}>Pay</p>
                 return <p onClick={() => deleteEvent(true)}>Delete</p>
             }
             return <>
                 <p onClick={openEdit}>Edit</p>
-                <p onClick={() => setIsOpen(true)}>Delete</p>
+                <p onClick={() => setIsOpen('delete')}>Delete</p>
             </>
         }
         else {
