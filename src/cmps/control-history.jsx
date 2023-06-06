@@ -22,8 +22,8 @@ export function ControlHistory() {
     }
 
     const getResult = (ev) => {
-        if(ev.cancelled) return 'Cancelled'
-        if (ev.fund) return ev.fund.won
+        if (ev.cancelled) return 'Cancelled'
+        if (ev.fund) return ev.fund.won + ` (${ev.fund.percent * 100}%)`
         return ev.winner.nickName
     }
 
