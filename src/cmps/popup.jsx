@@ -29,6 +29,12 @@ export function Popup() {
         navigator.clipboard.writeText(getRoute() + 'confirm/' + popup)
     }
 
+    const getPopupShareInfo = (info) => {
+        if (info === 'id') return popup.substring(0, popup.indexOf('/'))
+        if (info === 'name') return popup.substring(popup.indexOf('/') + 1, popup.indexOf('*'))
+        return popup.substring(popup.indexOf('*') + 1)
+    }
+
     if (!popup) return <></>
 
     if (popup.charAt(0) === '/') return <>
@@ -67,10 +73,16 @@ export function Popup() {
                     <div className="copy"><span>{getRoute() + 'confirm/' + popup}</span>
                         <img onClick={() => { copy(); dispatch(setUpperPopup('copied')) }} src={require('../style/imgs/register/address.png')} /></div>
                     <div className="buttons">
-                        <EmailShareButton className="share-button email" url={getRoute() + 'confirm/' + popup} />
-                        <WhatsappShareButton className="share-button whatsapp" url={getRoute() + 'confirm/' + popup} />
+                        <EmailShareButton className="share-button email"
+                            url={getRoute() + 'confirm/' + getPopupShareInfo('id')}
+                            subject={`challenge ${getPopupShareInfo('name')}'s in his ${getPopupShareInfo('game')} competition!`} />
+                        <WhatsappShareButton className="share-button whatsapp"
+                            title={`Click this link to challenge ${getPopupShareInfo('name')}'s in his ${getPopupShareInfo('game')} competition!`}
+                            url={getRoute() + 'confirm/' + getPopupShareInfo('id')} />
                         <FacebookMessengerShareButton className="share-button facebook" url={getRoute() + 'confirm/' + popup} />
-                        <TelegramShareButton className="share-button telegram" url={getRoute() + 'confirm/' + popup} />
+                        <TelegramShareButton className="share-button telegram" 
+                        title={`Click this link to challenge ${getPopupShareInfo('name')}'s in his ${getPopupShareInfo('game')} competition!`}
+                        url={getRoute() + 'confirm/' + getPopupShareInfo('id')} />
                     </div>
                 </div>
                 <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>

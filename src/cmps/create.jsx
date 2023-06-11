@@ -7,9 +7,9 @@ import { eventService } from '../services/event.service'
 export function Create() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
+    console.log(user)
     const [img, setImg] = useState({ category: 'sports', game: 'table-tennis' })
     const [category, setCategory] = useState('sports')
-    // const [isShare, setIsShare] = useState(true)
     const [sent, setSent] = useState(false)
     const [isFund, setIsFund] = useState(false)
     const categoryRef = useRef()
@@ -37,7 +37,7 @@ export function Create() {
         e.preventDefault()
         setSent(true)
         const date = new Date(dateRef.current.value)
-        if(new Date(Date.now()) > new Date(dateRef.current.value)){
+        if (new Date(Date.now()) > new Date(dateRef.current.value)) {
             setSent(false)
             dispatch(setUpperPopup('date'))
             return
@@ -57,13 +57,14 @@ export function Create() {
             prize: prizeRef.current.value,
             target: targetRef.current.value,
             link: linkRef.current.value,
-            current:0,
-            investors:{}
+            current: 0,
+            investors: {}
         }
-       
+
         try {
-            const { _id } = await eventService.addEvent(newEvent, user.creator.walletAddress)
-            if (!isFund) dispatch(setPopup(_id))
+            const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress)
+            console.log(game)
+            if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
 
         }
@@ -78,7 +79,7 @@ export function Create() {
 
     return <form className='create' onSubmit={addEvent}>
         <div className='create-upper'>
-            <img src={require('../style/imgs/create-stream.png')} style={{cursor:'auto'}}/>
+            <img src={require('../style/imgs/create-stream.png')} style={{ cursor: 'auto' }} />
             <h1>Create New Stream</h1>
             <img src={require('../style/imgs/close-icon.png')} onClick={() => dispatch(setPopup(''))} />
         </div>
@@ -114,18 +115,12 @@ export function Create() {
                     </div>
                 </div>
                 <div className='h3-wrapper date'>
-                <h3>Date</h3>
-                <div className='select-wrapper'>
-                    <img src={require(`../style/imgs/register/calendar.png`)}/>
-                    <input type="datetime-local" className='date-special' ref={dateRef} required></input>
-                </div>
-            </div>
-                {/* <div className='checkbox-wrapper' style={{ zIndex: createPhase === 1 ? '1001' : '0' }}>
-                    <div className='checkbox' onClick={() => setIsShare(!isShare)}>
-                        {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
+                    <h3>Date</h3>
+                    <div className='select-wrapper'>
+                        <img src={require(`../style/imgs/register/calendar.png`)} />
+                        <input type="datetime-local" className='date-special' ref={dateRef} required></input>
                     </div>
-                    <p>Share with community</p>
-                </div> */}
+                </div>
             </div>}
         {isFund && <div className='all-select-wrapper'>
             <div className='h3-wrapper'>
@@ -164,13 +159,13 @@ export function Create() {
                     <input min='0.01' placeholder='1,000 BNB' step="0.01" className='date-special' type="number" ref={prizeRef} required></input>
                 </div>
             </div>
-            <div className='h3-wrapper' style={{width:'100%'}}>
-            <h3>Description</h3>
-                <textarea maxLength={220} required className='fund-desc' placeholder='Tell us about the competition...' ref={descRef}/>
+            <div className='h3-wrapper' style={{ width: '100%' }}>
+                <h3>Description</h3>
+                <textarea maxLength={220} required className='fund-desc' placeholder='Tell us about the competition...' ref={descRef} />
             </div>
-            <div className='h3-wrapper' style={{width:'100%'}}>
-            <h3>Link (optional)</h3>
-                <input className='link' placeholder='Link to competiton page' ref={linkRef}/>
+            <div className='h3-wrapper' style={{ width: '100%' }}>
+                <h3>Link (optional)</h3>
+                <input className='link' placeholder='Link to competiton page' ref={linkRef} />
             </div>
         </div>}
         <div className='center'>

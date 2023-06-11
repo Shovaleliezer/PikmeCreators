@@ -548,7 +548,7 @@ function Creator() {
             <div className='checkbox' onClick={() => setIsShare(!isShare)}>
               {isShare && <span className="main-color noselect material-symbols-outlined">done</span>}
             </div>
-            <p>Share rewards with community ? </p>
+            <p>Share rewards with community </p>
           </div>}
           {(modal == "end-event" && currentEvent.fund) && <div className="percent-wrapper">
             <p>Don't forget to share your prize with your investors:</p>
