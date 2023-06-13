@@ -274,11 +274,9 @@ function Creator() {
 
     client.on("user-published", async (user, mediaType) => {
       setAlreadyStreamed(true)
-      console.log("user-published", user, mediaType)
     });
     client.on("user-unpublished", async (user, mediaType) => {
       setAlreadyStreamed(false)
-      console.log("user-unpublished", user, mediaType)
     })
   }
 

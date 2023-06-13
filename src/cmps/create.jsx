@@ -7,7 +7,6 @@ import { eventService } from '../services/event.service'
 export function Create() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
-    console.log(user)
     const [img, setImg] = useState({ category: 'sports', game: 'table-tennis' })
     const [category, setCategory] = useState('sports')
     const [sent, setSent] = useState(false)
@@ -63,7 +62,6 @@ export function Create() {
 
         try {
             const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress)
-            console.log(game)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
 
