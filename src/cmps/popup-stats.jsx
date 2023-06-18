@@ -80,7 +80,7 @@ export function PopupStats({ stats }) {
                         </div>
                         <div className='amounts'>
                             {percentMoney.map((mp, idx) => <div key={idx}>
-                                <p>{mp}%</p>
+                                <p>{mp.toFixed(2)}%</p>
                             </div>)}
                         </div>
 
@@ -94,7 +94,7 @@ export function PopupStats({ stats }) {
                         </div>
                         <div className='amounts'>
                             {percentViewers.map((vp, idx) => <div key={idx}>
-                                <p>{vp}%</p>
+                                <p>{vp.toFixed(2)}%</p>
                             </div>)}
                         </div>
                     </>}
