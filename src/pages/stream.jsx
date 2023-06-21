@@ -24,8 +24,7 @@ let options = {
   type: "sports"
 }
 
-let channelParameters =
-{
+let channelParameters = {
   localAudioTrack: null,
   localVideoTrack: null,
   localCamera: null,
@@ -104,7 +103,7 @@ function Creator() {
         document.documentElement.style.setProperty('--video-height', (width * 9 / 16) + 'px')
       }
 
-      if (currentEvent.fund) setPrizePool(currentEvent.fund.prize)
+      if (currentEvent.fund) setPrizePool(Number(currentEvent.fund.prize))
       else if (currentEvent.playersTickets) {
         let p = 0
         for (const [key, value] of Object.entries(currentEvent.playersTickets)) p += value

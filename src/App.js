@@ -1,5 +1,4 @@
 import './style/main.scss'
-import { useState } from 'react'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 
 //pages
@@ -24,7 +23,6 @@ import { TutorialCreate } from './cmps/tutorial-create'
 import { TutorialStream } from './cmps/tutorial-stream'
 
 function App() {
-  const [devModal,setDevModal] = useState()
   return (
     <Router>
       <div className="app">
@@ -53,4 +51,4 @@ function App() {
   )
 }
 
-export default App;
+export default App

@@ -12,7 +12,7 @@ export function StreamWrapper() {
     }, [])
 
     const onRotate = () => {
-        if(window.innerWidth > 550 && isNarrow===true) setIsNarrow(false)
+        if (window.innerWidth > 550 && isNarrow === true) setIsNarrow(false)
     }
 
     if (isNarrow) return (<div className="center-fixed rotate-phone">
