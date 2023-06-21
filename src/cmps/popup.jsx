@@ -17,7 +17,6 @@ export function Popup() {
     const { popup } = useSelector((storeState) => storeState.generalModule)
     const { popupStats } = useSelector((storeState) => storeState.generalModule)
     const { ethereum } = window
-    const { createPhase } = useSelector((state) => state.tutorialModule)
 
     useEffect(() => {
         if (popup) document.body.style.overflowY = 'hidden'
@@ -55,7 +54,7 @@ export function Popup() {
         <div className="screen blur" onClick={() => { dispatch(setPopup('')) }}>
             {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
-        <section className='popup' style={{ zIndex: createPhase === 1 ? '1001' : '100' }}>
+        <section className='popup' style={{ zIndex: '100' }}>
 
             {popup === 'connect' && <div>{ethereum ? <WalletConnect from='popup' /> :
                 <div className="extension-wrapper"><ExtensionConnect /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}
@@ -80,9 +79,9 @@ export function Popup() {
                             title={`Click this link to challenge ${getPopupShareInfo('name')}'s in his ${getPopupShareInfo('game')} competition!`}
                             url={getRoute() + 'confirm/' + getPopupShareInfo('id')} />
                         <FacebookMessengerShareButton className="share-button facebook" url={getRoute() + 'confirm/' + popup} />
-                        <TelegramShareButton className="share-button telegram" 
-                        title={`Click this link to challenge ${getPopupShareInfo('name')}'s in his ${getPopupShareInfo('game')} competition!`}
-                        url={getRoute() + 'confirm/' + getPopupShareInfo('id')} />
+                        <TelegramShareButton className="share-button telegram"
+                            title={`Click this link to challenge ${getPopupShareInfo('name')}'s in his ${getPopupShareInfo('game')} competition!`}
+                            url={getRoute() + 'confirm/' + getPopupShareInfo('id')} />
                     </div>
                 </div>
                 <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>
