@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopup, setUpperPopup } from '../store/actions/general.actions'
-import { setCreatePhase } from '../store/actions/tutorial.actions'
 import { eventService } from '../services/event.service'
 
 export function Create() {
@@ -18,9 +17,6 @@ export function Create() {
     const linkRef = useRef()
     const prizeRef = useRef()
     const targetRef = useRef()
-
-    const { createPhase } = useSelector((state) => state.tutorialModule)
-    if (createPhase === 0) dispatch(setCreatePhase(1))
 
     const handleImg = (e) => {
         const { name, value } = e.target

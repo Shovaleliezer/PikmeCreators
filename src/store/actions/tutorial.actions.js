@@ -17,12 +17,6 @@ export function setHomePhase(phase){
     }
 }
 
-export function setCreatePhase(phase){
-    return (dispatch) => {
-        dispatch({ type: 'SET_CREATE_PHASE' ,phase})
-    }
-}
-
 export function setStreamPhase(phase){
     return (dispatch) => {
         dispatch({ type: 'SET_STREAM_PHASE' ,phase})
