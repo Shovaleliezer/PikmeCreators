@@ -25,7 +25,7 @@ export function Popup() {
     }, [popup])
 
     const copy = () => {
-        navigator.clipboard.writeText(getRoute() + 'confirm/' + popup)
+        navigator.clipboard.writeText(getRoute() + 'confirm/' + getPopupShareInfo('id'))
     }
 
     const getPopupShareInfo = (info) => {
@@ -69,7 +69,7 @@ export function Popup() {
                 <p>Event created successfully!</p>
                 <p>To get it confirmed, please send your opponent the link below:</p>
                 <div className="share-wrapper">
-                    <div className="copy"><span>{getRoute() + 'confirm/' + popup}</span>
+                    <div className="copy"><span>{getRoute() + 'confirm/' + getPopupShareInfo('id')}</span>
                         <img onClick={() => { copy(); dispatch(setUpperPopup('copied')) }} src={require('../style/imgs/register/address.png')} /></div>
                     <div className="buttons">
                         <EmailShareButton className="share-button email"
