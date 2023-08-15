@@ -56,8 +56,6 @@ function Creator() {
   const isMobile = window.innerWidth < 1100
   let time
   let debounce = useRef(false)
-  let percentRef = useRef(0.95)
-  const prizeRef = useRef(-1)
   let volumeRef = useRef()
   const tutorialDone = useRef(streamPhase > 3)
   let channel = ""
