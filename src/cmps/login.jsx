@@ -45,6 +45,13 @@ export function Login(props) {
 
     const handleCode = (ev) => {
         const { value, name } = ev.target
+
+        if (value && value.length === 6) {
+            setCode({ 0: value[0], 1: value[1], 2: value[2], 3: value[3], 4: value[4], 5: value[5] })
+            document.getElementById(5).focus()
+            return
+        }
+
         for (let i = 0; i < Number(name); i++) if (code[i] === '') {
             document.getElementById(i).focus()
             return
