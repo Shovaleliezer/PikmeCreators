@@ -85,6 +85,7 @@
 
     .buttons {
         @include flex(0, center, center);
+        margin-top: 30px;
 
         .accept,
         .reject {
@@ -104,6 +105,7 @@
 
     .same {
         width: min-content;
+        margin-top: 30px;
 
         p {
             font-size: 24px;
@@ -212,7 +214,7 @@
 
                 span {
                     font-size: 16px;
-                    overflow-x:hidden;
+                    overflow-x: hidden;
                 }
 
                 img {

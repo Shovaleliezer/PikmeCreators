@@ -77,12 +77,6 @@ export function Confirm() {
                         </div>
                     </div>
                 </div>
-                {/* <div className='checkbox-wrapper'>
-                    <div className='checkbox'>
-                        {event.shareWithCommunity && <span className="main-color noselect material-symbols-outlined">done</span>}
-                    </div>
-                    <p>Share with community</p>
-                </div> */}
                 {isSame ? <div className="same">
                     <p>You already take part in this event, please send this link to your opponents instead:</p>
                     <div className="copy"><span>{getRoute() + 'confirm/' + event._id.slice(0, 4) + '...sdfsdfsdfsdfsdfsdfsdff'}</span>
