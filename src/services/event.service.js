@@ -16,7 +16,6 @@ export const eventService = {
 
 async function addEvent(details) {
     const event = await httpService.post('handle-event/create-event', details)
-
     if (event) return event
 }
 
