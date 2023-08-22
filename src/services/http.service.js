@@ -39,3 +39,32 @@ async function ajax(endpoint, method = 'GET', data = null) {
         throw err
     }
 }
+
+export async function agoraAquire(options) {
+    console.log('options', options)
+    try {
+        const res = await axios({
+            url: `https://api.agora.io/v1/apps/${options.appId}/cloud_recording/acquire`,
+            method: 'POST',
+            data: {
+                cname: options.cname,
+                uid:options.uid,
+                clientRequest: {
+                    resourceExpiredHour: 24,
+                }
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': 'Basic ZWU5YWY2MDlhMzQwNDIzNzk5MjE3MWZmNjIzMmVkODU6ZGZmZmY5ZmM3NjhiNDUwZWFlYzllMmNjNmI2MTYyNGI='
+            }
+        })
+        return res.data
+    }
+    catch (err) {
+        console.log(err)
+        throw err
+    }
+}
+
+// key：ee9af609a3404237992171ff6232ed85
+// secret：dffff9fc768b450eaec9e2cc6b61624b

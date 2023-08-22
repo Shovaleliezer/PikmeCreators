@@ -12,8 +12,10 @@ import { getTimeUntil, putKandM } from '../services/utils'
 import { useNavigate } from 'react-router-dom'
 import { eventService } from "../services/event.service"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
+import { agoraAquire } from "../services/http.service"
 
 let options = {
+  cname:'bbb',
   appId: 'f4e41c5975dd4a86a326e4c426420ca4',
   channel: 'teamOne636b79ecaa9a2464787e48a9',
   channel2: 'teamOne636cf202090bc65af885478b',
@@ -378,6 +380,11 @@ function Creator() {
     }
   }
 
+  const aquireAgora = async () => {
+    const b = await agoraAquire(options)
+    console.log(b)
+  }
+
   if (currentEvent.length === 0) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div></div></div></div>
 
@@ -394,7 +401,7 @@ function Creator() {
       {!isMobile && <div className="stream-container">
         <div className="settings noselect">
           <div className="settings-upper">
-            <span className="material-symbols-outlined">settings</span><p>Options</p>
+            <span className="material-symbols-outlined" onClick={aquireAgora}>settings</span><p>Options</p>
           </div>
           <div className="option main-color" onClick={() => openOpt === 'camera' ? setOpenOpt('') : setOpenOpt('camera')}>
             <p>Stream source</p><span className="material-symbols-outlined">{openOpt === 'camera' ? 'expand_less' : 'expand_more'}</span>
