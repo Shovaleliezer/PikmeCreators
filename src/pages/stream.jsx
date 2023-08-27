@@ -15,13 +15,10 @@ import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { agoraAquire } from "../services/http.service"
 
 let options = {
-  cname:'bbb',
+  cname: 'bbb',
   appId: 'f4e41c5975dd4a86a326e4c426420ca4',
   channel: 'teamOne636b79ecaa9a2464787e48a9',
-  channel2: 'teamOne636cf202090bc65af885478b',
-  token: "007eJxTYJj0Nn8W686+hj/tdzzsvlscqjTxZDpe+mR1bGGPusbMkKcKDGkmqSaGyaaW5qYpKSaJFmaJxkZmqSbJJkZmJkYGyYkmrQ3VyQ2BjAzy+U6sjAwQCOYzlKQm5vrnpZoZmyWZW6YmJyZaJhqZmJmYW5inmlgkWjIwAABQWib1",
-  token2: "007eJxTYBCLfHj9bsScb/08O+3fyn5X+nvnTOOmJv6j589L/Xov3tuuwJBmkmpimGxqaW6akmKSaGGWaGxklmqSbGJkZmJkkJxo8rSpOrkhkJEhqGIqAyMUgvjyDCWpibn+ealmxmbJaUYGRgaWBknJZqaJaRYWpibmFkkMDABfRynX",
-  uid: String(Math.floor(Math.random() * 10000)),
+  uid: String(Math.floor(Math.random() * (2**32 - 1)) + 1),
   role: 'host',
   type: "sports"
 }
@@ -257,11 +254,11 @@ function Creator() {
 
   const joinRoom = async () => {
     try {
-      let uid = String(Math.floor(Math.random() * 10000))
+      let uid = options.uid
       channel = String(streamInfo._id)
-      let token = await userService.getStreamTokenClient({ channel: channel, uid: uid, role: options.role })
+      let token = await userService.getStreamTokenClient({ channel: channel, uid, role: options.role })
       options.type = streamInfo.category
-      uid = await client.join(APP_ID, channel, token.rtcToken, uid)
+      await client.join(APP_ID, channel, token.rtcToken, uid)
       await client.setClientRole(options.role)
       setCurrentEvent(streamInfo)
       streamGaming(client)
@@ -381,7 +378,7 @@ function Creator() {
   }
 
   const aquireAgora = async () => {
-    const b = await agoraAquire(options)
+    const b = await agoraAquire(options,streamInfo._id)
     console.log(b)
   }
 
