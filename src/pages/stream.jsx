@@ -16,7 +16,7 @@ import { agoraAquire, agoraStart,agoraStop,agoraQuery } from "../services/http.s
 
 let options = {
   cname: 'bbb',
-  appId: 'f4e41c5975dd4a86a326e4c426420ca4',
+  appId: 'a917d14afed34934a2f185b47e97eb0a',
   channel: 'teamOne636b79ecaa9a2464787e48a9',
   uid: String(Math.floor(Math.random() * (2 ** 32 - 1)) + 1),
   role: 'host',
@@ -58,7 +58,7 @@ function Creator() {
   let volumeRef = useRef()
   const tutorialDone = useRef(streamPhase > 3)
   let channel = ""
-  let APP_ID = "f4e41c5975dd4a86a326e4c426420ca4"
+  let APP_ID = "a917d14afed34934a2f185b47e97eb0a"
 
   if (!client) {
     setClient(AgoraRTC.createClient({ mode: "live", codec: "vp8" }))
