@@ -47,7 +47,7 @@ export async function agoraAquire(options, channel) {
             method: 'POST',
             data: {
                 cname: options.cname,
-                uid: options.uid,
+                uid: '134',
                 channel: channel,
                 clientRequest: {
                     resourceExpiredHour: 24,
@@ -93,38 +93,29 @@ export async function agoraStart(options, resourceId) {
             method: 'POST',
             data: {
                 cname: options.cname,
-                uid: options.uid,
+                uid: '134',
                 "clientRequest": {
-                    // "token": "007eJxTYNCO9Ew6I1UZ4X1pXfmVlJla21mveW2rqpt5TffYT6cjk20UGNJMUk0Mk00tzU1TUkwSLcwSjY3MUk2STYzMTIwMkhNNzuS/TmkIZGRYWC/EzMgAgSC+BIMZUGeqcbJJqlmyaaqxsUWysaGlcXKiAQMDAAi3JLo=",
                     token: '',
-                    // recordingConfig: {
-                    //     "maxIdleTime": 30,
-                    //     "streamTypes": 2,
-                    //     streamMode:'standard',
-                    //     "channelType": 1,
-                    //     "videoStreamType": 0,
-                    //     "subscribeUidGroup": 0,
-                    //     subscribeVideoUids: [options.uid],
-                    //     subscribeAudioUids: [options.uid],
-                    // },
                     "recordingConfig": {
                         "maxIdleTime": 30,
                         "streamTypes": 2,
                         "audioProfile": 1,
-                        "channelType": 0,
+                        "channelType": 1,
                         "videoStreamType": 0,
                         "transcodingConfig": {
                             "height": 640,
                             "width": 360,
-                            "bitrate": 500,
+                            "bitrate": 600,
                             "fps": 15,
                             "mixedVideoLayout": 1,
                             "backgroundColor": "#FF0000"
                         },
-                        
-                        "subscribeUidGroup": 0
+                        "subscribeVideoUids": [options.uid,'134'],
+                        "subscribeAudioUids": [options.uid,'134'],
                     },
-
+                    recordingFileConfig: {
+                        avFileType: ["hls"],
+                    },
                     storageConfig: {
                         "vendor": 1,
                         "region": 7,
@@ -156,7 +147,7 @@ export async function agoraStop(options, sid, resourceId) {
             method: 'POST',
             data: {
                 cname: options.cname,
-                uid: options.uid,
+                uid: '134',
                 "clientRequest": {
                     "async_stop": true
                 }

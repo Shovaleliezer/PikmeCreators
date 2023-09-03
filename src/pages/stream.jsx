@@ -12,11 +12,11 @@ import { getTimeUntil, putKandM } from '../services/utils'
 import { useNavigate } from 'react-router-dom'
 import { eventService } from "../services/event.service"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
-import { agoraAquire, agoraStart,agoraStop,agoraQuery } from "../services/http.service"
+import { agoraAquire, agoraStart, agoraStop, agoraQuery } from "../services/http.service"
 
 let options = {
   cname: 'bbb',
-  appId: 'a917d14afed34934a2f185b47e97eb0a',
+  appId: '2148ba0fc4934b56b78fc915f29945f1',
   channel: 'teamOne636b79ecaa9a2464787e48a9',
   uid: String(Math.floor(Math.random() * (2 ** 32 - 1)) + 1),
   role: 'host',
@@ -58,10 +58,9 @@ function Creator() {
   let volumeRef = useRef()
   const tutorialDone = useRef(streamPhase > 3)
   let channel = ""
-  let APP_ID = "a917d14afed34934a2f185b47e97eb0a"
 
   if (!client) {
-    setClient(AgoraRTC.createClient({ mode: "live", codec: "vp8" }))
+    setClient(AgoraRTC.createClient({ mode: "live", codec: "vp8", role: options.role }))
   }
 
   useEffect(() => {
@@ -258,7 +257,7 @@ function Creator() {
       channel = String(streamInfo._id)
       let token = await userService.getStreamTokenClient({ channel: channel, uid, role: options.role })
       options.type = streamInfo.category
-      await client.join(APP_ID, channel, token.rtcToken, uid)
+      await client.join(options.appId, channel, token.rtcToken, uid)
       await client.setClientRole(options.role)
       setCurrentEvent(streamInfo)
       streamGaming(client)
@@ -378,16 +377,16 @@ function Creator() {
   }
 
   const aquireAgora = async () => {
-    // const {resourceId} = await agoraAquire(options, streamInfo._id)
-    // const { sid } = await agoraStart(options, resourceId)
+    const { resourceId } = await agoraAquire(options, streamInfo._id)
+    const { sid } = await agoraStart(options, resourceId)
     // setTimeout(async()=>{
     //   const r = await agoraQuery(options, sid, resourceId)
     //   console.log(r)
     // },2000)
-    // const st = setTimeout(async()=>{
-    //   const r = await agoraStop(options, sid, resourceId)
-    //   console.log(r)
-    // },4000)
+    setTimeout(async () => {
+      const r = await agoraStop(options, sid, resourceId)
+      console.log(r)
+    }, 4000)
   }
 
   if (currentEvent.length === 0) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
