@@ -9,6 +9,15 @@
   transform: translate(-50%, -50%);
 }
 
+.loader-block{
+  position: relative;
+  display: block;
+  margin:auto;
+  top:unset;
+  left:unset;
+  transform:unset;
+}
+
 .loader div {
   animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   transform-origin: 40px 40px;

@@ -35,8 +35,8 @@ async function getWaitingEvents() {
     return events
 }
 
-async function getHistory() {
-    const events = await httpService.get('handle-admin/get-history')
+async function getHistory(from = 0) {
+    const events = await httpService.get('handle-admin/get-history/' + from)
     return events
 }
 
