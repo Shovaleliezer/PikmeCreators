@@ -146,7 +146,7 @@ export function Edit() {
             </div>
             <div className='h3-wrapper' style={{ width: '100%' }}>
                 <h3>Description</h3>
-                <textarea name='description' onChange={handleFund} className='fund-desc' placeholder='Tell us about the competition...' value={fund.description} />
+                <textarea maxLength={220} name='description' onChange={handleFund} className='fund-desc' placeholder='Tell us about the competition...' value={fund.description} />
             </div>
             <div className='h3-wrapper' style={{ width: '100%' }}>
                 <h3>Link (optional)</h3>

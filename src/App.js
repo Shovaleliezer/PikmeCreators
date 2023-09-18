@@ -44,7 +44,6 @@ function App() {
       <TutorialHome />
       <TutorialRegister />
       <TutorialStream />
-
     </Router>
   )
 }

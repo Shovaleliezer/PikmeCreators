@@ -60,7 +60,6 @@ export function Create() {
             const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
-
         }
 
         catch {
