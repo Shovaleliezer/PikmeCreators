@@ -55,7 +55,7 @@ export function getYears() {
 }
 
 export function getRoute() {
-  if (process.env.NODE_ENV === 'production') return 'https://d26z2m6nm787p2.cloudfront.net/#/'
+  if (process.env.NODE_ENV === 'production') return 'https://create.pikme.tv/#/'
   return 'http://localhost:3000/#/'
 }
 
