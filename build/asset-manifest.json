@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c235b3e9.css",
+    "main.js": "/static/js/main.d366f381.js",
+    "static/media/home-banner.png": "/static/media/home-banner.82996907b5f161248ba7.png",
+    "static/media/wide-table-tennis.png": "/static/media/wide-table-tennis.d5155159fea9442817e4.png",
+    "static/media/table-tennis.png": "/static/media/table-tennis.fa275284e19beea4b5c0.png",
+    "static/media/Roboto-Medium.ttf": "/static/media/Roboto-Medium.d2d7f0c01bffaa5ec8f7.ttf",
+    "static/media/poker.png": "/static/media/poker.28094aa0c0ef9b105bc3.png",
+    "static/media/metamask-big.png": "/static/media/metamask-big.f09b3822877b112b4331.png",
+    "static/media/wide-poker.png": "/static/media/wide-poker.fc7392722f919d4e30ce.png",
+    "static/media/buddy-upper.png": "/static/media/buddy-upper.2c37db9e03afec3dab56.png",
+    "static/media/roadmap-desktop.png": "/static/media/roadmap-desktop.e4f457a8eb24a13f75dc.png",
+    "static/media/roadmap-mobile.png": "/static/media/roadmap-mobile.55f256b00b771ecb4c9c.png",
+    "static/media/binance-logo.png": "/static/media/binance-logo.92643887cb735977d3b9.png",
+    "static/media/walletconnect-logo.png": "/static/media/walletconnect-logo.0aecac1dbb99f6fb4f84.png",
+    "static/media/pay.jpeg": "/static/media/pay.24cf84dcd5ef367094ae.jpeg",
+    "static/media/popup-up.png": "/static/media/popup-up.f3daf81827ffb808840d.png",
+    "static/media/no-events.png": "/static/media/no-events.719992c7fd89efbacb94.png",
+    "static/media/pay-mobile.jpeg": "/static/media/pay-mobile.ad8a9a0bf14648b7fdd3.jpeg",
+    "static/media/instagram.png": "/static/media/instagram.06ff3161742af55cd9e5.png",
+    "index.html": "/index.html",
+    "main.c235b3e9.css.map": "/static/css/main.c235b3e9.css.map",
+    "main.d366f381.js.map": "/static/js/main.d366f381.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c235b3e9.css",
+    "static/js/main.d366f381.js"
+  ]
+}
