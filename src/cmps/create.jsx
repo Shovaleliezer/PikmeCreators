@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
+import { games } from '../services/games.service'
 
 export function Create() {
     const dispatch = useDispatch()
@@ -87,7 +88,7 @@ export function Create() {
                     <div className='select-wrapper'>
                         <img src={require(`../style/imgs/register/${img.category}.png`)} />
                         <select disabled={true} ref={categoryRef} onChange={handleImg} name='category'>
-                            <option value="sports">Sports</option>
+                            <option value="sports">Competition</option>
                             <option value="gaming">Gaming</option>
                         </select>
                     </div>
@@ -101,8 +102,7 @@ export function Create() {
                                 <option value="valorant">Valorant</option>
                                 <option value="fifa">Fifa</option></> :
                                 <>
-                                    <option value="table-tennis">Table tennis</option>
-                                    <option value="poker">Poker</option>
+                                    {games.map(g => <option value={g.game}>{g.display}</option>)}
                                 </>}
                         </select>
                     </div>
@@ -125,8 +125,7 @@ export function Create() {
                             <option value="valorant">Valorant</option>
                             <option value="fifa">Fifa</option></> :
                             <>
-                                <option value="table-tennis">Table tennis</option>
-                                <option value="poker">Poker</option>
+                                {games.map(g => <option value={g.game}>{g.display}</option>)}
                             </>}
                     </select>
                 </div>

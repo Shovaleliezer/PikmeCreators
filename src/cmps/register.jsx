@@ -8,6 +8,7 @@ import { setCreator, setAddress, setIsConnected, setPhone } from '../store/reduc
 import { setCallbackLink, setUpperPopup } from '../store/actions/general.actions.js'
 import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
 import { userService } from '../services/user.service'
+import { games } from '../services/games.service.js'
 
 export function Register() {
     const navigate = useNavigate()
@@ -210,8 +211,7 @@ export function Register() {
                             <img src={require(`../style/imgs/register/${img.game}.png`)} />
                             <select ref={gameRef} onClick={handleImg} name='game'>
                                 <option value="choose">Choose</option>
-                                <option value="table-tennis">Table tennis</option>
-                                <option value="poker">Poker</option>
+                                {games.map(g => <option value={g.game}>{g.display}</option>)}
                             </select>
                         </div>
                     </div>}

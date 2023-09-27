@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import { userService } from "../services/user.service"
+import { games } from "../services/games.service"
 import { uploadService } from "../services/upload.service"
 import { setCreator } from "../store/reducers/userReducer"
 import { setUpperPopup } from "../store/actions/general.actions"
@@ -117,10 +118,7 @@ export function Profile() {
                     <div className='img-wrapper second'>
                         <img src={require(`../style/imgs/register/${img}.png`)} />
                         <select value={proficiencyGame} onChange={handleImg} name='proficiencyGame'>
-                            <option value="table-tennis">Table tennis</option>
-                            <option value="poker">Poker</option>
-                            <option value="valorant">Valorant</option>
-                            <option value="fifa">Fifa</option>
+                        {games.map(g => <option value={g.game}>{g.display}</option>)}
                         </select>
                     </div>
                 </div>
