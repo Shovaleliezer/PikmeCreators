@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
-import { uploadService } from '../services/upload.service.js'
+import { uploadFile } from '../services/upload.service.js'
 import { RegisterProgress } from './register-progress.jsx'
 import { getYears } from '../services/utils.js'
 import { setCreator, setAddress, setIsConnected, setPhone } from '../store/reducers/userReducer.js'
@@ -93,7 +93,7 @@ export function Register() {
                 setIsLoader(false)
                 return
             }
-            const uploadedImg = await uploadService.uploadImg(imgRef.current.files[0])
+            const uploadedImg = await uploadFile(imgRef.current.files[0])
             setCreatorDetails({ ...creatorDetails, image: uploadedImg.secure_url, nickName: nameRef.current.value, walletAddress: addressRef.current.value })
             setPhase(2)
         }

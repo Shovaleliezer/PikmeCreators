@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import { userService } from "../services/user.service"
 import { games } from "../services/games.service"
-import { uploadService } from "../services/upload.service"
+import { uploadFile } from "../services/upload.service"
 import { setCreator } from "../store/reducers/userReducer"
 import { setUpperPopup } from "../store/actions/general.actions"
 import { getYears } from "../services/utils"
@@ -86,7 +86,7 @@ export function Profile() {
     }
 
     const handleChangeImage = async (e) => {
-        const uploadedImg = await uploadService.uploadImg(e.target.files[0])
+        const uploadedImg = await uploadFile(e.target.files[0])
         setLocalCreator({ ...creator, image: uploadedImg.secure_url })
         setIsChanged(true)
     }

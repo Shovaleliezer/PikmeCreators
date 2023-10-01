@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
+import { uploadFile } from '../services/upload.service'
 import { games } from '../services/games.service'
 
 export function Create() {
@@ -18,6 +19,26 @@ export function Create() {
     const linkRef = useRef()
     const prizeRef = useRef()
     const targetRef = useRef()
+
+    //addittion here
+    const uploads = {
+        img: useRef(),
+        video: useRef()
+    }
+    const [uploadsState, setUploadsState] = useState({
+        img: '',
+        video: ''
+    })
+    const handleUpload = (e) => {
+        const { files,name } = e.target
+        setUploadsState({ ...uploadsState, [name]: files[0] ? files[0].name : '' })
+    }
+    const onUpload = async (type) => {
+        setUploadsState({ ...uploadsState, [type]: uploads[type].current.files[0].name })
+        const url = await uploadFile(uploads[type].current.files[0], type === 'video' ? 'video' : 'img')
+        console.log(url)
+    }
+    //ends
 
     const handleImg = (e) => {
         const { name, value } = e.target
@@ -160,6 +181,16 @@ export function Create() {
                 <input className='link' placeholder='Link to competiton page' ref={linkRef} />
             </div>
         </div>}
+
+        <input id='img' name='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" ref={uploads.img} onChange={handleUpload} />
+        <label htmlFor='img'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{uploadsState.img}</div></label>
+        <div onClick={() => onUpload('img')}>upload image</div>
+
+        <input id='vid' name='video' className="non-appear" type="file" placeholder="Upload your image" accept="video/mp4,video/x-m4v,video/*" ref={uploads.video} onChange={handleUpload} />
+        <label htmlFor='vid'><div className="upload-img"><img src={require('../style/imgs/img-upload.png')} />{uploadsState.video}</div></label>
+        <div onClick={() => onUpload('video')}>upload video</div>
+
+
         <div className='center'>
             <button>Create!</button>
         </div>
