@@ -87,7 +87,7 @@ export function Home() {
                         ev={creator.creatorEvents[ev]} creator={creator} />)}
                 </div>
                     : <div className="no-events">
-                        <h1>You don't have any events yet, you can create one right <span onClick={() => { dispatch(setPopup('create')) }} className="clickable main-color">here</span>.</h1>
+                        <h1>You don't have any events yet, you can create one right <span onClick={() => navigate('/create')} className="clickable main-color">here</span>.</h1>
                         <img src={require('../style/imgs/no-events.png')} />
                     </div>}
             </section>)

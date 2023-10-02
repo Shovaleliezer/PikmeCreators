@@ -5,7 +5,6 @@ import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 import { WalletConnect } from '../cmps/wallet-connect'
 import { PopupStats } from "./popup-stats"
-import { Create } from "./create"
 import { Edit } from "./edit"
 import { ExtensionConnect } from '../cmps/extention-connect'
 import { getRoute } from "../services/utils"
@@ -59,8 +58,6 @@ export function Popup() {
             {popup === 'connect' && <div>{ethereum ? <WalletConnect from='popup' /> :
                 <div className="extension-wrapper"><ExtensionConnect /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}
 
-            {popup === 'create' && <Create />}
-
             {popup === 'edit' && <Edit />}
 
             {popup === 'stats' && <PopupStats stats={popupStats} />}
@@ -84,14 +81,14 @@ export function Popup() {
                             url={getRoute() + 'confirm/' + getPopupShareInfo('id')} />
                     </div>
                 </div>
-                <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>
+                <div className="done" onClick={() => { dispatch(setPopup('')); navigate('/') }}>Done</div>
             </div>}
 
             {popup === 'created' && <div className="created">
                 <img src={require('../style/imgs/share/vi.png')} />
                 <h1>Event in progress</h1>
                 <p>The event was successfully created and is now awaiting approval. You can edit your event until the event is approved.</p>
-                <div className="done" onClick={() => { dispatch(setPopup('')); window.location.reload() }}>Done</div>
+                <div className="done" onClick={() => { dispatch(setPopup('')); navigate('/') }}>Done</div>
             </div>}
 
         </section>

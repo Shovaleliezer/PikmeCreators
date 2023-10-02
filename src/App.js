@@ -8,6 +8,7 @@ import { Profile } from './pages/profile'
 import { Join } from './pages/join'
 import { StreamWrapper } from './pages/stream-wrapper'
 import { ControlPanel } from './pages/control-panel'
+import { Create } from './pages/create'
 
 //cmps
 import { Header } from './cmps/header'
@@ -33,6 +34,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/stream-control' element={<StreamWrapper />} />
             <Route path='/join' element={<Join />} />
+            <Route path='/create' element={<Create />} />
             <Route path='/admin' element={<ControlPanel />}/>
           </Routes>
         </main>

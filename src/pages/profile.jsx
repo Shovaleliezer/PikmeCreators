@@ -118,7 +118,7 @@ export function Profile() {
                     <div className='img-wrapper second'>
                         <img src={require(`../style/imgs/register/${img}.png`)} />
                         <select value={proficiencyGame} onChange={handleImg} name='proficiencyGame'>
-                        {games.map(g => <option value={g.game}>{g.display}</option>)}
+                        {games.map(g => <option key={g.game} value={g.game}>{g.display}</option>)}
                         </select>
                     </div>
                 </div>

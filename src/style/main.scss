@@ -15,6 +15,7 @@
 @import "/src/style/pages/join.scss";
 @import "/src/style/pages/login.scss";
 @import "/src/style/pages/control.scss";
+@import "src/style/pages/create";
 
 //components
 @import "/src/style/cmps/control-waiting";
@@ -30,7 +31,6 @@
 @import "src/style/cmps/footer";
 @import "src/style/cmps/chat-box";
 @import "src/style/cmps/loader";
-@import "src/style/cmps/create";
 @import "src/style/cmps/stream-chat";
 @import "src/style/cmps/upper-popup";
 @import "src/style/cmps/event-card";

@@ -1,10 +1,13 @@
 .create {
-    background-color: $mid-back;
-    border-radius: 10px;
+    min-height: calc(100vh - 305px);
     padding: 20px;
+    max-width: 700px;
+    margin: auto;
+    @include flex(0, space-between, center, column);
+    
 
     .create-upper {
-        @include flex(0, space-between, center);
+        @include flex(0, center, center);
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
 
@@ -12,6 +15,7 @@
             margin: 0;
             font-size: 24px;
             font-weight: 600;
+            color:white;
         }
 
         img {
@@ -25,6 +29,7 @@
 
         p {
             font-size: 26px;
+            color: white;
         }
 
         .active {
@@ -36,6 +41,7 @@
         .inactive {
             opacity: 0.7;
             cursor: pointer;
+            color: white;
         }
 
         .inactive:hover {
@@ -64,10 +70,11 @@
             padding: 0 10px;
 
             select,
-            input {
+            input,
+            .upload-video {
                 width: 240px;
                 color: white;
-                background-color: $mid-back;
+                background-color: $back-dark;
                 font-size: 24px;
                 padding: 10px 20px;
                 border-width: 0;
@@ -191,7 +198,6 @@
         border-radius: 10px;
         cursor: pointer;
         margin-top: 30px;
-        margin-bottom: 30px;
     }
 }
 
@@ -266,9 +272,7 @@
 
 @media(max-height:700px) {
     .create {
-        height: 98vh;
-        overflow-y: auto;
-        padding-bottom: 100px;
+        padding-top: 0;
         .link{
             padding: 5px !important;
             font-size: 18px !important;

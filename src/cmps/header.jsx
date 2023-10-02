@@ -43,8 +43,8 @@ export function Header() {
                 </div>
                 <img onClick={() => { navTo('/') }} className="logo clickable" src={require('../style/imgs/logo.png')} />
                 <div className="options-bar" style={{ visibility: (user.creator) ? 'visible' : 'hidden' }}>
-                    <div onClick={() => { navTo('/join') }} className="join-button clickable">Join</div>
-                    <div onClick={() => dispatch(setPopup('create'))} className="create-button">Create</div>
+                    <div onClick={() => navTo('/join')} className="join-button clickable">Join</div>
+                    <div onClick={() => navTo('/create')} className="create-button">Create</div>
                 </div>
 
             </div>}
@@ -59,7 +59,7 @@ export function Header() {
                     {(user && user.creator) && <img src={require('../style/imgs/create.png')} onClick={() => setIsMenuOpen(!isMenuOpen)} />}
                     <NavLink to='/'><img src={require(`../style/imgs/home-icon-dark.png`)} /></NavLink>
                     {isMenuOpen && <div className="create-menu">
-                        <div onClick={() => { dispatch(setPopup('create')); setIsMenuOpen(false) }}>Create new event</div>
+                        <div onClick={() => { setIsMenuOpen(false); navigate('/create') }}>Create new event</div>
                         <NavLink to='/join' onClick={() => setIsMenuOpen(false)}><div>Join event</div></NavLink>
                     </div>}
                 </nav>
