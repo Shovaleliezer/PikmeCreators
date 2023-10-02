@@ -38,12 +38,11 @@ export function Create() {
         else {
             setGameField(value)
             setImg({ ...img, [name]: value })
-        } 
+        }
     }
 
     const addEvent = async (e) => {
         e.preventDefault()
-        setSent(true)
         try {
             const date = new Date(dateRef.current.value)
             if (new Date(Date.now()) > new Date(dateRef.current.value)) {
@@ -54,7 +53,7 @@ export function Create() {
             const utcString = date.toUTCString()
             let newEvent
             let vid = ''
-            if (uploads.video.current.files[0]) vid = await uploadFile(uploads.video.current.files[0], 'video')
+            if (uploads.video.current && uploads.video.current.files[0]) vid = await uploadFile(uploads.video.current.files[0], 'video')
             newEvent = {
                 category: 'sports',
                 game: gameField,
@@ -72,6 +71,7 @@ export function Create() {
                 current: 0,
                 investors: {}
             }
+            setSent(true)
             const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
