@@ -71,6 +71,7 @@ export function Home() {
             dispatch(setUpperPopup('errorServer'))
         }
     }
+
     if (error) return <Error />
     if (!isConnected) return <Login handleCreatorPhone={handleCreatorPhone} />
     if (creator === 'loading') return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>

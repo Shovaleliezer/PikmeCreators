@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setPopup, setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
+import { setPopupEvent, setUpperPopup, setStreamInfo } from '../store/actions/general.actions'
 import { formatDate, formatHour, getRoute } from '../services/utils'
 import { eventService } from '../services/event.service'
 import { userService } from '../services/user.service'
@@ -32,7 +32,7 @@ export function EventCard({ ev, creator }) {
 
     const openEdit = () => {
         dispatch(setPopupEvent(ev))
-        dispatch(setPopup('edit'))
+        navigate('/edit')
     }
 
     const getOptions = () => {

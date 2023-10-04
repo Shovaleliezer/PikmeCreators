@@ -53,7 +53,13 @@ export function Create() {
             const utcString = date.toUTCString()
             let newEvent
             let vid = ''
-            if (uploads.video.current && uploads.video.current.files[0]) vid = await uploadFile(uploads.video.current.files[0], 'video')
+            if (uploads.video.current && uploads.video.current.files[0]) {
+                if (uploads.video.current.files[0].size > 10_000_000) { // 10MB
+                    dispatch(setUpperPopup('video-size'))
+                    return
+                }
+                vid = await uploadFile(uploads.video.current.files[0], 'video')
+            }
             newEvent = {
                 category: 'sports',
                 game: gameField,
@@ -189,7 +195,7 @@ export function Create() {
             }
 
             <div className='h3-wrapper' style={{ width: '100%' }}>
-                <h3>Teaser video (optional)</h3>
+                <h3>Teaser video (optional, up to 10MB)</h3>
                 <input id='vid' name='video' className="non-appear" type="file" placeholder="Upload your image" accept="video/mp4,video/x-m4v,video/*" ref={uploads.video} onChange={handleUpload} />
                 <label htmlFor='vid' className='link clickable' style={{ width: '100%', textAlign: 'center', display: 'block' }}>
                     {uploadsState.video ? <span>{uploadsState.video.slice(0, 24) + '...'}</span> : <span className="material-symbols-outlined">drive_folder_upload</span>}

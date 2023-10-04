@@ -39,7 +39,9 @@ export function UpperPopup() {
             {upperPopup==='invalidPrize' && <p>Please enter a valid prize</p>}
             {upperPopup==='errorLoadEvent' && <p>Cannot load event, please try again later</p>}
             {upperPopup==='event-ended-error' && <p>Cannot start stream, the other creator might have ended it already</p>}
+            {upperPopup==='video-size' && <p>Video size is too heavy, try uploading a lighter one.</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
+            {upperPopup === 'edited' && <p>Event edited successfully!</p>}
         </section>
     )
 }
