@@ -11,8 +11,9 @@ export const eventService = {
     confirm,
     getGlobalEvent,
     payCreator,
-    setDistribution,
+    setDistribution
 }
+
 
 async function addEvent(details) {
     const event = await httpService.post('handle-event/create-event', details)

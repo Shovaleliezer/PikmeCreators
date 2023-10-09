@@ -5,6 +5,8 @@ import { eventService } from '../services/event.service'
 import { uploadFile } from '../services/upload.service'
 import { games } from '../services/games.service'
 
+import { httpService } from '../services/http.service'
+
 export function Create() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
@@ -44,6 +46,7 @@ export function Create() {
     const addEvent = async (e) => {
         e.preventDefault()
         try {
+            console.log(11111111)
             const date = new Date(dateRef.current.value)
             if (new Date(Date.now()) > new Date(dateRef.current.value)) {
                 setSent(false)
@@ -53,13 +56,20 @@ export function Create() {
             const utcString = date.toUTCString()
             let newEvent
             let vid = ''
+
             if (uploads.video.current && uploads.video.current.files[0]) {
-                if (uploads.video.current.files[0].size > 10_000_000) { // 10MB
-                    dispatch(setUpperPopup('video-size'))
+                console.log(2222)
+                const d = await getVideoDuration(uploads.video.current.files[0])
+                console.log(d)
+                if (d > 61) {
+                    dispatch(setUpperPopup('video-length'))
                     return
                 }
                 vid = await uploadFile(uploads.video.current.files[0], 'video')
+                console.log(vid)
             }
+            return
+
             newEvent = {
                 category: 'sports',
                 game: gameField,
@@ -92,6 +102,17 @@ export function Create() {
             setSent(false)
         }
     }
+
+    const getVideoDuration = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onload = () => {
+                const media = new Audio(reader.result)
+                media.onloadedmetadata = () => resolve(media.duration)
+            }
+            reader.onerror = error => reject(error)
+        })
+
 
     const handleUpload = (e) => {
         const { files, name } = e.target
@@ -195,7 +216,7 @@ export function Create() {
             }
 
             <div className='h3-wrapper' style={{ width: '100%' }}>
-                <h3>Teaser video (optional, up to 10MB)</h3>
+                <h3>Teaser video (optional, up to 1 minute)</h3>
                 <input id='vid' name='video' className="non-appear" type="file" placeholder="Upload your image" accept="video/mp4,video/x-m4v,video/*" ref={uploads.video} onChange={handleUpload} />
                 <label htmlFor='vid' className='link clickable' style={{ width: '100%', textAlign: 'center', display: 'block' }}>
                     {uploadsState.video ? <span>{uploadsState.video.slice(0, 24) + '...'}</span> : <span className="material-symbols-outlined">drive_folder_upload</span>}

@@ -20,7 +20,8 @@ export const httpService = {
     },
     delete(endpoint, data) {
         return ajax(endpoint, 'DELETE', data)
-    }
+    },
+    special
 }
 
 async function ajax(endpoint, method = 'GET', data = null) {
@@ -33,12 +34,30 @@ async function ajax(endpoint, method = 'GET', data = null) {
         })
         return res.data
     } catch (err) {
-        if (err.response && err.response.status === 401) {
-            sessionStorage.clear()
-        }
         throw err
     }
 }
+
+async function special(video) {
+    try {
+        const res = await axios({
+            url: BASE_URL + 'handle-creator/compress',
+            method: 'POST',
+            data: video,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+        return res.data
+    } catch (err) {
+        throw err
+    }
+}
+
+
+
+
+
 
 export async function agoraAquire(options, channel) {
     try {
@@ -110,8 +129,8 @@ export async function agoraStart(options, resourceId) {
                             "mixedVideoLayout": 1,
                             "backgroundColor": "#FF0000"
                         },
-                        "subscribeVideoUids": [options.uid,'134'],
-                        "subscribeAudioUids": [options.uid,'134'],
+                        "subscribeVideoUids": [options.uid, '134'],
+                        "subscribeAudioUids": [options.uid, '134'],
                     },
                     recordingFileConfig: {
                         avFileType: ["hls"],
