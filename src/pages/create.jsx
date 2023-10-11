@@ -2,9 +2,7 @@ import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
-import { uploadFile } from '../services/upload.service'
 import { games } from '../services/games.service'
-
 import { httpService } from '../services/http.service'
 
 export function Create() {
@@ -46,7 +44,6 @@ export function Create() {
     const addEvent = async (e) => {
         e.preventDefault()
         try {
-            console.log(11111111)
             const date = new Date(dateRef.current.value)
             if (new Date(Date.now()) > new Date(dateRef.current.value)) {
                 setSent(false)
@@ -56,19 +53,25 @@ export function Create() {
             const utcString = date.toUTCString()
             let newEvent
             let vid = ''
-
+            const formData = new FormData()
+            formData.append('file', uploads.video.current.files[0])
+            vid = await httpService.post('handle-creator/compress', formData)
+            console.log(vid)
+            return
             if (uploads.video.current && uploads.video.current.files[0]) {
-                console.log(2222)
                 const d = await getVideoDuration(uploads.video.current.files[0])
                 console.log(d)
                 if (d > 61) {
                     dispatch(setUpperPopup('video-length'))
                     return
                 }
-                vid = await uploadFile(uploads.video.current.files[0], 'video')
+                const formData = new FormData()
+                formData.append('file', uploads.video.current.files[0])
+                formData.append('transformation', 'q_20')
+                vid = await httpService.post('handle-creator/upload', formData)
                 console.log(vid)
             }
-            return
+
 
             newEvent = {
                 category: 'sports',

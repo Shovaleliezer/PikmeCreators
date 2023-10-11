@@ -21,7 +21,7 @@ export const httpService = {
     delete(endpoint, data) {
         return ajax(endpoint, 'DELETE', data)
     },
-    special
+    compress
 }
 
 async function ajax(endpoint, method = 'GET', data = null) {
@@ -38,25 +38,14 @@ async function ajax(endpoint, method = 'GET', data = null) {
     }
 }
 
-async function special(video) {
-    try {
-        const res = await axios({
-            url: BASE_URL + 'handle-creator/compress',
-            method: 'POST',
-            data: video,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-        return res.data
-    } catch (err) {
-        throw err
-    }
+export async function compress(formData) {
+    const res = await axios.post(BASE_URL + 'handle-creator/compress', formData, {
+        headers: {
+            'Content-Type': `multipart/form-data`,
+        },
+    })
+    return res.data
 }
-
-
-
-
 
 
 export async function agoraAquire(options, channel) {

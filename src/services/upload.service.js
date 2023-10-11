@@ -1,11 +1,11 @@
 const CLOUD_NAME = "dfmtbntrc"
 const UPLOAD_PRESET = "stgck1s3"
 
-export async function uploadFile(file, type = 'img') {
+export async function uploadFile(file) {
   const formData = new FormData()
   formData.append('upload_preset', UPLOAD_PRESET)
   formData.append('file', file)
-  return fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${type === 'img' ? 'image' : 'video'}/upload`  , {
+  return fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`  , {
     method: 'POST',
     body: formData
   })
@@ -15,3 +15,7 @@ export async function uploadFile(file, type = 'img') {
     })
     .catch(err => console.error(err))
 }
+
+
+
+
