@@ -59,6 +59,12 @@ export function Popup() {
 
             {popup === 'stats' && <PopupStats stats={popupStats} />}
 
+            {popup === 'upload-event' && <div>
+                <p style={{ textAlign: 'center' }}>Uploading your event, this may take up to a minute...</p>
+                <div className="loader loader-block" style={{ marginTop: '30px', marginBottom: '30px' }}><div></div><div></div><div></div><div></div>
+                    <div></div><div></div><div></div><div></div></div>
+            </div>}
+
             {popup.slice(0, 1) === '6' && <div className="event-link">
                 <p>Event created successfully!</p>
                 <p>To get it confirmed, please send your opponent the link below:</p>

@@ -1,8 +1,13 @@
 import Axios from 'axios'
 
-const BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://pikme-server-7vdz.onrender.com/'
+const BASE_URL = process.env.NODE_ENV === 'production' ?
+    'https://pikme-server-7vdz.onrender.com/'
     : '//localhost:3030/'
+
+const HEAVY_URL = process.env.NODE_ENV === 'production' ?
+    'https://pikme-server-7vdz.onrender.com/'
+    : '//localhost:3031/'
+
 
 var axios = Axios.create({
     withCredentials: true
@@ -21,7 +26,7 @@ export const httpService = {
     delete(endpoint, data) {
         return ajax(endpoint, 'DELETE', data)
     },
-    compress
+    compressAndUpload
 }
 
 async function ajax(endpoint, method = 'GET', data = null) {
@@ -38,14 +43,42 @@ async function ajax(endpoint, method = 'GET', data = null) {
     }
 }
 
-export async function compress(formData) {
-    const res = await axios.post(BASE_URL + 'handle-creator/compress', formData, {
+export async function compressAndUpload(formData) {
+    const res = await axios({
+        url: HEAVY_URL + 'handle-video/compress',
+        method: 'POST',
+        data: formData,
         headers: {
             'Content-Type': `multipart/form-data`,
         },
     })
     return res.data
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export async function agoraAquire(options, channel) {

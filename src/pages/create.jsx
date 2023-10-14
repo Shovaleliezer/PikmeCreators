@@ -4,6 +4,7 @@ import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
 import { games } from '../services/games.service'
 import { httpService } from '../services/http.service'
+import { uploadFile } from '../services/upload.service'
 
 export function Create() {
     const dispatch = useDispatch()
@@ -53,26 +54,18 @@ export function Create() {
             const utcString = date.toUTCString()
             let newEvent
             let vid = ''
-            const formData = new FormData()
-            formData.append('file', uploads.video.current.files[0])
-            vid = await httpService.post('handle-creator/compress', formData)
-            console.log(vid)
-            return
-            if (uploads.video.current && uploads.video.current.files[0]) {
-                const d = await getVideoDuration(uploads.video.current.files[0])
-                console.log(d)
+            let file = uploads.video.current ? uploads.video.current.files[0] : null
+            if (file) {
+                const d = await getVideoDuration(file)
                 if (d > 61) {
                     dispatch(setUpperPopup('video-length'))
                     return
                 }
+                dispatch(setPopup('upload-event'))
                 const formData = new FormData()
-                formData.append('file', uploads.video.current.files[0])
-                formData.append('transformation', 'q_20')
-                vid = await httpService.post('handle-creator/upload', formData)
-                console.log(vid)
+                formData.append('file', file)
+                vid = await httpService.compressAndUpload(formData)
             }
-
-
             newEvent = {
                 category: 'sports',
                 game: gameField,
@@ -90,7 +83,7 @@ export function Create() {
                 current: 0,
                 investors: {}
             }
-            setSent(true)
+
             const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
@@ -99,11 +92,9 @@ export function Create() {
         catch (err) {
             console.log(err)
             dispatch(setUpperPopup('errorCreate'))
+            dispatch(setPopup(''))
         }
 
-        finally {
-            setSent(false)
-        }
     }
 
     const getVideoDuration = (file) =>
@@ -113,6 +104,7 @@ export function Create() {
                 const media = new Audio(reader.result)
                 media.onloadedmetadata = () => resolve(media.duration)
             }
+            reader.readAsDataURL(file)
             reader.onerror = error => reject(error)
         })
 
