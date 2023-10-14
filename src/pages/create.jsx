@@ -4,7 +4,6 @@ import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
 import { games } from '../services/games.service'
 import { httpService } from '../services/http.service'
-import { uploadFile } from '../services/upload.service'
 
 export function Create() {
     const dispatch = useDispatch()
@@ -51,6 +50,7 @@ export function Create() {
                 dispatch(setUpperPopup('date'))
                 return
             }
+            dispatch(setPopup('upload-event'))
             const utcString = date.toUTCString()
             let newEvent
             let vid = ''
@@ -59,9 +59,9 @@ export function Create() {
                 const d = await getVideoDuration(file)
                 if (d > 61) {
                     dispatch(setUpperPopup('video-length'))
+                    dispatch(setPopup(''))
                     return
                 }
-                dispatch(setPopup('upload-event'))
                 const formData = new FormData()
                 formData.append('file', file)
                 vid = await httpService.compressAndUpload(formData)
@@ -72,7 +72,7 @@ export function Create() {
                 date: utcString,
                 shareWithCommunity: false,
                 player: user.creator,
-                video: vid.url
+                video: vid
             }
 
             if (isFund) newEvent.fund = {
@@ -84,7 +84,8 @@ export function Create() {
                 investors: {}
             }
 
-            const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress)
+            const { _id, game, video } = await eventService.addEvent(newEvent, user.creator.walletAddress)
+            console.log(video)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
         }
