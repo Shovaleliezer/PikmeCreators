@@ -126,6 +126,7 @@ export async function agoraQuery(options, sid, resourceId) {
     }
 }
 
+//!!!!!!!!!!!!   get the new amazon key and secret key from the server !!!!!!!!!!!!!!!!!!!!
 
 export async function agoraStart(options, resourceId) {
     try {
@@ -161,8 +162,8 @@ export async function agoraStart(options, resourceId) {
                         "vendor": 1,
                         "region": 7,
                         "bucket": "agora-records132",
-                        "accessKey": "AKIAYOFXLUAL6G5IZNEY",
-                        "secretKey": "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",
+                        "accessKey": "",
+                        "secretKey": "",
                     },
                 }
             },
