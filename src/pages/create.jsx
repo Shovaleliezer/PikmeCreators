@@ -85,7 +85,6 @@ export function Create() {
             }
 
             const { _id, game, video } = await eventService.addEvent(newEvent, user.creator.walletAddress)
-            console.log(video)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
         }

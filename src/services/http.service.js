@@ -6,7 +6,7 @@ const BASE_URL = process.env.NODE_ENV === 'production' ?
 
 const HEAVY_URL = process.env.NODE_ENV === 'production' ?
     'https://pikme-server-7vdz.onrender.com/'
-    : '//localhost:3031/'
+    : '//localhost:3030/'
 
 
 var axios = Axios.create({
@@ -26,7 +26,7 @@ export const httpService = {
     delete(endpoint, data) {
         return ajax(endpoint, 'DELETE', data)
     },
-    compressAndUpload
+    compressAndUpload,
 }
 
 async function ajax(endpoint, method = 'GET', data = null) {
