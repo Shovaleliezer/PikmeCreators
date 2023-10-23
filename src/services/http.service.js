@@ -5,8 +5,8 @@ const BASE_URL = process.env.NODE_ENV === 'production' ?
     : '//localhost:3030/'
 
 const HEAVY_URL = process.env.NODE_ENV === 'production' ?
-    'https://pikme-server-7vdz.onrender.com/'
-    : '//localhost:3030/'
+    'http://34.228.74.30:3031/'
+    : '//localhost:3031/'
 
 
 var axios = Axios.create({
