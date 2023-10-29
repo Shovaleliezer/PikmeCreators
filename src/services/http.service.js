@@ -5,8 +5,8 @@ const BASE_URL = process.env.NODE_ENV === 'production' ?
     : '//localhost:3030/'
 
 const HEAVY_URL = process.env.NODE_ENV === 'production' ?
-    'http://34.228.74.30:3031/'
-    : '//localhost:3031/'
+    'http://100.26.58.106:3031/'
+    : 'http://100.26.58.106:3031/'
 
 
 var axios = Axios.create({

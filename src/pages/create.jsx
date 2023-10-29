@@ -63,7 +63,7 @@ export function Create() {
                     dispatch(setPopup(''))
                     return
                 }
-                if (file.size > 15_000) {
+                if (file.size < 20_000) {
                     const cl = await uploadFile(file)
                     vid = cl.url
                 }
