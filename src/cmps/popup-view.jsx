@@ -16,7 +16,7 @@ export function PopupView({ event, setPopup, accept, reject }) {
                         <div className='h3-wrapper'>
                             <h3>Game</h3>
                             <div className='info-wrapper'>
-                                <img src={require(`../style/imgs/register/${event.game}.png`)} />
+                                <img src={require(`../style/imgs/register/${event.game}.webp`)} />
                                 <p>{event.game}</p>
                             </div>
                         </div>

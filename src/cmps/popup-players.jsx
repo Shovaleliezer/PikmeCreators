@@ -39,7 +39,7 @@ export function PopupPlayers({ players, setPopup,event, accept,reject }) {
                     </div>
                 </div> :
                     <div className="inner-bought">
-                        <img src={require(`../style/imgs/popup/wide-${players[idx].proficiencyGame}.png`)} />
+                        <img src={require(`../style/imgs/popup/wide-${players[idx].proficiencyGame}.webp`)} />
                         <div className="mobile-line">
                             <h3>Experience:</h3>
                             <p>{new Date().getFullYear() - players[idx].experience} Years</p>

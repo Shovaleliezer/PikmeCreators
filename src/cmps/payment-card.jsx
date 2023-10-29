@@ -59,7 +59,7 @@ export function PaymentCard({ ev, loadPayment }) {
                 </div>
             </div>
             <div className="event-inner">
-                <img src={require(`../style/imgs/event-card/${ev.game}.png`)} />
+                <img src={require(`../style/imgs/popup/${ev.game}.webp`)} />
                 <div className="headers">
                     <p>Type: </p>
                     <p>Game</p>

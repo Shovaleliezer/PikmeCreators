@@ -4,6 +4,7 @@ import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
 import { games } from '../services/games.service'
 import { httpService } from '../services/http.service'
+import { uploadFile } from '../services/upload.service'
 
 export function Create() {
     const dispatch = useDispatch()
@@ -62,9 +63,15 @@ export function Create() {
                     dispatch(setPopup(''))
                     return
                 }
-                const formData = new FormData()
-                formData.append('file', file)
-                vid = await httpService.compressAndUpload(formData)
+                if (file.size > 15_000) {
+                    const cl = await uploadFile(file)
+                    vid = cl.url
+                }
+                else {
+                    const formData = new FormData()
+                    formData.append('file', file)
+                    vid = await httpService.compressAndUpload(formData)
+                }
             }
             newEvent = {
                 category: 'sports',
@@ -84,7 +91,7 @@ export function Create() {
                 investors: {}
             }
 
-            const { _id, game, video } = await eventService.addEvent(newEvent, user.creator.walletAddress)
+            const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
         }
@@ -94,7 +101,6 @@ export function Create() {
             dispatch(setUpperPopup('errorCreate'))
             dispatch(setPopup(''))
         }
-
     }
 
     const getVideoDuration = (file) =>
@@ -142,7 +148,7 @@ export function Create() {
                     <div className='h3-wrapper'>
                         <h3>Game</h3>
                         <div className='select-wrapper'>
-                            <img src={require(`../style/imgs/register/${img.game}.png`)} />
+                            <img src={require(`../style/imgs/register/${img.game}.webp`)} />
                             <select onChange={handleImg} name='game' required>
                                 {category === 'gaming' ? <>
                                     <option value="valorant">Valorant</option>
@@ -167,7 +173,7 @@ export function Create() {
                     <div className='h3-wrapper'>
                         <h3>Game</h3>
                         <div className='select-wrapper'>
-                            <img src={require(`../style/imgs/register/${img.game}.png`)} />
+                            <img src={require(`../style/imgs/register/${img.game}.webp`)} />
                             <select onChange={handleImg} name='game' required>
                                 {category === 'gaming' ? <>
                                     <option value="valorant">Valorant</option>

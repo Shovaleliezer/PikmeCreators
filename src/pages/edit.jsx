@@ -92,7 +92,7 @@ export function Edit() {
             <div className='h3-wrapper'>
                 <h3>Game</h3>
                 <div className='select-wrapper'>
-                    <img src={require(`../style/imgs/register/${img.game}.png`)} />
+                    <img src={require(`../style/imgs/register/${img.game}.webp`)} />
                     <select onChange={(e) => { handleImg(e); handleChange(e) }} name='game' required value={event.game}>
                         {category === 'gaming' ? <>
                             <option value="valorant">Valorant</option>

@@ -71,7 +71,7 @@ export function ControlWaiting() {
             {waiting.length>0 && <div className="list">
                 {waiting.map((ev, idx) => <div key={idx} className="event">
                     <div className="left">
-                        <img className="game" src={require(`../style/imgs/${ev.game}-white.png`)} />
+                        <img className="game" src={require(`../style/imgs/white-icons/${ev.game}.webp`)} />
                         <div className="details">
                             <div className="top">
                                 <img src={ev.players[0].image} />

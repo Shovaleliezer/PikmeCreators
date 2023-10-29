@@ -116,7 +116,7 @@ export function Profile() {
                 <div className='h3-wrapper'>
                     <h3>Main game</h3>
                     <div className='img-wrapper second'>
-                        <img src={require(`../style/imgs/register/${img}.png`)} />
+                        <img src={require(`../style/imgs/register/${img}.webp`)} />
                         <select value={proficiencyGame} onChange={handleImg} name='proficiencyGame'>
                         {games.map(g => <option key={g.game} value={g.game}>{g.display}</option>)}
                         </select>
