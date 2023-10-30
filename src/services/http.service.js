@@ -5,8 +5,8 @@ const BASE_URL = process.env.NODE_ENV === 'production' ?
     : '//localhost:3030/'
 
 const HEAVY_URL = process.env.NODE_ENV === 'production' ?
-    'http://100.26.58.106:3031/'
-    : 'http://100.26.58.106:3031/'
+    'http://3.89.247.115:3031/'
+    : 'http://3.89.247.115:3031/'
 
 
 var axios = Axios.create({
@@ -27,6 +27,7 @@ export const httpService = {
         return ajax(endpoint, 'DELETE', data)
     },
     compressAndUpload,
+    upload
 }
 
 async function ajax(endpoint, method = 'GET', data = null) {
@@ -43,7 +44,19 @@ async function ajax(endpoint, method = 'GET', data = null) {
     }
 }
 
-export async function compressAndUpload(formData) {
+async function upload(formData){
+    const res = await axios({
+        url: '//localhost:3030/handle-events/ttt',
+        method: 'POST',
+        data: formData,
+        headers: {
+            'Content-Type': `multipart/form-data`,
+        },
+    })
+    return res.data
+}
+
+async function compressAndUpload(formData) {
     const res = await axios({
         url: HEAVY_URL + 'handle-video/compress',
         method: 'POST',

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
 import { games } from '../services/games.service'
-import { httpService } from '../services/http.service'
 import { uploadFile } from '../services/upload.service'
+import {httpService, upload } from '../services/http.service'
 
 export function Create() {
     const dispatch = useDispatch()
@@ -63,16 +63,19 @@ export function Create() {
                     dispatch(setPopup(''))
                     return
                 }
-                if (file.size < 20_000) {
+                if (file.size < 19_000_000) {
                     const cl = await uploadFile(file)
                     vid = cl.url
                 }
                 else {
                     const formData = new FormData()
                     formData.append('file', file)
-                    vid = await httpService.compressAndUpload(formData)
+                    formData.append('upload_preset', 'stgck1s3')
+                    vid = formData
+                    const t = await httpService.upload(vid)
                 }
             }
+
             newEvent = {
                 category: 'sports',
                 game: gameField,
@@ -90,8 +93,7 @@ export function Create() {
                 current: 0,
                 investors: {}
             }
-
-            const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress)
+            const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress, vid)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
         }
