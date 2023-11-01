@@ -4,7 +4,7 @@ import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
 import { games } from '../services/games.service'
 import { uploadFile } from '../services/upload.service'
-import {httpService, upload } from '../services/http.service'
+import { httpService } from '../services/http.service'
 
 export function Create() {
     const dispatch = useDispatch()
@@ -51,6 +51,7 @@ export function Create() {
                 dispatch(setUpperPopup('date'))
                 return
             }
+            const formData = new FormData()
             dispatch(setPopup('upload-event'))
             const utcString = date.toUTCString()
             let newEvent
@@ -63,17 +64,11 @@ export function Create() {
                     dispatch(setPopup(''))
                     return
                 }
-                if (file.size < 19_000_000) {
+                if (file.size < 10_000_000) {
                     const cl = await uploadFile(file)
                     vid = cl.url
                 }
-                else {
-                    const formData = new FormData()
-                    formData.append('file', file)
-                    formData.append('upload_preset', 'stgck1s3')
-                    vid = formData
-                    const t = await httpService.upload(vid)
-                }
+                else formData.append('file', file)
             }
 
             newEvent = {
@@ -93,7 +88,9 @@ export function Create() {
                 current: 0,
                 investors: {}
             }
-            const { _id, game } = await eventService.addEvent(newEvent, user.creator.walletAddress, vid)
+            formData.append('playerAddress', user.creator.walletAddress)
+            formData.append('event', JSON.stringify(newEvent))
+            const { _id, game } = await httpService.addEvent(formData)
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
         }
