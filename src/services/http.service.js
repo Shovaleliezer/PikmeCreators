@@ -4,11 +4,6 @@ const BASE_URL = process.env.NODE_ENV === 'production' ?
     'https://pikme-server-7vdz.onrender.com/'
     : '//localhost:3030/'
 
-const HEAVY_URL = process.env.NODE_ENV === 'production' ?
-    'http://3.89.247.115:3031/'
-    : '//localhost:3030/'
-
-
 var axios = Axios.create({
     withCredentials: true
 })
@@ -46,7 +41,7 @@ async function ajax(endpoint, method = 'GET', data = null) {
 
 async function addEvent(formData){
     const res = await axios({
-        url: HEAVY_URL + 'handle-event/create-event',
+        url: BASE_URL + 'handle-event/create-event',
         method: 'POST',
         data: formData,
         headers: {
