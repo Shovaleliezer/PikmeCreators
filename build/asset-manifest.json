@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9f2c6ba8.css",
+    "main.js": "/static/js/main.ded3c19f.js",
+    "static/media/home-banner.png": "/static/media/home-banner.82996907b5f161248ba7.png",
+    "static/media/Roboto-Medium.ttf": "/static/media/Roboto-Medium.d2d7f0c01bffaa5ec8f7.ttf",
+    "static/media/metamask-big.png": "/static/media/metamask-big.f09b3822877b112b4331.png",
+    "static/media/chess.webp": "/static/media/chess.c0b29801dcacb4183aa6.webp",
+    "static/media/buddy-upper.png": "/static/media/buddy-upper.2c37db9e03afec3dab56.png",
+    "static/media/wide-fifa.webp": "/static/media/wide-fifa.69ee3eae954e58feaa0b.webp",
+    "static/media/roadmap-desktop.png": "/static/media/roadmap-desktop.e4f457a8eb24a13f75dc.png",
+    "static/media/wide-rocket-league.webp": "/static/media/wide-rocket-league.cd98f734ce8b10caa3ce.webp",
+    "static/media/roadmap-mobile.png": "/static/media/roadmap-mobile.55f256b00b771ecb4c9c.png",
+    "static/media/binance-logo.png": "/static/media/binance-logo.92643887cb735977d3b9.png",
+    "static/media/wide-tennis.webp": "/static/media/wide-tennis.5f9e9bdfe26564467696.webp",
+    "static/media/wide-billiard.webp": "/static/media/wide-billiard.94aa7e0c14e822872b72.webp",
+    "static/media/walletconnect-logo.png": "/static/media/walletconnect-logo.0aecac1dbb99f6fb4f84.png",
+    "static/media/pay.jpeg": "/static/media/pay.24cf84dcd5ef367094ae.jpeg",
+    "static/media/popup-up.png": "/static/media/popup-up.f3daf81827ffb808840d.png",
+    "static/media/table-tennis.webp": "/static/media/table-tennis.3e41664080accccb7ffe.webp",
+    "static/media/wide-boxing.webp": "/static/media/wide-boxing.013c5056e8f1cf5781fd.webp",
+    "static/media/rocket-league.webp": "/static/media/rocket-league.51bdbc63f1011509bcb7.webp",
+    "static/media/no-events.png": "/static/media/no-events.719992c7fd89efbacb94.png",
+    "static/media/fifa.webp": "/static/media/fifa.006d9a10eb45aad89baf.webp",
+    "static/media/poker.webp": "/static/media/poker.0c769a54e0849f5e0a24.webp",
+    "static/media/wide-chess.webp": "/static/media/wide-chess.b4dc04709146538c8250.webp",
+    "static/media/tennis.webp": "/static/media/tennis.d12e0728d87f92484aa5.webp",
+    "static/media/boxing.webp": "/static/media/boxing.089fe1d8f7feb26149df.webp",
+    "static/media/wide-table-tennis.webp": "/static/media/wide-table-tennis.7fe5e4f24b14013648b5.webp",
+    "static/media/wide-poker.webp": "/static/media/wide-poker.2c11fcc7128d2ad72109.webp",
+    "static/media/pay-mobile.jpeg": "/static/media/pay-mobile.ad8a9a0bf14648b7fdd3.jpeg",
+    "static/media/instagram.png": "/static/media/instagram.06ff3161742af55cd9e5.png",
+    "static/media/billiard.webp": "/static/media/billiard.d167d2bda3b8dae3d761.webp",
+    "index.html": "/index.html",
+    "main.9f2c6ba8.css.map": "/static/css/main.9f2c6ba8.css.map",
+    "main.ded3c19f.js.map": "/static/js/main.ded3c19f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9f2c6ba8.css",
+    "static/js/main.ded3c19f.js"
+  ]
+}
