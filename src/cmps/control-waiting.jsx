@@ -20,6 +20,7 @@ export function ControlWaiting() {
     const loadWaiting = async () => {
         try {
             const waiting = await adminService.getWaitingEvents()
+            console.log(waiting)
             setWaiting(waiting)
         }
         catch {

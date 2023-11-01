@@ -27,7 +27,7 @@ export function PopupPlayers({ players, setPopup,event, accept,reject }) {
                     <img className="clickable" src={require('../style/imgs/close-icon.png')} onClick={() => { setPopup(false) }} />
                 </div>
                 {!isNarrow ? <div className="inner-bought">
-                    <img src={require(`../style/imgs/popup/${players[idx].proficiencyGame}.png`)} />
+                    <img src={require(`../style/imgs/popup/${players[idx].proficiencyGame}.webp`)} />
 
                     <div className="player-details">
                         <p>Experience: <span>{new Date().getFullYear() - players[idx].experience} Years</span></p>
