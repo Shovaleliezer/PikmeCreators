@@ -55,6 +55,7 @@ export function Create() {
             const utcString = date.toUTCString()
             let newEvent
             let vid = ''
+            let videoId = ''
             let file = uploads.video.current ? uploads.video.current.files[0] : null
             if (file) {
                 const d = await getVideoDuration(file)
@@ -63,9 +64,10 @@ export function Create() {
                     dispatch(setPopup(''))
                     return
                 }
-                if (file.size < 10_000_000) {
+                if (file.size < 15_000_000) {
                     const cl = await uploadFile(file)
                     vid = cl.url
+                    videoId = cl.public_id
                 }
                 else formData.append('file', file)
             }
@@ -76,7 +78,8 @@ export function Create() {
                 date: utcString,
                 shareWithCommunity: false,
                 player: user.creator,
-                video: vid
+                video: vid,
+                videoId
             }
 
             if (isFund) newEvent.fund = {
