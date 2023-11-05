@@ -28,13 +28,13 @@ export function ControlWaiting() {
     }
 
     const formatDate = (date) => {
-        const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN","JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+        const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
         const d = new Date(date)
         return `${d.getDate()} ${monthNames[+date.slice(5, 7) - 1]} ${d.getFullYear()}, ${formatHour(date)}`
     }
 
     const accept = async (ev) => {
-        if(!ev.fund && ev.players.length < 2) {
+        if (!ev.fund && ev.players.length < 2) {
             dispatch(setUpperPopup('noPlayers'))
             return
         }
@@ -61,15 +61,16 @@ export function ControlWaiting() {
     if (error) return <Error />
 
     if (!waiting) return <div className="loader"><div></div><div></div><div></div><div></div>
-    <div></div><div></div><div></div><div></div></div>
+        <div></div><div></div><div></div><div></div></div>
 
     const svgWidth = window.innerWidth < 700 ? 20 : 30;
 
     return (<>
         <div className="control-wrapper">
             <p className="list-count">Waiting events : <span>{waiting.length}</span></p>
-            {waiting.length>0 && <div className="list">
+            {waiting.length > 0 && <div className="list">
                 {waiting.map((ev, idx) => <div key={idx} className="event">
+                    {ev.video === 'error' && <span onClick={() => setPopup('error')} class="material-symbols-outlined video-error">error</span>} 
                     <div className="left">
                         <img className="game" src={require(`../style/imgs/white-icons/${ev.game}.webp`)} />
                         <div className="details">
@@ -110,8 +111,14 @@ export function ControlWaiting() {
                             <p>accept</p>
                         </div>
                     </div>
-                    {popup.fund && <PopupView event={popup} setPopup={setPopup} accept={accept} reject={reject} />}
-                    {(popup && !popup.fund) && <PopupPlayers event={popup} players={popup.players} setPopup={setPopup} accept={accept} reject={reject} />}
+                    {popup && popup.fund && <PopupView event={popup} setPopup={setPopup} accept={accept} reject={reject} />}
+                    {(typeof popup === 'object' && !popup.fund) && <PopupPlayers event={popup} players={popup.players} setPopup={setPopup} accept={accept} reject={reject} />}
+                    {popup === 'error' && <>
+                        <div className="screen blur" onClick={() => setPopup(false)} />
+                        <section className='simple-popup' style={{ zIndex: '1001' }}>
+                            <p>Error uploading creator's video</p>
+                        </section>
+                    </>}
                 </div>)}
             </div>}
         </div>

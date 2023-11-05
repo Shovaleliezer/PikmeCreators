@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopup, setUpperPopup } from '../store/actions/general.actions'
-import { eventService } from '../services/event.service'
 import { games } from '../services/games.service'
 import { uploadFile } from '../services/upload.service'
 import { httpService } from '../services/http.service'

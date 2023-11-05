@@ -13,9 +13,19 @@
         @include flex(0, space-between, center);
         padding: 0 20px;
         margin-bottom: 20px;
+        position: relative;
+
+        .video-error {
+            color: red;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            cursor: pointer;    
+        }
 
         .left {
             @include flex(20px, center, center);
+
             .details {
                 @include flex(10px, center, flex-start, column);
 
@@ -47,20 +57,24 @@
                     width: 50px;
                     height: 37px;
                     @include flex(-10px, center, center);
-                    color:$main;
-                    img{
+                    color: $main;
+
+                    img {
                         height: 100%;
                         aspect-ratio: 1/1;
                     }
-                    .img0{
+
+                    .img0 {
                         position: absolute;
                         left: 0%;
                     }
-                    .img1{
+
+                    .img1 {
                         position: absolute;
                         left: 15%;
                     }
-                    .img2{
+
+                    .img2 {
                         position: absolute;
                         left: 40%;
                     }
@@ -88,41 +102,49 @@
         width: 100%;
         border: 2px solid $bright-back;
         padding: 4px;
-    
+
         .event {
             padding: 0 6px;
             margin-bottom: 4px;
-    
+
+            .video-error{
+                top: 2px;
+                left: 2px;
+                font-size: 22px;
+            }
+
             .left {
                 @include flex(2px, center, center);
+
                 .details {
                     @include flex(5px, center, flex-start, column);
-                    p{
+
+                    p {
                         font-size: 14px;
                     }
                 }
-    
+
                 .game {
                     width: 35px
                 }
-    
+
                 .top {
                     @include flex(4px, center, center);
-    
+
                     img {
                         width: 16px;
                     }
-    
+
                     .img-wrapper {
                         width: 30px;
                         height: 16px;
                     }
                 }
             }
-    
+
             .right {
                 @include flex(10px, center, center);
-    
+
                 div {
                     @include flex(2px, center, center, column);
 
@@ -133,5 +155,5 @@
             }
         }
     }
-    
+
 }
