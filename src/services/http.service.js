@@ -3,7 +3,7 @@ import Axios from 'axios'
 const BASE_URL = process.env.NODE_ENV === 'production' ?
     'https://pikme-server-7vdz.onrender.com/'
     : '//localhost:3030/'
-    // : 'https://pikme-server-7vdz.onrender.com/'
+// : 'https://pikme-server-7vdz.onrender.com/'
 
 var axios = Axios.create({
     withCredentials: true
@@ -23,7 +23,7 @@ export const httpService = {
         return ajax(endpoint, 'DELETE', data)
     },
     addEvent
-    
+
 }
 
 async function ajax(endpoint, method = 'GET', data = null) {
@@ -40,9 +40,11 @@ async function ajax(endpoint, method = 'GET', data = null) {
     }
 }
 
-async function addEvent(formData){
+async function addEvent(formData) {
     const res = await axios({
-        url: BASE_URL + 'handle-event/create-event',
+        url: process.env.NODE_ENV === 'production' ? 'https://pikme-heavy-server.onrender.com/handle-events/create-event'
+        : '//localhost:3030/handle-events/create-event',
+        // : '//localhost:3031/handle-events/create-event',
         method: 'POST',
         data: formData,
         headers: {
