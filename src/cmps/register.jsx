@@ -218,7 +218,7 @@ export function Register() {
                     {category === 'choose' && <div className='h3-wrapper'>
                         <h3>Game</h3>
                         <div className='select-wrapper'>
-                            <img src={require(`../style/imgs/register/choose.png`)} />
+                            <img src={require(`../style/imgs/register/choose.webp`)} />
                             <select ref={gameRef} onClick={handleImg} name='game' style={{ opacity: (!gameRef.current || gameRef.current.value === 'choose') ? 0.7 : 1 }}>
                                 <option value="choose">Choose</option>
                             </select>
