@@ -8,12 +8,15 @@ export const adminService = {
     confirmPayment,
     getCurrentEvents,
     getPaymentEvents,
+    getBanned,
+    unbanUser,
     announceWinner,
     announceWinnerFund,
     changeShare,
     getHistory,
     cancelEvent,
     banUser,
+    getByPhone
 }
 
 async function acceptEvent(eventId) {
@@ -56,6 +59,16 @@ async function getCurrentEvents() {
     return events
 }
 
+async function getBanned() {
+    const banned = await httpService.get('handle-admin/get-banlist')
+    return banned
+}
+
+async function getByPhone(phone) {
+    const user = await httpService.get('handle-admin/get-by-phone/' + phone)
+    return user
+}
+
 async function announceWinner(eventId, teamWon) {
     const payings = await httpService.post('handle-admin/announce-winner/' + eventId, { teamWon })
     return payings
@@ -64,6 +77,12 @@ async function announceWinner(eventId, teamWon) {
 async function banUser(phone) {
     const banned = await httpService.post('handle-admin/ban-user/' + phone)
     return banned
+}
+
+async function unbanUser(phone) {
+    const unbanned = await httpService.post('handle-admin/unban-user/' + phone)
+    return unbanned
+
 }
 
 async function announceWinnerFund(eventId, shareWithCommunity) {

@@ -7,13 +7,14 @@ import { ControlWaiting } from "../cmps/control-waiting"
 import { ControlCurrent } from "../cmps/control-current"
 import { ControlPayment } from "../cmps/control-payment"
 import { ControlHistory } from "../cmps/control-history"
+import { ControlBanned } from "../cmps/constrol-banned"
 
 export function ControlPanel() {
     const navigate = useNavigate()
     const [isAdmin, setIsAdmin] = useState('loading')
-    const [opt, setOpt] = useState('waiting list')
+    const [opt, setOpt] = useState('waiting')
     const user = useSelector((state) => state.user)
-    const options = ['waiting list', 'upcoming', 'payment', 'history']
+    const options = ['waiting', 'upcoming', 'payment', 'history', 'banned']
 
     useEffect(() => {
         authorize()
@@ -47,10 +48,11 @@ export function ControlPanel() {
                 <div className="options-bar">
                     {options.map(op => <p className={op === opt ? 'chosen' : ''} key={op} onClick={() => setOpt(op)}>{op.charAt(0).toUpperCase() + op.slice(1)}</p>)}
                 </div>
-                {opt === 'waiting list' && <ControlWaiting />}
+                {opt === 'waiting' && <ControlWaiting />}
                 {opt === 'upcoming' && <ControlCurrent />}
                 {opt === 'payment' && <ControlPayment />}
                 {opt === 'history' && <ControlHistory />}
+                {opt === 'banned' && <ControlBanned />}
             </section>)
     }
     catch {

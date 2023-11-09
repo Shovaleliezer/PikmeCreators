@@ -42,6 +42,7 @@ export function UpperPopup() {
             {upperPopup==='video-length' && <p>Video duration may not be longer than 1 minute.</p>}
             {upperPopup === 'edited' && <p>Event edited successfully!</p>}
             {upperPopup.includes('banned-') && <p>{upperPopup.split('-').slice(1).join('-')} is now banned.</p>}
+            {upperPopup.includes('banRemoved-') && <p>Ban removed for {upperPopup.split('-').slice(1).join('-')}</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
         </section>
     )

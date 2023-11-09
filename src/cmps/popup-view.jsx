@@ -4,8 +4,8 @@ export function PopupView({ event, setPopup, accept, reject }) {
 
     return (<>
         <div className="screen blur" onClick={() => setPopup(false)} />
-        <section className='popup' style={{ zIndex: '1001', }}>
-            <form className='create cr' style={{overflow:'auto'}}>
+        <section className='popup cr' style={{ zIndex: '1001' }}>
+            <form className='create'>
                 <div className='create-upper' style={{ justifyContent: 'space-between', width: '100%' }}>
                     <div style={{ width: '30px' }} />
                     <h1>Funding event</h1>

@@ -14,7 +14,7 @@ export function PopupPlayers({ players, setPopup,event, accept,reject }) {
         <div className="screen blur" onClick={() => setPopup(false)}>
             {window.innerWidth < 700 && <div onClick={() => setPopup(false)} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
-        <section className='popup' style={{ zIndex: '1001' }}>
+        <section className='popup cr' style={{ zIndex: '1001' }}>
             <div className="bought noselect">
                 <div className="upper-navbar center">
                 <img src={require('../style/imgs/close-icon.png')} className='hidden'/>
@@ -59,6 +59,10 @@ export function PopupPlayers({ players, setPopup,event, accept,reject }) {
                         <div className="mobile-line">
                             <h3>Proficiency game:</h3>
                             <p>{players[idx].proficiencyGame}</p>
+                        </div>
+                        <div className="mobile-line">
+                            <h3>Phone number:</h3>
+                            <p>+{players[idx].phone}</p>
                         </div>
                         {players[idx].socialLink && <div className="mobile-line">
                             <h3>Find me at:</h3>

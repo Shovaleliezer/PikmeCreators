@@ -1,11 +1,9 @@
 .create {
-    min-height: calc(100vh - 305px);
     padding: 20px;
     max-width: 700px;
     margin: auto;
     @include flex(0, space-between, center, column);
     
-
     .create-upper {
         @include flex(0, center, center);
         border-top-left-radius: 10px;
@@ -201,6 +199,10 @@
     }
 }
 
+.cr{
+    height: unset;
+}
+
 @media (max-width: $mobile) {
     .create {
         height: 700px;
@@ -268,6 +270,10 @@
             }
         }
     }
+    .cr{
+        height: 95vh;
+        overflow: auto;
+    }
 }
 
 @media(max-height:700px) {
@@ -277,8 +283,5 @@
             padding: 5px !important;
             font-size: 18px !important;
         }
-    }
-    .cr{
-        height: 95vh;
     }
 }

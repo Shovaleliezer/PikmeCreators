@@ -137,6 +137,9 @@
     }
 
     .options-bar {
+        @include flex(10px, flex-start, center);
         gap: 10px !important;
+        overflow-x: scroll;
+        width:max-content;
     }
 }
