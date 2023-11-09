@@ -20,6 +20,7 @@ export function ControlWaiting() {
     const loadWaiting = async () => {
         try {
             const waiting = await adminService.getWaitingEvents()
+            console.log(waiting)
             setWaiting(waiting)
         }
         catch {
@@ -58,6 +59,16 @@ export function ControlWaiting() {
         }
     }
 
+    const banUser = async (phone) => {
+        try {
+            const name = await adminService.banUser(phone)
+            dispatch(setUpperPopup('banned-' + name))
+        }
+        catch {
+            dispatch(setUpperPopup('errorServer'))
+        }
+    }
+
     if (error) return <Error />
 
     if (!waiting) return <div className="loader"><div></div><div></div><div></div><div></div>
@@ -70,10 +81,10 @@ export function ControlWaiting() {
             <p className="list-count">Waiting events : <span>{waiting.length}</span></p>
             {waiting.length > 0 && <div className="list">
                 {waiting.map((ev, idx) => <div key={idx} className="event">
-                    {ev.video === 'error' && <span onClick={() => setPopup('error')} class="material-symbols-outlined video-error">error</span>} 
-                    <div className="left">
+                    {ev.video === 'error' && <span onClick={() => setPopup('error')} class="material-symbols-outlined video-error">error</span>}
+                    <div className="left" >
                         <img className="game" src={require(`../style/imgs/white-icons/${ev.game}.webp`)} />
-                        <div className="details">
+                        <div className="details" onClick={() => setPopup(ev)}>
                             <div className="top">
                                 <img src={ev.players[0].image} />
                                 <p>{ev.players[0].nickName}</p>

@@ -6,7 +6,7 @@ import { Register } from "../cmps/register"
 import { EventCard } from "../cmps/event-card"
 import { Error } from './error'
 import { setAddress, setIsConnected, setPhone, setCreator, resetState } from "../store/reducers/userReducer"
-import { setCallbackLink, setPopup, setUpperPopup } from "../store/actions/general.actions"
+import { setCallbackLink, setUpperPopup } from "../store/actions/general.actions"
 import { setHomePhase } from "../store/actions/tutorial.actions"
 import { Login } from "../cmps/login"
 
@@ -30,6 +30,8 @@ export function Home() {
             try {
                 const loadedCreator = await userService.addCreator(user.address, null)
                 setLocalCreator(loadedCreator)
+                dispatch(setCreator(loadedCreator))
+                if(loadedCreator?.banned) navigate('/ban')
             }
 
             catch {

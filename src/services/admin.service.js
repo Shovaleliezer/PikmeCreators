@@ -12,7 +12,8 @@ export const adminService = {
     announceWinnerFund,
     changeShare,
     getHistory,
-    cancelEvent
+    cancelEvent,
+    banUser,
 }
 
 async function acceptEvent(eventId) {
@@ -58,6 +59,11 @@ async function getCurrentEvents() {
 async function announceWinner(eventId, teamWon) {
     const payings = await httpService.post('handle-admin/announce-winner/' + eventId, { teamWon })
     return payings
+}
+
+async function banUser(phone) {
+    const banned = await httpService.post('handle-admin/ban-user/' + phone)
+    return banned
 }
 
 async function announceWinnerFund(eventId, shareWithCommunity) {

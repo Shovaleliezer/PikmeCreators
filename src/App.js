@@ -10,6 +10,7 @@ import { StreamWrapper } from './pages/stream-wrapper'
 import { ControlPanel } from './pages/control-panel'
 import { Create } from './pages/create'
 import { Edit } from './pages/edit'
+import { Ban } from './pages/ban'
 
 //cmps
 import { Header } from './cmps/header'
@@ -38,6 +39,7 @@ function App() {
             <Route path='/create' element={<Create />} />
             <Route path='/edit' element={<Edit />} />
             <Route path='/admin' element={<ControlPanel />}/>
+            <Route path='/ban' element={<Ban />}/>
           </Routes>
         </main>
         <Footer />

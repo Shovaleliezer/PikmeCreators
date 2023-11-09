@@ -21,12 +21,8 @@ export function Profile() {
     const years = getYears()
 
     useEffect(() => {
-        if (user) {
-            loadCreator()
-        }
-        else {
-            navigate('/')
-        }
+        if (user) loadCreator()
+        else navigate('/')
         window.scrollTo(0, 0)
     }, [])
 
@@ -62,7 +58,9 @@ export function Profile() {
         try {
             const loadedCreator = await userService.addCreator(user.address, null)
             setLocalCreator(loadedCreator)
+            dispatch(setCreator(loadedCreator))
             setImg(loadedCreator.proficiencyGame)
+            if(loadedCreator?.banned) navigate('/ban')
         }
         catch {
             navigate('/')

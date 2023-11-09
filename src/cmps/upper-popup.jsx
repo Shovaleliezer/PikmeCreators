@@ -40,8 +40,9 @@ export function UpperPopup() {
             {upperPopup==='errorLoadEvent' && <p>Cannot load event, please try again later</p>}
             {upperPopup==='event-ended-error' && <p>Cannot start stream, the other creator might have ended it already</p>}
             {upperPopup==='video-length' && <p>Video duration may not be longer than 1 minute.</p>}
-            {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
             {upperPopup === 'edited' && <p>Event edited successfully!</p>}
+            {upperPopup.includes('banned-') && <p>{upperPopup.split('-').slice(1).join('-')} is now banned.</p>}
+            {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}
         </section>
     )
 }

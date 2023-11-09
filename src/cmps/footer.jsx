@@ -31,7 +31,7 @@ export function Footer() {
                     </section>
     
                     <section className="contact">
-                        <h3>join PICKME.TV community</h3>
+                        <h3>join PIKME.TV community</h3>
                         <div>
                             <a href="https://www.instagram.com/pikme.tv/" target="_blank"><img src={require('../style/imgs/contact/instagram.png')} /></a>
                             <a href="https://twitter.com/PikmeTv" target="_blank"><img src={require('../style/imgs/contact/twitter.png')} /></a>

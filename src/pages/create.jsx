@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 import { setPopup, setUpperPopup } from '../store/actions/general.actions'
 import { games } from '../services/games.service'
 import { uploadFile } from '../services/upload.service'
@@ -7,6 +8,7 @@ import { httpService } from '../services/http.service'
 
 export function Create() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const user = useSelector((state) => state.user)
     const [img, setImg] = useState({ category: 'sports', game: 'table-tennis' })
     const [category, setCategory] = useState('sports')
@@ -27,6 +29,11 @@ export function Create() {
         img: '',
         video: ''
     })
+    
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        if (user.creator.banned) navigate('/ban')
+    }, [])
 
     const handleImg = (e) => {
         const { name, value } = e.target
