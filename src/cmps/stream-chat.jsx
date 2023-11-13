@@ -42,7 +42,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
     const sendMessage = () => {
         const message = document.getElementById('input').value
         if (message === "") return
-        if (socket) socket.emit('chat', { "nickName": nickName, "message": message, "color": randomColor })
+        if (socket) socket.emit('chat', { "nickName": nickName, "message": message, "color": randomColor, roomId: eventName })
         document.getElementById('input').value = ''
         document.getElementById('input').focus()
         document.getElementById('body-text').scrollTop = document.getElementById('body-text').scrollHeight
