@@ -54,9 +54,7 @@ export function Home() {
                 dispatch(setPhone(phone))
                 setLocalCreator(false)
             }
-            else if (typeof loadedCreator === 'string') {
-                dispatch(setUpperPopup('errorCode'))
-            }
+            else if (typeof loadedCreator === 'string') dispatch(setUpperPopup('errorCode'))
             else if (typeof loadedCreator === 'object' && loadedCreator.nickName) {
                 dispatch(setIsConnected(true))
                 dispatch(setCreator(loadedCreator))

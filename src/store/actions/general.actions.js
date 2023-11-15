@@ -21,6 +21,12 @@ export function setPopupPlayers(popupPlayers) {
     }
 }
 
+export function setLinkId(linkId) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_LINK_ID', linkId })
+    }
+}
+
 export function setPopupView(popupView) {
     return (dispatch) => {
         dispatch({ type: 'SET_POPUP_VIEW', popupView })

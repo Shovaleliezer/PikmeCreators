@@ -30,7 +30,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
     }
 
     socket.on('message', (message) => {
-        if (message.viewers) dispatch(setViewers(message.viewers || 0))
+        if (message.viewers) dispatch(setViewers(message.viewers))
         if (message.newRoom) setMessages([message])
         else setMessages([...messages, message])
     })

@@ -13,9 +13,10 @@ import { games } from '../services/games.service.js'
 export function Register() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
+    
     const { phone } = useSelector((state) => state.user)
     const { callbackLink } = useSelector((state) => state.generalModule)
+    const { linkId } = useSelector((state) => state.generalModule)
 
     const [phase, setPhase] = useState(1)
     const [creatorDetails, setCreatorDetails] = useState({
@@ -55,7 +56,7 @@ export function Register() {
     const addCreator = async () => {
         try {
             setSent(true)
-            const newCreator = await userService.editCreator(phone, creatorDetails)
+            const newCreator = await userService.editCreator(phone, { ...creatorDetails, linkId: linkId || 'no-link' })
             dispatch(setCreator(newCreator))
             dispatch(setIsConnected(true))
             dispatch(setCreator(newCreator))
