@@ -56,10 +56,10 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
         let type = 'normal'
         if (cameras[cameraIdx].label.toLowerCase().includes('back')) type = 'back'
         if (cameras[cameraIdx].label.toLowerCase().includes('front')) type = 'front'
-        socket.emit('change-camera', { message: type })
+        socket.emit('change-camera', { type, roomId: eventName })
     }
 
-    if (end) socket.emit('end-event')
+    if (end) socket.emit('end-event', eventName)
 
     return (<>
         {(mobile && !showChat) ?
@@ -95,4 +95,4 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
     </>)
 }
 
-export default StreamChat;
+export default StreamChat
