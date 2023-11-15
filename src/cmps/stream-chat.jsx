@@ -18,12 +18,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
 
     useEffect(() => {
         if (socket && user.creator) socket.emit('joinRoom', { username: user.creator.nickName, roomName: eventName, userId: String(user.creator.phone) })
-        socket.on('viewers', (viewers) => dispatch(setViewers(viewers)))
-
-        return () => {
-            socket.off("message")
-            socket.off("viewers")
-        }
+        return () => socket.off("message")
     }, [])
 
     useEffect(() => {
@@ -35,6 +30,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
     }
 
     socket.on('message', (message) => {
+        if (message.viewers) dispatch(setViewers(message.viewers || 0))
         if (message.newRoom) setMessages([message])
         else setMessages([...messages, message])
     })
