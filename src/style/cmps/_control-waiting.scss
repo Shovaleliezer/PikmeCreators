@@ -82,16 +82,15 @@
             }
         }
 
-        .right {
-            @include flex(30px, center, center);
-
-            div {
-                @include flex(8px, center, center, column);
+        .actions {   
+            display: grid;
+            grid-template-columns: 50% 50% ;
+            grid-template-rows: 50% 50% ;
+            color: $main;
+            gap:6px;
+            span{
+                font-size: 30px;
                 cursor: pointer;
-
-                p {
-                    margin: 0;
-                }
             }
         }
     }

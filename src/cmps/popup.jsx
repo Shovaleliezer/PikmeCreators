@@ -5,6 +5,7 @@ import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
 import { WalletConnect } from '../cmps/wallet-connect'
 import { PopupStats } from "./popup-stats"
+import { PopupVideo } from "./popup-video"
 import { ExtensionConnect } from '../cmps/extention-connect'
 import { getRoute } from "../services/utils"
 import { EmailShareButton, WhatsappShareButton, TelegramShareButton, FacebookMessengerShareButton } from "react-share"
@@ -93,6 +94,8 @@ export function Popup() {
                 <p>The event was successfully created and is now awaiting approval. You can edit your event until the event is approved.</p>
                 <div className="done" onClick={() => { dispatch(setPopup('')); navigate('/') }}>Done</div>
             </div>}
+
+            {popup.includes('cloudinary') && <PopupVideo video={popup} />}
 
         </section>
     </>
