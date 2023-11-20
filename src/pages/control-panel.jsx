@@ -44,7 +44,7 @@ export function ControlPanel() {
     try {
         return (
             <section className="control">
-                <div className="control-banner"><h1>Wellcome {user.creator.nickName}</h1></div>
+                <div className="control-banner"><h1>Welcome {user.creator.nickName}</h1></div>
                 <div className="options-bar">
                     {options.map(op => <p className={op === opt ? 'chosen' : ''} key={op} onClick={() => setOpt(op)}>{op.charAt(0).toUpperCase() + op.slice(1)}</p>)}
                 </div>
