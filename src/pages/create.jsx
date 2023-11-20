@@ -29,7 +29,7 @@ export function Create() {
         img: '',
         video: ''
     })
-    
+
     useEffect(() => {
         window.scrollTo(0, 0)
         if (user.creator.banned) navigate('/ban')
@@ -140,8 +140,7 @@ export function Create() {
                 <p className={!isFund ? 'active' : 'inactive'} onClick={() => setIsFund(false)}>VS Event</p>
                 <p className={isFund ? 'active' : 'inactive'} onClick={() => setIsFund(true)}>Funding Event</p>
             </div>
-            {
-                !isFund &&
+            {!isFund &&
                 <div className='all-select-wrapper'>
                     <div className='h3-wrapper'>
                         <h3>Category</h3>

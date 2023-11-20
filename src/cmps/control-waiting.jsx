@@ -60,7 +60,7 @@ export function ControlWaiting() {
 
     const getVideo = (vid) => {
         if (!vid) return <span style={{ color: 'White' }} className="material-symbols-outlined">videocam_off</span>
-        if (vid === 'error') return <span onClick={() => setLocalPopup('error')} className="material-symbols-outlined video-error">error</span>
+        if (vid === 'error') return <span style={{color:'red'}} onClick={() => setLocalPopup('error')} className="material-symbols-outlined">error</span>
         return <span className="material-symbols-outlined" onClick={() => dispatch(setPopup(vid))}>play_circle</span>
     }
 
