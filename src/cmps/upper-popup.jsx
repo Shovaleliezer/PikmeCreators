@@ -41,6 +41,8 @@ export function UpperPopup() {
             {upperPopup==='event-ended-error' && <p>Cannot start stream, the other creator might have ended it already</p>}
             {upperPopup==='video-length' && <p>Video duration may not be longer than 1 minute.</p>}
             {upperPopup === 'edited' && <p>Event edited successfully!</p>}
+            {upperPopup === 'min1' && <p>Minimum is 1BNB</p>}
+            {upperPopup === 'max1m' && <p>Maximum is 1M BNB</p>}
             {upperPopup.includes('banned-') && <p>{upperPopup.split('-').slice(1).join('-')} is now banned.</p>}
             {upperPopup.includes('banRemoved-') && <p>Ban removed for {upperPopup.split('-').slice(1).join('-')}</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}

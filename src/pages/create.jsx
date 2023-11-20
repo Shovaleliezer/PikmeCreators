@@ -11,6 +11,8 @@ export function Create() {
     const navigate = useNavigate()
     const user = useSelector((state) => state.user)
     const [img, setImg] = useState({ category: 'sports', game: 'table-tennis' })
+    const [prize, setPrize] = useState('')
+    const [target, setTarget] = useState('')
     const [category, setCategory] = useState('sports')
     const [sent, setSent] = useState(false)
     const [isFund, setIsFund] = useState(false)
@@ -18,8 +20,6 @@ export function Create() {
     const dateRef = useRef()
     const descRef = useRef()
     const linkRef = useRef()
-    const prizeRef = useRef()
-    const targetRef = useRef()
     const [gameField, setGameField] = useState('table-tennis')
     const uploads = {
         img: useRef(),
@@ -91,8 +91,8 @@ export function Create() {
 
             if (isFund) newEvent.fund = {
                 description: descRef.current.value,
-                prize: prizeRef.current.value,
-                target: targetRef.current.value,
+                prize,
+                target,
                 link: linkRef.current.value,
                 current: 0,
                 investors: {}
@@ -126,6 +126,20 @@ export function Create() {
     const handleUpload = (e) => {
         const { files, name } = e.target
         setUploadsState({ ...uploadsState, [name]: files[0] ? files[0].name : '' })
+    }
+
+    const handleNumbers = (e) => {
+        const { name, value } = e.target
+        if (value === '') {
+            if (name === 'prize') return setPrize('')
+            else return setTarget('')
+        }
+        if (value < 1) return dispatch(setUpperPopup('min1'))
+        else if (value > 1000000) return dispatch(setUpperPopup('max1m'))
+        else if ((value * 100 % 100).toString().includes('.')) return dispatch(setUpperPopup('decimals'))
+
+        if (name === 'prize') setPrize(value)
+        else setTarget(value)
     }
 
     if (sent) return <div className='center' style={{ height: 'calc(100vh - 315px)' }}><div className="loader loader-block"><div></div><div></div><div></div><div></div>
@@ -168,7 +182,7 @@ export function Create() {
                     </div>
                     <div className='h3-wrapper date'>
                         <h3>Date</h3>
-                        <div className='select-wrapper'>
+                        <div className='select-wrapper' style={{ minHeight: '43px' }}>
                             <img src={require(`../style/imgs/register/calendar.png`)} />
                             <input type="datetime-local" className='date-special' ref={dateRef} required></input>
                         </div>
@@ -193,7 +207,7 @@ export function Create() {
                     </div>
                     <div className='h3-wrapper'>
                         <h3>Date</h3>
-                        <div className='select-wrapper'>
+                        <div className='select-wrapper' style={{ minHeight: '43px' }}>
                             <img src={require(`../style/imgs/register/calendar.png`)} />
                             <input type="datetime-local" className='date-special' ref={dateRef} required></input>
                         </div>
@@ -202,14 +216,14 @@ export function Create() {
                         <h3>Target</h3>
                         <div className='select-wrapper'>
                             <img src={require(`../style/imgs/register/target.png`)} />
-                            <input min='0.01' className='date-special' step="0.01" placeholder='100 BNB' type="number" ref={targetRef} required></input>
+                            <input className='date-special' placeholder='100 BNB' type="number" value={target} name='target' onChange={handleNumbers} required></input>
                         </div>
                     </div>
                     <div className='h3-wrapper'>
                         <h3>Prize</h3>
                         <div className='select-wrapper'>
                             <img src={require(`../style/imgs/register/achievement.png`)} />
-                            <input min='0.01' placeholder='1,000 BNB' step="0.01" className='date-special' type="number" ref={prizeRef} required></input>
+                            <input placeholder='1,000 BNB' className='date-special' type="number" value={prize} name='prize' onChange={handleNumbers} required></input>
                         </div>
                     </div>
                     <div className='h3-wrapper' style={{ width: '100%' }}>
@@ -218,7 +232,7 @@ export function Create() {
                     </div>
                     <div className='h3-wrapper' style={{ width: '100%' }}>
                         <h3>Link (optional)</h3>
-                        <input className='link' placeholder='Link to competiton page' ref={linkRef} />
+                        <input className='link' placeholder='Link to competiton page' ref={linkRef} maxLength={100} />
                     </div>
                 </div>
             }

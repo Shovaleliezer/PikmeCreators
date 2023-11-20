@@ -68,6 +68,10 @@ export function Edit() {
 
     const handleFund = (ev) => {
         const { name, value } = ev.target
+        if (name === 'target' || name === 'prize') {
+            if (value > 1000000) return dispatch(setUpperPopup('max1m'))
+            if ((value * 100 % 100).toString().includes('.')) return dispatch(setUpperPopup('decimals'))
+        }
         setFund({ ...fund, [name]: value })
     }
 
@@ -105,7 +109,7 @@ export function Edit() {
             </div>
             <div className='h3-wrapper date'>
                 <h3>Date</h3>
-                <div className='select-wrapper'>
+                <div className='select-wrapper' style={{ minHeight: '43px' }}>
                     <input type="datetime-local" name='date' required onChange={handleChange} value={event.date} />
                 </div>
             </div>
@@ -127,7 +131,7 @@ export function Edit() {
             </div>
             <div className='h3-wrapper'>
                 <h3>Date</h3>
-                <div className='select-wrapper'>
+                <div className='select-wrapper' style={{ minHeight: '43px' }}>
                     <img src={require(`../style/imgs/register/calendar.png`)} />
                     <input type="datetime-local" onChange={handleChange} name='date' className='date-special' value={event.date} required></input>
                 </div>
