@@ -53,7 +53,7 @@ export function ControlCurrent() {
         <div className="control-current">
             <p className="list-count">Current events : <span>{current.length}</span></p>
             <div className="events-container">
-                {current.map(ev => <CurrentCard key={ev._id} ev={ev} cancelEvent={cancelEvent} endEvent={endEvent} />)}
+                {current.map(ev => <CurrentCard key={ev._id} ev={ev} cancelEvent={cancelEvent} endEvent={endEvent} lala={console.log(ev._id)}/>)}
             </div>
         </div>
     </>)

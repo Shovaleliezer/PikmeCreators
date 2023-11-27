@@ -65,6 +65,11 @@ export function Create() {
             let videoId = ''
             let file = uploads.video.current ? uploads.video.current.files[0] : null
             if (file) {
+                if(file.size > 500_000_000) {
+                    dispatch(setUpperPopup('video-size'))
+                    dispatch(setPopup(''))
+                    return
+                }
                 const d = await getVideoDuration(file)
                 if (d > 61) {
                     dispatch(setUpperPopup('video-length'))

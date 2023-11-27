@@ -12,7 +12,6 @@ import { getTimeUntil, putKandM } from '../services/utils'
 import { useNavigate } from 'react-router-dom'
 import { eventService } from "../services/event.service"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
-import { agoraAquire, agoraStart, agoraStop, agoraQuery } from "../services/http.service"
 
 let options = {
   cname: 'bbb',
@@ -143,7 +142,9 @@ function Creator() {
         optimizationMode: 'motion',
         encoderConfig: {
           bitrateMax: 3000,
-          frameRate: { min: 25, max: 60 },
+          width: 1280,
+          height: 720,
+          frameRate: { min: 25, max: 45 },
         }
       })
       return config
@@ -376,17 +377,28 @@ function Creator() {
     }
   }
 
-  const aquireAgora = async () => {
-    const { resourceId } = await agoraAquire(options, streamInfo._id)
-    const { sid } = await agoraStart(options, resourceId)
-    // setTimeout(async()=>{
-    //   const r = await agoraQuery(options, sid, resourceId)
-    //   console.log(r)
-    // },2000)
-    setTimeout(async () => {
-      const r = await agoraStop(options, sid, resourceId)
-      console.log(r)
-    }, 4000)
+  const recordStream = async () => {
+    const videoFrame = document.querySelector('.agora_video_player')
+    const stream = videoFrame.captureStream()
+    const recorder = new MediaRecorder(stream)
+    const chunks = []
+    recorder.ondataavailable = e => chunks.push(e.data)
+    recorder.onstop = async () => {
+      const blob = new Blob(chunks, { type: 'video/webm' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.style.display = 'none'
+      a.href = url
+      a.download = 'video.webm'
+      document.body.appendChild(a)
+      a.click()
+      setTimeout(() => {
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(url)
+      }, 100)
+    }
+    recorder.start()
+    setTimeout(() => recorder.stop(), 60_000)
   }
 
   if (currentEvent.length === 0) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
@@ -405,7 +417,7 @@ function Creator() {
       {!isMobile && <div className="stream-container">
         <div className="settings noselect">
           <div className="settings-upper">
-            <span className="material-symbols-outlined" onClick={aquireAgora}>settings</span><p>Options</p>
+            <span className="material-symbols-outlined" onClick={recordStream}>settings</span><p>Options</p>
           </div>
           <div className="option main-color" onClick={() => openOpt === 'camera' ? setOpenOpt('') : setOpenOpt('camera')}>
             <p>Stream source</p><span className="material-symbols-outlined">{openOpt === 'camera' ? 'expand_less' : 'expand_more'}</span>
