@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import Creator from './stream'
+import { Stream2 } from './stream2'
 
 export function StreamWrapper() {
     const [isNarrow, setIsNarrow] = useState(window.innerWidth < 550)
@@ -24,5 +25,7 @@ export function StreamWrapper() {
         <h1>Please rotate your phone, make sure auto rotate is on.</h1>
     </div>)
 
-    else return <Creator />
+    else return <Stream2 />
+
+    // else return <Creator />
 }

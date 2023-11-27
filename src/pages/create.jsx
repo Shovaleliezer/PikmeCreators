@@ -65,7 +65,7 @@ export function Create() {
             let videoId = ''
             let file = uploads.video.current ? uploads.video.current.files[0] : null
             if (file) {
-                if(file.size > 500_000_000) {
+                if (file.size > 500_000_000) {
                     dispatch(setUpperPopup('video-size'))
                     dispatch(setPopup(''))
                     return
@@ -159,54 +159,33 @@ export function Create() {
                 <p className={!isFund ? 'active' : 'inactive'} onClick={() => setIsFund(false)}>VS Event</p>
                 <p className={isFund ? 'active' : 'inactive'} onClick={() => setIsFund(true)}>Funding Event</p>
             </div>
-            {!isFund &&
-                <div className='all-select-wrapper'>
-                    <div className='h3-wrapper'>
-                        <h3>Category</h3>
-                        <div className='select-wrapper'>
-                            <img src={require(`../style/imgs/register/${img.category}.png`)} />
-                            <select disabled={true} ref={categoryRef} onChange={handleImg} name='category'>
-                                <option value="sports">Competition</option>
-                                <option value="gaming">Gaming</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className='h3-wrapper'>
-                        <h3>Game</h3>
-                        <div className='select-wrapper'>
-                            <img src={require(`../style/imgs/register/${img.game}.webp`)} />
-                            <select onChange={handleImg} name='game' required>
-                                {category === 'gaming' ? <>
-                                    <option value="valorant">Valorant</option>
-                                    <option value="fifa">Fifa</option></> :
-                                    <>
-                                        {games.map(g => <option key={g.game} value={g.game}>{g.display}</option>)}
-                                    </>}
-                            </select>
-                        </div>
-                    </div>
-                    <div className='h3-wrapper date'>
-                        <h3>Date</h3>
-                        <div className='select-wrapper' style={{ minHeight: '43px' }}>
-                            <img src={require(`../style/imgs/register/calendar.png`)} />
-                            <input type="datetime-local" className='date-special' ref={dateRef} required></input>
-                        </div>
+
+            <div className='all-select-wrapper'>
+                <div className='h3-wrapper'>
+                    <h3>Game</h3>
+                    <div className='select-wrapper'>
+                        <img src={require(`../style/imgs/register/${img.game}.webp`)} />
+                        <select onChange={handleImg} name='game' required>
+                            {games.map(g => <option key={g.game} value={g.game}>{g.display}</option>)}
+                        </select>
                     </div>
                 </div>
-            }
-            {
-                isFund && <div className='all-select-wrapper'>
+                <div className='h3-wrapper'>
+                    <h3>Date</h3>
+                    <div className='select-wrapper' style={{ minHeight: '43px' }}>
+                        <img src={require(`../style/imgs/register/calendar.png`)} />
+                        <input type="datetime-local" className='date-special' ref={dateRef} required></input>
+                    </div>
+                </div>
+
+
+                {isFund && <>
                     <div className='h3-wrapper'>
                         <h3>Game</h3>
                         <div className='select-wrapper'>
                             <img src={require(`../style/imgs/register/${img.game}.webp`)} />
                             <select onChange={handleImg} name='game' required>
-                                {category === 'gaming' ? <>
-                                    <option value="valorant">Valorant</option>
-                                    <option value="fifa">Fifa</option></> :
-                                    <>
-                                        {games.map(g => <option key={g.game} value={g.game}>{g.display}</option>)}
-                                    </>}
+                                {games.map(g => <option key={g.game} value={g.game}>{g.display}</option>)}
                             </select>
                         </div>
                     </div>
@@ -239,8 +218,8 @@ export function Create() {
                         <h3>Link (optional)</h3>
                         <input className='link' placeholder='Link to competiton page' ref={linkRef} maxLength={100} />
                     </div>
-                </div>
-            }
+                </>}
+            </div>
 
             <div className='h3-wrapper' style={{ width: '100%' }}>
                 <h3>Teaser video (optional, up to 1 minute)</h3>
