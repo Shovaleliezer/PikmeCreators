@@ -1,61 +1,76 @@
-import { useEffect, useRef } from 'react'
-import io from 'socket.io-client'
-const socket = process.env.NODE_ENV === 'production' ? io.connect('https://pikme-server-7vdz.onrender.com') : io.connect('http://localhost:3030')
+import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { httpService } from '../services/http.service'
+import IVSBroadcastClient from 'amazon-ivs-web-broadcast'
+let client = null
 
 export function Stream2() {
+  const [cameras, setCameras] = useState([])
+  const [mics, setMics] = useState([])
   const localVideoRef = useRef()
-  const remoteVideoRef = useRef()
+  const event = useSelector((storeState) => storeState.generalModule.streamInfo)
 
   useEffect(() => {
-    // Set up local video
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        localVideoRef.current.srcObject = stream
-        const peerConnection = new RTCPeerConnection()
-
-        peerConnection.addStream(stream)
-
-        peerConnection.createOffer()
-          .then((offer) => peerConnection.setLocalDescription(offer))
-          .then(() => socket.emit('signal', { description: peerConnection.localDescription }))
-
-        socket.on('signal', (data) => {
-          if (data.description) {
-            peerConnection.setRemoteDescription(new RTCSessionDescription(data.description))
-          } else if (data.candidate) {
-            peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate))
-          }
-        })
-      })
-
-    // Set up remote video
-    socket.on('signal', (data) => {
-      if (data.description) {
-        const peerConnection = new RTCPeerConnection()
-        peerConnection.setRemoteDescription(new RTCSessionDescription(data.description))
-
-        peerConnection.createAnswer()
-          .then((answer) => peerConnection.setLocalDescription(answer))
-          .then(() => socket.emit('signal', { description: peerConnection.localDescription }))
-
-        peerConnection.ontrack = (event) => {
-          remoteVideoRef.current.srcObject = event.streams[0]
-        }
-      } else if (data.candidate) {
-        // Handle ICE candidate if needed
-      }
-    })
-
-    return () => {
-      // Clean up resources when the component unmounts
-      socket.disconnect()
-    }
+    loadEssentials()
   }, [])
+
+  const loadEssentials = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      const devices = await navigator.mediaDevices.enumerateDevices()
+      if (localVideoRef.current) localVideoRef.current.srcObject = stream
+      const lcameras = devices.filter((d) => d.kind === 'videoinput')
+      const lmics = devices.filter((d) => d.kind === 'audioinput')
+      setCameras(lcameras)
+      setMics(lmics)
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+
+  const startStream = async () => {
+    try {
+      const StreamData = await httpService.post('handle-stream/get-stream-data', { eventId: event._id })
+      console.log(StreamData)
+      client = IVSBroadcastClient.create({
+        streamConfig: IVSBroadcastClient.BASIC_LANDSCAPE,
+        ingestEndpoint: StreamData.ingestEndpoint,
+      })
+      let c = await navigator.mediaDevices.getUserMedia({
+        video: {
+          deviceId: cameras[0].deviceId,
+          width: {
+            ideal: '1280',
+          },
+          height: {
+            ideal: '720',
+          },
+        },
+      })
+      let m = await navigator.mediaDevices.getUserMedia({
+        audio: { deviceId: mics[0].deviceId },
+      })
+      client.addVideoInputDevice(c, 'camera1', { index: 0 })
+      client.addAudioInputDevice(m, 'mic1')
+      client.startBroadcast('sk_eu-central-1_Ew6zKfSpFuax_XG0Fom6mGckKkNyOrcGmkqXSZAypBp')
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+
+  const stopStream = () => {
+    client.stopBroadcast()
+  }
+
+
 
   return (
     <div>
-      <video ref={localVideoRef} autoPlay muted />
-      <video ref={remoteVideoRef} autoPlay />
+      <video style={{ transform: 'scaleX(-1)' }} ref={localVideoRef} autoPlay />
+      <button onClick={startStream}>BROADCAST</button>
+      <button onClick={stopStream}>STOP</button>
     </div>
   )
 }

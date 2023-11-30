@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { setUpperPopup } from '../store/actions/general.actions'
 import { eventService } from '../services/event.service'
-import { games } from '../services/games.service'
+import { games } from '../services/data.service'
 
 export function Edit() {
     const dispatch = useDispatch()

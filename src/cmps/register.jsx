@@ -8,7 +8,7 @@ import { setCreator, setAddress, setIsConnected, setPhone } from '../store/reduc
 import { setCallbackLink, setUpperPopup } from '../store/actions/general.actions.js'
 import { setRegisterPhase } from '../store/actions/tutorial.actions.js'
 import { userService } from '../services/user.service'
-import { games } from '../services/games.service.js'
+import { games } from '../services/data.service.js'
 
 export function Register() {
     const navigate = useNavigate()

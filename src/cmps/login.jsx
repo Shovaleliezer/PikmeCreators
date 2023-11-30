@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { userService } from "../services/user.service"
 import { setUpperPopup } from "../store/actions/general.actions"
 import { Error } from "../pages/error"
-import { countryList } from "../services/phone.service"
+import { countryList } from "../services/data.service"
 
 export function Login(props) {
     const dispatch = useDispatch()

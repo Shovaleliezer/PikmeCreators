@@ -94,7 +94,7 @@ export function ControlWaiting() {
                     </div>
                     <div className="actions">
                         <span className="material-symbols-outlined" onClick={() => reject(ev._id)}>close</span>
-                        <span onClick={() => accept(ev)} class="material-symbols-outlined">check</span>
+                        <span onClick={() => accept(ev)} className="material-symbols-outlined">check</span>
                         <span onClick={() => setLocalPopup(ev)} className="material-symbols-outlined">visibility</span>
                         {getVideo(ev.video)}
                     </div>

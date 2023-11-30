@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { setPopup, setUpperPopup } from '../store/actions/general.actions'
-import { games } from '../services/games.service'
+import { games } from '../services/data.service'
 import { uploadFile } from '../services/upload.service'
 import { httpService } from '../services/http.service'
 
@@ -16,11 +16,11 @@ export function Create() {
     const [category, setCategory] = useState('sports')
     const [sent, setSent] = useState(false)
     const [isFund, setIsFund] = useState(false)
-    const categoryRef = useRef()
     const dateRef = useRef()
     const descRef = useRef()
     const linkRef = useRef()
     const [gameField, setGameField] = useState('table-tennis')
+    const [date, setDate] = useState(new Date())
     const uploads = {
         img: useRef(),
         video: useRef()
@@ -51,9 +51,7 @@ export function Create() {
     const addEvent = async (e) => {
         e.preventDefault()
         try {
-            const date = new Date(dateRef.current.value)
-            if (new Date(Date.now()) > new Date(dateRef.current.value)) {
-                setSent(false)
+            if (new Date() > new Date(date)) {
                 dispatch(setUpperPopup('date'))
                 return
             }
@@ -133,6 +131,16 @@ export function Create() {
         setUploadsState({ ...uploadsState, [name]: files[0] ? files[0].name : '' })
     }
 
+    const handleDate = (e) => {
+        const { value } = e.target
+        const date = new Date(value)
+        if (new Date(Date.now()) > new Date(date)) {
+            dispatch(setUpperPopup('date'))
+            return
+        }
+        setDate(date)
+    }
+
     const handleNumbers = (e) => {
         const { name, value } = e.target
         if (value === '') {
@@ -174,28 +182,11 @@ export function Create() {
                     <h3>Date</h3>
                     <div className='select-wrapper' style={{ minHeight: '43px' }}>
                         <img src={require(`../style/imgs/register/calendar.png`)} />
-                        <input type="datetime-local" className='date-special' ref={dateRef} required></input>
+                        <input type="datetime-local" className='date-special' onChange={handleDate} required></input>
                     </div>
                 </div>
 
-
                 {isFund && <>
-                    <div className='h3-wrapper'>
-                        <h3>Game</h3>
-                        <div className='select-wrapper'>
-                            <img src={require(`../style/imgs/register/${img.game}.webp`)} />
-                            <select onChange={handleImg} name='game' required>
-                                {games.map(g => <option key={g.game} value={g.game}>{g.display}</option>)}
-                            </select>
-                        </div>
-                    </div>
-                    <div className='h3-wrapper'>
-                        <h3>Date</h3>
-                        <div className='select-wrapper' style={{ minHeight: '43px' }}>
-                            <img src={require(`../style/imgs/register/calendar.png`)} />
-                            <input type="datetime-local" className='date-special' ref={dateRef} required></input>
-                        </div>
-                    </div>
                     <div className='h3-wrapper'>
                         <h3>Target</h3>
                         <div className='select-wrapper'>
