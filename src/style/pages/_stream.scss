@@ -31,6 +31,13 @@
             height: var(--video-height) !important;
             max-height: calc(100vh - 90px);
         }
+
+        video{
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+           transform: scaleX(-1);
+        }
     }
 }
 
