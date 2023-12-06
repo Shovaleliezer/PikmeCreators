@@ -290,7 +290,7 @@
         }
 
         .action {
-            background-color: $main;
+            background: radial-gradient(circle at 50% 50%, $main 0%, $sec 100%);
         }
     }
 

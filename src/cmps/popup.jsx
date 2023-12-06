@@ -44,8 +44,8 @@ export function Popup() {
             <h1>Confirm navigation</h1>
             <p>If you are already live, this action will pause your stream, continue anyway?</p>
             <div>
-                <div className="cancel" onClick={() => dispatch(setPopup(''))}>Cancel</div>
-                <div onClick={() => { dispatch(setPopup('')); navigate(popup) }}>Continue</div>
+                <div onClick={() => dispatch(setPopup(''))}>Cancel</div>
+                <div className="action" onClick={() => { dispatch(setPopup('')); navigate(popup) }}>Continue</div>
             </div>
         </div></>
 
