@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
-import Creator from './stream'
-import { Stream } from './stream2'
+import { Stream } from './stream'
 
 export function StreamWrapper() {
     const [isNarrow, setIsNarrow] = useState(window.innerWidth < 550)
@@ -26,6 +25,4 @@ export function StreamWrapper() {
     </div>)
 
     else return <Stream />
-
-    // else return <Creator />
 }

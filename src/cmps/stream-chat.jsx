@@ -7,7 +7,7 @@ const socket = process.env.NODE_ENV === 'production' ? io.connect('https://pikme
 const colors = [
     "blue", "cyan", "magenta", "lime", "maroon", "navy", "olive", "teal", "violet", "silver", "gold", "indigo", "coral", "crimson", "fuchsia", "khaki", "lavender", "plum", "turquoise", "wheat", "beige", "azure", "aliceblue", "antiquewhite", "aquamarine", "bisque", "blanchedalmond", "blueviolet", "burlywood", "cadetblue", "chartreuse", "chocolate", "cornflowerblue", "cornsilk", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "gainsboro", "ghostwhite", "gold", "goldenrod", "greenyellow", "honeydew", "hotpink", "indianred", "ivory", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "limegreen", "linen", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "oldlace", "ol"]
 
-const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
+const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras, start }) => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const [messages, setMessages] = useState([])
@@ -24,6 +24,10 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras }) => {
     useEffect(() => {
         document.getElementById('body-text').scrollTop = document.getElementById('body-text').scrollHeight
     }, [messages])
+
+    useEffect(() => {
+        if (start) socket.emit('start-event', eventName)
+    }, [start])
 
     const onEnter = (ev) => {
         if (ev.key === "Enter") sendMessage()

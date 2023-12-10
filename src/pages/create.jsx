@@ -102,7 +102,7 @@ export function Create() {
             }
             formData.append('playerAddress', user.creator.walletAddress)
             formData.append('event', JSON.stringify(newEvent))
-            const { _id, game } = await httpService.addEvent(formData)
+            const { _id, game } = await httpService.addEvent(formData)  
             if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
             else dispatch(setPopup('created'))
         }
