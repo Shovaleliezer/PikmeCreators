@@ -26,7 +26,7 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras, start 
     }, [messages])
 
     useEffect(() => {
-        if (start) socket.emit('start-event', eventName)
+        if (start) socket.emit('start-stream', eventName)
     }, [start])
 
     const onEnter = (ev) => {
