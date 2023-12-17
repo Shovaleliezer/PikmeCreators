@@ -73,7 +73,7 @@ export function Stream() {
       channelParameters.streamKey = streamKey
       channelParameters.ingestEndpoint = ingestEndpoint
       client = IVSBroadcastClient.create({
-        streamConfig: IVSBroadcastClient.BASIC_FULL_HD_LANDSCAPE,
+        streamConfig:IVSBroadcastClient.BASIC_FULL_HD_PORTRAIT,
         ingestEndpoint: channelParameters.ingestEndpoint,
       })
     }
@@ -303,7 +303,7 @@ export function Stream() {
             </div>
           </div>
         </div>
-        <StreamChat eventName={event._id} end={status === 'ended'} cameraIdx={cameraIdx} cameras={channelParameters.cameras} start={status==='live'}/>
+        <StreamChat eventName={event._id} end={status === 'ended'} cameraIdx={cameraIdx} cameras={channelParameters.cameras} start={status === 'live'} />
       </div>}
       {isMobile && <section className="stream-mobile" >
         <section className="left-wrapper">
