@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { setPopup, setUpperPopup } from "../store/actions/general.actions.js"
 import { httpService } from '../services/http.service.js'
 import IVSBroadcastClient from 'amazon-ivs-web-broadcast'
+import { set } from "mongoose"
 let client = null
 const channelParameters = {
   streamKey: null,
@@ -66,7 +67,7 @@ export function Stream() {
       channelParameters.mics = loadedMics
     }
     catch {
-      console.log('no devices')
+      setStatus('noDevices')
     }
     try {
       const { ingestEndpoint, streamKey } = await httpService.post('handle-stream/get-stream-data', { eventId: event._id })
@@ -127,7 +128,6 @@ export function Stream() {
   const stopStream = async (permanent = false) => {
     try {
       await client.stopBroadcast()
-      // await client.delete()
       if (permanent) setStatus('local')
       client.removeAudioInputDevice('mic1')
       client.removeVideoInputDevice('camera1')
@@ -219,6 +219,8 @@ export function Stream() {
   const width = getWidth(prizePool.toFixed(2))
   const timeUntilEvent = getTimeUntil(event.date)
 
+  console.log(status)
+
   try {
     return (<>
       {!isMobile && <div className="stream-container">
@@ -247,7 +249,7 @@ export function Stream() {
         </div>
         <div className="stream">
           <div className="stream-video">
-            {status === 'no-devices' && <div className="no-camera">
+            {status === 'noDevices' && <div className="no-camera">
               <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1126_3578)">
                   <path fillRule="evenodd" clipRule="evenodd" d="M96.3827 92.7377C98.8906 90.4582 100.496 87.5647 100.973 84.4652L128.32 94.8302C129.658 95.3389 131.125 95.5542 132.586 95.4566C134.047 95.3589 135.456 94.9514 136.685 94.271C137.914 93.5906 138.925 92.659 139.625 91.5608C140.324 90.4626 140.691 89.2326 140.692 87.9827V32.0177C140.691 30.7688 140.324 29.5399 139.624 28.4426C138.925 27.3453 137.916 26.4143 136.687 25.7341C135.459 25.0539 134.052 24.6461 132.592 24.5476C131.132 24.4491 129.667 24.6631 128.328 25.1702L100.973 35.5352C100.414 31.9284 98.3373 28.6177 95.1294 26.2197C91.9216 23.8216 87.8013 22.4998 83.5358 22.5002H37.5647L43.8431 30.0002H83.5358C85.8679 30.0002 88.1045 30.7904 89.7535 32.1969C91.4026 33.6034 92.329 35.5111 92.329 37.5002V82.5002C92.3306 83.8695 91.8927 85.2131 91.0628 86.3852L96.3827 92.7377ZM12.5567 31.3502C11.3947 32.0406 10.4455 32.9605 9.7902 34.0313C9.1349 35.1021 8.79286 36.2923 8.79324 37.5002V82.5002C8.79324 84.4893 9.71966 86.397 11.3687 87.8035C13.0178 89.21 15.2544 90.0002 17.5865 90.0002H61.6758L67.9541 97.5002H17.5865C12.9223 97.5002 8.44906 95.9198 5.15096 93.1068C1.85286 90.2938 0 86.4784 0 82.5002V37.5002C0 32.4377 2.93694 27.9602 7.44787 25.2452L12.5479 31.3502H12.5567ZM131.899 87.9752L101.122 76.3127V43.6877L131.899 32.0177V87.9827V87.9752ZM93.1468 114.675L5.21439 9.6752L12.3721 5.3252L100.304 110.325L93.1468 114.675Z" fill="#F3F3F3" fillOpacity="0.9" />
@@ -258,14 +260,13 @@ export function Stream() {
                   </clipPath>
                 </defs>
               </svg>
-              <p>Could not detect any camera</p>
+              <p>Could not detect any camera.</p>
               <p>You may need to grant access to your camera manually in
                 <a target="_blank" href='https://support.google.com/chrome/answer/2693767?hl=en&co=GENIE.Platform%3DDesktop' className="main-color"> Chrome </a> or
                 <a target="_blank" href='https://support.apple.com/en-il/guide/mac-help/mchlf6d108da/mac' className="main-color"> Safari</a>, then <span onClick={() => window.location.reload()}>reload the page.</span>
               </p>
-              <p>Alternatively, you can <span className="main-color clickable" onClick={setIsScreenShare(true)}>Share your screen</span>.</p>
             </div>}
-            {status !== 'no-devices' && <video ref={localVideoRef} autoPlay />}
+            {status !== 'noDevices' && <video ref={localVideoRef} autoPlay />}
           </div>
           <div className="stream-control noselect">
             <div className="options" style={{ width }}>
@@ -324,8 +325,8 @@ export function Stream() {
           </div>
 
           <div className="stream-video-mobile">
-            {status !== 'no-devices' && <video ref={localVideoRef} autoPlay />}
-            {status === 'no-devices' && <div className="no-camera">
+            {status !== 'noDevices' && <video ref={localVideoRef} autoPlay />}
+            {status === 'noDevices' && <div className="no-camera">
               <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1126_3578)">
                   <path fillRule="evenodd" clipRule="evenodd" d="M96.3827 92.7377C98.8906 90.4582 100.496 87.5647 100.973 84.4652L128.32 94.8302C129.658 95.3389 131.125 95.5542 132.586 95.4566C134.047 95.3589 135.456 94.9514 136.685 94.271C137.914 93.5906 138.925 92.659 139.625 91.5608C140.324 90.4626 140.691 89.2326 140.692 87.9827V32.0177C140.691 30.7688 140.324 29.5399 139.624 28.4426C138.925 27.3453 137.916 26.4143 136.687 25.7341C135.459 25.0539 134.052 24.6461 132.592 24.5476C131.132 24.4491 129.667 24.6631 128.328 25.1702L100.973 35.5352C100.414 31.9284 98.3373 28.6177 95.1294 26.2197C91.9216 23.8216 87.8013 22.4998 83.5358 22.5002H37.5647L43.8431 30.0002H83.5358C85.8679 30.0002 88.1045 30.7904 89.7535 32.1969C91.4026 33.6034 92.329 35.5111 92.329 37.5002V82.5002C92.3306 83.8695 91.8927 85.2131 91.0628 86.3852L96.3827 92.7377ZM12.5567 31.3502C11.3947 32.0406 10.4455 32.9605 9.7902 34.0313C9.1349 35.1021 8.79286 36.2923 8.79324 37.5002V82.5002C8.79324 84.4893 9.71966 86.397 11.3687 87.8035C13.0178 89.21 15.2544 90.0002 17.5865 90.0002H61.6758L67.9541 97.5002H17.5865C12.9223 97.5002 8.44906 95.9198 5.15096 93.1068C1.85286 90.2938 0 86.4784 0 82.5002V37.5002C0 32.4377 2.93694 27.9602 7.44787 25.2452L12.5479 31.3502H12.5567ZM131.899 87.9752L101.122 76.3127V43.6877L131.899 32.0177V87.9827V87.9752ZM93.1468 114.675L5.21439 9.6752L12.3721 5.3252L100.304 110.325L93.1468 114.675Z" fill="#F3F3F3" fillOpacity="0.9" />
@@ -336,7 +337,7 @@ export function Stream() {
                   </clipPath>
                 </defs>
               </svg>
-              <h1>Could not detect any camera</h1>
+              <h1>Could not detect any camera.</h1>
             </div>}
           </div>
           <div className="lower" >

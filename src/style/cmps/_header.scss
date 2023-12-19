@@ -57,7 +57,7 @@
             border-radius: 50%;
             object-fit: cover;
             cursor: pointer;
-            margin-top:6px;
+            margin-top: 6px;
         }
 
         .admin {
@@ -140,6 +140,6 @@
         @include flex(10px, flex-start, center);
         gap: 10px !important;
         overflow-x: scroll;
-        width:max-content;
+        width: max-content;
     }
 }
