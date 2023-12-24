@@ -135,7 +135,6 @@ export function Stream() {
   }
 
   const adjustAudioVolume = (stream, volume) => {
-    return stream
     try {
       const audioContext = new AudioContext()
       const gainNode = audioContext.createGain()
@@ -216,8 +215,6 @@ export function Stream() {
 
   const width = getWidth(prizePool.toFixed(2))
   const timeUntilEvent = getTimeUntil(event.date)
-
-  console.log(status)
 
   try {
     return (<>
@@ -323,7 +320,7 @@ export function Stream() {
           </div>
 
           <div className="stream-video-mobile">
-            {status !== 'noDevices' && <video ref={localVideoRef} autoPlay />}
+            <video ref={localVideoRef} autoPlay />
             {status === 'noDevices' && <div className="no-camera">
               <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1126_3578)">
@@ -335,7 +332,7 @@ export function Stream() {
                   </clipPath>
                 </defs>
               </svg>
-              <h1>Could not detect any camera.</h1>
+              <h1 style={{width:'350px'}}>Could not detect any camera. You might have blocked camera access in this website.</h1>
             </div>}
           </div>
           <div className="lower" >
@@ -357,8 +354,7 @@ export function Stream() {
         </section>
         <StreamChat eventName={event._id}
           mobile={true} end={status === 'ended'} cameraIdx={cameraIdx} cameras={channelParameters.cameras} start={status === 'live'} />
-      </section>
-      }
+      </section>}
       {modal && <>
         <div className="screen blur" onClick={() => setModal(false)} />
         <div className="confirm-exit">
