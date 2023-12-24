@@ -42,11 +42,14 @@ export function Stream() {
 
   useEffect(() => {
     loadEssentials()
-    return () => stopStream()
+    return () => {
+      stopStream()
+      if (client) client.delete()
+    }
   }, [])
 
   useEffect(() => {
-    if (channelParameters.mics && channelParameters.cameras) playLocal()
+    if (channelParameters.mics && channelParameters.cameras) playLocal(true)
     if (status === 'live') startStream()
   }, [channelParameters.cameras, channelParameters.mics, cameraIdx, micIdx, isScreenShare, isMuted, volume])
 
@@ -71,7 +74,7 @@ export function Stream() {
       })
     }
     catch {
-      console.log('no stream data')
+      dispatch(setUpperPopup('errorServer'))
     }
     try {
       if (event.fund) setPrizePool(Number(event.fund.prize))
@@ -106,14 +109,16 @@ export function Stream() {
     }
   }
 
-  const playLocal = async () => {
+  const playLocal = async (change = false) => {
     try {
       const stream = !isScreenShare ? await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
         : await navigator.mediaDevices.getDisplayMedia({ video: { width: { ideal: '1920' }, height: { ideal: '1080' } } })
       if (localVideoRef.current) localVideoRef.current.srcObject = stream
+      if (change) setStatus('local')
     }
     catch {
-      console.log('no stream')
+      console.log('error play local')
+      setStatus('noDevices')
     }
   }
 
@@ -130,6 +135,7 @@ export function Stream() {
   }
 
   const adjustAudioVolume = (stream, volume) => {
+    return stream
     try {
       const audioContext = new AudioContext()
       const gainNode = audioContext.createGain()
@@ -258,7 +264,7 @@ export function Stream() {
                 <a target="_blank" href='https://support.apple.com/en-il/guide/mac-help/mchlf6d108da/mac' className="main-color"> Safari</a>, then <span onClick={() => window.location.reload()}>reload the page.</span>
               </p>
             </div>}
-            {status !== 'noDevices' && <video ref={localVideoRef} autoPlay />}
+            <video ref={localVideoRef} autoPlay />
           </div>
           <div className="stream-control noselect">
             <div className="options" style={{ width }}>
