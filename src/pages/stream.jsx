@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { setPopup, setUpperPopup } from "../store/actions/general.actions.js"
 import { httpService } from '../services/http.service.js'
 import IVSBroadcastClient from 'amazon-ivs-web-broadcast'
-import { set } from "mongoose"
+
 let client = null
 const channelParameters = {
   streamKey: null,
@@ -41,16 +41,8 @@ export function Stream() {
   let debounce = useRef(false)
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--visibility', 'hidden')
-    if (isMobile) document.querySelector('.main-layout').classList.add("main-stream")
     loadEssentials()
-    return () => {
-      document.documentElement.style.setProperty('--visibility', 'visible')
-      document.documentElement.style.setProperty('--volume', '100%')
-      stopStream()
-      const main = document.querySelector('.main-layout')
-      if (main) main.classList.remove("main-stream")
-    }
+    return () => stopStream()
   }, [])
 
   useEffect(() => {
@@ -74,7 +66,7 @@ export function Stream() {
       channelParameters.streamKey = streamKey
       channelParameters.ingestEndpoint = ingestEndpoint
       client = IVSBroadcastClient.create({
-        streamConfig:IVSBroadcastClient.BASIC_FULL_HD_PORTRAIT,
+        streamConfig: IVSBroadcastClient.BASIC_FULL_HD_PORTRAIT,
         ingestEndpoint: channelParameters.ingestEndpoint,
       })
     }

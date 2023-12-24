@@ -6,8 +6,19 @@ export function StreamWrapper() {
 
     useEffect(() => {
         window.addEventListener('resize', onRotate)
+        document.documentElement.style.setProperty('--visibility', 'hidden')
+        if (window.innerWidth < 1100) {
+            document.querySelector('.main-layout').classList.add("main-stream")
+            document.querySelector('.header').classList.add("non-appear")
+        }
         return () => {
             window.removeEventListener("resize", onRotate)
+            document.documentElement.style.setProperty('--visibility', 'visible')
+            document.documentElement.style.setProperty('--volume', '100%')
+            const main = document.querySelector('.main-layout')
+            if (main) main.classList.remove("main-stream")
+            const header = document.querySelector('.header')
+            if (header) header.classList.remove("non-appear")
         }
     }, [])
 
