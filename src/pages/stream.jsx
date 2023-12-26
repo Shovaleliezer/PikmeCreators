@@ -49,7 +49,7 @@ export function Stream() {
   }, [])
 
   useEffect(() => {
-    if (channelParameters.mics && channelParameters.cameras) playLocal(true)
+    if (channelParameters.mics && channelParameters.cameras) playLocal()
     if (status === 'live') startStream()
   }, [channelParameters.cameras, channelParameters.mics, cameraIdx, micIdx, isScreenShare, isMuted, volume])
 
@@ -100,7 +100,7 @@ export function Stream() {
       client.addAudioInputDevice(micStream, 'mic1', { index: 0 })
       if (isMuted) client.disableAudio()
       else client.enableAudio()
-      await client.startBroadcast(channelParameters.streamKey)
+      if (status !== 'live') await client.startBroadcast(channelParameters.streamKey)
       setStatus('live')
     }
     catch (err) {
@@ -109,12 +109,12 @@ export function Stream() {
     }
   }
 
-  const playLocal = async (change = false) => {
+  const playLocal = async () => {
     try {
       const stream = !isScreenShare ? await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
         : await navigator.mediaDevices.getDisplayMedia({ video: { width: { ideal: '1920' }, height: { ideal: '1080' } } })
       if (localVideoRef.current) localVideoRef.current.srcObject = stream
-      if (change) setStatus('local')
+      if (status === 'noDevices') setStatus('local')
     }
     catch {
       console.log('error play local')
@@ -124,8 +124,10 @@ export function Stream() {
 
   const stopStream = async (permanent = false) => {
     try {
-      await client.stopBroadcast()
-      if (permanent) setStatus('local')
+      if (permanent) {
+        setStatus('local')
+        await client.stopBroadcast()
+      }
       client.removeAudioInputDevice('mic1')
       client.removeVideoInputDevice('camera1')
     }
@@ -332,7 +334,7 @@ export function Stream() {
                   </clipPath>
                 </defs>
               </svg>
-              <h1 style={{width:'350px'}}>Could not detect any camera. You might have blocked camera access in this website.</h1>
+              <h1 style={{ width: '350px' }}>Could not detect any camera. You might have blocked camera access in this website.</h1>
             </div>}
           </div>
           <div className="lower" >
