@@ -117,6 +117,7 @@ export function Stream() {
   const playLocal = async (videoStream) => {
     try {
       if (localVideoRef.current) localVideoRef.current.srcObject = videoStream
+      alert('play local')
       if (status === 'noDevices') setStatus('local')
     }
     catch (err) {
@@ -170,19 +171,14 @@ export function Stream() {
   }
 
   const switchCamera = async () => {
-    let str = 'cameras:'
-    if (channelParameters.cameras) {
-      channelParameters.cameras.forEach((camera) => {
-        str += camera.label + ', '
-      })
-      alert(str)
+    alert('current idx:' + String(cameraIdx))
+    if (cameraIdx + 1 === channelParameters.cameras.length) {
+      alert('switch to 0')
+      setCameraIdx(0)
     }
-    alert('idx:' + String(cameraIdx))
-    if (channelParameters.cameras.length > 1) {
-      if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
-      else {
-        alert('switch to 0')
-      } setCameraIdx(cameraIdx + 1)
+    else {
+      alert('switch to 1')
+      setCameraIdx(cameraIdx + 1)
     }
   }
 
