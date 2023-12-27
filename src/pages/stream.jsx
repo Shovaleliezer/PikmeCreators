@@ -54,7 +54,9 @@ export function Stream() {
 
   const handleStream = async (start = false) => {
     if (channelParameters.mics && channelParameters.cameras) {
+      alert('in handle stream' + String(cameraIdx))
       let videoStream = !isScreenShare ? await navigator.mediaDevices.getUserMedia({ video: { deviceId: channelParameters.cameras[cameraIdx].deviceId, width: { ideal: '1920' }, height: { ideal: '1080' } } }) : await navigator.mediaDevices.getDisplayMedia({ video: { width: { ideal: '1920' }, height: { ideal: '1080' } } })
+      alert(`video stream: ${videoStream} ---- ${typeof videoStream}`)
       playLocal(videoStream)
       if (status === 'live' || start) startStream(videoStream)
     }
@@ -121,7 +123,7 @@ export function Stream() {
       if (status === 'noDevices') setStatus('local')
     }
     catch (err) {
-      console.log('error play local', err)
+      alert(err)
       setStatus('noDevices')
     }
   }
@@ -171,15 +173,10 @@ export function Stream() {
   }
 
   const switchCamera = async () => {
-    alert('current idx:' + String(cameraIdx))
-    if (cameraIdx + 1 === channelParameters.cameras.length) {
-      alert('switch to 0')
-      setCameraIdx(0)
-    }
-    else {
-      alert('switch to 1')
-      setCameraIdx(cameraIdx + 1)
-    }
+    if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
+    else setCameraIdx(cameraIdx + 1)
+    const ss = 6
+    ss = 4
   }
 
   const sliderChange = async (e) => {
