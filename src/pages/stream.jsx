@@ -175,8 +175,6 @@ export function Stream() {
   const switchCamera = async () => {
     if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
     else setCameraIdx(cameraIdx + 1)
-    const ss = 6
-    ss = 4
   }
 
   const sliderChange = async (e) => {
