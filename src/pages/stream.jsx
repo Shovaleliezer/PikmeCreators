@@ -55,7 +55,6 @@ export function Stream() {
   const handleStream = async (start = false) => {
     if (channelParameters.mics && channelParameters.cameras) {
       let videoStream = !isScreenShare ? await navigator.mediaDevices.getUserMedia({ video: { deviceId: channelParameters.cameras[cameraIdx].deviceId, width: { ideal: '1920' }, height: { ideal: '1080' } } }) : await navigator.mediaDevices.getDisplayMedia({ video: { width: { ideal: '1920' }, height: { ideal: '1080' } } })
-      console.log('uuu', videoStream)
       playLocal(videoStream)
       if (status === 'live' || start) startStream(videoStream)
     }
@@ -65,7 +64,6 @@ export function Stream() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
       const loadedCameras = devices.filter((d) => d.kind === 'videoinput')
-      console.log(loadedCameras)
       const loadedMics = devices.filter((d) => d.kind === 'audioinput')
       channelParameters.cameras = loadedCameras
       channelParameters.mics = loadedMics
@@ -100,9 +98,6 @@ export function Stream() {
 
   const startStream = async (videoStream) => {
     try {
-      // let videoStream = !isScreenShare ? await navigator.mediaDevices.getUserMedia({ video: { deviceId: channelParameters.cameras[cameraIdx].deviceId, width: { ideal: '1920' }, height: { ideal: '1080' } } })
-      //   : await navigator.mediaDevices.getDisplayMedia({ video: { width: { ideal: '1920' }, height: { ideal: '1080' } } })
-      console.log('5555555555', videoStream)
       let micStream = await navigator.mediaDevices.getUserMedia({ audio: { deviceId: channelParameters.mics[micIdx].deviceId, echoCancellation: true, noiseSuppression: true } })
       micStream = adjustAudioVolume(micStream, (volume || 5) / 10)
       if (status === 'live') await stopStream()
@@ -121,8 +116,6 @@ export function Stream() {
 
   const playLocal = async (videoStream) => {
     try {
-      // const videoStream = !isScreenShare ? await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-      //   : await navigator.mediaDevices.getDisplayMedia({ video: { width: { ideal: '1920' }, height: { ideal: '1080' } } })
       if (localVideoRef.current) localVideoRef.current.srcObject = videoStream
       if (status === 'noDevices') setStatus('local')
     }
@@ -134,12 +127,14 @@ export function Stream() {
 
   const stopStream = async (permanent = false) => {
     try {
+      await client.removeAudioInputDevice('mic1')
+      await client.removeVideoInputDevice('camera1')
       if (permanent) {
-        setStatus('local')
         await client.stopBroadcast()
+        let videoStream = !isScreenShare ? await navigator.mediaDevices.getUserMedia({ video: { deviceId: channelParameters.cameras[cameraIdx].deviceId, width: { ideal: '1920' }, height: { ideal: '1080' } } }) : await navigator.mediaDevices.getDisplayMedia({ video: { width: { ideal: '1920' }, height: { ideal: '1080' } } })
+        playLocal(videoStream)
+        setStatus('local')
       }
-      client.removeAudioInputDevice('mic1')
-      client.removeVideoInputDevice('camera1')
     }
     catch (err) {
       console.log(err)
@@ -179,7 +174,6 @@ export function Stream() {
     debounce.current = true
     if (time) clearTimeout(time)
     time = setTimeout(() => { debounce.current = false }, 300)
-    console.log(e.target.value)
     setVolume(e.target.value)
   }
 
@@ -222,7 +216,7 @@ export function Stream() {
     }
   }
 
-  if (!event || !prizePool) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
+  if (!event) return <div className="center-fixed"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div></div></div></div>
 
   const width = getWidth(prizePool.toFixed(2))
