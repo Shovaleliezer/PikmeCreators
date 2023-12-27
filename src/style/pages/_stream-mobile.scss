@@ -6,7 +6,7 @@
     .stream-mobile {
         margin-top: 70px;
         @include flex(0, center, center);
-        height: 99dvh;
+        height: 99svh;
 
         .left-wrapper {
             @include flex(0, center, center, column);

@@ -177,10 +177,12 @@ export function Stream() {
       })
       alert(str)
     }
+    alert('idx:' + String(cameraIdx))
     if (channelParameters.cameras.length > 1) {
-      alert('idx:', cameraIdx)
       if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
-      else setCameraIdx(cameraIdx + 1)
+      else {
+        alert('switch to 0')
+      } setCameraIdx(cameraIdx + 1)
     }
   }
 
