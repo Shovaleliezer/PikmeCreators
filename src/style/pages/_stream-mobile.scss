@@ -6,7 +6,7 @@
     .stream-mobile {
         margin-top: 70px;
         @include flex(0, center, center);
-        height: 99svh;
+        height: 95lvh;
 
         .left-wrapper {
             @include flex(0, center, center, column);
@@ -113,11 +113,6 @@
             width: 66vh;
             flex: 2;
             @include flex(0, space-between, center, column);
-        }
-
-        .chat-box {
-            width: 32vh;
-            flex: 1;
         }
     }
 

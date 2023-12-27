@@ -57,7 +57,8 @@ export function Stream() {
       alert('in handle stream' + String(cameraIdx))
       let videoStream = !isScreenShare ? await navigator.mediaDevices.getUserMedia({ video: { deviceId: channelParameters.cameras[cameraIdx].deviceId, width: { ideal: '1920' }, height: { ideal: '1080' } } }) : await navigator.mediaDevices.getDisplayMedia({ video: { width: { ideal: '1920' }, height: { ideal: '1080' } } })
       alert(`video stream: ${videoStream} ---- ${typeof videoStream}`)
-      playLocal(videoStream)
+      if (isMobile) setTimeout(() => playLocal(videoStream), 500)
+      else playLocal(videoStream)
       if (status === 'live' || start) startStream(videoStream)
     }
   }
@@ -119,7 +120,6 @@ export function Stream() {
   const playLocal = async (videoStream) => {
     try {
       if (localVideoRef.current) localVideoRef.current.srcObject = videoStream
-      alert('play local')
       if (status === 'noDevices') setStatus('local')
     }
     catch (err) {
