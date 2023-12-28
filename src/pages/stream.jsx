@@ -119,7 +119,10 @@ export function Stream() {
 
   const playLocal = async (videoStream) => {
     try {
-      if (localVideoRef.current) localVideoRef.current.srcObject = videoStream
+      if (localVideoRef.current) {
+        localVideoRef?.current?.srcObject?.getTracks()?.forEach(track => track.stop())
+        localVideoRef.current.srcObject = videoStream
+      }
       if (status === 'noDevices') setStatus('local')
     }
     catch (err) {
