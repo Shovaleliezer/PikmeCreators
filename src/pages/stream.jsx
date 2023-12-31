@@ -100,7 +100,7 @@ export function Stream() {
   const startStream = async (videoStream) => {
     try {
       let micStream = await navigator.mediaDevices.getUserMedia({ audio: { deviceId: channelParameters.mics[micIdx].deviceId, echoCancellation: true, noiseSuppression: true } })
-      micStream = adjustAudioVolume(micStream, (volume || 5) / 10)
+      micStream = adjustAudioVolume(micStream, (window.innerWidth > 1100 ? volume : 7) / 10)
       if (status === 'live') await stopStream()
       client.addVideoInputDevice(videoStream, 'camera1', { index: 0 })
       client.addAudioInputDevice(micStream, 'mic1', { index: 0 })
@@ -173,7 +173,6 @@ export function Stream() {
   }
 
   const switchCamera = async () => {
-    alert(channelParameters.cameras[cameraIdx].label + channelParameters.cameras[cameraIdx].label.includes('back'))
     if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
     else setCameraIdx(cameraIdx + 1)
   }
