@@ -25,7 +25,7 @@ export function Stream() {
   const [openOpt, setOpenOpt] = useState('')
   const [cameraIdx, setCameraIdx] = useState(0)
   const [micIdx, setMicIdx] = useState(0)
-  const [volume, setVolume] = useState(1000)
+  const [volume, setVolume] = useState(5)
   const [modal, setModal] = useState(false)
   const [status, setStatus] = useState("noDevices")
   const [isMuted, setIsMuted] = useState(false)
@@ -100,7 +100,7 @@ export function Stream() {
   const startStream = async (videoStream) => {
     try {
       let micStream = await navigator.mediaDevices.getUserMedia({ audio: { deviceId: channelParameters.mics[micIdx].deviceId, echoCancellation: true, noiseSuppression: true } })
-      // micStream = adjustAudioVolume(micStream, (volume || 5) / 10)
+      micStream = adjustAudioVolume(micStream, (volume || 5) / 10)
       if (status === 'live') await stopStream()
       client.addVideoInputDevice(videoStream, 'camera1', { index: 0 })
       client.addAudioInputDevice(micStream, 'mic1', { index: 0 })
@@ -173,6 +173,7 @@ export function Stream() {
   }
 
   const switchCamera = async () => {
+    alert(channelParameters.cameras[cameraIdx].label + channelParameters.cameras[cameraIdx].label.includes('back'))
     if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
     else setCameraIdx(cameraIdx + 1)
   }
@@ -186,7 +187,7 @@ export function Stream() {
   }
 
   const handleSliderColor = (e) => {
-    document.documentElement.style.setProperty('--volume', (e.target.value * 10) + '%')
+    document.documentElement.style.setProperty('--volume', (e.target.value * 10 + (5 - e.target.value)) + '%')
   }
 
   const getWidth = (money) => {
@@ -207,11 +208,11 @@ export function Stream() {
 
   const getVideoStyle = () => {
     try {
-      if (channelParameters.cameras[cameraIdx].label.includes('back')) return { transform: 'scaleX(1)' }
-      return { transform: 'scaleX(-1)' }
+      if (channelParameters.cameras[cameraIdx].label.includes('back')) return 'scaleX(1)'
+      return 'scaleX(-1)'
     }
     catch {
-      return { transform: 'scaleX(-1)' }
+      return 'scaleX(-1)'
     }
   }
 
@@ -344,7 +345,7 @@ export function Stream() {
           </div>
 
           <div className="stream-video-mobile">
-            <video ref={localVideoRef} autoPlay style={{transform: getVideoStyle()}} />
+            <video ref={localVideoRef} autoPlay style={{ transform: getVideoStyle() }} />
             {status === 'noDevices' && <div className="no-camera">
               <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1126_3578)">
