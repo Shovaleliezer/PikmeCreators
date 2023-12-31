@@ -100,7 +100,7 @@ export function Stream() {
   const startStream = async (videoStream) => {
     try {
       let micStream = await navigator.mediaDevices.getUserMedia({ audio: { deviceId: channelParameters.mics[micIdx].deviceId, echoCancellation: true, noiseSuppression: true } })
-      micStream = adjustAudioVolume(micStream, (volume || 5) / 10)
+      // micStream = adjustAudioVolume(micStream, (volume || 5) / 10)
       if (status === 'live') await stopStream()
       client.addVideoInputDevice(videoStream, 'camera1', { index: 0 })
       client.addAudioInputDevice(micStream, 'mic1', { index: 0 })
@@ -203,6 +203,16 @@ export function Stream() {
   const onCameraClick = (idx) => {
     if (cameraIdx !== idx) setCameraIdx(idx)
     setIsScreenShare(false)
+  }
+
+  const getVideoStyle = () => {
+    try {
+      if (channelParameters.cameras[cameraIdx].label.includes('back')) return { transform: 'scaleX(1)' }
+      return { transform: 'scaleX(-1)' }
+    }
+    catch {
+      return { transform: 'scaleX(-1)' }
+    }
   }
 
   const handleModal = async () => {
@@ -334,7 +344,7 @@ export function Stream() {
           </div>
 
           <div className="stream-video-mobile">
-            <video ref={localVideoRef} autoPlay />
+            <video ref={localVideoRef} autoPlay style={{transform: getVideoStyle()}} />
             {status === 'noDevices' && <div className="no-camera">
               <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1126_3578)">

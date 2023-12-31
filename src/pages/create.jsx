@@ -212,13 +212,13 @@ export function Create() {
                 </>}
             </div>
 
-            <div className='h3-wrapper' style={{ width: '100%' }}>
+            {/* <div className='h3-wrapper' style={{ width: '100%' }}>
                 <h3>Teaser video (optional, up to 1 minute)</h3>
                 <input id='vid' name='video' className="non-appear" type="file" placeholder="Upload your image" accept="video/mp4,video/x-m4v,video/*" ref={uploads.video} onChange={handleUpload} />
                 <label htmlFor='vid' className='link clickable' style={{ width: '100%', textAlign: 'center', display: 'block' }}>
                     {uploadsState.video ? <span>{uploadsState.video.slice(0, 24) + '...'}</span> : <span className="material-symbols-outlined">drive_folder_upload</span>}
                 </label>
-            </div>
+            </div> */}
         </div>
         <button>Create!</button>
     </form>
