@@ -18,9 +18,9 @@ export function Popup() {
     const { ethereum } = window
 
     useEffect(() => {
-        if (popup) document.body.style.overflowY = 'hidden'
-        else document.body.style.overflowY = 'auto'
-        return () => document.body.style.overflowY = 'auto'
+        if (popup) document.body.classList.add("no-scroll")
+        else document.body.classList.remove("no-scroll")
+        return () => document.body.classList.remove("no-scroll")
     }, [popup])
 
     const copy = () => {
