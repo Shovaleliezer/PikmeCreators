@@ -95,6 +95,13 @@ export function Popup() {
                 <div className="done" onClick={() => { dispatch(setPopup('')); navigate('/') }}>Done</div>
             </div>}
 
+            {popup==='created-show' && <div className="created">
+                <img src={require('../style/imgs/share/vi.png')} />
+                <h1>Show in progress</h1>
+                <p>The show was successfully created and is now awaiting approval.</p>
+                <div className="done" onClick={() => { dispatch(setPopup('')); navigate('/') }}>Done</div>
+            </div>}
+
             {popup.includes('cloudinary') && <PopupVideo video={popup} />}
 
         </section>

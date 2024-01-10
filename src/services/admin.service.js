@@ -9,6 +9,7 @@ export const adminService = {
     getCurrentEvents,
     getPaymentEvents,
     getBanned,
+    getShows,
     unbanUser,
     announceWinner,
     announceWinnerFund,
@@ -82,7 +83,11 @@ async function banUser(phone) {
 async function unbanUser(phone) {
     const unbanned = await httpService.post('handle-admin/unban-user/' + phone)
     return unbanned
+}
 
+async function getShows(from = 0) {
+    const shows = await httpService.get('handle-admin/get-shows/' + from)
+    return shows
 }
 
 async function announceWinnerFund(eventId, shareWithCommunity) {

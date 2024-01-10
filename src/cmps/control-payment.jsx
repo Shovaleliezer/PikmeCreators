@@ -38,5 +38,4 @@ export function ControlPayment() {
     catch {
         return <Error />
     }
-
 }

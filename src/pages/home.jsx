@@ -31,7 +31,7 @@ export function Home() {
                 const loadedCreator = await userService.addCreator(user.address, null)
                 setLocalCreator(loadedCreator)
                 dispatch(setCreator(loadedCreator))
-                if(loadedCreator?.banned) navigate('/ban')
+                if (loadedCreator?.banned) navigate('/ban')
             }
 
             catch {
@@ -84,8 +84,7 @@ export function Home() {
             <section className="home">
                 <div className="home-banner"><h1>Welcome {creator.nickName}</h1></div>
                 {Object.keys(creator.creatorEvents).length > 0 ? <div className="events-container">
-                    {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id}
-                        ev={creator.creatorEvents[ev]} creator={creator} />)}
+                    {Object.keys(creator.creatorEvents).map(ev => <EventCard key={creator.creatorEvents[ev]._id} ev={creator.creatorEvents[ev]} creator={creator} />)}
                 </div>
                     : <div className="no-events">
                         <h1>You don't have any events yet, you can create one right <span onClick={() => navigate('/create')} className="clickable main-color">here</span>.</h1>

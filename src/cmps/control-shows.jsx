@@ -3,7 +3,7 @@ import { adminService } from "../services/admin.service"
 import { Error } from "../pages/error"
 import { formatDateHour } from "../services/utils"
 
-export function ControlHistory() {
+export function ControlShows() {
     const [history, setHistory] = useState([])
     const [from, setFrom] = useState(0)
     const [error, setError] = useState(false)
@@ -22,9 +22,10 @@ export function ControlHistory() {
 
     const loadHistory = async () => {
         try {
-            const events = await adminService.getHistory(from)
-            setHistory(history.concat(events))
-            if (events.length < 10) setLoader(false)
+            const shows = await adminService.getShows(from)
+            console.log(shows)
+            setHistory(history.concat(shows))
+            if (shows.length < 10) setLoader(false)
         }
         catch {
             setError(true)
@@ -33,22 +34,31 @@ export function ControlHistory() {
 
     const loadMore = () => {
         if (debounce.current) return
-        if(!targetRef.current) {
+        if (!targetRef.current) {
             window.removeEventListener('scroll', loadMore)
             return
         }
         const rect = targetRef.current.getBoundingClientRect()
         if (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
             debounce.current = true
-            setTimeout(() => { debounce.current = false },800)
+            setTimeout(() => { debounce.current = false }, 800)
             setFrom((from) => from + 10)
         }
     }
 
-    const getResult = (ev) => {
-        if (ev.cancelled) return 'Cancelled'
-        if (ev.fund) return ev.fund.won + ` (${ev.fund.percent * 100}%)`
-        return ev.winner.nickName
+    const getStatus = (show) => {
+        switch (show.status) {
+            case 'waiting':
+                return <td style={{color:'yellow'}}>'Pending...</td>
+            case 'approved':
+                return <td style={{color:'green'}}>Approved</td>
+            case 'cancelled':
+                return <td style={{color:'red'}}>Cancelled</td>
+            case 'ended':
+                return <td style={{color:'blue'}}>Ended</td>
+            default:
+                return <td style={{color:'yellow'}}>Pending...</td>
+        }
     }
 
     if (error) return <Error />
@@ -56,26 +66,26 @@ export function ControlHistory() {
     try {
         return (<>
             <div className="control-current control-history">
-            <p className="list-count">Events log : <span>{history.length}</span></p>
+                <p className="list-count">Shows log : <span>{history.length}</span></p>
                 {history.length > 0 && <table >
                     <thead>
                         <tr>
-                            <td>Creator</td>
-                            <td>Game</td>
-                            <td>Players</td>
+                            <td>Performer</td>
+                            <td>Title</td>
                             <td>Date</td>
-                            <td>Type</td>
-                            <td>Winner/Winnings</td>
+                            <td>Tickets</td>
+                            <td>Status</td>
+                            <td>Actions</td>
                         </tr>
                     </thead>
                     <tbody style={{ zIndex: '1001' }}>
-                        {history.map((event, idx) => <tr key={idx}>
-                            <td>{event.players[0].nickName}</td>
-                            <td>{event.game}</td>
-                            <td>{event.players.length}</td>
-                            <td>{formatDateHour(event.date)}</td>
-                            <td>{event.fund ? 'Fund event' : 'Vs event'}</td>
-                            <td>{getResult(event)}</td>
+                        {history.map((show, idx) => <tr key={idx}>
+                            <td>{show.performerName}</td>
+                            <td>{show.title}</td>
+                            <td>{formatDateHour(show.date)}</td>
+                            <td>239</td>
+                            {getStatus(show)}
+                            <td>Actions</td>
                         </tr>)}
                     </tbody>
                 </table>}

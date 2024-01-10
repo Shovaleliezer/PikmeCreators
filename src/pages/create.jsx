@@ -14,9 +14,7 @@ export function Create() {
     const [prize, setPrize] = useState('')
     const [target, setTarget] = useState('')
     const [category, setCategory] = useState('sports')
-    const [sent, setSent] = useState(false)
-    const [isFund, setIsFund] = useState(false)
-    const dateRef = useRef()
+    const [type, setType] = useState('vs')
     const descRef = useRef()
     const linkRef = useRef()
     const [gameField, setGameField] = useState('table-tennis')
@@ -92,7 +90,7 @@ export function Create() {
                 videoId
             }
 
-            if (isFund) newEvent.fund = {
+            if (type === 'fund') newEvent.fund = {
                 description: descRef.current.value,
                 prize,
                 target,
@@ -100,11 +98,12 @@ export function Create() {
                 current: 0,
                 investors: {}
             }
+
             formData.append('playerAddress', user.creator.walletAddress)
             formData.append('event', JSON.stringify(newEvent))
-            const { _id, game } = await httpService.addEvent(formData)  
-            if (!isFund) dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
-            else dispatch(setPopup('created'))
+            const { _id, game } = await httpService.addEvent(formData)
+            if (type === 'vs') dispatch(setPopup(_id + '/' + user.creator.nickName + '*' + game))
+            else  dispatch(setPopup('created'))
         }
 
         catch (err) {
@@ -155,20 +154,18 @@ export function Create() {
         else setTarget(value)
     }
 
-    if (sent) return <div className='center' style={{ height: 'calc(100vh - 315px)' }}><div className="loader loader-block"><div></div><div></div><div></div><div></div>
-        <div></div><div></div><div></div><div></div></div></div>
-
     return <form className='create' onSubmit={addEvent}>
         <div>
             <div className='create-upper'>
-                <h1>Create New Stream</h1>
+                <h1>Create New Event</h1>
             </div>
             <div className='create-type'>
-                <p className={!isFund ? 'active' : 'inactive'} onClick={() => setIsFund(false)}>VS Event</p>
-                <p className={isFund ? 'active' : 'inactive'} onClick={() => setIsFund(true)}>Funding Event</p>
+                <p className={type === 'vs' ? 'active' : 'inactive'} onClick={() => setType('vs')}>VS</p>
+                <p className={type === 'fund' ? 'active' : 'inactive'} onClick={() => setType('fund')}>Funding</p>
             </div>
 
             <div className='all-select-wrapper'>
+
                 <div className='h3-wrapper'>
                     <h3>Game</h3>
                     <div className='select-wrapper'>
@@ -186,7 +183,7 @@ export function Create() {
                     </div>
                 </div>
 
-                {isFund && <>
+                {type === 'fund' && <>
                     <div className='h3-wrapper'>
                         <h3>Target</h3>
                         <div className='select-wrapper'>
@@ -203,18 +200,19 @@ export function Create() {
                     </div>
                     <div className='h3-wrapper' style={{ width: '100%' }}>
                         <h3>Description</h3>
-                        <textarea maxLength={220} required className='fund-desc' placeholder='Tell us about the competition...' ref={descRef} />
+                        <textarea maxLength={220} required className='fund-desc' placeholder='Tell us more about the event...' ref={descRef} />
                     </div>
                     <div className='h3-wrapper' style={{ width: '100%' }}>
                         <h3>Link (optional)</h3>
                         <input className='link' placeholder='Link to competiton page' ref={linkRef} maxLength={100} />
                     </div>
                 </>}
+
             </div>
 
             {/* <div className='h3-wrapper' style={{ width: '100%' }}>
                 <h3>Teaser video (optional, up to 1 minute)</h3>
-                <input id='vid' name='video' className="non-appear" type="file" placeholder="Upload your image" accept="video/mp4,video/x-m4v,video/*" ref={uploads.video} onChange={handleUpload} />
+                <input id='vid' name='video' className="non-appear" type="file" placeholder="Upload your video" accept="video/mp4,video/x-m4v,video/*" ref={uploads.video} onChange={handleUpload} />
                 <label htmlFor='vid' className='link clickable' style={{ width: '100%', textAlign: 'center', display: 'block' }}>
                     {uploadsState.video ? <span>{uploadsState.video.slice(0, 24) + '...'}</span> : <span className="material-symbols-outlined">drive_folder_upload</span>}
                 </label>

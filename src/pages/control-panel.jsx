@@ -8,13 +8,15 @@ import { ControlCurrent } from "../cmps/control-current"
 import { ControlPayment } from "../cmps/control-payment"
 import { ControlHistory } from "../cmps/control-history"
 import { ControlBanned } from "../cmps/control-banned"
+import { ControlShows } from "../cmps/control-shows"
+import { ControlCreate } from "../cmps/control-create"
 
 export function ControlPanel() {
     const navigate = useNavigate()
     const [isAdmin, setIsAdmin] = useState('loading')
     const [opt, setOpt] = useState('waiting')
     const user = useSelector((state) => state.user)
-    const options = ['waiting', 'upcoming', 'payment', 'history', 'banned']
+    const options = ['waiting', 'upcoming', 'payment', 'history', 'banned', 'Shows', 'Create Show']
 
     useEffect(() => {
         authorize()
@@ -53,6 +55,8 @@ export function ControlPanel() {
                 {opt === 'payment' && <ControlPayment />}
                 {opt === 'history' && <ControlHistory />}
                 {opt === 'banned' && <ControlBanned />}
+                {opt === 'Shows' && <ControlShows />}
+                {opt === 'Create Show' && <ControlCreate />}
             </section>)
     }
     catch {

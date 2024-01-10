@@ -44,6 +44,7 @@ export function UpperPopup() {
             {upperPopup === 'min1' && <p>Minimum is 1BNB</p>}
             {upperPopup === 'max1m' && <p>Maximum is 1M BNB</p>}
             {upperPopup === 'video-size' && <p>500MB is the maximum video size.</p>}
+            {upperPopup === 'imgRequired' && <p>Please upload an image of the event.</p>}
             {upperPopup.includes('banned-') && <p>{upperPopup.split('-').slice(1).join('-')} is now banned.</p>}
             {upperPopup.includes('banRemoved-') && <p>Ban removed for {upperPopup.split('-').slice(1).join('-')}</p>}
             {numbers.some(num => num === upperPopup.charAt(0)) && <p>cannot start or end live stream now, event starts in {upperPopup}</p>}

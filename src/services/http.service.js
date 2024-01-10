@@ -40,11 +40,10 @@ async function ajax(endpoint, method = 'GET', data = null) {
     }
 }
 
-async function addEvent(formData) {
+async function addEvent(formData, show = false) {
     const res = await axios({
-        url: process.env.NODE_ENV === 'production' ? 'https://pikme-heavy-server.onrender.com/handle-events/create-event'
-        : '//localhost:3031/handle-events/create-event',
-        // : 'https://pikme-heavy-server.onrender.com/handle-events/create-event',
+        url: process.env.NODE_ENV === 'production' ? `https://pikme-heavy-server.onrender.com/handle-events/create-${show ? 'show' : 'event'}`
+            : `//localhost:3031/handle-events/create-${show ? 'show' : 'event'}`,
         method: 'POST',
         data: formData,
         headers: {

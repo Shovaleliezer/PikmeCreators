@@ -19,6 +19,8 @@
         @include flex(75px, center, center);
         width: max-content;
         margin-bottom: 35px;
+        overflow-x: scroll;
+        width: 100%;
 
         p {
             font-size: 36px;
@@ -50,23 +52,22 @@
     }
 }
 
-@media (max-width: 940px) {
+@media (max-width: 1540px) {
     .control {
         .control-banner {
             height: 110px;
+
             h1 {
                 font-size: 24px;
             }
         }
-    
+
         .options-bar {
             margin: auto;
             padding: 0 10px;
             @include flex(50px, space-between, center);
             margin-bottom: 25px;
-            overflow-x: scroll;
-            width: 100%;
-    
+
             p {
                 font-size: 16px;
             }
