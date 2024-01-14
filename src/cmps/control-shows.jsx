@@ -49,7 +49,7 @@ export function ControlShows() {
     const getStatus = (show) => {
         switch (show.status) {
             case 'waiting':
-                return <td style={{color:'yellow'}}>'Pending...</td>
+                return <td style={{color:'yellow'}}>Pending...</td>
             case 'approved':
                 return <td style={{color:'green'}}>Approved</td>
             case 'cancelled':
