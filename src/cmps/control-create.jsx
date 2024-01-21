@@ -13,6 +13,7 @@ export function ControlCreate() {
     const descRef = useRef()
     const linkRef = useRef()
     const titleRef = useRef()
+    const priceRef = useRef()
     const [date, setDate] = useState(new Date())
     const img = useRef()
     const video = useRef()
@@ -37,6 +38,11 @@ export function ControlCreate() {
             dispatch(setPopup('upload-event'))
             if (!img.current.files[0]) {
                 dispatch(setUpperPopup('imgRequired'))
+                dispatch(setPopup(''))
+                return
+            }
+            if(priceRef.current.value < 1 || priceRef.current.value > 1000){
+                dispatch(setUpperPopup('price'))
                 dispatch(setPopup(''))
                 return
             }
@@ -74,12 +80,13 @@ export function ControlCreate() {
                 performerName: nameRef.current.value,
                 link: linkRef.current.value,
                 img: url,
+                price: priceRef.current.value,
             }
 
 
             formData.append('playerAddress', user.creator.walletAddress)
             formData.append('show', JSON.stringify(show))
-            const newShow = await httpService.addEvent(formData,true)
+            const newShow = await httpService.addEvent(formData, true)
             console.log(newShow)
             dispatch(setPopup('created-show'))
         }
@@ -120,23 +127,18 @@ export function ControlCreate() {
 
     return <form className='create' onSubmit={addShow}>
         <div>
-            <div className='create-upper'>
-                <h1>Create New Show</h1>
-            </div>
-
             <div className='all-select-wrapper'>
                 <div className='h3-wrapper'>
                     <h3>Performer name</h3>
                     <div className='select-wrapper'>
-                        <img src={require(`../style/imgs/register/table-tennis.webp`)} />
+                        <img src={require(`../style/imgs/register/performer.webp`)} />
                         <input required maxLength={15} ref={nameRef} className='performer' />
                     </div>
                 </div>
                 <div className='h3-wrapper'>
-                    <h3>event title</h3>
+                    <h3>Ticket price</h3>
                     <div className='select-wrapper' style={{ minHeight: '43px' }}>
-                        <img src={require(`../style/imgs/register/calendar.png`)} />
-                        <input maxLength={15} className='performer' required ref={titleRef} />
+                        <input type='number' className='performer' required ref={priceRef} style={{ width: '280px' }} placeholder='₪'/>
                     </div>
                 </div>
                 <div className='h3-wrapper'>
@@ -147,15 +149,17 @@ export function ControlCreate() {
                     </div>
                 </div>
                 <div className='h3-wrapper'>
-                    <h3>Event image</h3>
+                    <h3>Performer image</h3>
                     <div className='select-wrapper'>
-                        <img src={require(`../style/imgs/register/calendar.png`)} />
                         <input id='img' name='img' className="non-appear" type="file" placeholder="Upload your image" accept="image/*" ref={img} onChange={handleUpload} />
-                        <label htmlFor='img' className='clickable performer upload-video' style={{ textAlign: 'center', display: 'block', fontSize: '24px' }}>
+                        <label htmlFor='img' className='clickable performer upload-video' style={{ textAlign: 'center', display: 'block', fontSize: '24px', width: '280px' }} >
                             {uploadsState.img ? <span>{uploadsState.img.slice(0, 12) + '...'}</span> : <span className="material-symbols-outlined">drive_folder_upload</span>}
                         </label>
                     </div>
-
+                </div>
+                <div className='h3-wrapper' style={{ width: '100%' }}>
+                    <h3>event title</h3>
+                        <input maxLength={50}  required ref={titleRef} className='link'/>
                 </div>
                 <div className='h3-wrapper' style={{ width: '100%' }}>
                     <h3>Description</h3>

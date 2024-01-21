@@ -8,7 +8,8 @@ const INITIAL_STATE = {
     streamPopup: '',
     callbackLink: '',
     linkId: '',
-    streamInfo: {}
+    streamInfo: {},
+    streamShow: {},
 }
 
 export function generalReducer(state = INITIAL_STATE, action) {
@@ -21,6 +22,8 @@ export function generalReducer(state = INITIAL_STATE, action) {
             return { ...state, menu: action.menu }
         case 'SET_STREAM':
             return { ...state, streamInfo: action.event }
+        case 'SET_STREAM_SHOW':
+            return { ...state, streamShow: action.show }
         case 'SET_POPUP':
             return { ...state, popup: action.popup }
         case 'SET_POPUP_INFO':
@@ -48,7 +51,8 @@ export function generalReducer(state = INITIAL_STATE, action) {
                 popupEvent: '',
                 popupStats: '',
                 upperPopup: '',
-                streamInfo: {}
+                streamInfo: {},
+                streamShow: {},
             }
         default:
             return state;

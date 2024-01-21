@@ -35,6 +35,7 @@ export function UpperPopup() {
             {upperPopup === 'desc' && <p>Use at least 20 characters for the description.</p>}
             {upperPopup === 'takenAddress' && <p>This address is already used by other user.</p>}
             {upperPopup === 'otherStream' && <p>Someone else already started streaming.</p>}
+            {upperPopup === 'price' && <p>Please enter a price between 1₪ and 1000₪</p>}
             {upperPopup === 'date' && <p>Cannot create event in the past, please enter a valid date in the future.</p>}
             {upperPopup === 'invalidPrize' && <p>Please enter a valid prize</p>}
             {upperPopup === 'errorLoadEvent' && <p>Cannot load event, please try again later</p>}

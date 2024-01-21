@@ -19,6 +19,27 @@
             padding: 20px;
         }
 
+        .actions {
+            @include flex(10px, center, center);
+
+            button {
+                font-size: 16px;
+                padding: 5px 10px;
+                border-radius: 10px;
+                color: white;
+                cursor: pointer;
+                border: none;
+            }
+
+            .accept {
+                background-color: green;
+            }
+
+            .reject,.cancel {
+                background-color: red;
+            }
+        }
+
         tr {
             font-size: 20px;
             text-align: center;

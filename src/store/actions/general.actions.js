@@ -50,6 +50,13 @@ export function setStreamInfo(event) {
         dispatch({ type: 'SET_STREAM', event })
     }
 }
+
+export function setStreamShow(show) {
+    return (dispatch) => {
+        dispatch({ type: 'SET_STREAM_SHOW', show })
+    }
+}
+
 export function toggleMenu() {
     return (dispatch) => {
         dispatch({ type: 'TOGGLE_MENU' })

@@ -99,7 +99,7 @@ export function Popup() {
                 <img src={require('../style/imgs/share/vi.png')} />
                 <h1>Show in progress</h1>
                 <p>The show was successfully created and is now awaiting approval.</p>
-                <div className="done" onClick={() => { dispatch(setPopup('')); navigate('/') }}>Done</div>
+                <div className="done" onClick={() => dispatch(setPopup('')) }>Done</div>
             </div>}
 
             {popup.includes('cloudinary') && <PopupVideo video={popup} />}

@@ -5,18 +5,23 @@ export const adminService = {
     getWaitingEvents,
     acceptEvent,
     rejectEvent,
+    acceptShow,
+    rejectShow,
     confirmPayment,
     getCurrentEvents,
     getPaymentEvents,
     getBanned,
     getShows,
+    getMyShows,
     unbanUser,
     announceWinner,
     announceWinnerFund,
     changeShare,
     getHistory,
     cancelEvent,
+    getGlobalShow,
     banUser,
+    cancelShow,
     getByPhone
 }
 
@@ -30,6 +35,21 @@ async function rejectEvent(eventId) {
     return confirm
 }
 
+async function acceptShow(showId) {
+    const confirm = await httpService.post('handle-admin/accept-show/' + showId)
+    return confirm
+}
+
+async function rejectShow(showId) {
+    const confirm = await httpService.post('handle-admin/reject-show/' + showId)
+    return confirm
+}
+
+async function cancelShow(showId) {
+    const confirm = await httpService.post('handle-admin/cancel-show/' + showId)
+    return confirm
+}
+
 async function authorize(id) {
     const isAdmin = await httpService.post('handle-admin/authorize/' + id)
     return isAdmin
@@ -40,6 +60,11 @@ async function getWaitingEvents() {
     return events
 }
 
+async function getMyShows() {
+    const shows = await httpService.get('handle-admin/get-my-shows')
+    return shows
+}
+
 async function getHistory(from = 0) {
     const events = await httpService.get('handle-admin/get-history/' + from)
     return events
@@ -48,6 +73,11 @@ async function getHistory(from = 0) {
 async function confirmPayment(id) {
     const confirm = await httpService.get('handle-admin/confirm-payment/' + id)
     return confirm
+}
+
+async function getGlobalShow(showId) {
+    const event = await httpService.get(`handle-admin/get-show-stream/${showId}`)
+    return event
 }
 
 async function getPaymentEvents() {

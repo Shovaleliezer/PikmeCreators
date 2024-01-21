@@ -10,13 +10,13 @@ import { ControlHistory } from "../cmps/control-history"
 import { ControlBanned } from "../cmps/control-banned"
 import { ControlShows } from "../cmps/control-shows"
 import { ControlCreate } from "../cmps/control-create"
+import { ControlMyShows } from "../cmps/control-my-shows"
 
 export function ControlPanel() {
     const navigate = useNavigate()
-    const [isAdmin, setIsAdmin] = useState('loading')
-    const [opt, setOpt] = useState('waiting')
+    const [opt, setOpt] = useState('Create Show')
     const user = useSelector((state) => state.user)
-    const options = ['waiting', 'upcoming', 'payment', 'history', 'banned', 'Shows', 'Create Show']
+    const [options,setOptions] = useState('loading')
 
     useEffect(() => {
         authorize()
@@ -25,20 +25,20 @@ export function ControlPanel() {
 
     const authorize = async () => {
         try {
-            const admin = await adminService.authorize(user.creator._id)
-            if (admin) setIsAdmin(true)
-            else setIsAdmin(false)
+            const loadedOptions = await adminService.authorize(user.creator._id)
+            if (loadedOptions) setOptions(loadedOptions)
+            else setOptions(false)
         }
 
         catch {
-            setIsAdmin(false)
+            setOptions(false)
         }
     }
 
-    if (isAdmin === 'loading') return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
+    if (options === 'loading') return <div className="home"><div className="home"><div className="loader"><div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div></div></div></div>
 
-    if (!isAdmin) {
+    if (!options) {
         navigate('/')
         return <h1>Unauthorized</h1>
     }
@@ -57,6 +57,7 @@ export function ControlPanel() {
                 {opt === 'banned' && <ControlBanned />}
                 {opt === 'Shows' && <ControlShows />}
                 {opt === 'Create Show' && <ControlCreate />}
+                {opt === 'My shows' && <ControlMyShows />}
             </section>)
     }
     catch {

@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from "react"
+import { useDispatch } from "react-redux"
+import { setUpperPopup } from "../store/actions/general.actions"
 import { adminService } from "../services/admin.service"
 import { Error } from "../pages/error"
 import { formatDateHour } from "../services/utils"
 
+
 export function ControlShows() {
+    const dispatch = useDispatch()
     const [history, setHistory] = useState([])
+    const [popup, setPopup] = useState('')
     const [from, setFrom] = useState(0)
     const [error, setError] = useState(false)
     const [loader, setLoader] = useState(true)
@@ -23,7 +28,6 @@ export function ControlShows() {
     const loadHistory = async () => {
         try {
             const shows = await adminService.getShows(from)
-            console.log(shows)
             setHistory(history.concat(shows))
             if (shows.length < 10) setLoader(false)
         }
@@ -46,19 +50,57 @@ export function ControlShows() {
         }
     }
 
-    const getStatus = (show) => {
-        switch (show.status) {
-            case 'waiting':
-                return <td style={{color:'yellow'}}>Pending...</td>
-            case 'approved':
-                return <td style={{color:'green'}}>Approved</td>
-            case 'cancelled':
-                return <td style={{color:'red'}}>Cancelled</td>
-            case 'ended':
-                return <td style={{color:'blue'}}>Ended</td>
-            default:
-                return <td style={{color:'yellow'}}>Pending...</td>
+    const accept = async (id) => {
+        try {
+            const accepted = await adminService.acceptShow(id)
+            setHistory(history.map(show => show._id === id ? accepted : show))
         }
+        catch {
+            setUpperPopup('errorServer')
+        }
+    }
+
+    const reject = async (id) => {
+        try {
+            const rejected = await adminService.rejectShow(id)
+            console.log(rejected)
+            setHistory(history.filter(show => show._id !== id))
+        }
+        catch {
+            setUpperPopup('errorServer')
+        }
+    }
+
+    const cancel = async (id) => {
+        try {
+            const cancelled = await adminService.cancelShow(id)
+            setHistory(history.map(show => show._id === id ? cancelled : show))
+        }
+        catch {
+            setUpperPopup('errorServer')
+        }
+    }
+
+    const getStatus = (status) => {
+        switch (status) {
+            case 'waiting':
+                return <td style={{ color: 'yellow' }}>Pending...</td>
+            case 'approved':
+                return <td style={{ color: 'green' }}>Approved</td>
+            case 'cancelled':
+                return <td style={{ color: 'red' }}>Cancelled</td>
+            case 'ended':
+                return <td style={{ color: 'blue' }}>Ended</td>
+            default:
+                return <td style={{ color: 'yellow' }}>Pending...</td>
+        }
+    }
+
+    const handleAction = (ev) => {
+        const { name, className } = ev.target
+        if (className === 'accept') accept(name)
+        if (className === 'reject') reject(name)
+        if (className === 'cancel') setPopup(name)
     }
 
     if (error) return <Error />
@@ -78,20 +120,35 @@ export function ControlShows() {
                             <td>Actions</td>
                         </tr>
                     </thead>
-                    <tbody style={{ zIndex: '1001' }}>
+                    <tbody style={{ zIndex: '1001' }} onClick={handleAction}>
                         {history.map((show, idx) => <tr key={idx}>
                             <td>{show.performerName}</td>
                             <td>{show.title}</td>
                             <td>{formatDateHour(show.date)}</td>
                             <td>239</td>
-                            {getStatus(show)}
-                            <td>Actions</td>
+                            {getStatus(show.status)}
+                            <td className="actions">
+                                {show.status === 'waiting' && <><button name={show._id} className="reject">Reject</button><button className="accept" name={show._id}>Accept</button></>}
+                                {show.status === 'approved' && <button className="cancel" name={show._id}>Cancel</button>}
+                            </td>
                         </tr>)}
                     </tbody>
                 </table>}
                 {loader && <div style={{ margin: 'auto', position: 'relative' }}><div ref={targetRef} className="loader loader-block"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>}
 
             </div>
+            {popup && <>
+                <div className="simple-popup">
+                    <img src={require('../style/imgs/error.png')} />
+                    <h1>Cancel show?</h1>
+                    <p>By clicking confirm, the show will be cancelled and buyers will have to get a refund, are you sure you want to cancel?</p>
+                    <div className='buttons-wrapper'>
+                        <div className='lighter' onClick={() => setPopup(false)}>No</div>
+                        <div className='bolder' onClick={() => { cancel(popup); setPopup(false) }}>confirm</div>
+                    </div>
+                </div>
+                <div className="screen blur" onClick={() => setPopup(false)} />
+            </>}
         </>)
     }
     catch {
