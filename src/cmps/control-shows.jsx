@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useDispatch } from "react-redux"
-import { setUpperPopup } from "../store/actions/general.actions"
+import { useNavigate } from "react-router"
+import { setUpperPopup, setStreamInfo } from "../store/actions/general.actions"
 import { adminService } from "../services/admin.service"
 import { Error } from "../pages/error"
 import { formatDateHour } from "../services/utils"
@@ -8,6 +9,7 @@ import { formatDateHour } from "../services/utils"
 
 export function ControlShows() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [history, setHistory] = useState([])
     const [popup, setPopup] = useState('')
     const [from, setFrom] = useState(0)
@@ -62,8 +64,7 @@ export function ControlShows() {
 
     const reject = async (id) => {
         try {
-            const rejected = await adminService.rejectShow(id)
-            console.log(rejected)
+            await adminService.rejectShow(id)
             setHistory(history.filter(show => show._id !== id))
         }
         catch {
@@ -101,6 +102,18 @@ export function ControlShows() {
         if (className === 'accept') accept(name)
         if (className === 'reject') reject(name)
         if (className === 'cancel') setPopup(name)
+        if (className === 'button-stream') loadShowForStream(name)
+    }
+
+    const loadShowForStream = async (id) => {
+        try {
+            const showForStream = history.find(show => show._id === id)
+            dispatch(setStreamInfo(showForStream))
+            navigate('/stream-control')
+        }
+        catch {
+            dispatch(setUpperPopup('errorLoadEvent'))
+        }
     }
 
     if (error) return <Error />
@@ -125,11 +138,13 @@ export function ControlShows() {
                             <td>{show.performerName}</td>
                             <td>{show.title}</td>
                             <td>{formatDateHour(show.date)}</td>
-                            <td>239</td>
+                            <td>{show.viewersCount}</td>
                             {getStatus(show.status)}
                             <td className="actions">
-                                {show.status === 'waiting' && <><button name={show._id} className="reject">Reject</button><button className="accept" name={show._id}>Accept</button></>}
-                                {show.status === 'approved' && <button className="cancel" name={show._id}>Cancel</button>}
+                                {show.status === 'waiting' && <><button name={show._id} className="reject">Reject</button>
+                                    <button className="accept" name={show._id}>Accept</button></>}
+                                {show.status === 'approved' && <> <button className="cancel" name={show._id}>Cancel</button>
+                                    <button className="button-stream" name={show._id}>stream</button></>}
                             </td>
                         </tr>)}
                     </tbody>

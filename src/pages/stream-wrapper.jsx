@@ -14,7 +14,6 @@ export function StreamWrapper() {
             if (header) header.classList.add("non-appear")
         }
         return () => {
-            
             window.removeEventListener("resize", onRotate)
             document.documentElement.style.setProperty('--visibility', 'visible')
             document.documentElement.style.setProperty('--volume', '100%')

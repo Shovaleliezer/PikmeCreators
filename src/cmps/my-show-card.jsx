@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import { formatHour } from "../services/utils"
-import { setUpperPopup, setStreamShow } from "../store/actions/general.actions"
+import { setUpperPopup, setStreamInfo } from "../store/actions/general.actions"
 import { adminService } from '../services/admin.service'
 
 export function MyShowCard({ show, removeShowFromList }) {
@@ -10,8 +10,7 @@ export function MyShowCard({ show, removeShowFromList }) {
 
     const loadShowForStream = async () => {
         try {
-            const showForStream = await adminService.getGlobalShow(show._id)
-            dispatch(setStreamShow(showForStream))
+            dispatch(setStreamInfo(show))
             navigate('/stream-control')
         }
         catch {
@@ -34,7 +33,7 @@ export function MyShowCard({ show, removeShowFromList }) {
 
     const deleteCreatorShow = async () => {
         try {
-            await adminService.deleteCreatorShow(show._id)
+            await adminService.removeMyShow(show._id)
             removeShowFromList(show._id)
         }
         catch {
@@ -50,7 +49,7 @@ export function MyShowCard({ show, removeShowFromList }) {
                         <h3>{show.performerName}</h3>
                     </div>
                     <div className="options">
-                        {show.status === 'cancelled' || show.status === 'over' && <p onClick={() => deleteCreatorShow(show._id)}>Remove</p>}
+                        {(show.status === 'cancelled' || show.status === 'over') && <p onClick={() => deleteCreatorShow()}>Remove</p>}
                         {show.status === 'approved' && <p onClick={loadShowForStream}>Stream</p>}
                     </div>
                 </div>
@@ -64,7 +63,7 @@ export function MyShowCard({ show, removeShowFromList }) {
                     <div className="details">
                         <p>{show.title}</p>
                         <p>{formatDate(show.date)}</p>
-                        <p>{34}</p>
+                        <p>{show.viewersCount}</p>
                         {getStatus()}
                     </div>
                 </div>

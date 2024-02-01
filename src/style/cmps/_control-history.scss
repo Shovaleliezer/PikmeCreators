@@ -38,6 +38,10 @@
             .reject,.cancel {
                 background-color: red;
             }
+
+            .button-stream{
+                background-color: $main;
+            }
         }
 
         tr {

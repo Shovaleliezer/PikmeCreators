@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom'
 import { setPopup, setUpperPopup } from "../store/actions/general.actions.js"
 import { httpService } from '../services/http.service.js'
 import IVSBroadcastClient from 'amazon-ivs-web-broadcast'
-
 let client = null
+
 const channelParameters = {
   streamKey: null,
   ingestEndpoint: null,
@@ -34,8 +34,8 @@ export function Stream() {
   const [prizePool, setPrizePool] = useState(0)
   const [shareReward, setShareReward] = useState(true)
   const { viewers } = useSelector((storeState) => storeState.generalModule)
-  const localVideoRef = useRef()
   const event = useSelector((storeState) => storeState.generalModule.streamInfo)
+  const localVideoRef = useRef()
   const isMobile = window.innerWidth < 1100
   let time
   let debounce = useRef(false)
@@ -73,7 +73,8 @@ export function Stream() {
       setStatus('noDevices')
     }
     try {
-      const { ingestEndpoint, streamKey } = await httpService.post('handle-stream/get-stream-data', { eventId: event._id })
+      const { ingestEndpoint, streamKey } = await httpService.post('handle-stream/get-stream-data', { eventId: event.price ? 's' + event._id : event._id })
+      console.log(ingestEndpoint, streamKey)
       channelParameters.streamKey = streamKey
       channelParameters.ingestEndpoint = ingestEndpoint
       client = IVSBroadcastClient.create({
@@ -312,10 +313,10 @@ export function Stream() {
                 <div className="begin" onClick={() => setModal('end')}>Stop Live</div>}
             </div>
             <div className="details">
-              <div>
+              {event.players && <div>
                 <img src={event.fund ? require('../style/imgs/stream/prize.png') : require('../style/imgs/binance-logo.png')} />
                 <p>{prizePool.toFixed(2)}</p>
-              </div>
+              </div>}
               <div>
                 <img src={require('../style/imgs/stream/viewers.png')} />
                 <p>{viewers - 1}</p>
@@ -336,10 +337,10 @@ export function Stream() {
                 <img src={require('../style/imgs/stream/viewers.png')} />
                 <p>{putKandM(viewers - 1)}</p>
               </div>
-              <div>
+              {event.players && <div>
                 <img src={event.fund ? require('../style/imgs/stream/prize.png') : require('../style/imgs/binance-logo.png')} />
                 <p>{prizePool.toFixed(2)}</p>
-              </div>
+              </div>}
             </div>
           </div>
 

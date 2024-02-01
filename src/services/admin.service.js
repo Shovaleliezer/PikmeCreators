@@ -22,6 +22,7 @@ export const adminService = {
     getGlobalShow,
     banUser,
     cancelShow,
+    removeMyShow,
     getByPhone
 }
 
@@ -63,6 +64,11 @@ async function getWaitingEvents() {
 async function getMyShows() {
     const shows = await httpService.get('handle-admin/get-my-shows')
     return shows
+}
+
+async function removeMyShow(showId) {
+    const confirm = await httpService.post('handle-admin/remove-my-show/' + showId)
+    return confirm
 }
 
 async function getHistory(from = 0) {
