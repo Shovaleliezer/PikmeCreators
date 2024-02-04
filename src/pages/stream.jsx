@@ -5,6 +5,7 @@ import { StreamTimer } from "../cmps/stream-timer.jsx"
 import { Error } from "./error.jsx"
 import { Timer } from "../cmps/timer.jsx"
 import { eventService } from "../services/event.service.js"
+import { adminService } from "../services/admin.service.js"
 import { getTimeUntil, putKandM } from '../services/utils.js'
 import { useNavigate } from 'react-router-dom'
 import { setPopup, setUpperPopup } from "../store/actions/general.actions.js"
@@ -163,13 +164,13 @@ export function Stream() {
 
   const endEvent = async () => {
     try {
-      await eventService.endEvent(event._id, event.fund ? true : shareReward)
+      event.price ? await adminService.endShow(event._id) : await eventService.endEvent(event._id, event.fund ? true : shareReward)
       setStatus('ended')
       setModal(false)
       setTimeout(() => { navigate('/') }, 500)
     }
     catch {
-      console.log('something went wrong')
+      dispatch(setUpperPopup('errorServer'))
     }
   }
 
@@ -224,7 +225,7 @@ export function Stream() {
     else if (modal === "end-event") endEvent()
     else {
       try {
-        const confirm = await eventService.startEvent(event._id)
+        const confirm = event.price ? await adminService.startShow(event._id) : await eventService.startEvent(event._id)
         if (confirm) handleStream(true)
         else dispatch(setUpperPopup('event-ended-error'))
       }
@@ -387,17 +388,20 @@ export function Stream() {
           <h1>{modal.charAt(0).toUpperCase() + modal.slice(1)} {modal == "end-event" ? "?" : "Live Stream?"}</h1>
           {modal === 'start' && <p>This action will broadcast this video to your viewers.</p>}
           {modal === 'end' && <p>This action will stop the broadcast, your viewers are waiting for you.</p>}
-          {modal === 'end-event' && <p>This Action cannot be undone. </p>}
-          {(modal == "end-event" && !event.fund) && <div className='checkbox-wrapper'>
-            <div className='checkbox' onClick={() => setShareReward(!shareReward)}>
-              {shareReward && <span className="main-color noselect material-symbols-outlined">done</span>}
-            </div>
-            <p>Share rewards with community </p>
-          </div>}
-          {(modal == "end-event" && event.fund) && <div className="percent-wrapper">
-            <p>Don't forget to share your prize with your investors:</p>
-            <img src={require(window.innerHeight < 900 ? '../style/imgs/stream/pay-mobile.jpeg' : '../style/imgs/stream/pay.jpeg')} className={window.innerHeight < 1000 ? 'pay-img-mobile' : 'pay-img'} />
-          </div>}
+          {modal === 'end-event' && <>
+            <p>This Action cannot be undone. </p>
+            {(event.game && !event.fund) && <div className='checkbox-wrapper'>
+              <div className='checkbox' onClick={() => setShareReward(!shareReward)}>
+                {shareReward && <span className="main-color noselect material-symbols-outlined">done</span>}
+              </div>
+              <p>Share rewards with community </p>
+            </div>}
+            {(event.fund) && <div className="percent-wrapper">
+              <p>Don't forget to share your prize with your investors:</p>
+              <img src={require(window.innerHeight < 900 ? '../style/imgs/stream/pay-mobile.jpeg' : '../style/imgs/stream/pay.jpeg')} className={window.innerHeight < 1000 ? 'pay-img-mobile' : 'pay-img'} />
+            </div>}
+          </>}
+
           <div>
             <div onClick={() => setModal(false)}>Cancel</div>
             <div className="action" onClick={handleModal}>{modal.charAt(0).toUpperCase() + modal.slice(1)}

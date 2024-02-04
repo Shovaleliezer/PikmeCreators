@@ -17,6 +17,8 @@ export const adminService = {
     announceWinner,
     announceWinnerFund,
     changeShare,
+    startShow,
+    endShow,
     getHistory,
     cancelEvent,
     getGlobalShow,
@@ -43,6 +45,11 @@ async function acceptShow(showId) {
 
 async function rejectShow(showId) {
     const confirm = await httpService.post('handle-admin/reject-show/' + showId)
+    return confirm
+}
+
+async function endShow(showId) {
+    const confirm = await httpService.post('handle-admin/end-show/' + showId)
     return confirm
 }
 
@@ -89,6 +96,11 @@ async function getGlobalShow(showId) {
 async function getPaymentEvents() {
     const events = await httpService.get('handle-admin/get-payment-events')
     return events
+}
+
+async function startShow(showId) {
+    const confirm = await httpService.post('handle-admin/start-show/' + showId)
+    return confirm
 }
 
 async function getCurrentEvents() {

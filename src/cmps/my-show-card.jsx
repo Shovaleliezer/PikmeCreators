@@ -26,7 +26,7 @@ export function MyShowCard({ show, removeShowFromList }) {
 
     const getStatus = () => {
         if (show.status === 'cancelled') return <p style={{ color: 'red' }}>Cancelled</p>
-        if (show.status === 'over') return <p style={{ color: 'red' }}>over</p>
+        if (show.status === 'ended') return <p style={{ color: 'red' }}>Ended</p>
         if (show.status === 'approved') return <p style={{ color: 'green' }}>Approved</p>
         return <p style={{ color: 'yellow' }}>Waiting...</p>
     }
@@ -40,6 +40,12 @@ export function MyShowCard({ show, removeShowFromList }) {
             dispatch(setUpperPopup('errorServer'))
         }
     }
+
+    const copy = () => {
+        navigator.clipboard.writeText(`${process.env.NODE_ENV === 'production' ? 'show.pikme.tv' : 'localhost:3000'}/#/show/${show._id}`)
+        dispatch(setUpperPopup('copied'))
+    }
+
     try {
         return (<>
             <div className='current-card'>
@@ -49,8 +55,11 @@ export function MyShowCard({ show, removeShowFromList }) {
                         <h3>{show.performerName}</h3>
                     </div>
                     <div className="options">
-                        {(show.status === 'cancelled' || show.status === 'over') && <p onClick={() => deleteCreatorShow()}>Remove</p>}
-                        {show.status === 'approved' && <p onClick={loadShowForStream}>Stream</p>}
+                        {(show.status === 'cancelled' || show.status === 'ended') && <p onClick={() => deleteCreatorShow()}>Remove</p>}
+                        {show.status === 'approved' && <>
+                            <p onClick={loadShowForStream}>Stream</p>
+                            <p onClick={copy}>Share</p>
+                        </>}
                     </div>
                 </div>
                 <div className="event-inner">
