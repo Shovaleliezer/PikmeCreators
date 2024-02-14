@@ -11,6 +11,7 @@ export function ControlCreate() {
     const user = useSelector((state) => state.user)
     const nameRef = useRef()
     const descRef = useRef()
+    const longDescRef = useRef()
     const linkRef = useRef()
     const titleRef = useRef()
     const priceRef = useRef()
@@ -77,6 +78,7 @@ export function ControlCreate() {
                 videoId,
                 title: titleRef.current.value,
                 description: descRef.current.value,
+                longDescription: longDescRef.current.value,
                 performerName: nameRef.current.value,
                 link: linkRef.current.value,
                 img: url,
@@ -162,8 +164,12 @@ export function ControlCreate() {
                         <input maxLength={50}  required ref={titleRef} className='link'/>
                 </div>
                 <div className='h3-wrapper' style={{ width: '100%' }}>
-                    <h3>Description</h3>
+                    <h3>short description</h3>
                     <textarea maxLength={220} required className='fund-desc' placeholder='Tell us more about the event...' ref={descRef} />
+                </div>
+                <div className='h3-wrapper' style={{ width: '100%' }}>
+                    <h3>Long description (optional)</h3>
+                    <textarea maxLength={1200} required className='fund-desc' placeholder='add more details if any...' ref={longDescRef} />
                 </div>
                 <div className='h3-wrapper' style={{ width: '100%' }}>
                     <h3>Link (optional)</h3>
