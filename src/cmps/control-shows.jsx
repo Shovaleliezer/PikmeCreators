@@ -74,8 +74,8 @@ export function ControlShows() {
 
     const cancel = async (id) => {
         try {
-            const cancelled = await adminService.cancelShow(id)
-            setHistory(history.map(show => show._id === id ? cancelled : show))
+            await adminService.cancelShow(id)
+            setHistory(history.map(show => show._id === id ? { ...show, status: 'approved' } : show))
         }
         catch {
             setUpperPopup('errorServer')
@@ -102,6 +102,7 @@ export function ControlShows() {
         if (className === 'accept') accept(name)
         if (className === 'reject') reject(name)
         if (className === 'cancel') setPopup(name)
+        if (className === 'share') copy(name)
         if (className === 'button-stream') loadShowForStream(name)
     }
 
@@ -114,6 +115,11 @@ export function ControlShows() {
         catch {
             dispatch(setUpperPopup('errorLoadEvent'))
         }
+    }
+
+    const copy = (id) => {
+        navigator.clipboard.writeText(`${process.env.NODE_ENV === 'production' ? 'shows.pikme.tv' : 'localhost:3000'}/#/show/${id}`)
+        dispatch(setUpperPopup('copied'))
     }
 
     if (error) return <Error />
@@ -143,8 +149,11 @@ export function ControlShows() {
                             <td className="actions">
                                 {show.status === 'waiting' && <><button name={show._id} className="reject">Reject</button>
                                     <button className="accept" name={show._id}>Accept</button></>}
-                                {show.status === 'approved' && <> <button className="cancel" name={show._id}>Cancel</button>
-                                    <button className="button-stream" name={show._id}>stream</button></>}
+                                {show.status === 'approved' && <>
+                                    <button className="cancel" name={show._id}>Cancel</button>
+                                    <button className="share" name={show._id}>Share</button>
+                                    <button className="button-stream" name={show._id}>stream</button>
+                                </>}
                             </td>
                         </tr>)}
                     </tbody>

@@ -169,7 +169,7 @@ export function ControlCreate() {
                 </div>
                 <div className='h3-wrapper' style={{ width: '100%' }}>
                     <h3>Long description (optional)</h3>
-                    <textarea maxLength={1200} required className='fund-desc' placeholder='add more details if any...' ref={longDescRef} />
+                    <textarea maxLength={1200} className='fund-desc' placeholder='add more details if any...' ref={longDescRef} />
                 </div>
                 <div className='h3-wrapper' style={{ width: '100%' }}>
                     <h3>Link (optional)</h3>

@@ -42,7 +42,7 @@ export function MyShowCard({ show, removeShowFromList }) {
     }
 
     const copy = () => {
-        navigator.clipboard.writeText(`${process.env.NODE_ENV === 'production' ? 'show.pikme.tv' : 'localhost:3000'}/#/show/${show._id}`)
+        navigator.clipboard.writeText(`${process.env.NODE_ENV === 'production' ? 'shows.pikme.tv' : 'localhost:3000'}/#/show/${show._id}`)
         dispatch(setUpperPopup('copied'))
     }
 
