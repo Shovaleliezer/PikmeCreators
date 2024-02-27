@@ -27,6 +27,7 @@ export function Menu() {
     const logOut = () => {
         try {
             dispatch(resetState())
+            document.cookie = "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
         catch {
             console.log('could not log out')
