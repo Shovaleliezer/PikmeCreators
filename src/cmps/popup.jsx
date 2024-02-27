@@ -3,10 +3,8 @@ import { useNavigate } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 import { isMobile } from "react-device-detect"
-import { WalletConnect } from '../cmps/wallet-connect'
 import { PopupStats } from "./popup-stats"
 import { PopupVideo } from "./popup-video"
-import { ExtensionConnect } from '../cmps/extention-connect'
 import { getRoute } from "../services/utils"
 import { EmailShareButton, WhatsappShareButton, TelegramShareButton, FacebookMessengerShareButton } from "react-share"
 
@@ -15,7 +13,6 @@ export function Popup() {
     const navigate = useNavigate()
     const { popup } = useSelector((storeState) => storeState.generalModule)
     const { popupStats } = useSelector((storeState) => storeState.generalModule)
-    const { ethereum } = window
 
     useEffect(() => {
         if (popup) document.body.classList.add("no-scroll")
@@ -54,9 +51,6 @@ export function Popup() {
             {isMobile && <div onClick={() => dispatch(setPopup(''))} className="popup-close-mobile"><p>Tap to close</p></div>}
         </div>
         <section className='popup' style={{ zIndex: '100' }}>
-
-            {popup === 'connect' && <div>{ethereum ? <WalletConnect from='popup' /> :
-                <div className="extension-wrapper"><ExtensionConnect /> <div className="done" onClick={() => dispatch(setPopup(''))}>Done</div></div>}</div>}
 
             {popup === 'stats' && <PopupStats stats={popupStats} />}
 
