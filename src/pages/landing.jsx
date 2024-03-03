@@ -19,7 +19,7 @@ export function Landing() {
                 navigate('/')
                 return
             }
-            const url = process.env.NODE_ENV === 'production' ? 'https://pikme-server-7vdz.onrender.com/handle-creator/update-link-clicked/' + link :
+            const url = process.env.NODE_ENV === 'production' ? 'https://server.pikme.tv/handle-creator/update-link-clicked/' + link :
                 'http://localhost:3030/handle-creator/update-link-clicked/' + link
             const res = await fetch(url)
             if (res) dispatch(setLinkId(link))

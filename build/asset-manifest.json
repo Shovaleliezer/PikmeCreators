@@ -1,10 +1,9 @@
 {
   "files": {
     "main.css": "/static/css/main.f33b9c4d.css",
-    "main.js": "/static/js/main.5300f3af.js",
+    "main.js": "/static/js/main.5d8c6b9f.js",
     "static/media/home-banner.png": "/static/media/home-banner.82996907b5f161248ba7.png",
     "static/media/Roboto-Medium.ttf": "/static/media/Roboto-Medium.d2d7f0c01bffaa5ec8f7.ttf",
-    "static/media/metamask-big.png": "/static/media/metamask-big.f09b3822877b112b4331.png",
     "static/media/chess.webp": "/static/media/chess.c0b29801dcacb4183aa6.webp",
     "static/media/buddy-upper.png": "/static/media/buddy-upper.2c37db9e03afec3dab56.png",
     "static/media/wide-fifa.webp": "/static/media/wide-fifa.69ee3eae954e58feaa0b.webp",
@@ -14,7 +13,6 @@
     "static/media/binance-logo.png": "/static/media/binance-logo.92643887cb735977d3b9.png",
     "static/media/wide-tennis.webp": "/static/media/wide-tennis.5f9e9bdfe26564467696.webp",
     "static/media/wide-billiard.webp": "/static/media/wide-billiard.94aa7e0c14e822872b72.webp",
-    "static/media/walletconnect-logo.png": "/static/media/walletconnect-logo.0aecac1dbb99f6fb4f84.png",
     "static/media/pay.jpeg": "/static/media/pay.24cf84dcd5ef367094ae.jpeg",
     "static/media/popup-up.png": "/static/media/popup-up.f3daf81827ffb808840d.png",
     "static/media/table-tennis.webp": "/static/media/table-tennis.3e41664080accccb7ffe.webp",
@@ -35,10 +33,10 @@
     "static/media/performer.webp": "/static/media/performer.6ea79a7a01d5614b7556.webp",
     "static/media/choose.webp": "/static/media/choose.ba0ac944888268d14cdc.webp",
     "main.f33b9c4d.css.map": "/static/css/main.f33b9c4d.css.map",
-    "main.5300f3af.js.map": "/static/js/main.5300f3af.js.map"
+    "main.5d8c6b9f.js.map": "/static/js/main.5d8c6b9f.js.map"
   },
   "entrypoints": [
     "static/css/main.f33b9c4d.css",
-    "static/js/main.5300f3af.js"
+    "static/js/main.5d8c6b9f.js"
   ]
 }
