@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Stream } from './stream'
+import { AgoraStream } from "./stream2"
 
 export function StreamWrapper() {
     const [isNarrow, setIsNarrow] = useState(window.innerWidth < 550)
@@ -37,5 +38,5 @@ export function StreamWrapper() {
         <h1>Please rotate your phone, make sure auto rotate is on.</h1>
     </div>)
 
-    else return <Stream />
+    else return <AgoraStream />
 }
