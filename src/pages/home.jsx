@@ -62,8 +62,9 @@ export function Home() {
                 dispatch(setPhone(phone))
                 setLocalCreator(loadedCreator)
                 if (callbackLink) {
-                    navigate(callbackLink)
+                    const cb = callbackLink
                     dispatch(setCallbackLink(''))
+                    navigate(cb)
                 }
             }
         }

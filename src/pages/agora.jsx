@@ -14,9 +14,7 @@ import { eventService } from "../services/event.service"
 import { setPopup, setUpperPopup } from "../store/actions/general.actions"
 
 let options = {
-    cname: 'bbb',
     appId: '2148ba0fc4934b56b78fc915f29945f1',
-    channel: 'teamOne636b79ecaa9a2464787e48a9',
     uid: String(Math.floor(Math.random() * (2 ** 32 - 1)) + 1),
     role: 'host',
     type: "sports"
@@ -117,6 +115,7 @@ export function AgoraStream() {
                     channelParameters.localAudioTrack.setVolume(Number(volumeRef.current.value))
                     client.unpublish()
                     client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+                    console.log('55555555555')
                 }, 100)
                 if (time) clearTimeout(time)
                 time = setTimeout(() => {
@@ -129,10 +128,13 @@ export function AgoraStream() {
     const createVideo = async () => {
         try {
             const config = await AgoraRTC.createCameraVideoTrack({
-                optimizationMode: 'motion',
+                optimizationMode: 'detail',
                 encoderConfig: {
                     bitrateMax: 3000,
                     frameRate: { min: 25, max: 60 },
+                    width: { ideal: 1920 }, // Adjust according to your desired video width
+                    height: { ideal: 1080 },
+                    aspectRatio: 1/1
                 }
             })
             return config
@@ -182,6 +184,7 @@ export function AgoraStream() {
         if (status === 'live') {
             client.unpublish()
             client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+            console.log('6666666666666')
         }
     }
 
@@ -299,12 +302,9 @@ export function AgoraStream() {
             }
         }
         if (channelParameters.localVideoTrack && channelParameters.localAudioTrack && live) {
-
-                await client.unpublish()
-                await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
-                console.log('00000000000000000000')
-                setStatus("live")
-            
+            await client.unpublish()
+            await client.publish([channelParameters.localAudioTrack, channelParameters.localVideoTrack])
+            setStatus("live")
         }
     }
 

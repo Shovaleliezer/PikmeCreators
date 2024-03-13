@@ -31,11 +31,6 @@
             background-color: #3b3b3b2d;
         }
 
-        div {
-            height: var(--video-height) !important;
-            max-height: calc(100vh - 90px);
-        }
-
         video {
             width: 100%;
             aspect-ratio: 16/9;
@@ -358,6 +353,16 @@
         div:hover {
             background-color: $mid-back;
         }
+    }
+}
+
+.agora-local-pc {
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-height: 940px;
+
+    div {
+        max-height: 100% !important;
     }
 }
 
