@@ -181,6 +181,13 @@ export function Stream() {
     }
 
     const switchCamera = async () => {
+        let str = ''
+        channelParameters.cameras.forEach((camera, idx) => {
+            str += '\n' + idx + ': ' + camera.label
+        })
+        str += '\n' + 'length: ' + channelParameters.cameras.length
+        str += '\n' + 'cameraIdx: ' + cameraIdx
+        alert(str)
         if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
         else setCameraIdx(cameraIdx + 1)
     }
