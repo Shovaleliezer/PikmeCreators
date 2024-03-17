@@ -24,6 +24,19 @@ let channelParameters = {
     cameras: [],
     mics: [],
 }
+const volumes = {
+    '0': 0,
+    '1': 10,
+    '2': 20,
+    '3': 40,
+    '4': 70,
+    '5': 100,
+    '6': 150,
+    '7': 300,
+    '8': 400,
+    '9': 750,
+    '10': 1000
+}
 const client = AgoraRTC.createClient({ mode: "live", codec: "vp8", role: options.role })
 
 export function Stream() {
@@ -48,15 +61,33 @@ export function Stream() {
 
     useEffect(() => {
         loadEssentials()
-        return () => stopStream(true)
+        return () => {
+            if (client) {
+                client.unpublish()
+                client.leave()
+            }
+            if (channelParameters.audioStream) {
+                channelParameters.audioStream.stop()
+                channelParameters.audioStream.close()
+                channelParameters.audioStream = null
+
+            }
+            if (channelParameters.videoStream) {
+                channelParameters.videoStream.stop()
+                channelParameters.videoStream.close()
+                channelParameters.videoStream = null
+            }
+        }
     }, [])
 
     useEffect(() => {
         async function play() {
             await handleStreamData()
             await playLocal()
-            await stopStream()
-            if (status === 'live') startStream()
+            if (status === 'live') {
+                await stopStream(false)
+                startStream()
+            }
         }
         play()
     }, [cameraIdx, micIdx, isScreenShare, isMuted, volume])
@@ -75,9 +106,11 @@ export function Stream() {
         if (channelParameters.videoStream) channelParameters.videoStream.stop()
         if (!isScreenShare) vid.setDevice(channelParameters.cameras[cameraIdx].deviceId)
         channelParameters.videoStream = vid
+
         const audio = await AgoraRTC.createMicrophoneAudioTrack()
         audio.setDevice(channelParameters.mics[micIdx].deviceId)
         channelParameters.audioStream = audio
+        channelParameters.audioStream.setVolume(isMuted ? 0 : volumes[volume])
     }
 
     const startStream = async () => {
@@ -87,6 +120,7 @@ export function Stream() {
 
     const playLocal = async () => {
         try {
+            if (!channelParameters.videoStream) await handleStreamData()
             channelParameters.videoStream.play("agora_local")
             if (status === 'noDevices') setStatus('local')
         }
@@ -95,23 +129,10 @@ export function Stream() {
         }
     }
 
-    const stopStream = async (totalExit = false) => {
+    const stopStream = async (change = false) => {
         try {
-            if (client) client.unpublish()
-            setStatus('local')
-            if (!totalExit) return
-            if (channelParameters.audioStream) {
-                channelParameters.audioStream.stop()
-                channelParameters.audioStream.close()
-                channelParameters.audioStream = null
-
-            }
-            if (channelParameters.videoStream) {
-                channelParameters.videoStream.stop()
-                channelParameters.videoStream.close()
-                channelParameters.videoStream = null
-            }
-
+            if (client) await client.unpublish()
+            if (change) setStatus('local')
         }
         catch (err) {
             console.log('333', err)

@@ -360,6 +360,7 @@
     width: 100%;
     aspect-ratio: 16/9;
     max-height: 940px;
+    transform: scaleX(-1);
 
     div {
         max-height: 100% !important;
