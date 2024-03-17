@@ -182,6 +182,7 @@ export function Stream() {
     }
 
     const switchCamera = async () => {
+        console.log('11111',channelParameters.cameras)
         if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
         else setCameraIdx(cameraIdx + 1)
     }
@@ -327,7 +328,7 @@ export function Stream() {
                     </div>
 
                     <div className="stream-video-mobile">
-                        <video ref={localVideoRef} autoPlay style={{ transform: getVideoStyle() }} />
+                        <div id="agora_local" className="agora-local-mobile" style={{ zIndex: status !== 'noDevices' ? 1 : -1 }} />
                         {status === 'noDevices' && <div className="no-camera">
                             <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_1126_3578)">
