@@ -75,7 +75,6 @@ export function Stream() {
     }
     try {
       const { ingestEndpoint, streamKey } = await httpService.post('handle-stream/get-stream-data', { eventId: event.price ? 's' + event._id : event._id })
-      console.log(ingestEndpoint, streamKey)
       channelParameters.streamKey = streamKey
       channelParameters.ingestEndpoint = ingestEndpoint
       client = IVSBroadcastClient.create({

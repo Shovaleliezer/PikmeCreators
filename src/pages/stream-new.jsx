@@ -82,7 +82,6 @@ export function Stream() {
     useEffect(() => {
         async function play() {
             await handleStreamData()
-            await new Promise((resolve) => setTimeout(() => resolve(), 2000))
             await playLocal()
             if (status === 'live') {
                 await stopStream(false)
@@ -95,7 +94,7 @@ export function Stream() {
     const loadEssentials = async () => {
         channelParameters.cameras = await AgoraRTC.getCameras()
         channelParameters.mics = await AgoraRTC.getMicrophones()
-        await playLocal()
+        // await playLocal()
         let token = await httpService.get(`handle-stream/${event._id}/audience/uid/${options.uid}`)
         await client.join(options.appId, event._id, token.rtcToken, options.uid)
         await client.setClientRole(options.role)
@@ -107,7 +106,6 @@ export function Stream() {
         const vid = isScreenShare ? await AgoraRTC.createScreenVideoTrack() : await createVideo()
         if (!isScreenShare) await vid.setDevice(channelParameters.cameras[cameraIdx].deviceId)
         channelParameters.videoStream = vid
-
         const audio = await AgoraRTC.createMicrophoneAudioTrack()
         await audio.setDevice(channelParameters.mics[micIdx].deviceId)
         channelParameters.audioStream = audio
@@ -122,6 +120,7 @@ export function Stream() {
     const playLocal = async () => {
         try {
             if (!channelParameters.videoStream) await handleStreamData()
+            alert('videooo' + '---' + channelParameters.videoStream._deviceName)
             channelParameters.videoStream.play("agora_local")
             if (status === 'noDevices') setStatus('local')
         }

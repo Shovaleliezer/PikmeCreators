@@ -54,8 +54,8 @@ const StreamChat = ({ eventName, mobile, zIndex, end, cameraIdx, cameras, start 
 
     if (cameras && cameras.length > 0) {
         let type = 'normal'
-        if (cameras[cameraIdx].label.toLowerCase().includes('back')) type = 'back'
-        if (cameras[cameraIdx].label.toLowerCase().includes('front')) type = 'front'
+        // if (cameras[cameraIdx].label.toLowerCase().includes('back')) type = 'back'
+        // if (cameras[cameraIdx].label.toLowerCase().includes('front')) type = 'front'
         socket.emit('change-camera', { type, roomId: eventName })
     }
 
