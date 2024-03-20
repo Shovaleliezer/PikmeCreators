@@ -104,6 +104,7 @@ export function Stream() {
         if (channelParameters.videoStream) await channelParameters.videoStream.stop()
         channelParameters.videoStream = null
         const vid = isScreenShare ? await AgoraRTC.createScreenVideoTrack() : await createVideo()
+        alert('handleStream' + channelParameters.cameras[cameraIdx].deviceId)
         if (!isScreenShare) await vid.setDevice(channelParameters.cameras[cameraIdx].deviceId)
         channelParameters.videoStream = vid
         const audio = await AgoraRTC.createMicrophoneAudioTrack()
