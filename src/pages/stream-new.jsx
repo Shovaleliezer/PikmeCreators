@@ -82,6 +82,7 @@ export function Stream() {
     useEffect(() => {
         async function play() {
             await handleStreamData()
+            await new Promise((resolve) => setTimeout(() => resolve(), 2000))
             await playLocal()
             if (status === 'live') {
                 await stopStream(false)
@@ -166,7 +167,7 @@ export function Stream() {
             return config
         }
         catch (err) {
-            console.log('111', err)
+            alert('error creating video:' + cameraIdx + '---' + channelParameters.cameras[cameraIdx].label + '----' + err.message)
         }
     }
 
