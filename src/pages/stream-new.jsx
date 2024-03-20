@@ -153,6 +153,7 @@ export function Stream() {
 
     const createVideo = async () => {
         try {
+            alert('creating video:' + cameraIdx + '---' + channelParameters.cameras[cameraIdx].label + '----' + mode + '---' + isMobile)
             const config = {
                 cameraId: channelParameters.cameras[cameraIdx].deviceId,
                 facingMode: mode,
