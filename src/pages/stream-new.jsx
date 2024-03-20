@@ -101,13 +101,14 @@ export function Stream() {
     }
 
     async function handleStreamData() {
+        if (channelParameters.videoStream) await channelParameters.videoStream.stop()
+        channelParameters.videoStream = null
         const vid = isScreenShare ? await AgoraRTC.createScreenVideoTrack() : await createVideo()
-        if (channelParameters.videoStream) channelParameters.videoStream.stop()
-        if (!isScreenShare) vid.setDevice(channelParameters.cameras[cameraIdx].deviceId)
+        if (!isScreenShare) await vid.setDevice(channelParameters.cameras[cameraIdx].deviceId)
         channelParameters.videoStream = vid
 
         const audio = await AgoraRTC.createMicrophoneAudioTrack()
-        audio.setDevice(channelParameters.mics[micIdx].deviceId)
+        await audio.setDevice(channelParameters.mics[micIdx].deviceId)
         channelParameters.audioStream = audio
         channelParameters.audioStream.setVolume(isMuted ? 0 : volumes[volume])
     }
@@ -125,6 +126,7 @@ export function Stream() {
         }
         catch (err) {
             console.log('222', err)
+            alert('error playing:' + cameraIdx + '---' + channelParameters.cameras[cameraIdx].label + '----' + err.message)
         }
     }
 
@@ -181,13 +183,13 @@ export function Stream() {
     }
 
     const switchCamera = async () => {
-        let str = ''
-        channelParameters.cameras.forEach((camera, idx) => {
-            str += '\n' + idx + ': ' + camera.label
-        })
-        str += '\n' + 'length: ' + channelParameters.cameras.length
-        str += '\n' + 'cameraIdx: ' + cameraIdx
-        alert(str)
+        // let str = ''
+        // channelParameters.cameras.forEach((camera, idx) => {
+        //     str += '\n' + idx + ': ' + camera.label
+        // })
+        // str += '\n' + 'length: ' + channelParameters.cameras.length
+        // str += '\n' + 'cameraIdx: ' + cameraIdx
+        // alert(str)
         if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
         else setCameraIdx(cameraIdx + 1)
     }
@@ -203,11 +205,11 @@ export function Stream() {
 
     const getVideoStyle = () => {
         try {
-            if (channelParameters.cameras[cameraIdx].label.includes('back')) return 'scaleX(1)'
-            return 'scaleX(-1)'
+            if (channelParameters.cameras[cameraIdx].label.toLowerCase().includes('back')) return 'scaleX(-1)'
+            return 'scaleX(1)'
         }
         catch {
-            return 'scaleX(-1)'
+            return 'scaleX(1)'
         }
     }
 
