@@ -104,8 +104,6 @@ export function Stream() {
         if (channelParameters.videoStream) await channelParameters.videoStream.stop()
         channelParameters.videoStream = null
         const vid = isScreenShare ? await AgoraRTC.createScreenVideoTrack() : await createVideo()
-        alert('handleStream' + channelParameters.cameras[cameraIdx].deviceId)
-        if (!isScreenShare) await vid.setDevice(channelParameters.cameras[cameraIdx].deviceId)
         channelParameters.videoStream = vid
         const audio = await AgoraRTC.createMicrophoneAudioTrack()
         await audio.setDevice(channelParameters.mics[micIdx].deviceId)
@@ -121,7 +119,6 @@ export function Stream() {
     const playLocal = async () => {
         try {
             if (!channelParameters.videoStream) await handleStreamData()
-            alert('videooo' + '---' + channelParameters.videoStream._deviceName)
             channelParameters.videoStream.play("agora_local")
             if (status === 'noDevices') setStatus('local')
         }
@@ -155,7 +152,9 @@ export function Stream() {
 
     const createVideo = async () => {
         try {
+            alert('creating video from:' + channelParameters.cameras[cameraIdx].deviceId)
             const config = await AgoraRTC.createCameraVideoTrack({
+                cameraId: channelParameters.cameras[cameraIdx].deviceId,
                 optimizationMode: 'detail',
                 encoderConfig: {
                     bitrateMax: 3000,
@@ -184,13 +183,6 @@ export function Stream() {
     }
 
     const switchCamera = async () => {
-        // let str = ''
-        // channelParameters.cameras.forEach((camera, idx) => {
-        //     str += '\n' + idx + ': ' + camera.label
-        // })
-        // str += '\n' + 'length: ' + channelParameters.cameras.length
-        // str += '\n' + 'cameraIdx: ' + cameraIdx
-        // alert(str)
         if (cameraIdx + 1 === channelParameters.cameras.length) setCameraIdx(0)
         else setCameraIdx(cameraIdx + 1)
     }
@@ -204,15 +196,15 @@ export function Stream() {
         setIsScreenShare(false)
     }
 
-    const getVideoStyle = () => {
-        try {
-            if (channelParameters.cameras[cameraIdx].label.toLowerCase().includes('back')) return 'scaleX(-1)'
-            return 'scaleX(1)'
-        }
-        catch {
-            return 'scaleX(1)'
-        }
-    }
+    // const getVideoStyle = () => {
+    //     try {
+    //         if (channelParameters.cameras[cameraIdx].label.toLowerCase().includes('back')) return 'scaleX(-1)'
+    //         return 'scaleX(1)'
+    //     }
+    //     catch {
+    //         return 'scaleX(1)'
+    //     }
+    // }
 
     const handleModal = async () => {
         if (modal === 'end') {
@@ -336,7 +328,7 @@ export function Stream() {
                     </div>
 
                     <div className="stream-video-mobile">
-                        <div id="agora_local" className="agora-local-mobile" style={{ zIndex: status !== 'noDevices' ? 1 : -1, transform: getVideoStyle() }} />
+                        <div id="agora_local" className="agora-local-mobile" style={{ zIndex: status !== 'noDevices' ? 1 : -1, transform: 'scaleX(-1)' }} />
                         {status === 'noDevices' && <div className="no-camera">
                             <svg width="141" height="120" viewBox="0 0 141 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_1126_3578)">
